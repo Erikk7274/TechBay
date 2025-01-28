@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="tech, bay, computer, shop">
+    <meta name="author" content="asd">
+    <title>TechBay</title>
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <div class="logo">
+                <a href="index.html">  <img src="./img/logo.png" alt="TechBay logó kurva anyja"> </a>
+            </div>
+            <div class="menu-logo">
+                <a href="index.html">  <span class="menu-logo-white">Tech</span>Bay</a>
+            </div>
+        </div>
+
+        <nav>
+            <a href="/index.html" class="icon-logout">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div class="row" id="row">
+            <div class="profile-section" style="padding-bottom: 30px;">
+                <h2>BEJELENTKEZÉS</h2>
+            </div>
+            <div class="form-section">
+                <label for="emailInput">Email:</label>
+                <input type="email" id="emailInput" placeholder="Email cím...">
+                <br>
+                <label for="messageInput">Jelszó:</label>
+                <input type="password" id="passwordInput" placeholder="Jelszó...">
+                <button id="btnLogin" class="btn btnlogin">BEJELENTKEZÉS</button>
+
+            </div>
+        </div>
+    </main>
+    <script src="./js/login.js"></script>
+</body>
+</html>

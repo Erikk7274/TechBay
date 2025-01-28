@@ -1,0 +1,367 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-color: #241843;
+}
+
+/* --- Fejléc stílusok --- */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #574883;
+    padding: 20px 30px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    flex-wrap: wrap;
+}
+
+.container {
+    color: white;
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #3a2d5d;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-grow: 1;
+    justify-content: flex-start; /* Align to the left */
+}
+
+.logo img {
+    max-width: 50px;
+    max-height: 50px;
+}
+
+.menu-logo {
+    font-size: 2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.menu-logo-white {
+    color: #ffffff;
+}
+
+/* --- Keresőmenü --- */
+.keresomenu {
+    background-color: #ffffff;
+    height: 40px;
+    width: 250px;
+    margin-left: 40px;
+    border: 1px solid black;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+.keresomenu i {
+    margin-left: 15px;
+}
+
+.keresomenu input {
+    background-color: inherit;
+    margin-left: 10px;
+    max-width: 200px;
+    color: rgb(0, 0, 0);
+    border-color: white;
+    border: none;
+    outline: none;
+    flex-grow: 1;
+    width: calc(100% - 100px);
+}
+
+
+/* --- Navigációs ikonok --- */
+nav {
+    display: flex;
+    gap: 1.5rem;
+}
+
+nav a {
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: white;
+}
+
+nav a i {
+    font-size: 1.5rem;
+    color: black;
+}
+
+.icon-home:hover,
+.icon-user:hover,
+.icon-logout:hover {
+    transform: scale(1.1);
+}
+
+/* --- Konténer stílusok --- */
+.container {
+    color: white;
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #3a2d5d;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Hamburger Menu Styles --- */
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    width: 30px;
+    height: 25px;
+}
+
+.hamburger-menu span {
+    display: block;
+    height: 4px;
+    background-color: black;
+    border-radius: 2px;
+    width: 100%;
+}
+
+.menu-toggle {
+    display: none;
+}
+
+.menu-toggle:checked~nav {
+    display: flex;
+}
+
+.menu-toggle:checked~nav {
+    display: flex;
+}
+
+@media screen and (max-width: 768px) {
+    header {
+        flex-direction: row;
+        align-items: center;
+        padding: 10px 20px;
+    }
+
+    .header-left {
+        justify-content: flex-start;
+        margin-bottom: 10px;
+    }
+
+    .menu-logo {
+        font-size: 1.5rem;
+    }
+
+    
+    .keresomenu {
+        width: 70%;
+        margin-left: 0;
+        order: 1;
+    }
+
+    .keresomenu input {
+        font-size: 1rem;
+        width: 90%; 
+    }
+
+    /* Adjust nav menu */
+    nav {
+        display: none;
+        flex-direction: column;
+        justify-content: flex-start;
+        width: 80%;
+        background-color: white;
+        padding: 10px;
+        position: absolute;
+        top: 70px;
+        left: 10%;
+        font-size: 1.5rem;
+        max-height: 100vh;
+        overflow-y: auto;
+    }
+
+    nav a {
+        width: 100%;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .hamburger-menu {
+        display: flex;
+        order: 2; /* Place hamburger menu to the right */
+    }
+
+    .menu-toggle:checked~nav {
+        width: 100%;
+        top: 100px;
+        left: -0.5px;
+        flex-direction: row;
+        display: flex;
+        border: 3px solid black;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    /* Reduce height of header */
+    header {
+        padding: 8px 20px;
+    }
+
+    .menu-logo {
+        font-size: 1.2rem;
+    }
+
+    /* Reduce height of the search menu */
+    .keresomenu {
+        height: 30px;
+        padding: 5px;
+        width: 80%;
+        margin-left: 0;
+        border-radius: 10px;
+    }
+
+    .keresomenu input {
+        font-size: 0.9rem;
+        width: calc(100% - 30px);
+    }
+
+    nav a {
+        width: 100%;
+        padding: 8px;
+        font-size: 1.2rem;
+    }
+}
+
+.menu-logo a, .logo a {
+    color: black;
+}
+
+/* --- Hozzáadás gomb --- */
+.fixed {
+    position: fixed;
+    right: 30px;
+    top: 50%;
+    background-color: #4485bd;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fixed:hover {
+    transform: scale(1.1);
+}
+
+.fixed i {
+    font-size: 2.5rem;
+    color: white;
+    background-color: inherit;
+}
+
+@media screen and (max-width: 800px) {
+    .fixed {
+        left: 600px;
+        top: 320px;
+        height: 40px;
+        width: 40px;
+    }
+
+    .fixed i {
+        font-size: 1.8rem;
+    }
+}
+
+@media screen and (max-width: 426px) {
+    .fixed {
+        left: 320px;
+        top: 550px;
+        height: 50px;
+        width: 50px;
+    }
+
+    .fixed i {
+        font-size: 2rem;
+    }
+}
+
+@media screen and (min-width: 1800px) {
+    .fixed {
+        right: calc((100vh - 1800px) / 2 + 20px);
+    }
+}
+
+.btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #5a4687;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #7d5fbf;
+}
+
+.form-section {
+    margin-top: 20px;
+}
+
+.form-section input, .form-section select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+}
+
+.form-section .btn-save {
+    background-color: #3fb663;
+    color: rgb(255, 255, 255);
+}
+
+.form-section .btn-save:hover {
+    background-color: #2a8543;
+    color: rgb(255, 255, 255);
+}
+
+.imgpfp {
+    border: 2px solid black;
+    min-width: 250px;
+    min-height: 250px;
+}
+
+.profile_pic {
+    width: 150px;
+    height: 150px; 
+    border-radius: 5%;
+    object-fit: cover; 
+}
