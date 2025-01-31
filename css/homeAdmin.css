@@ -27,7 +27,7 @@ header {
     align-items: center;
     gap: 10px;
     flex-grow: 1;
-    justify-content: flex-start; /* Align to the left */
+    justify-content: flex-start; /* Balra igazít */
 }
 
 .logo img {
@@ -90,7 +90,7 @@ nav a {
     height: 50px;
     border-radius: 50%;
     background-color: white;
-    visibility: visible; /* Ensure the icon is visible */
+    visibility: visible; /* Biztosítja, hogy az ikon látható legyen */
 }
 
 nav a i {
@@ -263,6 +263,7 @@ nav a i {
     align-items: center;
 }
 
+/* Hozzáadás gomb hover stílus */
 .fixed:hover {
     transform: scale(1.1);
 }
@@ -273,7 +274,8 @@ nav a i {
     background-color: inherit;
 }
 
-@media screen and (max-width: 800px) {
+/* --- Mobil nézet --- */
+@media screen and (max-width: 768px) {
     .fixed {
         left: 600px;
         top: 320px;
@@ -299,9 +301,16 @@ nav a i {
     }
 }
 
-@media screen and (min-width: 1800px) {
+@media screen and (min-width: 1024px) {
     .fixed {
-        right: calc((100vh - 1800px) / 2 + 20px);
+        right: 30px;
+        top: 50%;
+        background-color: #4485bd;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        cursor: pointer;
+        z-index: 1000;
     }
 }
 
@@ -392,28 +401,10 @@ nav a i {
     padding: 10px;
 }
 
-.pic-div img {
-    border: 1px solid rgb(13, 13, 13);
-    border-radius: 3%;
-    max-width: 100%;
-    height: auto;
-}
-
 .card-footer {
-    margin-top: 10px;
-    font-weight: 600;
+    text-align: center;
+    font-size: 0.9rem;
+    padding: 5px;
+    background-color: #f5f5f5;
 }
 
-.footer-row {
-    padding-top: 5px;
-    display: flex;
-    justify-content: space-between;
-    margin: 5px 0;
-}
-.footer-row span {
-    padding-left: 10px;
-}
-
-.card-footer span {
-    font-size: 1rem;
-}

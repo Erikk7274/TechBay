@@ -212,18 +212,38 @@ function modalLetelepiteseUjTermekhez() {
                     <input type="text" class="form-control" placeholder="Termék neve" id="newProductName">
                     <p>Termék leírása:</p>
                     <input type="text" class="form-control" placeholder="Termék leírás" id="newProductDesc">
+                    <p>Termék Ára:</p>
+                    <input type="number" class="form-control" placeholder="Termék ára" id="newProductPrice">
                     <p>Termékkép feltöltése:</p>
                     <input type="file" class="form-control" id="newProductPic">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Mentés</button>
+                    <button type="button" class="btn btn-primary" id="saveProductBtn" data-bs-dismiss="modal">Mentés</button>
                 </div>
             </div>
         </div>
     `;
 
+    const saveButton = modalDiv.querySelector('#saveProductBtn');
+    saveButton.addEventListener('click', () => {
+        const productNameInput = document.getElementById('newProductName');
+        const productPriceInput = document.getElementById('newProductPrice');
+
+        // Set default values if inputs are empty
+        if (!productNameInput.value) {
+            productNameInput.value = 'none';
+        }
+
+        if (!productPriceInput.value) {
+            productPriceInput.value = 'none';
+        }
+
+        alert('A termék sikeresen mentve!');
+    });
+
     return modalDiv;
 }
+
 
 async function kosarbaRakom(productId) {
     try {
