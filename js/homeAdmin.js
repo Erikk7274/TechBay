@@ -228,8 +228,6 @@ function modalLetelepiteseUjTermekhez() {
     saveButton.addEventListener('click', () => {
         const productNameInput = document.getElementById('newProductName');
         const productPriceInput = document.getElementById('newProductPrice');
-
-        // Set default values if inputs are empty
         if (!productNameInput.value) {
             productNameInput.value = 'none';
         }
