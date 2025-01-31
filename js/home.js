@@ -3,7 +3,7 @@ const btnHardware = document.querySelector('.btnHardware');
 const btnLogout = document.querySelector('.btnLogout');
 const row = document.getElementById('row');
 
-// Event listener for DOMContentLoaded
+// DOMContentLoaded eseménykezelő
 window.addEventListener('DOMContentLoaded', () => {
     initialize();
 });
@@ -13,42 +13,42 @@ async function initialize() {
         await getProducts();
         setUpButtonListeners();
     } catch (error) {
-        console.error('Initialization failed:', error);
+        console.error('Inicializálás sikertelen:', error);
     }
 }
 
-// Fetch products from the API
+// Termékek lekérése az API-ból
 async function getProducts() {
     try {
-        const response = await fetch('http://192.168.10.25:3000/api/getProducts/getProducts_all', {
+        const response = await fetch('https://nodejs312.dszcbaross.edu.hu/api/getProducts/getProducts_all', {
             method: 'GET',
             credentials: 'include',
         });
 
         if (!response.ok) {
-            throw new Error('Failed to fetch products');
+            throw new Error('Nem sikerült lekérni a termékeket');
         }
 
         const products = await response.json();
-        console.log('Fetched products:', products);
+        console.log('Lekért termékek:', products);
 
         const uniqueProducts = getUniqueProducts(products);
         renderProducts(uniqueProducts);
     } catch (error) {
-        console.error('Error fetching products:', error);
+        console.error('Hiba a termékek lekérésekor:', error);
     }
 }
 
-// Get unique products based on product_id
+// Egyedi termékek kiválasztása a product_id alapján
 function getUniqueProducts(products) {
     return products.filter((product, index, self) =>
         index === self.findIndex((p) => p.product_id === product.product_id)
     );
 }
 
-// Render products on the page
+// Termékek megjelenítése az oldalon
 function renderProducts(products) {
-    row.innerHTML = ''; // Clear existing content
+    row.innerHTML = ''; // Korábbi tartalom törlése
 
     products.forEach(product => {
         const cardDiv = createCard(product);
@@ -57,7 +57,7 @@ function renderProducts(products) {
     });
 }
 
-// product card létrehozása
+// termék kártya létrehozása
 function createCard(product) {
     const cardDiv = document.createElement('div');
     cardDiv.classList.add('card', 'm-3', 'p-2', 'shadow-sm');
@@ -86,7 +86,7 @@ function createCardBody(product) {
     cardBodyDiv.classList.add('card-body', 'text-center');
 
     const picDivImg = document.createElement('img');
-    picDivImg.src = `http://192.168.10.25:3000/uploads/${product.product_pic}`;
+    picDivImg.src = `https://nodejs312.dszcbaross.edu.hu/uploads/${product.product_pic}`;
     picDivImg.classList.add('img-fluid', 'mb-3');
     picDivImg.alt = product.product_name;
 
@@ -118,7 +118,7 @@ function createCardFooter(product) {
     return cardFooterDiv;
 }
 
-// Create a modal for the product
+// Modal létrehozása a termékhez
 function createModal(product) {
     const modalDiv = document.createElement('div');
     modalDiv.classList.add('modal', 'fade');
@@ -135,7 +135,7 @@ function createModal(product) {
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
-                    <img src="http://192.168.10.25:3000/uploads/${product.product_pic}" alt="${product.product_name}" class="img-fluid mb-3">
+                    <img src="https://nodejs312.dszcbaross.edu.hu/uploads/${product.product_pic}" alt="${product.product_name}" class="img-fluid mb-3">
                     <p><strong>Raktáron:</strong> ${product.in_stock}</p>
                     <p><strong>Ár:</strong> ${product.price ? `${product.price} Ft` : 'N/A'}</p>
                 </div>
@@ -157,34 +157,35 @@ function createModal(product) {
     }
 }
 
-// Set up event listeners for buttons
+// Gomb események beállítása
 function setUpButtonListeners() {
     if (btnPreBuilt) {
         btnPreBuilt.addEventListener('click', () => {
-            console.log('Navigating to preBuilt.html');
+            console.log('Navigálás a preBuilt.html oldalra');
             window.location.href = '../preBuilt.html';
         });
     }
 
     if (btnHardware) {
         btnHardware.addEventListener('click', () => {
-            console.log('Navigating to hardware.html');
+            console.log('Navigálás a hardware.html oldalra');
             window.location.href = '../hardware.html';
         });
     }
 
     if (btnLogout) {
         btnLogout.addEventListener('click', () => {
-            console.log('Logging out, navigating to index.html');
+            console.log('Kijelentkezés, navigálás az index.html oldalra');
             window.location.href = '../index.html';
         });
     }
 }
 
+// Termék hozzáadása a kosárhoz
 async function addToCart(productId) {
     try {
         const product = { productId };
-        const response = await fetch('http://192.168.10.25:3000/api/cart/takeProduct', {
+        const response = await fetch('https://nodejs312.dszcbaross.edu.hu/api/cart/takeProduct', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
@@ -196,11 +197,11 @@ async function addToCart(productId) {
         const result = await response.json();
 
         if (response.ok) {
-            console.log('Product added to cart:', result);
+            console.log('Termék hozzáadva a kosárhoz:', result);
         } else {
-            console.error('Error adding product to cart:', result);
+            console.error('Hiba a termék kosárba helyezésekor:', result);
         }
     } catch (error) {
-        console.error('Error with adding product to cart:', error);
+        console.error('Hiba a termék kosárba helyezésekor:', error);
     }
 }

@@ -3,8 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const btnBack = document.querySelector('.btnBack');
     // const backendImage = document.querySelector('.backendImage'); 
 
-   
-    // fetch('/profile/profilePic', {
+    // fetch('https://nodejs312.dszcbaross.edu.hu/profile/profilePic', {
     //     method: 'GET',
     //     headers: {
     //         'Authorization': `Bearer YOUR_JWT_TOKEN`
@@ -17,13 +16,12 @@ document.addEventListener('DOMContentLoaded', function () {
     //     }
     // });
 
-
     // document.getElementById('profilePicForm').addEventListener('submit', (e) => {
     //     e.preventDefault();
     //     const formData = new FormData();
     //     formData.append('profile_pic', document.getElementById('profilePic').files[0]);
 
-    //     fetch('/profile/editProfilePic', {
+    //     fetch('https://nodejs312.dszcbaross.edu.hu/profile/editProfilePic', {
     //         method: 'PUT',
     //         headers: {
     //             'Authorization': `Bearer YOUR_JWT_TOKEN`
@@ -41,14 +39,12 @@ document.addEventListener('DOMContentLoaded', function () {
     //     });
     // });
 
-   
     if (btnBack) {
         btnBack.addEventListener('click', () => {
             console.log('Back button clicked');
             window.location.href = '../profile.html';
         });
     }
-
 
     if (btnSend) {
         btnSend.addEventListener('click', function () {

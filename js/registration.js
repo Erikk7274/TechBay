@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (email.length >= 5 && password.length >= 8 && password2 === password && email.includes("@") && name.length > 2) {
                 try {
-                    const res = await fetch('http://192.168.10.25:3000/api/auth/register', {
+                    const res = await fetch('https://nodejs312.dszcbaross.edu.hu/api/auth/register', {
                         method: "POST",
                         headers: {
                             'content-type': 'application/json'

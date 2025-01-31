@@ -26,13 +26,13 @@ async function login() {
     }
 
     try {
-        const res = await fetch('https://plenty-olives-attack.loca.lt/api/auth/login', {
+        const res = await fetch('https://nodejs312.dszcbaross.edu.hu/api/auth/login', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
             },
             body: JSON.stringify({ email, password }),
-            credentials: 'include' 
+            credentials: 'include' ,
         });
 
         const data = await res.json();
@@ -42,10 +42,10 @@ async function login() {
 
             if (data.admin === 1) {
                 alert("Sikeres bejelentkezés! Admin jogokkal.");
-                window.location.href = '../adminHome.html';
+                window.location.href = 'https://nodejs312.dszcbaross.edu.hu/adminHome.html';
             } else {
                 alert("Sikeres bejelentkezés!");
-                window.location.href = '../home.html'; 
+                window.location.href = 'https://nodejs312.dszcbaross.edu.hu/home.html'; 
             }
         } else if (data.errors) {
             let errorMessage = '';

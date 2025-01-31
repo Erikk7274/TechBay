@@ -39,7 +39,7 @@ function setupButtonHandlers() {
 // Termékek lekérése
 async function getProducts() {
     try {
-        const response = await fetch('http://192.168.10.25:3000/api/getProducts/getConfig_active', {
+        const response = await fetch('https://nodejs312.dszcbaross.edu.hu/api/getProducts/getConfig_active', {
             method: 'GET',
             credentials: 'include',
         });
@@ -100,7 +100,7 @@ function createCardBody(product) {
     bodyDiv.classList.add('card-body', 'text-center');
 
     const image = document.createElement('img');
-    image.src = `http://192.168.10.25:3000/uploads/${product.config_pic}`;
+    image.src = `https://nodejs312.dszcbaross.edu.hu/uploads/${product.config_pic}`;
     image.classList.add('img-fluid', 'mb-3');
     image.alt = product.product_name;
 
@@ -149,7 +149,7 @@ function createModal(product) {
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
-                    <img src="http://192.168.10.25:3000/uploads/${product.config_pic}" alt="${product.config_name}" class="img-fluid mb-3">
+                    <img src="https://nodejs312.dszcbaross.edu.hu/uploads/${product.config_pic}" alt="${product.config_name}" class="img-fluid mb-3">
                     <p><strong>Raktáron:</strong> ${product.in_stock}</p>
                     <p><strong>Ár:</strong> ${product.price ? `${product.price} Ft` : 'N/A'}</p>
                 </div>

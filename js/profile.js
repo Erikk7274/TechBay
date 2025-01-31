@@ -1,11 +1,10 @@
-window.addEventListener('DOMContentLoaded',getusername );
+window.addEventListener('DOMContentLoaded', getusername);
 
-const saveBtn=document.getElementById('saveBtn');
+const saveBtn = document.getElementById('saveBtn');
 saveBtn.addEventListener('click', editData);
-const homeBtn=document.getElementsByClassName('icon-home')[0];
-const userBtn=document.getElementsByClassName('icon-user')[0];
-const cartBtn=document.getElementsByClassName('icon-cart')[0];
-   
+const homeBtn = document.getElementsByClassName('icon-home')[0];
+const userBtn = document.getElementsByClassName('icon-user')[0];
+const cartBtn = document.getElementsByClassName('icon-cart')[0];
 
 const btnpHistory = document.getElementsByClassName('btnpHistory')[0];
 const btnEditPfp = document.getElementsByClassName('btnEditPfp')[0];
@@ -14,7 +13,7 @@ const btnSupport = document.getElementsByClassName('btnSupport')[0];
 const btnBack = document.getElementsByClassName('btnBack')[0];
 
 async function getusername() {
-    const res = await fetch('http://192.168.10.25:3000/api/profile/Myusername', {
+    const res = await fetch('https://nodejs312.dszcbaross.edu.hu/api/profile/Myusername', {
         method: 'GET',
         credentials: 'include'
     });
@@ -24,56 +23,47 @@ async function getusername() {
 
     if (res.ok) {
         const editPic = document.querySelector('.profile_pic');
-        editPic.src = `http://192.168.10.25:3000/uploads/${username[0].profile_pic}`;
+        editPic.src = `https://nodejs312.dszcbaross.edu.hu/uploads/${username[0].profile_pic}`;
     }
 }
 
-
-
-function profileData(users)
-{
+function profileData(users) {
     const alapkep = './img/logo.png'; // Relatív elérési út
     const username = document.getElementById('username');
-    const fullname = document.getElementById('fullname');    
+    const fullname = document.getElementById('fullname');
     const postcode = document.getElementById('postal-code');
     const city = document.getElementById('city');
     const street = document.getElementById('street');
 
-// Alapértékek tisztázása
-username.innerHTML = '';
-fullname.value = '';
-postcode.value = '';
-city.value = '';
-street.value = '';
+    // Alapértékek tisztázása
+    username.innerHTML = '';
+    fullname.value = '';
+    postcode.value = '';
+    city.value = '';
+    street.value = '';
 
-for (const user of users) {
-    username.textContent = user.fullname;
-    fullname.value = user.fullname;
-    postcode.value = user.postcode;
-    city.value = user.city;
-    street.value = user.street;  
+    for (const user of users) {
+        username.textContent = user.fullname;
+        fullname.value = user.fullname;
+        postcode.value = user.postcode;
+        city.value = user.city;
+        street.value = user.street;
+    }
 }
-
-
-
-}
-
-
-
 
 btnLogout.addEventListener('click', logout);
 
-homeBtn.addEventListener('click',()=>{
-    window.location.href='../home.html';
-})
+homeBtn.addEventListener('click', () => {
+    window.location.href = '../home.html';
+});
 
-userBtn.addEventListener('click',()=>{
-    window.location.href='../profile.html';
-})
+userBtn.addEventListener('click', () => {
+    window.location.href = '../profile.html';
+});
 
-cartBtn.addEventListener('click',()=>{
-    window.location.href='../cart.html';
-})
+cartBtn.addEventListener('click', () => {
+    window.location.href = '../cart.html';
+});
 
 if (btnpHistory) {
     btnpHistory.addEventListener('click', () => {
@@ -93,22 +83,14 @@ if (btnEditPfp) {
     });
 }
 
-
-
 if (btnSupport) {
     btnSupport.addEventListener('click', () => {
         window.location.href = '../support.html';
     });
 }
 
-
-// function toggleSearch() {
-//     const searchMenu = document.getElementById('keresomenu');
-//     searchMenu.classList.toggle('active');
-// }
-
 async function logout() {
-    const res = await fetch('http://192.168.10.25:3000/api/auth/logout', {
+    const res = await fetch('https://nodejs312.dszcbaross.edu.hu/api/auth/logout', {
         method: 'POST',
         credentials: 'include'
     });
@@ -123,21 +105,21 @@ async function logout() {
     }
 }
 
-async function editData(){
-    const postcode=document.getElementById('postal-code').value;
-    const city=document.getElementById('city').value;
-    const street=document.getElementById('street').value;
-    const fullname=document.getElementById('fullname').value;
-    if(!postcode ||!city||!street||!fullname){
-        alert("Minden mezőt ki kell tölteni")
+async function editData() {
+    const postcode = document.getElementById('postal-code').value;
+    const city = document.getElementById('city').value;
+    const street = document.getElementById('street').value;
+    const fullname = document.getElementById('fullname').value;
+    if (!postcode || !city || !street || !fullname) {
+        alert("Minden mezőt ki kell tölteni");
     }
-    const res=await fetch('http://192.168.10.25:3000/api/profile/editData',{
-        method:'PUT',
-        headers:{
-            'content-type':'application/json'
+    const res = await fetch('https://nodejs312.dszcbaross.edu.hu/api/profile/editData', {
+        method: 'PUT',
+        headers: {
+            'content-type': 'application/json'
         },
-        body:JSON.stringify({postcode,city,street,fullname}),
-        credentials:'include'
+        body: JSON.stringify({ postcode, city, street, fullname }),
+        credentials: 'include'
     });
     const data = await res.json();
     console.log(data);
@@ -157,7 +139,6 @@ async function editData(){
     } else {
         alert('Ismeretlen hiba');
     }
-    
 }
 
 window.addEventListener('click', function (event) {
@@ -165,13 +146,12 @@ window.addEventListener('click', function (event) {
     const menu = document.querySelector('nav');
     const hamburgerButton = document.querySelector('.hamburger-menu');
 
-
     if (!hamburgerButton.contains(event.target) && !menu.contains(event.target) && !menuToggle.contains(event.target)) {
-        menuToggle.checked = false; 
+        menuToggle.checked = false;
     }
 });
 
-function resetInputs(){
+function resetInputs() {
     document.getElementById('postal-code').value = '';
     document.getElementById('city').value = '';
     document.getElementById('street').value = '';

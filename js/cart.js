@@ -1,16 +1,16 @@
 const btnBack = document.querySelector('.btnBack');
 const btnLogout = document.querySelector('icon-logout');
 
+// Vissza gomb eseménykezelője
 if (btnBack) {
     btnBack.addEventListener('click', () => {
         window.location.href = '../home.html';
     });
 }
 
-
-
+// Kijelentkezés függvény
 async function logout() {
-    const res = await fetch('http://192.168.10.25:3000/api/auth/logout', {
+    const res = await fetch('https://nodejs312.dszcbaross.edu.hu/api/auth/logout', {
         method: 'POST',
         credentials: 'include'
     });
