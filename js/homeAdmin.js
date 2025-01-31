@@ -209,11 +209,11 @@ function modalLetelepiteseUjTermekhez() {
                 </div>
                 <div class="modal-body text-center">
                     <p>Termék neve:</p>
-                    <input type="text" class="form-control" placeholder="Termék neve" id="newProductName">
+                    <input type="text" class="form-control" placeholder="Termék neve" id="newProductName" required>
                     <p>Termék leírása:</p>
-                    <input type="text" class="form-control" placeholder="Termék leírás" id="newProductDesc">
+                    <input type="text" class="form-control" placeholder="Termék leírás" id="newProductDesc"required>
                     <p>Termék Ára:</p>
-                    <input type="number" class="form-control" placeholder="Termék ára" id="newProductPrice">
+                    <input type="number" class="form-control" placeholder="Termék ára" id="newProductPrice"required>
                     <p>Termékkép feltöltése:</p>
                     <input type="file" class="form-control" id="newProductPic">
                 </div>
@@ -226,16 +226,6 @@ function modalLetelepiteseUjTermekhez() {
 
     const saveButton = modalDiv.querySelector('#saveProductBtn');
     saveButton.addEventListener('click', () => {
-        const productNameInput = document.getElementById('newProductName');
-        const productPriceInput = document.getElementById('newProductPrice');
-        if (!productNameInput.value) {
-            productNameInput.value = 'none';
-        }
-
-        if (!productPriceInput.value) {
-            productPriceInput.value = 'none';
-        }
-
         alert('A termék sikeresen mentve!');
     });
 
