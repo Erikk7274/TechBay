@@ -7,7 +7,7 @@ if (btnBack) {
         window.location.href = '../home.html';
     });
 }
-
+console.log();
 // Kijelentkezés függvény
 async function logout() {
     const res = await fetch('https://nodejs312.dszcbaross.edu.hu/api/auth/logout', {
