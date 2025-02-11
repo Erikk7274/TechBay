@@ -213,7 +213,7 @@ function modalLetelepiteseUjTermekhez() {
                     <p>Termék leírása:</p>
                     <input type="text" class="form-control" placeholder="Termék leírás" id="newProductDesc"required>
                     <p>Termék Ára:</p>
-                    <input type="number" class="form-control" placeholder="Termék ára" id="newProductPrice"required>
+                    <input type="number" class="form-control" placeholder="Termék ára (HUF)" id="newProductPrice"required>
                     <p>Termékkép feltöltése:</p>
                     <input type="file" class="form-control" id="newProductPic">
                 </div>
