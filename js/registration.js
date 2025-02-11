@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     if (res.ok) {
                         alert("Sikeres regisztráció!");
-                        window.location.href = 'https://erikk7274.github.io/TechBay/index.html';
+                        window.location.href = 'https://nodejs312.dszcbaross.edu.hu/api/auth/TechBay/login';
                         emailInput.value = '';
                         passwordInput.value = '';
                         scndpasswordInput.value = '';
