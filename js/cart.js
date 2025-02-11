@@ -23,3 +23,4 @@ async function logout() {
         alert('Hiba a kijelentkezéskor');
     }
 }
+

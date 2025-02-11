@@ -233,6 +233,7 @@ function modalLetelepiteseUjTermekhez() {
 }
 
 
+
 async function kosarbaRakom(productId) {
     try {
         const termek = { productId };

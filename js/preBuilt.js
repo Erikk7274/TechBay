@@ -132,6 +132,7 @@ function createCardFooter(product) {
     return footerDiv;
 }
 
+
 // Modal létrehozása
 function createModal(product) {
     const modalDiv = document.createElement('div');

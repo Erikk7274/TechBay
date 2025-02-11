@@ -47,6 +47,7 @@ async function login() {
                 alert("Sikeres bejelentkezés!");
                 window.location.href = 'https://nodejs312.dszcbaross.edu.hu/home.html'; 
             }
+            
         } else if (data.errors) {
             let errorMessage = '';
             data.errors.forEach(err => {

@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const password2 = scndpasswordInput.value.trim();
             const name = nameInput.value.trim();
 
+            
             if (email.length >= 5 && password.length >= 8 && password2 === password && email.includes("@") && name.length > 2) {
                 try {
                     const res = await fetch('https://nodejs312.dszcbaross.edu.hu/api/auth/register', {

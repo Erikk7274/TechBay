@@ -146,6 +146,7 @@ function createModal(product) {
         </div>
     `;
 
+    
     document.body.appendChild(modalDiv);
 
     const addToCartBtn = modalDiv.querySelector('.add-to-cart-btn');
