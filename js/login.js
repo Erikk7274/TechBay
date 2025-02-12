@@ -42,10 +42,10 @@ async function login() {
 
             if (data.admin === 1) {
                 alert("Sikeres bejelentkezés! Admin jogokkal.");
-                window.location.href = 'https://nodejs312.dszcbaross.edu.hu/adminHome.html';
+                window.location.href = 'https://erikk7274.github.io/TechBay/adminHome.html';
             } else {
                 alert("Sikeres bejelentkezés!");
-                window.location.href = 'https://nodejs312.dszcbaross.edu.hu/home.html'; 
+                window.location.href = 'https://erikk7274.github.io/TechBay/home.html'; 
             }
             
         } else if (data.errors) {
