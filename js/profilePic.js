@@ -18,7 +18,7 @@ async function logout() {
 
     if (res.ok) {
         alert(data.message);
-        window.location.href = '../index.html';
+        window.location.href = 'https://erikk7274.github.io/TechBay/index.html';
     } else {
         alert('Hiba a kijelentkezéskor');
     }
@@ -26,7 +26,7 @@ async function logout() {
 //
 
 btnBack.addEventListener('click', () => {
-    window.location.href = '../profile.html';
+    window.location.href = 'https://erikk7274.github.io/TechBay/profile.html';
 });
 btnEdit.addEventListener('click', EditProfilePic);
 
@@ -47,7 +47,7 @@ async function EditProfilePic() {
 
     if (res.ok) {
         alert(data.message);
-        window.location.href = '../profile.html';
+        window.location.href = 'https://erikk7274.github.io/TechBay/profile.html';
     } else {
         alert('Hiba');
     }

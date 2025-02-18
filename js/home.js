@@ -170,14 +170,14 @@ function setUpButtonListeners() {
     if (btnHardware) {
         btnHardware.addEventListener('click', () => {
             console.log('Navigálás a hardware.html oldalra');
-            window.location.href = '../hardware.html';
+            window.location.href = 'https://erikk7274.github.io/TechBay/hardware.html';
         });
     }
 
     if (btnLogout) {
         btnLogout.addEventListener('click', () => {
             console.log('Kijelentkezés, navigálás az index.html oldalra');
-            window.location.href = '../index.html';
+            window.location.href = 'https://erikk7274.github.io/TechBay/index.html';
         });
     }
 }

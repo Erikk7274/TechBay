@@ -15,16 +15,16 @@ window.addEventListener('DOMContentLoaded', () => {
 // Vissza gomb eseménykezelője
 if (buttons.back) {
     buttons.back.addEventListener('click', () => {
-        window.location.href = '../home.html';
+        window.location.href = 'https://erikk7274.github.io/TechBay/home.html';
     });
 }
 
 // Gomb eseménykezelők beállítása
 function setupButtonHandlers() {
     const buttonActions = {
-        preBuilt: '../preBuilt.html',
-        hardware: '../hardware.html',
-        logout: '../index.html'
+        preBuilt: 'https://erikk7274.github.io/TechBay/preBuilt.html',
+        hardware: 'https://erikk7274.github.io/TechBay/hardware.html',
+        logout: 'https://erikk7274.github.io/TechBay/index.html'
     };
 
     Object.entries(buttonActions).forEach(([key, url]) => {

@@ -4,7 +4,7 @@ const btnLogout = document.querySelector('icon-logout');
 // Vissza gomb eseménykezelője
 if (btnBack) {
     btnBack.addEventListener('click', () => {
-        window.location.href = '../home.html';
+        window.location.href = 'https://erikk7274.github.io/TechBay/home.html';
     });
 }
 

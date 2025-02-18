@@ -163,21 +163,21 @@ function gombListenerBeallitas() {
     if (gombPreBuilt) {
         gombPreBuilt.addEventListener('click', () => {
             console.log('Navigálás a preBuilt.html oldalra');
-            window.location.href = '../preBuilt.html';
+            window.location.href = 'https://erikk7274.github.io/TechBay/preBuilt.html';
         });
     }
 
     if (gombHardware) {
         gombHardware.addEventListener('click', () => {
             console.log('Navigálás a hardware.html oldalra');
-            window.location.href = '../hardware.html';
+            window.location.href = 'https://erikk7274.github.io/TechBay/hardware.html';
         });
     }
 
     if (gombLogout) {
         gombLogout.addEventListener('click', () => {
             console.log('Kijelentkezés, navigálás az index.html oldalra');
-            window.location.href = '../index.html';
+            window.location.href = 'https://erikk7274.github.io/TechBay/index.html';
         });
     }
 
