@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
             
             if (email.length >= 5 && password.length >= 8 && password2 === password && email.includes("@") && name.length > 2) {
                 try {
-                    const res = await fetch('https://erikk7274.github.io/register', {
+                    const res = await fetch('https://erikk7274.github.io/TechBay/register', {
                         method: "POST",
                         headers: {
                             'content-type': 'application/json'
