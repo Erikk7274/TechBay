@@ -17,7 +17,7 @@ async function initialize() {
     }
 }
 
-// Fetch products from the API
+// Fetch products from API
 async function getProducts() {
     try {
         const response = await fetch('https://nodejs312.dszcbaross.edu.hu/api/getProducts/getProducts_all', {
@@ -32,13 +32,21 @@ async function getProducts() {
         const products = await response.json();
         console.log('Fetched products:', products);
 
-        renderProducts(products);
+        const uniqueProducts = getUniqueProducts(products);
+        renderProducts(uniqueProducts);
     } catch (error) {
         console.error('Error fetching products:', error);
     }
 }
 
-// Render the products on the page
+// Get unique products by product_id
+function getUniqueProducts(products) {
+    return products.filter((product, index, self) =>
+        index === self.findIndex((p) => p.product_id === product.product_id)
+    );
+}
+
+// Render products on the page
 function renderProducts(products) {
     row.innerHTML = ''; // Clear previous content
 
@@ -110,7 +118,7 @@ function createCardFooter(product) {
     return cardFooterDiv;
 }
 
-// Create modal for product details
+// Create modal for the product
 function createModal(product) {
     const modalDiv = document.createElement('div');
     modalDiv.classList.add('modal', 'fade');
@@ -173,7 +181,7 @@ function setUpButtonListeners() {
     }
 }
 
-// Add product to the cart
+// Add product to cart
 async function addToCart(productId) {
     try {
         const product = { productId };
@@ -189,7 +197,7 @@ async function addToCart(productId) {
         const result = await response.json();
 
         if (response.ok) {
-            console.log('Product added to the cart:', result);
+            console.log('Product added to cart:', result);
         } else {
             console.error('Error adding product to cart:', result);
         }
