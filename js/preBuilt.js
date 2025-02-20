@@ -136,7 +136,7 @@ function createCardFooter(product) {
 function createModal(product) {
     const modalDiv = document.createElement('div');
     modalDiv.classList.add('modal', 'fade');
-    modalDiv.id = `modal-${product.product_id}`;
+    modalDiv.id = `modal-${product.pc_id}`;
     modalDiv.setAttribute('tabindex', '-1');
     modalDiv.setAttribute('aria-labelledby', `modalLabel-${product.config_id}`);
     modalDiv.setAttribute('aria-hidden', 'true');
