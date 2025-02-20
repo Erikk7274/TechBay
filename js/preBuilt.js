@@ -46,7 +46,7 @@ async function getProducts() {
         const products = await response.json();
 
         const uniqueProducts = products.filter((product, index, self) =>
-            index === self.findIndex((p) => p.product_id === product.product_id)
+            index === self.findIndex((p) => p.pc_id === product.pc_id)
         );
 
         renderProducts(uniqueProducts);
