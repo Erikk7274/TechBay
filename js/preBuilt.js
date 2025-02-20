@@ -140,7 +140,7 @@ function createModal(product) {
     modalDiv.setAttribute('tabindex', '-1');
     modalDiv.setAttribute('aria-labelledby', `modalLabel-${product.config_id}`);
     modalDiv.setAttribute('aria-hidden', 'true');
-
+console.log(product.config_name);
     modalDiv.innerHTML = `
         <div class="modal-dialog modal-lg" style="max-width:500px">
             <div class="modal-content">
