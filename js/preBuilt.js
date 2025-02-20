@@ -1,24 +1,21 @@
-const btnPreBuilt = document.querySelector('.btnPreBuilt');
-const btnHardware = document.querySelector('.btnHardware');
-const btnLogout = document.querySelector('.btnLogout');
-const row = document.getElementById('row');
+const row = document.getElementById('row'); // The container where cards will be rendered
 
-// DOMContentLoaded event handler
+// DOMContentLoaded event listener
 window.addEventListener('DOMContentLoaded', () => {
     initialize();
 });
 
+// Initialize function
 async function initialize() {
     try {
-        await getProducts();
-        setUpButtonListeners();
+        await fetchAndDisplayProducts();
     } catch (error) {
         console.error('Initialization failed:', error);
     }
 }
 
-// Fetch products from API
-async function getProducts() {
+// Fetch products from the API
+async function fetchAndDisplayProducts() {
     try {
         const response = await fetch('https://nodejs312.dszcbaross.edu.hu/api/getProducts/getProducts_all', {
             method: 'GET',
@@ -39,7 +36,7 @@ async function getProducts() {
     }
 }
 
-// Get unique products by product_id
+// Remove duplicate products based on product_id
 function getUniqueProducts(products) {
     return products.filter((product, index, self) =>
         index === self.findIndex((p) => p.product_id === product.product_id)
@@ -57,7 +54,7 @@ function renderProducts(products) {
     });
 }
 
-// Create product card
+// Create a product card
 function createCard(product) {
     const cardDiv = document.createElement('div');
     cardDiv.classList.add('card', 'm-3', 'p-2', 'shadow-sm');
@@ -72,7 +69,7 @@ function createCard(product) {
     return cardDiv;
 }
 
-// Create card header
+// Create the card header
 function createCardHeader(product) {
     const cardHeaderDiv = document.createElement('div');
     cardHeaderDiv.classList.add('card-header', 'text-center', 'fw-bold');
@@ -80,7 +77,7 @@ function createCardHeader(product) {
     return cardHeaderDiv;
 }
 
-// Create card body
+// Create the card body
 function createCardBody(product) {
     const cardBodyDiv = document.createElement('div');
     cardBodyDiv.classList.add('card-body', 'text-center');
@@ -94,13 +91,13 @@ function createCardBody(product) {
     return cardBodyDiv;
 }
 
-// Create card footer
+// Create the card footer
 function createCardFooter(product) {
     const cardFooterDiv = document.createElement('div');
     cardFooterDiv.classList.add('card-footer', 'text-center');
 
     const inStockSpan = document.createElement('span');
-    inStockSpan.textContent = `In Stock: ${product.in_stock}`;
+    inStockSpan.textContent = `In stock: ${product.in_stock}`;
     inStockSpan.classList.add('d-block', 'mb-2');
 
     const priceSpan = document.createElement('span');
@@ -118,7 +115,7 @@ function createCardFooter(product) {
     return cardFooterDiv;
 }
 
-// Create modal for the product
+// Create modal for each product
 function createModal(product) {
     const modalDiv = document.createElement('div');
     modalDiv.classList.add('modal', 'fade');
@@ -136,7 +133,7 @@ function createModal(product) {
                 </div>
                 <div class="modal-body text-center">
                     <img src="https://nodejs312.dszcbaross.edu.hu/uploads/${product.product_pic}" alt="${product.product_name}" class="img-fluid mb-3">
-                    <p><strong>In Stock:</strong> ${product.in_stock}</p>
+                    <p><strong>In stock:</strong> ${product.in_stock}</p>
                     <p><strong>Price:</strong> ${product.price ? `${product.price} Ft` : 'N/A'}</p>
                 </div>
                 <div class="modal-footer">
@@ -153,30 +150,6 @@ function createModal(product) {
         addToCartBtn.addEventListener('click', () => {
             const productId = addToCartBtn.getAttribute('data-product-id');
             addToCart(productId);
-        });
-    }
-}
-
-// Set up button event listeners
-function setUpButtonListeners() {
-    if (btnPreBuilt) {
-        btnPreBuilt.addEventListener('click', () => {
-            console.log('Navigating to preBuilt.html');
-            window.location.href = 'https://erikk7274.github.io/TechBay/preBuilt.html';
-        });
-    }
-
-    if (btnHardware) {
-        btnHardware.addEventListener('click', () => {
-            console.log('Navigating to hardware.html');
-            window.location.href = 'https://erikk7274.github.io/TechBay/hardware.html';
-        });
-    }
-
-    if (btnLogout) {
-        btnLogout.addEventListener('click', () => {
-            console.log('Logging out, navigating to index.html');
-            window.location.href = 'https://erikk7274.github.io/TechBay/index.html';
         });
     }
 }
