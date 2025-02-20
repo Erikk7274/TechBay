@@ -1,9 +1,9 @@
-const btnPreBuilt = document.querySelector('.btnPreBuilt'); 
+const btnPreBuilt = document.querySelector('.btnPreBuilt');
 const btnHardware = document.querySelector('.btnHardware');
 const btnLogout = document.querySelector('.btnLogout');
 const row = document.getElementById('row');
 
-// DOMContentLoaded eseménykezelő
+// DOMContentLoaded event handler
 window.addEventListener('DOMContentLoaded', () => {
     initialize();
 });
@@ -13,11 +13,11 @@ async function initialize() {
         await getProducts();
         setUpButtonListeners();
     } catch (error) {
-        console.error('Inicializálás sikertelen:', error);
+        console.error('Initialization failed:', error);
     }
 }
 
-// Termékek lekérése az API-ból
+// Fetch products from the API
 async function getProducts() {
     try {
         const response = await fetch('https://nodejs312.dszcbaross.edu.hu/api/getProducts/getProducts_all', {
@@ -26,29 +26,21 @@ async function getProducts() {
         });
 
         if (!response.ok) {
-            throw new Error('Nem sikerült lekérni a termékeket');
+            throw new Error('Failed to fetch products');
         }
 
         const products = await response.json();
-        console.log('Lekért termékek:', products);
+        console.log('Fetched products:', products);
 
-        const uniqueProducts = getUniqueProducts(products);
-        renderProducts(uniqueProducts);
+        renderProducts(products);
     } catch (error) {
-        console.error('Hiba a termékek lekérésekor:', error);
+        console.error('Error fetching products:', error);
     }
 }
 
-// Egyedi termékek kiválasztása a product_id alapján
-function getUniqueProducts(products) {
-    return products.filter((product, index, self) =>
-        index === self.findIndex((p) => p.product_id === product.product_id)
-    );
-}
-
-// Termékek megjelenítése az oldalon
+// Render the products on the page
 function renderProducts(products) {
-    row.innerHTML = ''; // Korábbi tartalom törlése
+    row.innerHTML = ''; // Clear previous content
 
     products.forEach(product => {
         const cardDiv = createCard(product);
@@ -57,7 +49,7 @@ function renderProducts(products) {
     });
 }
 
-// termék kártya létrehozása
+// Create product card
 function createCard(product) {
     const cardDiv = document.createElement('div');
     cardDiv.classList.add('card', 'm-3', 'p-2', 'shadow-sm');
@@ -72,7 +64,7 @@ function createCard(product) {
     return cardDiv;
 }
 
-// card header létrehozása
+// Create card header
 function createCardHeader(product) {
     const cardHeaderDiv = document.createElement('div');
     cardHeaderDiv.classList.add('card-header', 'text-center', 'fw-bold');
@@ -80,7 +72,7 @@ function createCardHeader(product) {
     return cardHeaderDiv;
 }
 
-// card body létrehozása
+// Create card body
 function createCardBody(product) {
     const cardBodyDiv = document.createElement('div');
     cardBodyDiv.classList.add('card-body', 'text-center');
@@ -94,22 +86,22 @@ function createCardBody(product) {
     return cardBodyDiv;
 }
 
-// card footer létrehozása
+// Create card footer
 function createCardFooter(product) {
     const cardFooterDiv = document.createElement('div');
     cardFooterDiv.classList.add('card-footer', 'text-center');
 
     const inStockSpan = document.createElement('span');
-    inStockSpan.textContent = `Raktáron: ${product.in_stock}`;
+    inStockSpan.textContent = `In Stock: ${product.in_stock}`;
     inStockSpan.classList.add('d-block', 'mb-2');
 
     const priceSpan = document.createElement('span');
-    priceSpan.textContent = product.price ? `Ár: ${product.price} Ft` : 'Ár: N/A';
+    priceSpan.textContent = product.price ? `Price: ${product.price} Ft` : 'Price: N/A';
     priceSpan.classList.add('d-block', 'mb-2');
 
     const detailsButton = document.createElement('button');
     detailsButton.classList.add('btn', 'btn-primary', 'btn-sm');
-    detailsButton.textContent = 'Részletek';
+    detailsButton.textContent = 'Details';
     detailsButton.setAttribute('data-bs-toggle', 'modal');
     detailsButton.setAttribute('data-bs-target', `#modal-${product.product_id}`);
 
@@ -118,7 +110,7 @@ function createCardFooter(product) {
     return cardFooterDiv;
 }
 
-// Modal létrehozása a termékhez
+// Create modal for product details
 function createModal(product) {
     const modalDiv = document.createElement('div');
     modalDiv.classList.add('modal', 'fade');
@@ -136,11 +128,11 @@ function createModal(product) {
                 </div>
                 <div class="modal-body text-center">
                     <img src="https://nodejs312.dszcbaross.edu.hu/uploads/${product.product_pic}" alt="${product.product_name}" class="img-fluid mb-3">
-                    <p><strong>Raktáron:</strong> ${product.in_stock}</p>
-                    <p><strong>Ár:</strong> ${product.price ? `${product.price} Ft` : 'N/A'}</p>
+                    <p><strong>In Stock:</strong> ${product.in_stock}</p>
+                    <p><strong>Price:</strong> ${product.price ? `${product.price} Ft` : 'N/A'}</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary add-to-cart-btn" data-product-id="${product.product_id}" data-bs-dismiss="modal">Kosárba</button>
+                    <button type="button" class="btn btn-primary add-to-cart-btn" data-product-id="${product.product_id}" data-bs-dismiss="modal">Add to Cart</button>
                 </div>
             </div>
         </div>
@@ -157,28 +149,31 @@ function createModal(product) {
     }
 }
 
-// Gomb események beállítása
+// Set up button event listeners
 function setUpButtonListeners() {
     if (btnPreBuilt) {
         btnPreBuilt.addEventListener('click', () => {
+            console.log('Navigating to preBuilt.html');
             window.location.href = 'https://erikk7274.github.io/TechBay/preBuilt.html';
         });
     }
 
     if (btnHardware) {
         btnHardware.addEventListener('click', () => {
+            console.log('Navigating to hardware.html');
             window.location.href = 'https://erikk7274.github.io/TechBay/hardware.html';
         });
     }
 
     if (btnLogout) {
         btnLogout.addEventListener('click', () => {
+            console.log('Logging out, navigating to index.html');
             window.location.href = 'https://erikk7274.github.io/TechBay/index.html';
         });
     }
 }
 
-// Termék hozzáadása a kosárhoz
+// Add product to the cart
 async function addToCart(productId) {
     try {
         const product = { productId };
@@ -194,11 +189,11 @@ async function addToCart(productId) {
         const result = await response.json();
 
         if (response.ok) {
-            console.log('Termék hozzáadva a kosárhoz:', result);
+            console.log('Product added to the cart:', result);
         } else {
-            console.error('Hiba a termék kosárba helyezésekor:', result);
+            console.error('Error adding product to cart:', result);
         }
     } catch (error) {
-        console.error('Hiba a termék kosárba helyezésekor:', error);
+        console.error('Error adding product to cart:', error);
     }
 }
