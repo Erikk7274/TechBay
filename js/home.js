@@ -163,7 +163,7 @@ function setUpButtonListeners() {
     if (btnPreBuilt) {
         btnPreBuilt.addEventListener('click', () => {
             console.log('Navigálás a preBuilt.html oldalra');
-            window.location.href = '../preBuilt.html';
+            window.location.href = 'https://erikk7274.github.io/TechBay/preBuilt.html';
         });
     }
 
