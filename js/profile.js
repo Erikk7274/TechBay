@@ -14,7 +14,7 @@ const btnSupport = document.getElementsByClassName('btnSupport')[0];
 const btnBack = document.getElementsByClassName('btnBack')[0];
 
 async function getusername() {
-    const res = await fetch('http://127.0.0.1:3000/api/profile/Myusername', {
+    const res = await fetch('https://nodejs312.dszcbaross.edu.hu/api/profile/Myusername', {
         method: 'GET',
         credentials: 'include'
     });
@@ -24,7 +24,7 @@ async function getusername() {
     
     if (res.ok) {
         const editPic = document.querySelectore('.profile_pic');
-        editPic.style.backgroundImage = `url('http://127.0.0.1:3000/uploads/${username[0].profile_pic}')`;
+        editPic.style.backgroundImage = `url('https://erikk7274.github.io/TechBay/uploads/${username[0].profile_pic}')`;
     }
 }
 
@@ -62,32 +62,32 @@ for (const user of users) {
 btnLogout.addEventListener('click', logout);
 
 homeBtn.addEventListener('click',()=>{
-    window.location.href='../home.html';
+    window.location.href='https://erikk7274.github.io/TechBay/home.html';
 })
 
 userBtn.addEventListener('click',()=>{
-    window.location.href='../profile.html';
+    window.location.href='https://erikk7274.github.io/TechBay/profile.html';
 })
 
 cartBtn.addEventListener('click',()=>{
-    window.location.href='../cart.html';
+    window.location.href='https://erikk7274.github.io/TechBay/cart.html';
 })
 
 if (btnpHistory) {
     btnpHistory.addEventListener('click', () => {
-        window.location.href = '../purchaseHistory.html';
+        window.location.href = 'https://erikk7274.github.io/TechBay/purchaseHistory.html';
     });
 }
 
 if (btnBack) {
     btnBack.addEventListener('click', () => {
-        window.location.href = '../home.html';
+        window.location.href = 'https://erikk7274.github.io/TechBay/home.html';
     });
 }
 
 if (btnEditPfp) {
     btnEditPfp.addEventListener('click', () => {
-        window.location.href = '../profilePic.html';
+        window.location.href = 'https://erikk7274.github.io/TechBay/profilePic.html';
     });
 }
 
@@ -95,7 +95,7 @@ if (btnEditPfp) {
 
 if (btnSupport) {
     btnSupport.addEventListener('click', () => {
-        window.location.href = '../support.html';
+        window.location.href = 'https://erikk7274.github.io/TechBay/support.html';
     });
 }
 
@@ -106,7 +106,7 @@ if (btnSupport) {
 // }
 
 async function logout() {
-    const res = await fetch('http://127.0.0.1:3000/api/auth/logout', {
+    const res = await fetch('https://nodejs312.dszcbaross.edu.hu/api/auth/logout', {
         method: 'POST',
         credentials: 'include'
     });
@@ -115,7 +115,7 @@ async function logout() {
 
     if (res.ok) {
         alert(data.message);
-        window.location.href = '../index.html';
+        window.location.href = 'https://erikk7274.github.io/TechBay/index.html';
     } else {
         alert('Hiba a kijelentkezéskor');
     }
@@ -131,7 +131,7 @@ async function editData(){
         alert("Minden mezőt ki kell tölteni")
     }
     else{
-        const res=await fetch('http://127.0.0.1:3000/api/profile/editData',{
+        const res=await fetch('https://nodejs312.dszcbaross.edu.hu/api/profile/editData',{
         method:'PUT',
         headers:{
             'content-type':'application/json'
@@ -145,7 +145,7 @@ async function editData(){
     if (res.ok) {
         resetInputs();
         alert(data.message);
-        window.location.href = '../profile.html';
+        window.location.href = 'https://erikk7274.github.io/TechBay/profile.html';
     } else if (data.errors) {
         let errorMessage = '';
         for (let i = 0; i < data.errors.length; i++) {
