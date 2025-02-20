@@ -1,20 +1,20 @@
-const row = document.getElementById('row'); // The container where cards will be rendered
+const row = document.getElementById('row'); // A konténer, ahová a kártyák kerülnek
 
-// DOMContentLoaded event listener
+// DOMContentLoaded eseménykezelő
 window.addEventListener('DOMContentLoaded', () => {
     initialize();
 });
 
-// Initialize function
+// Inicializálás
 async function initialize() {
     try {
         await fetchAndDisplayProducts();
     } catch (error) {
-        console.error('Initialization failed:', error);
+        console.error('Hiba az inicializálás során:', error);
     }
 }
 
-// Fetch products from the API
+// Termékek lekérése és megjelenítése
 async function fetchAndDisplayProducts() {
     try {
         const response = await fetch('https://nodejs312.dszcbaross.edu.hu/api/getProducts/getProducts_all', {
@@ -23,29 +23,29 @@ async function fetchAndDisplayProducts() {
         });
 
         if (!response.ok) {
-            throw new Error('Failed to fetch products');
+            throw new Error('Nem sikerült lekérni a termékeket');
         }
 
         const products = await response.json();
-        console.log('Fetched products:', products);
+        console.log('Lekért termékek:', products);
 
         const uniqueProducts = getUniqueProducts(products);
         renderProducts(uniqueProducts);
     } catch (error) {
-        console.error('Error fetching products:', error);
+        console.error('Hiba a termékek lekérése során:', error);
     }
 }
 
-// Remove duplicate products based on product_id
+// Ismétlődő termékek eltávolítása product_id alapján
 function getUniqueProducts(products) {
     return products.filter((product, index, self) =>
         index === self.findIndex((p) => p.product_id === product.product_id)
     );
 }
 
-// Render products on the page
+// Termékek renderelése
 function renderProducts(products) {
-    row.innerHTML = ''; // Clear previous content
+    row.innerHTML = ''; // Töröljük a korábbi tartalmat
 
     products.forEach(product => {
         const cardDiv = createCard(product);
@@ -54,7 +54,7 @@ function renderProducts(products) {
     });
 }
 
-// Create a product card
+// Termék kártya létrehozása
 function createCard(product) {
     const cardDiv = document.createElement('div');
     cardDiv.classList.add('card', 'm-3', 'p-2', 'shadow-sm');
@@ -69,7 +69,7 @@ function createCard(product) {
     return cardDiv;
 }
 
-// Create the card header
+// Kártya fejlécének létrehozása
 function createCardHeader(product) {
     const cardHeaderDiv = document.createElement('div');
     cardHeaderDiv.classList.add('card-header', 'text-center', 'fw-bold');
@@ -77,7 +77,7 @@ function createCardHeader(product) {
     return cardHeaderDiv;
 }
 
-// Create the card body
+// Kártya törzse
 function createCardBody(product) {
     const cardBodyDiv = document.createElement('div');
     cardBodyDiv.classList.add('card-body', 'text-center');
@@ -91,22 +91,22 @@ function createCardBody(product) {
     return cardBodyDiv;
 }
 
-// Create the card footer
+// Kártya lába
 function createCardFooter(product) {
     const cardFooterDiv = document.createElement('div');
     cardFooterDiv.classList.add('card-footer', 'text-center');
 
     const inStockSpan = document.createElement('span');
-    inStockSpan.textContent = `In stock: ${product.in_stock}`;
+    inStockSpan.textContent = `Rendelhető: ${product.in_stock}`;
     inStockSpan.classList.add('d-block', 'mb-2');
 
     const priceSpan = document.createElement('span');
-    priceSpan.textContent = product.price ? `Price: ${product.price} Ft` : 'Price: N/A';
+    priceSpan.textContent = product.price ? `Ár: ${product.price} Ft` : 'Ár: N/A';
     priceSpan.classList.add('d-block', 'mb-2');
 
     const detailsButton = document.createElement('button');
     detailsButton.classList.add('btn', 'btn-primary', 'btn-sm');
-    detailsButton.textContent = 'Details';
+    detailsButton.textContent = 'Részletek';
     detailsButton.setAttribute('data-bs-toggle', 'modal');
     detailsButton.setAttribute('data-bs-target', `#modal-${product.product_id}`);
 
@@ -115,7 +115,7 @@ function createCardFooter(product) {
     return cardFooterDiv;
 }
 
-// Create modal for each product
+// Modális ablak létrehozása
 function createModal(product) {
     const modalDiv = document.createElement('div');
     modalDiv.classList.add('modal', 'fade');
@@ -133,11 +133,13 @@ function createModal(product) {
                 </div>
                 <div class="modal-body text-center">
                     <img src="https://nodejs312.dszcbaross.edu.hu/uploads/${product.product_pic}" alt="${product.product_name}" class="img-fluid mb-3">
-                    <p><strong>In stock:</strong> ${product.in_stock}</p>
-                    <p><strong>Price:</strong> ${product.price ? `${product.price} Ft` : 'N/A'}</p>
+                    <p><strong>Rendelhető:</strong> ${product.in_stock}</p>
+                    <p><strong>Ár:</strong> ${product.price ? `${product.price} Ft` : 'N/A'}</p>
+                    <p><strong>Kategória:</strong> ${product.category_name}</p>
+                    <p><strong>Leírás:</strong> ${product.product_description}</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary add-to-cart-btn" data-product-id="${product.product_id}" data-bs-dismiss="modal">Add to Cart</button>
+                    <button type="button" class="btn btn-primary add-to-cart-btn" data-product-id="${product.product_id}" data-bs-dismiss="modal">Kosárba</button>
                 </div>
             </div>
         </div>
@@ -154,7 +156,7 @@ function createModal(product) {
     }
 }
 
-// Add product to cart
+// Termék hozzáadása a kosárhoz
 async function addToCart(productId) {
     try {
         const product = { productId };
@@ -170,11 +172,11 @@ async function addToCart(productId) {
         const result = await response.json();
 
         if (response.ok) {
-            console.log('Product added to cart:', result);
+            console.log('Termék hozzáadva a kosárhoz:', result);
         } else {
-            console.error('Error adding product to cart:', result);
+            console.error('Hiba a termék kosárba helyezése során:', result);
         }
     } catch (error) {
-        console.error('Error adding product to cart:', error);
+        console.error('Hiba a termék kosárba helyezése során:', error);
     }
 }
