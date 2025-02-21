@@ -136,11 +136,11 @@ function createCardFooter(product) {
 function createModal(product) {
     const modalDiv = document.createElement('div');
     modalDiv.classList.add('modal', 'fade');
-    modalDiv.id = `modal-${product.pc_id}`;
+    modalDiv.id = `modal-${product.config_id}`;
     modalDiv.setAttribute('tabindex', '-1');
     modalDiv.setAttribute('aria-labelledby', `modalLabel-${product.config_id}`);
     modalDiv.setAttribute('aria-hidden', 'true');
-console.log(product.config_name);
+
     modalDiv.innerHTML = `
         <div class="modal-dialog modal-lg" style="max-width:500px">
             <div class="modal-content">
@@ -161,4 +161,8 @@ console.log(product.config_name);
     `;
 
     document.body.appendChild(modalDiv);
+
+    // Modal inicializálása
+    const modal = new bootstrap.Modal(modalDiv);
+    modal.show();
 }
