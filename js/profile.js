@@ -23,7 +23,7 @@ async function getusername() {
     profileData(username);
     
     if (res.ok) {
-        const editPic = document.querySelectore('.profile_pic');
+        const editPic = document.querySelector('.profile_pic');
         editPic.style.backgroundImage = `url('https://nodejs312.dszcbaross.edu.hu/api/uploads/${username[0].profile_pic}')`;
     }
 }
