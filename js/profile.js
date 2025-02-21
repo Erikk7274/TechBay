@@ -159,7 +159,6 @@ async function editData(){
     }
     }
     
-    
 }
 
 window.addEventListener('click', function (event) {
