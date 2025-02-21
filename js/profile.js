@@ -24,7 +24,7 @@ async function getusername() {
     
     if (res.ok) {
         const editPic = document.querySelectore('.profile_pic');
-        editPic.style.backgroundImage = `url('https://erikk7274.github.io/TechBay/uploads/${username[0].profile_pic}')`;
+        editPic.style.backgroundImage = `url('https://nodejs312.dszcbaross.edu.hu/api/uploads/${username[0].profile_pic}')`;
     }
 }
 
