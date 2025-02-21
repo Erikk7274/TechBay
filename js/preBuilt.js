@@ -136,7 +136,7 @@ function createCardFooter(product) {
 function createModal(product) {
     const modalDiv = document.createElement('div');
     modalDiv.classList.add('modal', 'fade');
-    modalDiv.id = `modal-${product.pc_id}`;
+    modalDiv.id = `modal-${product.config_id}`;
     modalDiv.setAttribute('tabindex', '-1');
     modalDiv.setAttribute('aria-labelledby', `modalLabel-${product.config_id}`);
     modalDiv.setAttribute('aria-hidden', 'true');
@@ -162,7 +162,7 @@ function createModal(product) {
 
     document.body.appendChild(modalDiv);
 
-    // Initialize and show the modal
+    // Modal inicializálása
     const modal = new bootstrap.Modal(modalDiv);
     modal.show();
 }
