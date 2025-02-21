@@ -21,11 +21,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 <div class="card-body">
                     <h5 class="card-title">${pc.name}</h5>
                     <p class="card-text">Klikk ide a részletekhez</p>
-                    <button class="btn btn-primary" onclick="showModal('${pc.details}')">Megtekintés</button>
+                    <button class="btn btn-primary" id="modalOpenButton-${pc.name}">Megtekintés</button>
                 </div>
             </div>
         `;
         row.appendChild(card);
+
+        // Handle button click to show modal
+        const modalOpenButton = document.getElementById(`modalOpenButton-${pc.name}`);
+        modalOpenButton.addEventListener('click', () => {
+            showModal(pc.details);
+        });
     });
 
     // Show modal function
