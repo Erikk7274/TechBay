@@ -62,32 +62,32 @@ for (const user of users) {
 btnLogout.addEventListener('click', logout);
 
 homeBtn.addEventListener('click',()=>{
-    window.location.href='https://erikk7274.github.io/TechBay/home.html';
+    window.location.href='https://techbay2.netlify.app/home.html';
 })
 
 userBtn.addEventListener('click',()=>{
-    window.location.href='https://erikk7274.github.io/TechBay/profile.html';
+    window.location.href='https://techbay2.netlify.app/profile.html';
 })
 
 cartBtn.addEventListener('click',()=>{
-    window.location.href='https://erikk7274.github.io/TechBay/cart.html';
+    window.location.href='https://techbay2.netlify.app/cart.html';
 })
 
 if (btnpHistory) {
     btnpHistory.addEventListener('click', () => {
-        window.location.href = 'https://erikk7274.github.io/TechBay/purchaseHistory.html';
+        window.location.href = 'https://techbay2.netlify.app/purchaseHistory.html';
     });
 }
 
 if (btnBack) {
     btnBack.addEventListener('click', () => {
-        window.location.href = 'https://erikk7274.github.io/TechBay/home.html';
+        window.location.href = 'https://techbay2.netlify.app/home.html';
     });
 }
 
 if (btnEditPfp) {
     btnEditPfp.addEventListener('click', () => {
-        window.location.href = 'https://erikk7274.github.io/TechBay/profilePic.html';
+        window.location.href = 'https://techbay2.netlify.app/profilePic.html';
     });
 }
 
@@ -95,7 +95,7 @@ if (btnEditPfp) {
 
 if (btnSupport) {
     btnSupport.addEventListener('click', () => {
-        window.location.href = 'https://erikk7274.github.io/TechBay/support.html';
+        window.location.href = 'https://techbay2.netlify.app/support.html';
     });
 }
 
@@ -115,7 +115,7 @@ async function logout() {
 
     if (res.ok) {
         alert(data.message);
-        window.location.href = 'https://erikk7274.github.io/TechBay/index.html';
+        window.location.href = 'https://techbay2.netlify.app/index.html';
     } else {
         alert('Hiba a kijelentkezéskor');
     }
@@ -145,7 +145,7 @@ async function editData(){
     if (res.ok) {
         resetInputs();
         alert(data.message);
-        window.location.href = 'https://erikk7274.github.io/TechBay/profile.html';
+        window.location.href = 'https://techbay2.netlify.app/profile.html';
     } else if (data.errors) {
         let errorMessage = '';
         for (let i = 0; i < data.errors.length; i++) {

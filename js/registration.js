@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     if (res.ok) {
                         alert("Sikeres regisztráció!");
-                        window.location.href = 'https://erikk7274.github.io/TechBay/login';
+                        window.location.href = 'https://techbay2.netlify.app/login';
                         emailInput.value = '';
                         passwordInput.value = '';
                         scndpasswordInput.value = '';

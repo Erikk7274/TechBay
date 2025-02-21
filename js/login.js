@@ -42,10 +42,10 @@ async function login() {
 
             if (data.admin === 1) {
                 alert("Sikeres bejelentkezés! Admin jogokkal.");
-                window.location.href = 'https://erikk7274.github.io/TechBay/adminHome.html';
+                window.location.href = 'https://techbay2.netlify.app/adminHome.html';
             } else {
                 alert("Sikeres bejelentkezés!");
-                window.location.href = 'https://erikk7274.github.io/TechBay/home.html'; 
+                window.location.href = 'https://techbay2.netlify.app/home.html'; 
             }
             
         } else if (data.errors) {
