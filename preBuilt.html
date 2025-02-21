@@ -9,13 +9,10 @@
     <link rel="icon" href="img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    
     <link rel="stylesheet" href="css/preBuilt.css">
 </head>
 <body>
     <header>
-        
         <div class="header-left">
             <div class="logo">
                 <a href="https://erikk7274.github.io/TechBay/home.html">
@@ -53,13 +50,32 @@
 
     <main class="container">
         <h2 style="text-align: center;">PREBUILT PC</h2>
-            <button class="btnBack btn" type="button">Vissza</button>
+        <button class="btnBack btn" type="button">Vissza</button>
         <div class="row" id="row">
-             <div>
-               
+            <div>
+                <!-- Ide kerülnek a termékek -->
+            </div>
+        </div>
+
+        <!-- Prebuilt PC Modal -->
+        <div class="modal fade" id="prebuiltModal" tabindex="-1" aria-labelledby="prebuiltModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="prebuiltModalLabel">Prebuilt PC Részletek</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Itt vannak a prebuilt PC részletei.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bezárás</button>
+                    </div>
                 </div>
+            </div>
         </div>
     </main>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/preBuilt.js"></script>
 </body>
