@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const row = document.getElementById('row');
     const modal = document.getElementById('modal');
     const modalText = document.getElementById('modalText');
