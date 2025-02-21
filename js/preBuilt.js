@@ -1,19 +1,18 @@
-// Vissza gomb eseménykezelője
-const backButton = document.querySelector('.btnBack');
+// Gombok deklarálása
+const buttons = {
+    back: document.querySelector('.btnBack'),
+};
 
-if (backButton) {
-    backButton.addEventListener('click', () => {
-        window.location.href = 'https://erikk7274.github.io/TechBay/home.html';
-    });
-}
+// DOM betöltődés eseménykezelője
+window.addEventListener('DOMContentLoaded', () => {
+    setupButtonHandlers();
+});
 
-// Modal kezelése
-const prebuiltModalButton = document.querySelector('.btn-primary');
-
-// Gomb eseménykezelője, ami megnyitja a modalt
-if (prebuiltModalButton) {
-    prebuiltModalButton.addEventListener('click', () => {
-        const prebuiltModal = new bootstrap.Modal(document.getElementById('prebuiltModal'));
-        prebuiltModal.show();
-    });
+// Gomb eseménykezelők beállítása
+function setupButtonHandlers() {
+    if (buttons.back) {
+        buttons.back.addEventListener('click', () => {
+            window.location.href = 'https://erikk7274.github.io/TechBay/home.html';
+        });
+    }
 }
