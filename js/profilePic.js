@@ -5,7 +5,7 @@ function saveBtn() {
 const btnEdit = document.querySelector('.btnEdit');
 const btnBack = document.querySelector('.btnBack');
 
-//logout
+
 const btnLogout = document.querySelector('.icon-logout');
 btnLogout.addEventListener('click', logout);
 async function logout() {
@@ -13,6 +13,8 @@ async function logout() {
         method: 'POST',
         credentials: 'include'
     });
+
+
 
     const data = await res.json();
 

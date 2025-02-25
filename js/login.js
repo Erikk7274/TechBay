@@ -40,6 +40,8 @@ async function login() {
         if (res.ok) {
             resetInputs();
 
+            
+
             if (data.admin === 1) {
                 alert("Sikeres bejelentkezés! Admin jogokkal.");
                 window.location.href = 'https://techbay2.netlify.app/adminHome.html';

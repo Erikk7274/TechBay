@@ -119,7 +119,7 @@ function kartyaLablécLetelepitese(termek) {
     return kartyaLablécDiv;
 }
 
-// Modal létrehozása a termékhez
+// Modal létrehozása a termékhz
 function modalLetelepitese(termek) {
     const modalDiv = document.createElement('div');
     modalDiv.classList.add('modal', 'fade');

@@ -172,7 +172,10 @@ function setUpButtonListeners() {
             console.log('Navigálás a hardware.html oldalra');
             window.location.href = 'https://techbay2.netlify.app/hardware.html';
         });
-    }
+    }    
+          
+
+    
 
     if (btnLogout) {
         btnLogout.addEventListener('click', () => {

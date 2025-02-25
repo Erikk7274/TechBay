@@ -14,9 +14,10 @@ if (btnEditPfp) {
 
 if (btnLogout) {
     btnLogout.addEventListener('click', () => {
-        window.location.href = 'https://techbay2.netlify.app/index.html'; // Kilépés és vissza az index oldalra
+        window.location.href = 'https://techbay2.netlify.app/index.html'; // Kilépés és vissza az indexre
     });
 }
+
 
 
 
