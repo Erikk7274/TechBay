@@ -9,7 +9,7 @@ const btnBack = document.querySelector('.btnBack');
 const btnLogout = document.querySelector('.icon-logout');
 btnLogout.addEventListener('click', logout);
 async function logout() {
-    const res = await fetch('https://nodejs312.dszcbaross.edu.hu/api/auth/logout', {
+    const res = await fetch('/api/auth/logout', {
         method: 'POST',
         credentials: 'include'
     });
@@ -39,7 +39,7 @@ async function EditProfilePic() {
     const formData = new FormData();
     formData.append('profile_pic', profile_pic);
 
-    const res = await fetch('https://nodejs312.dszcbaross.edu.hu/api/profile/editProfilePic', {
+    const res = await fetch('/api/profile/editProfilePic', {
         method: 'PUT',
         body: formData,
         credentials: 'include',

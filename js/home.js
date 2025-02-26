@@ -20,7 +20,7 @@ async function initialize() {
 // Termékek lekérése az API-ból
 async function getProducts() {
     try {
-        const response = await fetch('https://nodejs312.dszcbaross.edu.hu/api/getProducts/getProducts_all', {
+        const response = await fetch('/api/getProducts/getProducts_all', {
             method: 'GET',
             credentials: 'include',
         });
@@ -189,7 +189,7 @@ function setUpButtonListeners() {
 async function addToCart(productId) {
     try {
         const product = { productId };
-        const response = await fetch('https://nodejs312.dszcbaross.edu.hu/api/cart/takeProduct', {
+        const response = await fetch('/api/cart/takeProduct', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',

@@ -21,7 +21,7 @@ async function inicializalas() {
 // Termékek lekérése az API-ból
 async function termekekLekerese() {
     try {
-        const response = await fetch('https://nodejs312.dszcbaross.edu.hu/api/getProducts/getProducts_all', {
+        const response = await fetch('/api/getProducts/getProducts_all', {
             method: 'GET',
             credentials: 'include',
         });
@@ -237,7 +237,7 @@ function modalLetelepiteseUjTermekhez() {
 async function kosarbaRakom(productId) {
     try {
         const termek = { productId };
-        const response = await fetch('https://nodejs312.dszcbaross.edu.hu/api/cart/takeProduct', {
+        const response = await fetch('/api/cart/takeProduct', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',

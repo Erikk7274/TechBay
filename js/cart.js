@@ -10,7 +10,7 @@ if (btnBack) {
 
 // Kijelentkezés függvény
 async function logout() {
-    const res = await fetch('https://nodejs312.dszcbaross.edu.hu/api/auth/logout', {
+    const res = await fetch('/api/auth/logout', {
         method: 'POST',
         credentials: 'include'
     });
