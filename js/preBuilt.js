@@ -20,7 +20,7 @@ async function initialize() {
 // Termékek lekérése az API-ból
 async function getProducts() {
     try {
-        const response = await fetch('https://nodejs312.dszcbaross.edu.hu/api/getProducts/getProducts_all', {
+        const response = await fetch('https://nodejs312.dszcbaross.edu.hu/api/getProducts/getConfig_active', {
             method: 'GET',
             credentials: 'include',
         });
