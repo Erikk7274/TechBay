@@ -44,7 +44,7 @@ function createCard(product) {
     cardDiv.style.width = '18rem';
 
     cardDiv.innerHTML = `
-        <div class="card-header text-center fw-bold">${product.product_name}</div>
+        <div class="card-header text-center fw-bold">${product.config_name}</div>
         <div class="card-body text-center">
             <img src="https://nodejs312.dszcbaross.edu.hu/uploads/${product.product_pic}" class="img-fluid mb-3" alt="${product.product_name}">
         </div>
