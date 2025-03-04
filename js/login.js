@@ -48,6 +48,7 @@ async function login() {
                 console.log("ADMIN VAGY");
                 window.location.href = 'https://techbay2.netlify.app/adminHome.html';
             } else {
+                console.log(data.admin);
                 alert("Sikeres bejelentkezés!");
                 window.location.href = 'https://techbay2.netlify.app/home.html'; 
             }
