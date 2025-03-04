@@ -1,6 +1,7 @@
 const btnPreBuilt = document.querySelector('.btnPreBuilt');
 const btnHardware = document.querySelector('.btnHardware');
 const btnLogout = document.querySelector('.btnLogout');
+const btnBack = document.querySelector('.btnBack');
 const row = document.getElementById('row');
 
 window.addEventListener('DOMContentLoaded', async () => {
@@ -94,6 +95,7 @@ function setUpButtonListeners() {
     btnPreBuilt?.addEventListener('click', () => window.location.href = 'https://techbay2.netlify.app/preBuilt.html');
     btnHardware?.addEventListener('click', () => window.location.href = 'https://techbay2.netlify.app/hardware.html');
     btnLogout?.addEventListener('click', () => window.location.href = 'https://techbay2.netlify.app/index.html');
+    btnBack?.addEventListener('click', () => window.location.href = 'https://techbay2.netlify.app/home.html');
 }
 
 async function addToCart(productId) {
