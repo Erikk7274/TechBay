@@ -10,14 +10,11 @@
     <link rel="icon" href="img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
-
-
     <link rel="stylesheet" href="css/cart.css">
 </head>
 
 <body>
     <header>
-
         <div class="header-left">
             <div class="logo">
                 <a href="https://techbay2.netlify.app/home.html">
@@ -45,11 +42,9 @@
 
         <nav>
             <a href="https://techbay2.netlify.app/home.html" class="icon-home"><i class="fa-solid fa-house"></i></a>
-            <a href="https://techbay2.netlify.app/cart.html" class="icon-cart"><i
-                    class="fa-solid fa-cart-shopping"></i></a>
+            <a href="https://techbay2.netlify.app/cart.html" class="icon-cart"><i class="fa-solid fa-cart-shopping"></i></a>
             <a href="https://techbay2.netlify.app/profile.html" class="icon-user"><i class="fa-solid fa-user"></i></a>
-            <a href="https://techbay2.netlify.app/index.html" class="icon-logout"><i
-                    class="fa-solid fa-arrow-right-from-bracket"></i></a>
+            <a href="https://techbay2.netlify.app/index.html" class="icon-logout"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
         </nav>
     </header>
 
@@ -62,8 +57,29 @@
                 <button class="btn btn-secondary btnBack">Vissza</button>
             </div>
         </div>
+    </main>
+
+    <!-- Modal -->
+    <div class="modal" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="orderModalLabel">Megrendelés összesítő</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modalBody">
+                    <!-- A termékek itt fognak megjelenni -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Mégse</button>
+                    <button type="button" class="btn btn-primary" id="confirmOrderBtn">Megrendelem</button>
+                </div>
+            </div>
         </div>
-        <script src="./js/cart.js"></script>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./js/cart.js"></script>
 </body>
 
 </html>
