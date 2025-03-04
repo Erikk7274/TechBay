@@ -44,7 +44,8 @@ async function login() {
 
             if (data.admin === 1) {
                 alert("Sikeres bejelentkezés! Admin jogokkal.");
-                console.warn("ADMIN VAGY")
+                console.log(data.admin);
+                console.log("ADMIN VAGY");
                 window.location.href = 'https://techbay2.netlify.app/adminHome.html';
             } else {
                 alert("Sikeres bejelentkezés!");
