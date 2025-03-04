@@ -3,21 +3,16 @@ const btnHardware = document.querySelector('.btnHardware');
 const btnLogout = document.querySelector('.btnLogout');
 const row = document.getElementById('row');
 
-// DOMContentLoaded eseménykezelő
-window.addEventListener('DOMContentLoaded', () => {
-    initialize();
-});
-
-async function initialize() {
+window.addEventListener('DOMContentLoaded', async () => {
     try {
-        await getProducts();
+        const products = await getProducts();
+        renderProducts(products);
         setUpButtonListeners();
     } catch (error) {
         console.error('Inicializálás sikertelen:', error);
     }
-}
+});
 
-// Termékek lekérése az API-ból
 async function getProducts() {
     try {
         const response = await fetch('https://nodejs312.dszcbaross.edu.hu/api/getProducts/getConfig_active', {
@@ -25,31 +20,17 @@ async function getProducts() {
             credentials: 'include',
         });
 
-        if (!response.ok) {
-            throw new Error('Nem sikerült lekérni a termékeket');
-        }
+        if (!response.ok) throw new Error('Nem sikerült lekérni a termékeket');
 
-        const products = await response.json();
-        console.log('Lekért termékek:', products);
-
-        const uniqueProducts = getUniqueProducts(products);
-        renderProducts(uniqueProducts);
+        return await response.json();
     } catch (error) {
         console.error('Hiba a termékek lekérésekor:', error);
+        return [];
     }
 }
 
-// Egyedi termékek kiválasztása a product_id alapján
-function getUniqueProducts(products) {
-    return products.filter((product, index, self) =>
-        index === self.findIndex((p) => p.product_id === product.product_id)
-    );
-}
-
-// Termékek megjelenítése az oldalon
 function renderProducts(products) {
-    row.innerHTML = ''; // Korábbi tartalom törlése
-
+    row.innerHTML = '';
     products.forEach(product => {
         const cardDiv = createCard(product);
         row.append(cardDiv);
@@ -57,68 +38,26 @@ function renderProducts(products) {
     });
 }
 
-// termék kártya létrehozása
 function createCard(product) {
     const cardDiv = document.createElement('div');
     cardDiv.classList.add('card', 'm-3', 'p-2', 'shadow-sm');
     cardDiv.style.width = '18rem';
 
-    const cardHeaderDiv = createCardHeader(product);
-    const cardBodyDiv = createCardBody(product);
-    const cardFooterDiv = createCardFooter(product);
-
-    cardDiv.append(cardHeaderDiv, cardBodyDiv, cardFooterDiv);
+    cardDiv.innerHTML = `
+        <div class="card-header text-center fw-bold">${product.product_name}</div>
+        <div class="card-body text-center">
+            <img src="https://nodejs312.dszcbaross.edu.hu/uploads/${product.product_pic}" class="img-fluid mb-3" alt="${product.product_name}">
+        </div>
+        <div class="card-footer text-center">
+            <span class="d-block mb-2">Raktáron: ${product.in_stock}</span>
+            <span class="d-block mb-2">Ár: ${product.price ? product.price + ' Ft' : 'N/A'}</span>
+            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-${product.product_id}">Részletek</button>
+        </div>
+    `;
 
     return cardDiv;
 }
 
-// card header létrehozása
-function createCardHeader(product) {
-    const cardHeaderDiv = document.createElement('div');
-    cardHeaderDiv.classList.add('card-header', 'text-center', 'fw-bold');
-    cardHeaderDiv.textContent = product.product_name;
-    return cardHeaderDiv;
-}
-
-// card body létrehozása
-function createCardBody(product) {
-    const cardBodyDiv = document.createElement('div');
-    cardBodyDiv.classList.add('card-body', 'text-center');
-
-    const picDivImg = document.createElement('img');
-    picDivImg.src = `https://nodejs312.dszcbaross.edu.hu/uploads/${product.product_pic}`;
-    picDivImg.classList.add('img-fluid', 'mb-3');
-    picDivImg.alt = product.product_name;
-
-    cardBodyDiv.append(picDivImg);
-    return cardBodyDiv;
-}
-
-// card footer létrehozása
-function createCardFooter(product) {
-    const cardFooterDiv = document.createElement('div');
-    cardFooterDiv.classList.add('card-footer', 'text-center');
-
-    const inStockSpan = document.createElement('span');
-    inStockSpan.textContent = `Raktáron: ${product.in_stock}`;
-    inStockSpan.classList.add('d-block', 'mb-2');
-
-    const priceSpan = document.createElement('span');
-    priceSpan.textContent = product.price ? `Ár: ${product.price} Ft` : 'Ár: N/A';
-    priceSpan.classList.add('d-block', 'mb-2');
-
-    const detailsButton = document.createElement('button');
-    detailsButton.classList.add('btn', 'btn-primary', 'btn-sm');
-    detailsButton.textContent = 'Részletek';
-    detailsButton.setAttribute('data-bs-toggle', 'modal');
-    detailsButton.setAttribute('data-bs-target', `#modal-${product.product_id}`);
-
-    cardFooterDiv.append(inStockSpan, priceSpan, detailsButton);
-
-    return cardFooterDiv;
-}
-
-// Modal létrehozása a termékhez
 function createModal(product) {
     const modalDiv = document.createElement('div');
     modalDiv.classList.add('modal', 'fade');
@@ -146,63 +85,29 @@ function createModal(product) {
         </div>
     `;
 
-    
     document.body.appendChild(modalDiv);
 
-    const addToCartBtn = modalDiv.querySelector('.add-to-cart-btn');
-    if (addToCartBtn) {
-        addToCartBtn.addEventListener('click', () => {
-            const productId = addToCartBtn.getAttribute('data-product-id');
-            addToCart(productId);
-        });
-    }
+    modalDiv.querySelector('.add-to-cart-btn').addEventListener('click', () => addToCart(product.product_id));
 }
 
-// Gomb események beállítása
 function setUpButtonListeners() {
-    if (btnPreBuilt) {
-        btnPreBuilt.addEventListener('click', () => {
-            console.log('Navigálás a preBuilt.html oldalra');
-            window.location.href = 'https://techbay2.netlify.app/preBuilt.html';
-        });
-    }
-
-    if (btnHardware) {
-        btnHardware.addEventListener('click', () => {
-            console.log('Navigálás a hardware.html oldalra');
-            window.location.href = 'https://techbay2.netlify.app/hardware.html';
-        });
-    }
-
-    if (btnLogout) {
-        btnLogout.addEventListener('click', () => {
-            console.log('Kijelentkezés, navigálás az index.html oldalra');
-            window.location.href = 'https://techbay2.netlify.app/index.html';
-        });
-    }
+    btnPreBuilt?.addEventListener('click', () => window.location.href = 'https://techbay2.netlify.app/preBuilt.html');
+    btnHardware?.addEventListener('click', () => window.location.href = 'https://techbay2.netlify.app/hardware.html');
+    btnLogout?.addEventListener('click', () => window.location.href = 'https://techbay2.netlify.app/index.html');
 }
 
-// Termék hozzáadása a kosárhoz
 async function addToCart(productId) {
     try {
-        const product = { productId };
         const response = await fetch('https://nodejs312.dszcbaross.edu.hu/api/cart/takeProduct', {
             method: 'POST',
-            headers: {
-                'content-type': 'application/json',
-            },
-            body: JSON.stringify(product),
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ productId }),
             credentials: 'include',
         });
 
         const result = await response.json();
-
-        if (response.ok) {
-            console.log('Termék hozzáadva a kosárhoz:', result);
-        } else {
-            console.error('Hiba a termék kosárba helyezésekor:', result);
-        }
+        response.ok ? console.log('Termék hozzáadva:', result) : console.error('Hiba:', result);
     } catch (error) {
-        console.error('Hiba a termék kosárba helyezésekor:', error);
+        console.error('Hiba a kosárba helyezéskor:', error);
     }
 }
