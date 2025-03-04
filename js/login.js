@@ -49,7 +49,7 @@ async function login() {
                 window.location.href = 'https://techbay2.netlify.app/adminHome.html';
             } else {
                 console.log(data.admin);
-                alert("Sikeres bejelentkezis!");
+                alert("Sikeres bejelentkezés!");
                 window.location.href = 'https://techbay2.netlify.app/home.html'; 
             }
             
