@@ -46,7 +46,7 @@ function createCard(product) {
     cardDiv.innerHTML = `
         <div class="card-header text-center fw-bold">${product.config_name}</div>
         <div class="card-body text-center">
-            <img src="https://nodejs312.dszcbaross.edu.hu/uploads/${product.product_pic}" class="img-fluid mb-3" alt="${product.product_name}">
+            <img src="https://nodejs312.dszcbaross.edu.hu/uploads/${product.product_pic}" class="img-fluid mb-3" alt="${product.config_name}">
         </div>
         <div class="card-footer text-center">
             <span class="d-block mb-2">Raktáron: ${product.in_stock}</span>
@@ -57,6 +57,8 @@ function createCard(product) {
 
     return cardDiv;
 }
+
+//asdasdsasd
 
 function createModal(product) {
     const modalDiv = document.createElement('div');
@@ -70,11 +72,11 @@ function createModal(product) {
         <div class="modal-dialog modal-lg" style="max-width:500px">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalLabel-${product.product_id}">${product.product_name}</h5>
+                    <h5 class="modal-title" id="modalLabel-${product.product_id}">${product.config_name}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
-                    <img src="https://nodejs312.dszcbaross.edu.hu/uploads/${product.product_pic}" alt="${product.product_name}" class="img-fluid mb-3">
+                    <img src="https://nodejs312.dszcbaross.edu.hu/uploads/${product.product_pic}" alt="${product.config_name}" class="img-fluid mb-3">
                     <p><strong>Raktáron:</strong> ${product.in_stock}</p>
                     <p><strong>Ár:</strong> ${product.price ? `${product.price} Ft` : 'N/A'}</p>
                 </div>
