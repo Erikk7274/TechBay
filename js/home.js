@@ -34,7 +34,7 @@ async function getProducts() {
 
 
 function renderProducts(products) {
-    let html = `<h2>${category}</h2><div class="products">`;
+    let html = `<h2>asdsad</h2><div class="products">`;
     products.forEach(product => {
         html += `
         <div class="product">
