@@ -1,67 +1,73 @@
-window.addEventListener('DOMContentLoaded', () => {
-    // Gombok lekérése
-    const btnPreBuilt = document.querySelector('.btnPreBuilt');
-    const btnHardware = document.querySelector('.btnHardware');
-    const btnLogout = document.querySelector('.btnLogout');
+window.addEventListener('DOMContentLoaded', getProducts);
 
-    // Kategóriák elemeinek lekérése
-    const row = document.getElementById('row');
+// Gombok lekérése
+const btnPreBuilt = document.querySelector('.btnPreBuilt');
+const btnHardware = document.querySelector('.btnHardware');
+const btnLogout = document.querySelector('.btnLogout');
 
-    // Termékek lekérése
-    async function getProducts(endpoint = 'getProducts_all') {
-        try {
-            const response = await fetch(`/api/getProducts/${endpoint}`, {
-                method: 'GET',
-                credentials: 'include',
-            });
+// Kategóriák elemeinek lekérése
+const row = document.getElementById('row');
 
-            if (!response.ok) {
-                throw new Error('Hiba történt a termékek lekérésekor');
-            }
-
-            const products = await response.json();
-            renderProducts(products);
-        } catch (error) {
-            console.error('Hiba a termékek lekérésekor:', error);
-        }
-    }
-
-    // Termékek renderelése
-    function renderProducts(products) {
-        let html = '<div class="products">';
-        products.forEach(product => {
-            html += `
-                <div class="product-card">
-                    <img src='/uploads/${product.product_pic}' alt="${product.product_name}" class="product-image" />
-                    <h3 class="product-name">${product.product_name}</h3>
-                    <p class="product-price">${product.price} Ft</p>
-                </div>
-            `;
+// Termékek lekérése
+async function getProducts() {
+    try {
+        const response = await fetch(`/api/getProducts/getProducts_all`, {
+            method: 'GET',
+            credentials: 'include'
         });
-        html += '</div>';
-        row.innerHTML = html;
-    }
+        console.log(response);
+        const products = await response.json();
+        console.log(products);
 
-    // Gombok események kezelése
-    if (btnPreBuilt) {
-        btnPreBuilt.addEventListener('click', () => {
-            getProducts('getProducts_preBuilt');
-        });
-    }
+        console.log(`Lekért termékek:`, products);
 
-    if (btnHardware) {
-        btnHardware.addEventListener('click', () => {
-            getProducts('getProducts_hardware');
-        });
+        //renderCategory(category, result);
+        renderProducts(products);
+    } catch (error) {
+        console.error('Hiba a termékek lekérésekor:', error);
     }
+}
 
-    if (btnLogout) {
-        btnLogout.addEventListener('click', () => {
-            localStorage.removeItem('token');
-            window.location.reload();
-        });
-    }
 
-    // Alapértelmezett termékek lekérése
-    getProducts();
+function renderProducts(products) {
+    console.log(products);
+    let html = `<h2>asdsad</h2><div class="products">`;
+    products.forEach(product => {
+        console.log(product);
+        html += `
+        <div class="product">
+            <img src='/uploads/${product.product_pic}' alt="${product.product_name}" />
+            <h3>${product.product_name}</h3>
+            <p>${product.price}</p>
+        </div>
+    `;
+    });
+
+    html += '</div>';
+
+    console.log(html);
+
+    row.innerHTML = html;
+}
+btnPreBuilt.addEventListener('click', () => {
+    getProducts('getProducts_preBuilt');
 });
+
+btnHardware.addEventListener('click', () => {
+    getProducts('getProducts_hardware');
+});
+
+btnLogout.addEventListener('click', () => {
+    localStorage.removeItem('token');
+    window.location.reload();
+});
+    // Gombok események
+    btnPreBuilt.addEventListener('click', () => {
+        window.location.href='https://techbay2.netlify.app/preBuilt.html';
+    });
+
+    btnLogout.addEventListener('click', () => {
+        localStorage.removeItem('token');
+        window.location.reload();
+    });
+
