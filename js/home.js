@@ -11,21 +11,14 @@ const categoryContainer = document.querySelector('.categories-container');
 
 // Termékek lekérése
 async function getProducts(category) {
-    if (!token) {
-        console.error("Nincsen tokened!");
-        return;
-    }
-
     try {
         const response = await fetch(`https://nodejs312.dszcbaross.edu.hu/api/getProducts/${category}`, {
             method: 'GET',
-            headers: { 
-                'Authorization': `Bearer ${token}`
-            }
+            credentials: 'include'
         });
-
+        console.log(response);
         const result = await response.json();
-
+        console.log(result);
         if (result.error) {
             console.error(result.error);
             return;
