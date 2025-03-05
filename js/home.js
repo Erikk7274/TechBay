@@ -37,7 +37,7 @@ function renderProducts(products) {
         console.log(product);
         html += `
         <div class="col-md-4">
-            <div class="card mb-4 shadow-sm">
+            <div class="card mb-4 shadow-sm product-card">
                 <img src='/uploads/${product.product_pic}' alt="${product.product_name}" class="card-img-top" />
                 <div class="card-body">
                     <h5 class="card-title">${product.product_name}</h5>
@@ -50,6 +50,7 @@ function renderProducts(products) {
     });
 
     html += '</div>';
+
 
     row.innerHTML = html;
 }
