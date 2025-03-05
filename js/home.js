@@ -1,5 +1,4 @@
-// Token lekérése a localStorage-ból
-const token = localStorage.getItem('token');
+window.addEventListener('DOMContentLoaded', getProducts);
 
 // Gombok lekérése
 const btnPreBuilt = document.querySelector('.btnPreBuilt');
@@ -10,9 +9,9 @@ const btnLogout = document.querySelector('.btnLogout');
 const categoryContainer = document.querySelector('.categories-container');
 
 // Termékek lekérése
-async function getProducts(category) {
+async function getProducts() {
     try {
-        const response = await fetch(`https://nodejs312.dszcbaross.edu.hu/api/getProducts/${category}`, {
+        const response = await fetch(`https://nodejs312.dszcbaross.edu.hu/api/getProducts_all/`, {
             method: 'GET',
             credentials: 'include'
         });
@@ -31,7 +30,7 @@ async function getProducts(category) {
         console.error('Hiba a termékek lekérésekor:', error);
     }
 }
-
+/*
 // Kategória renderelése
 function renderCategory(category, products) {
     if (!categoryContainer) {
@@ -86,3 +85,4 @@ function initialize() {
 
 // Inicializálás meghívása
 initialize();
+*/
