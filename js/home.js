@@ -36,22 +36,26 @@ async function initialize() {
 }
 
 async function getProducts() {
-    row.innerHTML = '';
+    row.innerHTML = ''; // Töröljük a tartalmat, mielőtt újra betöltjük
 
     for (const category in endpoints) {
         try {
             const response = await fetch(`https://nodejs312.dszcbaross.edu.hu${endpoints[category]}`, {
                 method: 'GET',
-                credentials: 'include'
+                credentials: 'include',
             });
 
             if (response.ok) {
                 const products = await response.json();
                 console.log(`Lekért termékek (${category}):`, products);
 
-                if (products.length > 0) {
+                if (products && products.length > 0) {
                     renderCategory(category, products);
+                } else {
+                    console.log(`Nincs termék a(z) ${category} kategóriában.`);
                 }
+            } else {
+                console.log(`Hiba a(z) ${category} API végponton.`);
             }
         } catch (error) {
             console.error(`Hiba a(z) ${category} termékek betöltésekor:`, error);
