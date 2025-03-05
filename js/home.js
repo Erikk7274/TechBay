@@ -64,3 +64,6 @@ userBtn.addEventListener('click',()=>{
 cartBtn.addEventListener('click',()=>{
     window.location.href='https://techbay2.netlify.app/cart.html';
 })
+btnPreBuilt.addEventListener('click',()=>{
+    window.location.href='https://techbay2.netlify.app/preBuilt.html';
+})
