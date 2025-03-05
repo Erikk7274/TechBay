@@ -33,16 +33,19 @@ function renderProducts(products) {
     console.log(products);
     let html = `<h2>asdsad</h2><div class="products">`;
     products.forEach(product => {
+        console.log(product);
         html += `
         <div class="product">
-            <img src="/uploads" alt="${product.name}" />
-            <h3>${product.name}</h3>
+            <img src='/uploads/${product.product_pic}' alt="${product.product_name}" />
+            <h3>${product.product_name}</h3>
             <p>${product.price}</p>
         </div>
     `;
     });
 
     html += '</div>';
+
+    console.log(html);
 
     categoryContainer.innerHTML = html;
 }
