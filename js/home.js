@@ -1,6 +1,12 @@
+const btnPreBuilt = document.querySelector('.btnPreBuilt');
+const btnHardware = document.querySelector('.btnHardware');
+const btnLogout = document.querySelector('.btnLogout');
+const row = document.getElementById('row');
+const summaryDiv = document.getElementById('summary');
+const buildOrderBtn = document.getElementById('buildOrderBtn');
+
 const categories = ['cpu', 'gpu', 'ram', 'motherboard', 'storage', 'psu', 'case'];
 let selectedParts = {};
-const row = document.getElementById('row');
 
 window.addEventListener('DOMContentLoaded', () => {
     initialize();
@@ -10,6 +16,9 @@ async function initialize() {
     try {
         await getProducts();
         setUpButtonListeners();
+        if (buildOrderBtn) {
+            buildOrderBtn.addEventListener('click', buildOrder);
+        }
     } catch (error) {
         console.error('Initialization failed:', error);
     }
@@ -49,7 +58,7 @@ function renderCategories(products) {
         categoryDiv.innerHTML = `<h3 class="text-center">${category.toUpperCase()}</h3>`;
         row.append(categoryDiv);
 
-        const filteredProducts = products.filter(p => p.category.toLowerCase() === category);
+        const filteredProducts = products.filter(p => p.category && p.category.toLowerCase() === category);
 
         filteredProducts.forEach(product => {
             const card = createCard(product);
@@ -89,7 +98,6 @@ function selectPart(product) {
 }
 
 function renderSummary() {
-    const summaryDiv = document.getElementById('summary');
     summaryDiv.innerHTML = `<h4>Összesített gép</h4>`;
     categories.forEach(category => {
         if (selectedParts[category]) {
@@ -101,7 +109,7 @@ function renderSummary() {
     });
 }
 
-document.getElementById('buildOrderBtn').addEventListener('click', async () => {
+async function buildOrder() {
     const cartItems = Object.values(selectedParts).map(p => ({
         productId: p.product_id
     }));
@@ -125,4 +133,27 @@ document.getElementById('buildOrderBtn').addEventListener('click', async () => {
     } catch (error) {
         console.error('Order failed:', error);
     }
-});
+}
+
+function setUpButtonListeners() {
+    if (btnPreBuilt) {
+        btnPreBuilt.addEventListener('click', () => {
+            console.log('Navigálás a preBuilt.html oldalra');
+            window.location.href = 'https://techbay2.netlify.app/preBuilt.html';
+        });
+    }
+
+    if (btnHardware) {
+        btnHardware.addEventListener('click', () => {
+            console.log('Navigálás a hardware.html oldalra');
+            window.location.href = 'https://techbay2.netlify.app/hardware.html';
+        });
+    }
+
+    if (btnLogout) {
+        btnLogout.addEventListener('click', () => {
+            console.log('Kijelentkezés, navigálás az index.html oldalra');
+            window.location.href = 'https://techbay2.netlify.app/index.html';
+        });
+    }
+}
