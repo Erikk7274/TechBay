@@ -11,7 +11,7 @@ const categoryContainer = document.querySelector('.categories-container');
 // Termékek lekérése
 async function getProducts() {
     try {
-        const response = await fetch(`https://nodejs312.dszcbaross.edu.hu/api/getProducts_all/`, {
+        const response = await fetch(`https://nodejs312.dszcbaross.edu.hu/api/getProducts/getProducts_all`, {
             method: 'GET',
             credentials: 'include'
         });
