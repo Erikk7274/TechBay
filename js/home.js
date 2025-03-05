@@ -6,7 +6,7 @@ const btnHardware = document.querySelector('.btnHardware');
 const btnLogout = document.querySelector('.btnLogout');
 
 // Kategóriák elemeinek lekérése
-const categoryContainer = document.querySelector('.categories-container');
+const row = document.getElementById('row');
 
 // Termékek lekérése
 async function getProducts() {
@@ -47,7 +47,7 @@ function renderProducts(products) {
 
     console.log(html);
 
-    categoryContainer.innerHTML = html;
+    row.innerHTML = html;
 }
 /*
 // Kategória renderelése
