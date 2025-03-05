@@ -5,7 +5,18 @@ const row = document.getElementById('row');
 const summaryDiv = document.getElementById('summary');
 const buildOrderBtn = document.getElementById('buildOrderBtn');
 
-const categories = ['cpu', 'gpu', 'ram', 'motherboard', 'storage', 'psu', 'case'];
+const endpoints = {
+    cpu: '/api/getProducts/getProducts_cpus',
+    gpu: '/api/getProducts/getProducts_gpus',
+    ram: '/api/getProducts/getProducts_rams',
+    motherboard: '/api/getProducts/getProducts_motherboards',
+    storage: '/api/getProducts/getProducts_ssds',
+    hdd: '/api/getProducts/getProducts_hdds',
+    psu: '/api/getProducts/getProducts_powersupplys',
+    case: '/api/getProducts/getProducts_houses',
+    cooler: '/api/getProducts/getProducts_cpucoolers'
+};
+
 let selectedParts = {};
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -25,52 +36,43 @@ async function initialize() {
 }
 
 async function getProducts() {
-    try {
-        const response = await fetch('https://nodejs312.dszcbaross.edu.hu/api/getProducts/getProducts_all', {
-            method: 'GET',
-            credentials: 'include',
-        });
+    row.innerHTML = '';
 
-        if (!response.ok) {
-            throw new Error('Failed to fetch products');
+    for (const category in endpoints) {
+        try {
+            const response = await fetch(`https://nodejs312.dszcbaross.edu.hu${endpoints[category]}`, {
+                method: 'GET',
+                credentials: 'include'
+            });
+
+            if (response.ok) {
+                const products = await response.json();
+                console.log(`Lekért termékek (${category}):`, products);
+
+                if (products.length > 0) {
+                    renderCategory(category, products);
+                }
+            }
+        } catch (error) {
+            console.error(`Hiba a(z) ${category} termékek betöltésekor:`, error);
         }
-
-        const products = await response.json();
-        const uniqueProducts = getUniqueProducts(products);
-        renderCategories(uniqueProducts);
-    } catch (error) {
-        console.error('Product fetch failed:', error);
     }
 }
 
-function getUniqueProducts(products) {
-    return products.filter((product, index, self) =>
-        index === self.findIndex((p) => p.product_id === product.product_id)
-    );
-}
+function renderCategory(category, products) {
+    const categoryDiv = document.createElement('div');
+    categoryDiv.classList.add('category-section', 'mb-5');
+    categoryDiv.innerHTML = `<h3 class="text-center">${category.toUpperCase()}</h3>`;
+    row.append(categoryDiv);
 
-function renderCategories(products) {
-    row.innerHTML = '';
-
-    categories.forEach(category => {
-        const filteredProducts = products.filter(p => p.category && p.category.toLowerCase() === category);
-
-        if (filteredProducts.length > 0) {
-            const categoryDiv = document.createElement('div');
-            categoryDiv.classList.add('category-section', 'mb-5');
-            categoryDiv.innerHTML = `<h3 class="text-center">${category.toUpperCase()}</h3>`;
-            row.append(categoryDiv);
-
-            filteredProducts.forEach(product => {
-                const card = createCard(product);
-                categoryDiv.append(card);
-                createModal(product);
-            });
-        }
+    products.forEach(product => {
+        const card = createCard(product, category);
+        categoryDiv.append(card);
+        createModal(product);
     });
 }
 
-function createCard(product) {
+function createCard(product, category) {
     const card = document.createElement('div');
     card.classList.add('card', 'm-3', 'p-2', 'shadow-sm');
     card.style.width = '18rem';
@@ -82,33 +84,39 @@ function createCard(product) {
         </div>
         <div class="card-footer text-center">
             <span class="d-block mb-2">Ár: ${product.price} Ft</span>
-            <button class="btn btn-primary select-part-btn" data-category="${product.category}" data-product-id="${product.product_id}">Kiválaszt</button>
+            <button class="btn btn-primary select-part-btn" data-category="${category}" data-product-id="${product.product_id}">Kiválaszt</button>
         </div>
     `;
 
     card.querySelector('.select-part-btn').addEventListener('click', () => {
-        selectPart(product);
+        selectPart(product, category);
     });
 
     return card;
 }
 
-function selectPart(product) {
-    selectedParts[product.category] = product;
-    console.log('Selected parts:', selectedParts);
+function selectPart(product, category) {
+    selectedParts[category] = product;
+    console.log(`Kiválasztott alkatrészek:`, selectedParts);
     renderSummary();
 }
 
 function renderSummary() {
     summaryDiv.innerHTML = `<h4>Összesített gép</h4>`;
-    categories.forEach(category => {
-        if (selectedParts[category]) {
-            const product = selectedParts[category];
-            const item = document.createElement('p');
-            item.textContent = `${category.toUpperCase()}: ${product.product_name} - ${product.price} Ft`;
-            summaryDiv.append(item);
-        }
-    });
+    let total = 0;
+
+    for (const category in selectedParts) {
+        const product = selectedParts[category];
+        const item = document.createElement('p');
+        item.textContent = `${category.toUpperCase()}: ${product.product_name} - ${product.price} Ft`;
+        summaryDiv.append(item);
+        total += product.price;
+    }
+
+    const totalElement = document.createElement('p');
+    totalElement.classList.add('fw-bold');
+    totalElement.textContent = `Végösszeg: ${total} Ft`;
+    summaryDiv.append(totalElement);
 }
 
 async function buildOrder() {
@@ -120,7 +128,7 @@ async function buildOrder() {
         const response = await fetch('https://nodejs312.dszcbaross.edu.hu/api/cart/takeProduct', {
             method: 'POST',
             headers: {
-                'content-type': 'application/json'
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify(cartItems),
             credentials: 'include'
@@ -140,21 +148,18 @@ async function buildOrder() {
 function setUpButtonListeners() {
     if (btnPreBuilt) {
         btnPreBuilt.addEventListener('click', () => {
-            console.log('Navigálás a preBuilt.html oldalra');
             window.location.href = 'https://techbay2.netlify.app/preBuilt.html';
         });
     }
 
     if (btnHardware) {
         btnHardware.addEventListener('click', () => {
-            console.log('Navigálás a hardware.html oldalra');
             window.location.href = 'https://techbay2.netlify.app/hardware.html';
         });
     }
 
     if (btnLogout) {
         btnLogout.addEventListener('click', () => {
-            console.log('Kijelentkezés, navigálás az index.html oldalra');
             window.location.href = 'https://techbay2.netlify.app/index.html';
         });
     }
