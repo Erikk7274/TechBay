@@ -2,7 +2,7 @@ const btnPreBuilt = document.querySelector('.btnPreBuilt');
 const btnHardware = document.querySelector('.btnHardware');
 const btnLogout = document.querySelector('.btnLogout');
 const row = document.getElementById('row');
-const summaryDiv = document.getElementById('summary');
+const summaryDiv = document.getElementById('summary'); // Ellenőrizd, hogy létezik!
 const buildOrderBtn = document.getElementById('buildOrderBtn');
 
 const endpoints = {
@@ -72,7 +72,6 @@ function renderCategory(category, products) {
     products.forEach(product => {
         const card = createCard(product, category);
         categoryDiv.append(card);
-        createModal(product);
     });
 }
 
@@ -106,6 +105,11 @@ function selectPart(product, category) {
 }
 
 function renderSummary() {
+    if (!summaryDiv) {
+        console.error('Summary div nem található!');
+        return;
+    }
+
     summaryDiv.innerHTML = `<h4>Összesített gép</h4>`;
     let total = 0;
 
@@ -114,7 +118,7 @@ function renderSummary() {
         const item = document.createElement('p');
         item.textContent = `${category.toUpperCase()}: ${product.product_name} - ${product.price} Ft`;
         summaryDiv.append(item);
-        total += product.price;
+        total += parseFloat(product.price);
     }
 
     const totalElement = document.createElement('p');
