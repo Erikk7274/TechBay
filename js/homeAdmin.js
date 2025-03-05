@@ -21,7 +21,7 @@ async function inicializalas() {
 // Termékek lekérése az API-ból
 async function termekekLekerese() {
     try {
-        const response = await fetch('https://nodejs312.dszcbaross.edu.hu/api/getProducts/getProducts_all', {
+        const response = await fetch('/api/getProducts/getProducts_all', {
             method: 'GET',
             credentials: 'include',
         });
@@ -87,7 +87,7 @@ function kartyaTorzsLetelepitese(termek) {
     kartyaTorzsDiv.classList.add('card-body', 'text-center');
 
     const picDivImg = document.createElement('img');
-    picDivImg.src = `https://nodejs312.dszcbaross.edu.hu/uploads/${termek.product_pic}`;
+    picDivImg.src = `/uploads/${termek.product_pic}`;
     picDivImg.classList.add('img-fluid', 'mb-3');
     picDivImg.alt = termek.product_name;
 
@@ -136,7 +136,7 @@ function modalLetelepitese(termek) {
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
-                    <img src="https://nodejs312.dszcbaross.edu.hu/uploads/${termek.product_pic}" alt="${termek.product_name}" class="img-fluid mb-3">
+                    <img src="/uploads/${termek.product_pic}" alt="${termek.product_name}" class="img-fluid mb-3">
                     <p><strong>Raktáron:</strong> ${termek.in_stock}</p>
                     <p><strong>Ár:</strong> ${termek.price ? `${termek.price} Ft` : 'N/A'}</p>
                 </div>
@@ -237,7 +237,7 @@ function modalLetelepiteseUjTermekhez() {
 async function kosarbaRakom(productId) {
     try {
         const termek = { productId };
-        const response = await fetch('https://nodejs312.dszcbaross.edu.hu/api/cart/takeProduct', {
+        const response = await fetch('/api/cart/takeProduct', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',

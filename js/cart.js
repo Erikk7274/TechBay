@@ -12,7 +12,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 
 async function loadCart() {
     try {
-        const response = await fetch('https://nodejs312.dszcbaross.edu.hu/api/cart/getCart', {
+        const response = await fetch('/api/cart/getCart', {
             method: 'GET',
             credentials: 'include'
         });
@@ -38,7 +38,7 @@ async function loadCart() {
 }
 
 orderBtn.addEventListener('click', async () => {
-    const response = await fetch('https://nodejs312.dszcbaross.edu.hu/api/cart/getCart', {
+    const response = await fetch('/api/cart/getCart', {
         method: 'GET',
         credentials: 'include'
     });
@@ -67,7 +67,7 @@ orderBtn.addEventListener('click', async () => {
 
 confirmOrderBtn.addEventListener('click', async () => {
     try {
-        const response = await fetch('https://nodejs312.dszcbaross.edu.hu/api/cart/order', {
+        const response = await fetch('/api/cart/order', {
             method: 'POST',
             credentials: 'include'
         });

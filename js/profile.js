@@ -14,7 +14,7 @@ const btnSupport = document.getElementsByClassName('btnSupport')[0];
 const btnBack = document.getElementsByClassName('btnBack')[0];
 
 async function getusername() {
-    const res = await fetch('https://nodejs312.dszcbaross.edu.hu/api/profile/Myusername', {
+    const res = await fetch('/api/profile/Myusername', {
         method: 'GET',
         credentials: 'include'
     });
@@ -24,7 +24,7 @@ async function getusername() {
     
     if (res.ok) {
         const editPic = document.querySelector('.profile_pic');
-        editPic.style.backgroundImage = `url('https://nodejs312.dszcbaross.edu.hu/api/uploads/${username[0].profile_pic}')`;
+        editPic.style.backgroundImage = `url('/api/uploads/${username[0].profile_pic}')`;
     }
 }
 
@@ -106,7 +106,7 @@ if (btnSupport) {
 // }
 
 async function logout() {
-    const res = await fetch('https://nodejs312.dszcbaross.edu.hu/api/auth/logout', {
+    const res = await fetch('/api/auth/logout', {
         method: 'POST',
         credentials: 'include'
     });
@@ -131,7 +131,7 @@ async function editData(){
         alert("Minden mezőt ki kell tölteni")
     }
     else{
-        const res=await fetch('https://nodejs312.dszcbaross.edu.hu/api/profile/editData',{
+        const res=await fetch('/api/profile/editData',{
         method:'PUT',
         headers:{
             'content-type':'application/json'

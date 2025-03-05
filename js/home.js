@@ -11,17 +11,13 @@ const categoryContainer = document.querySelector('.categories-container');
 // Termékek lekérése
 async function getProducts() {
     try {
-        const response = await fetch(`https://nodejs312.dszcbaross.edu.hu/api/getProducts/getProducts_all`, {
+        const response = await fetch(`/api/getProducts/getProducts_all`, {
             method: 'GET',
             credentials: 'include'
         });
         console.log(response);
         const products = await response.json();
         console.log(products);
-        if (products.error) {
-            console.error(products.error);
-            return;
-        }
 
         console.log(`Lekért termékek:`, products);
 
@@ -34,11 +30,12 @@ async function getProducts() {
 
 
 function renderProducts(products) {
+    console.log(products);
     let html = `<h2>asdsad</h2><div class="products">`;
     products.forEach(product => {
         html += `
         <div class="product">
-            <img src="${product.image_url}" alt="${product.name}" />
+            <img src="/uploads" alt="${product.name}" />
             <h3>${product.name}</h3>
             <p>${product.price}</p>
         </div>
