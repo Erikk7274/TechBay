@@ -49,8 +49,6 @@ function renderProducts(products) {
 
     html += '</div>';
 
-    console.log(html);
-
     row.innerHTML = html;
 }
 
