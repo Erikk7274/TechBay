@@ -10,15 +10,18 @@
     <link rel="icon" href="img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
     <link rel="stylesheet" href="css/home.css">
 </head>
 
 <body>
     <header>
+
         <div class="header-left">
             <div class="logo">
                 <a href="https://techbay2.netlify.app/home.html">
-                    <img src="./img/logo.png" alt="TechBay logo" onerror="this.onerror=null;this.src='./img/logo-fallback.png';">
+                    <img src="./img/logo.png" alt="TechBay logo">
                 </a>
             </div>
             <div class="menu-logo">
@@ -32,6 +35,7 @@
             </div>
         </div>
 
+
         <input type="checkbox" id="menu-toggle" class="menu-toggle">
         <label for="menu-toggle" class="hamburger-menu">
             <span></span>
@@ -41,19 +45,21 @@
 
         <nav>
             <a href="https://techbay2.netlify.app/home.html" class="icon-home"><i class="fa-solid fa-house"></i></a>
-            <a href="https://techbay2.netlify.app/cart.html" class="icon-cart"><i class="fa-solid fa-cart-shopping"></i></a>
+            <a href="https://techbay2.netlify.app/cart.html" class="icon-cart"><i
+                    class="fa-solid fa-cart-shopping"></i></a>
             <a href="https://techbay2.netlify.app/profile.html" class="icon-user"><i class="fa-solid fa-user"></i></a>
-            <a href="https://techbay2.netlify.app/index.html" class="icon-logout"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+            <a href="https://techbay2.netlify.app/index.html" class="icon-logout"><i
+                    class="fa-solid fa-arrow-right-from-bracket"></i></a>
         </nav>
     </header>
-
     <main class="container">
         <button class="btnPreBuilt btn" type="button">Előre összeállított buildek</button>
-        <div class="row" id="row"></div>
+        <div class="row" id="row">
+        </div>
     </main>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/home.js"></script>
+
 </body>
 
 </html>
