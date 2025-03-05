@@ -1,7 +1,7 @@
 window.addEventListener('DOMContentLoaded', getProducts);
 
 // Gombok lekérése
-const btnPreBuilt = document.querySelector('.btnPreBuilt');
+const btnPreBuilt = document.getElementsByClassName('btnPrebuilt')[0];
 const homeBtn=document.getElementsByClassName('icon-home')[0];
 const userBtn=document.getElementsByClassName('icon-user')[0];
 const cartBtn=document.getElementsByClassName('icon-cart')[0];
