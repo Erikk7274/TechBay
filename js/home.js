@@ -37,7 +37,7 @@ function renderProducts(products) {
         console.log(product);
         html += `
         <div class="product-card">
-            <img src='/uploads/${product.product_pic}' alt="${product.product_name}" class="product-img" />
+            <img src='/api/uploads/${product.product_pic}' alt="${product.product_name}" class="product-img" />
             <div class="product-info">
                 <h3 class="product-name">${product.product_name}</h3>
                 <p class="product-price">${product.price} Ft</p>
