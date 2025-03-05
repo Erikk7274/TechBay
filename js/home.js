@@ -16,19 +16,38 @@ async function getProducts() {
             credentials: 'include'
         });
         console.log(response);
-        const result = await response.json();
-        console.log(result);
-        if (result.error) {
-            console.error(result.error);
+        const products = await response.json();
+        console.log(products);
+        if (products.error) {
+            console.error(products.error);
             return;
         }
 
-        console.log(`Lekért termékek (${category}):`, result);
+        console.log(`Lekért termékek:`, products);
 
-        renderCategory(category, result);
+        //renderCategory(category, result);
+        renderProducts(products);
     } catch (error) {
         console.error('Hiba a termékek lekérésekor:', error);
     }
+}
+
+
+function renderProducts(products) {
+    let html = `<h2>${category}</h2><div class="products">`;
+    products.forEach(product => {
+        html += `
+        <div class="product">
+            <img src="${product.image_url}" alt="${product.name}" />
+            <h3>${product.name}</h3>
+            <p>${product.price}</p>
+        </div>
+    `;
+    });
+
+    html += '</div>';
+
+    categoryContainer.innerHTML = html;
 }
 /*
 // Kategória renderelése
