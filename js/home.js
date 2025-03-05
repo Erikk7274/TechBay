@@ -49,6 +49,18 @@ function renderProducts(products) {
 
     row.innerHTML = html;
 }
+btnPreBuilt.addEventListener('click', () => {
+    getProducts('getProducts_preBuilt');
+});
+
+btnHardware.addEventListener('click', () => {
+    getProducts('getProducts_hardware');
+});
+
+btnLogout.addEventListener('click', () => {
+    localStorage.removeItem('token');
+    window.location.reload();
+});
 /*
 // Kategória renderelése
 function renderCategory(category, products) {
