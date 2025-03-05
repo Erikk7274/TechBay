@@ -2,8 +2,10 @@ window.addEventListener('DOMContentLoaded', getProducts);
 
 // Gombok lekérése
 const btnPreBuilt = document.querySelector('.btnPreBuilt');
-const btnHardware = document.querySelector('.btnHardware');
-const btnLogout = document.querySelector('.btnLogout');
+const homeBtn=document.getElementsByClassName('icon-home')[0];
+const userBtn=document.getElementsByClassName('icon-user')[0];
+const cartBtn=document.getElementsByClassName('icon-cart')[0];
+const btnLogout = document.getElementsByClassName('icon-logout')[0];
 
 // Kategóriák elemeinek lekérése
 const row = document.getElementById('row');
@@ -49,25 +51,16 @@ function renderProducts(products) {
 
     row.innerHTML = html;
 }
-btnPreBuilt.addEventListener('click', () => {
-    getProducts('getProducts_preBuilt');
-});
+btnLogout.addEventListener('click', logout);
 
-btnHardware.addEventListener('click', () => {
-    getProducts('getProducts_hardware');
-});
+homeBtn.addEventListener('click',()=>{
+    window.location.href='https://techbay2.netlify.app/home.html';
+})
 
-btnLogout.addEventListener('click', () => {
-    localStorage.removeItem('token');
-    window.location.reload();
-});
-    // Gombok események
-    btnPreBuilt.addEventListener('click', () => {
-        window.location.href='https://techbay2.netlify.app/preBuilt.html';
-    });
+userBtn.addEventListener('click',()=>{
+    window.location.href='https://techbay2.netlify.app/profile.html';
+})
 
-    btnLogout.addEventListener('click', () => {
-        localStorage.removeItem('token');
-        window.location.reload();
-    });
-
+cartBtn.addEventListener('click',()=>{
+    window.location.href='https://techbay2.netlify.app/cart.html';
+})
