@@ -53,18 +53,20 @@ function renderCategories(products) {
     row.innerHTML = '';
 
     categories.forEach(category => {
-        const categoryDiv = document.createElement('div');
-        categoryDiv.classList.add('category-section', 'mb-5');
-        categoryDiv.innerHTML = `<h3 class="text-center">${category.toUpperCase()}</h3>`;
-        row.append(categoryDiv);
-
         const filteredProducts = products.filter(p => p.category && p.category.toLowerCase() === category);
 
-        filteredProducts.forEach(product => {
-            const card = createCard(product);
-            categoryDiv.append(card);
-            createModal(product);
-        });
+        if (filteredProducts.length > 0) {
+            const categoryDiv = document.createElement('div');
+            categoryDiv.classList.add('category-section', 'mb-5');
+            categoryDiv.innerHTML = `<h3 class="text-center">${category.toUpperCase()}</h3>`;
+            row.append(categoryDiv);
+
+            filteredProducts.forEach(product => {
+                const card = createCard(product);
+                categoryDiv.append(card);
+                createModal(product);
+            });
+        }
     });
 }
 
