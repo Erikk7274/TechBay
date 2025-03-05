@@ -1,111 +1,95 @@
-const selectedParts = {};
+// Token lekérése a localStorage-ból
+const token = localStorage.getItem('token');
 
-const getProducts = async () => {
-    const categories = ['cpus', 'motherboards', 'houses', 'gpus', 'rams', 'powersupplys', 'hdds', 'ssds', 'cpucoolers'];
-    
-    for (const category of categories) {
-        const response = await fetch(`https://nodejs312.dszcbaross.edu.hu/api/getProducts/getProducts_${category}`, {
+// Gombok lekérése
+const btnPreBuilt = document.querySelector('.btnPreBuilt');
+const btnHardware = document.querySelector('.btnHardware');
+const btnLogout = document.querySelector('.btnLogout');
+
+// Kategóriák elemeinek lekérése
+const categoryContainer = document.querySelector('.categories-container');
+
+// Termékek lekérése
+async function getProducts(category) {
+    if (!token) {
+        console.error("Nincsen tokened!");
+        return;
+    }
+
+    try {
+        const response = await fetch(`https://nodejs312.dszcbaross.edu.hu/api/getProducts/${category}`, {
             method: 'GET',
-            headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+            headers: { 
+                'Authorization': `Bearer ${token}`
+            }
         });
 
-        const data = await response.json();
-        
-        console.log(`Lekért termékek (${category}):`, data);
+        const result = await response.json();
 
-        if (data.length === 0) {
-            console.log(`Nincs termék a(z) ${category} kategóriában.`);
-        } else {
-            renderCategory(category, data);
+        if (result.error) {
+            console.error(result.error);
+            return;
         }
-    }
-};
 
-const renderCategory = (category, products) => {
-    const categoryContainer = document.getElementById(`category-${category}`);
-    
-    if (categoryContainer) {
-        categoryContainer.innerHTML = '';
-        
-        products.forEach(product => {
-            const productDiv = document.createElement('div');
-            productDiv.classList.add('product');
-            productDiv.innerHTML = `
-                <h3>${product.product_name}</h3>
-                <p>Price: ${product.price}</p>
-                <p>In Stock: ${product.in_stock}</p>
-                <button class="select-part" data-category="${category}" data-id="${product.product_id}">Select</button>
-            `;
-            categoryContainer.appendChild(productDiv);
-        });
-        
-        setUpButtonListeners();
-    } else {
+        console.log(`Lekért termékek (${category}):`, result);
+
+        renderCategory(category, result);
+    } catch (error) {
+        console.error('Hiba a termékek lekérésekor:', error);
+    }
+}
+
+// Kategória renderelése
+function renderCategory(category, products) {
+    if (!categoryContainer) {
         console.error(`Category container for ${category} not found!`);
+        return;
     }
-};
 
-const setUpButtonListeners = () => {
-    // Kiválasztott alkatrészek
-    const btnPreBuilt = document.querySelector('.btnPreBuilt');
-    const btnHardware = document.querySelector('.btnHardware');
-    const btnLogout = document.querySelector('.btnLogout');
-    
-    // PreBuilt konfiguráció gomb
-    if (btnPreBuilt) {
-        btnPreBuilt.addEventListener('click', () => {
-            console.log('Pre-built configuration clicked');
-            // Pre-built konfiguráció logika itt
-        });
-    }
-    
-    // Hardver alkatrész gomb
-    if (btnHardware) {
-        btnHardware.addEventListener('click', () => {
-            console.log('Hardware configuration clicked');
-            // Hardver alkatrész konfigurálás logika itt
-        });
-    }
-    
-    // Kilépés gomb
-    if (btnLogout) {
-        btnLogout.addEventListener('click', () => {
-            localStorage.removeItem('token');
-            window.location.href = '/login'; // Visszairányítás a bejelentkezéshez
-            console.log('Logged out');
-        });
-    }
-};
+    let html = `<h2>${category}</h2><div class="products">`;
 
-const selectPart = (category, productId) => {
-    console.log(`Kiválasztott alkatrész: ${category}, ${productId}`);
-    
-    // További logika a kiválasztott alkatrészek kezelésére
-    selectedParts[category] = productId;
-    renderSummary();
-};
+    products.forEach(product => {
+        html += `
+            <div class="product">
+                <img src="${product.image_url}" alt="${product.name}" />
+                <h3>${product.name}</h3>
+                <p>${product.price}</p>
+            </div>
+        `;
+    });
 
-const renderSummary = () => {
-    const summaryContainer = document.getElementById('summary');
-    
-    if (summaryContainer) {
-        summaryContainer.innerHTML = '<h3>Selected Parts</h3>';
-        
-        for (const category in selectedParts) {
-            const productId = selectedParts[category];
-            const partSummary = document.createElement('div');
-            partSummary.innerHTML = `<p>${category}: Product ID ${productId}</p>`;
-            summaryContainer.appendChild(partSummary);
-        }
-    } else {
-        console.error('Summary container not found!');
-    }
-};
+    html += '</div>';
 
-// Inicializálás
-const initialize = () => {
-    getProducts();  // Termékek betöltése
-    setUpButtonListeners();  // Gombok eseménykezelői
-};
+    categoryContainer.innerHTML = html;
+}
 
+// Kategóriák inicializálása
+function initialize() {
+    // Gombok események
+    btnPreBuilt.addEventListener('click', () => {
+        getProducts('getProducts_preBuilt');
+    });
+
+    btnHardware.addEventListener('click', () => {
+        getProducts('getProducts_hardware');
+    });
+
+    btnLogout.addEventListener('click', () => {
+        localStorage.removeItem('token');
+        window.location.reload();
+    });
+
+    // Kategóriák betöltése
+    getProducts('getProducts_cpus');
+    getProducts('getProducts_motherboards');
+    getProducts('getProducts_houses');
+    getProducts('getProducts_gpus');
+    getProducts('getProducts_rams');
+    getProducts('getProducts_powersupplys');
+    getProducts('getProducts_hdds');
+    getProducts('getProducts_ssds');
+    getProducts('getProducts_cpucoolers');
+}
+
+// Inicializálás meghívása
 initialize();
