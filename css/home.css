@@ -43,11 +43,13 @@ header {
     color: #ffffff;
 }
 
+/* --- Keresőmenü --- */
 .keresomenu {
     background-color: #ffffff;
     height: 40px;
     width: 250px;
     margin-left: 40px;
+    border: 1px solid black;
     border-radius: 20px;
     display: flex;
     align-items: center;
@@ -61,12 +63,12 @@ header {
 .keresomenu input {
     background-color: inherit;
     margin-left: 10px;
+    max-width: 200px;
     color: rgb(0, 0, 0);
-    border-color: white;
     border: none;
     outline: none;
     flex-grow: 1;
-    width: calc(100% - 100px);
+    width: 100%;
 }
 
 /* --- Navigációs ikonok --- */
@@ -130,7 +132,7 @@ nav a i {
     display: none;
 }
 
-.menu-toggle:checked ~ nav {
+.menu-toggle:checked~nav {
     display: flex;
 }
 
@@ -158,9 +160,10 @@ nav a i {
 
     .keresomenu input {
         font-size: 1rem;
-        width: 90%; 
+        width: 90%;
     }
 
+    /* Navigációs menü módosítása */
     nav {
         display: none;
         flex-direction: column;
@@ -187,7 +190,7 @@ nav a i {
         order: 2;
     }
 
-    .menu-toggle:checked ~ nav {
+    .menu-toggle:checked~nav {
         width: 100%;
         top: 100px;
         left: -0.5px;
@@ -196,17 +199,8 @@ nav a i {
         border: 3px solid black;
     }
 
-    /* --- Kártyák a kisebb képernyőkön --- */
-    .card-container {
-        flex-wrap: wrap;
-        gap: 16px;
-        justify-content: space-around;
-    }
-
     .card {
         flex: 1 1 calc(50% - 16px);
-        max-width: 300px;
-        min-width: 200px;
     }
 }
 
@@ -236,12 +230,6 @@ nav a i {
         width: 100%;
         padding: 8px;
         font-size: 1.2rem;
-    }
-
-    .card {
-        flex: 1 1 calc(100% - 16px); 
-        max-width: 100%;
-        min-width: 100%;
     }
 }
 
@@ -343,18 +331,26 @@ nav a i {
 
 .form-section .btn-save:hover {
     background-color: #2a8543;
-    color: rgb(255, 255, 255);
 }
 
 .imgpfp {
     border: 2px solid black;
 }
 
+/* --- Konténer stílusok --- */
+.card-container {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 20px;
+    justify-content: flex-start;
+    overflow-x: auto;
+}
+
 #row {
     display: flex;
     flex-wrap: wrap;
     gap: 16px;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .card {
@@ -367,10 +363,9 @@ nav a i {
     overflow: hidden;
     background-color: #fff;
     color: black;
-    text-align: center;
 }
 
-/* --- Kártya tartalom stílusok --- */
+/* --- További kártya tartalom stílusok --- */
 .card-header {
     padding-top: 5px;
     font-size: 1.2em;
@@ -403,7 +398,6 @@ nav a i {
     justify-content: space-between;
     margin: 5px 0;
 }
-
 .footer-row span {
     padding-left: 10px;
 }
