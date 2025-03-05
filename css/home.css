@@ -40,7 +40,11 @@ header {
     font-weight: 600;
     text-transform: uppercase;
     white-space: nowrap;
-    color: #ffffff;
+}
+
+.menu-logo a, .logo a {
+    color: white;
+    text-decoration: none;
 }
 
 /* --- Keresőmenü --- */
@@ -65,10 +69,11 @@ header {
     margin-left: 10px;
     max-width: 200px;
     color: rgb(0, 0, 0);
+    border-color: white;
     border: none;
     outline: none;
     flex-grow: 1;
-    width: 100%;
+    width: calc(100% - 100px);
 }
 
 /* --- Navigációs ikonok --- */
@@ -163,7 +168,6 @@ nav a i {
         width: 90%;
     }
 
-    /* Navigációs menü módosítása */
     nav {
         display: none;
         flex-direction: column;
@@ -231,10 +235,6 @@ nav a i {
         padding: 8px;
         font-size: 1.2rem;
     }
-}
-
-.menu-logo a, .logo a {
-    color: black;
 }
 
 /* --- Hozzáadás gomb --- */
@@ -331,18 +331,20 @@ nav a i {
 
 .form-section .btn-save:hover {
     background-color: #2a8543;
+    color: rgb(255, 255, 255);
 }
 
 .imgpfp {
     border: 2px solid black;
 }
 
-/* --- Konténer stílusok --- */
+/* --- Kártya és tartalom stílusok --- */
 .card-container {
     display: flex;
     flex-wrap: nowrap;
     gap: 20px;
     justify-content: flex-start;
+    flex-direction: row;
     overflow-x: auto;
 }
 
@@ -363,9 +365,9 @@ nav a i {
     overflow: hidden;
     background-color: #fff;
     color: black;
+    text-align: center;
 }
 
-/* --- További kártya tartalom stílusok --- */
 .card-header {
     padding-top: 5px;
     font-size: 1.2em;
@@ -398,6 +400,7 @@ nav a i {
     justify-content: space-between;
     margin: 5px 0;
 }
+
 .footer-row span {
     padding-left: 10px;
 }
