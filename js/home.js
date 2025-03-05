@@ -31,17 +31,19 @@ async function getProducts() {
 
 function renderProducts(products) {
     console.log(products);
-    let html = `<h2>Our Products</h2><div class="products">`;
+    let html = `<h2>Our Products</h2><div class="row">`;
 
     products.forEach(product => {
         console.log(product);
         html += `
-        <div class="product-card">
-            <img src='/uploads/${product.product_pic}' alt="${product.product_name}" class="product-img" />
-            <div class="product-info">
-                <h3 class="product-name">${product.product_name}</h3>
-                <p class="product-price">${product.price} Ft</p>
-                <button class="btn-add-to-cart">Add to Cart</button>
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <img src='/uploads/${product.product_pic}' alt="${product.product_name}" class="card-img-top" />
+                <div class="card-body">
+                    <h5 class="card-title">${product.product_name}</h5>
+                    <p class="card-text">${product.price} Ft</p>
+                    <button class="btn btn-primary btn-add-to-cart">Add to Cart</button>
+                </div>
             </div>
         </div>
     `;
