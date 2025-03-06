@@ -35,14 +35,14 @@ function renderProducts(products) {
 
     products.forEach(product => {
         html += `
-        <div class="col-md-4 mb-4">
-            <div class="card h-100 shadow-sm">
-                <img src='/api/uploads/${product.product_pic}' class="card-img-top" alt="${product.product_name}">
-                <div class="card-body">
-                    <h5 class="card-title">${product.product_name}</h5>
-                    <p class="card-text">${product.price} Ft</p>
-                    <button class="btn btn-primary btn-add-to-cart">Add to Cart</button>
-                </div>
+        <div class="card">
+            <div class="pic-div">
+                <img src='/api/uploads/${product.product_pic}' alt="${product.product_name}">
+            </div>
+            <div class="card-header">${product.product_name}</div>
+            <div class="card-body">
+                <p>${product.price} Ft</p>
+                <button class="btn btn-primary btn-add-to-cart">Add to Cart</button>
             </div>
         </div>
         `;
