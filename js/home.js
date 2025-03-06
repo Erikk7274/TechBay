@@ -65,7 +65,7 @@ async function logout() {
         alert(data.message);
         window.location.href = 'https://techbay2.netlify.app/index.html';
     } else {
-        alert('Hiba a kijelentkezéskor');
+        alert('Hiba a kijelentkezéskor!');
     }
 }
 
