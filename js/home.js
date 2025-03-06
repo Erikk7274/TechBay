@@ -36,8 +36,8 @@ function renderProducts(products) {
     products.forEach(product => {
         html += `
         <div class="card">
-            <div class="pic-div">
-                <img src='/api/uploads/${product.product_pic}' alt="${product.product_name}">
+            <div class="pic-div" style="display: flex; justify-content: center; align-items: center; height: 200px;">
+                <img src='/api/uploads/${product.product_pic}' alt="${product.product_name}" style="max-height: 100%; object-fit: contain;">
             </div>
             <div class="card-header">${product.product_name}</div>
             <div class="card-body">
@@ -65,7 +65,7 @@ async function logout() {
         alert(data.message);
         window.location.href = 'https://techbay2.netlify.app/index.html';
     } else {
-        alert('Hiba a kijelentkezéskor!');
+        alert('Hiba a kijelentkezéskor');
     }
 }
 
