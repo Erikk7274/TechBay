@@ -43,7 +43,7 @@ function createCard(product) {
     cardDiv.innerHTML = `
         <div class="card-header text-center fw-bold">${product.product_name}</div>
         <div class="card-body text-center">
-            <img src="/api/uploads/${product.product_pic}" class="img-fluid mb-3" alt="${product.product_name}" style="max-height: 180px; object-fit: contain;"> <!-- Increased max-height -->
+            <img src="/api/uploads/${product.product_pic}" class="img-fluid mb-3" alt="${product.product_name}" style="max-height: 230px; object-fit: contain;"> <!-- Increased max-height -->
         </div>
         <div class="card-footer text-center">
             <span class="d-block mb-2">Ár: ${product.price ? product.price + ' Ft' : 'N/A'}</span>
