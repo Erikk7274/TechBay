@@ -17,7 +17,10 @@ async function getProducts() {
             method: 'GET',
             credentials: 'include'
         });
+        console.log(response);
         const products = await response.json();
+        console.log(products);
+
         renderProducts(products);
     } catch (error) {
         console.error('Hiba a termékek lekérésekor:', error);
@@ -25,82 +28,78 @@ async function getProducts() {
 }
 
 function renderProducts(products) {
-    row.innerHTML = '';  // Clear any existing content
+    console.log(products);
+    let html = '';
+
     products.forEach(product => {
-        const cardDiv = createCard(product);
-        row.append(cardDiv);
-        createModal(product);
-    });
-}
-
-function createCard(product) {
-    const cardDiv = document.createElement('div');
-    cardDiv.classList.add('card', 'm-2', 'p-2', 'shadow-sm');
-    cardDiv.style.width = '18rem'; // Card width
-    cardDiv.style.height = 'auto'; // Auto height
-    cardDiv.style.minHeight = '20rem'; // Minimum height
-
-    cardDiv.innerHTML = `
-        <div class="card-header text-center fw-bold">${product.product_name}</div>
-        <div class="card-body text-center">
-            <img src="/api/uploads/${product.product_pic}" class="img-fluid mb-3" alt="${product.product_name}" style="max-height: 180px; object-fit: contain;"> <!-- Increased max-height -->
+        html += `
+        <div class="card">
+            <div class="pic-div">
+                <img src='/api/uploads/${product.product_pic}' alt="${product.product_name}">
+            </div>
+            <div class="card-header">${product.product_name}</div>
+            <div class="card-body">
+                <p>${product.price} Ft</p>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-primary btn-add-to-cart" data-product-id="${product.product_id}" data-bs-toggle="modal" data-bs-target="#modal-${product.product_id}">Add to Cart</button>
+            </div>
         </div>
-        <div class="card-footer text-center">
-            <span class="d-block mb-2">Ár: ${product.price ? product.price + ' Ft' : 'N/A'}</span>
-            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-${product.product_id}">Részletek</button>
-        </div>
-    `;
 
-    return cardDiv;
-}
-
-function createModal(product) {
-    const modalDiv = document.createElement('div');
-    modalDiv.classList.add('modal', 'fade');
-    modalDiv.id = `modal-${product.product_id}`;
-    modalDiv.setAttribute('tabindex', '-1');
-    modalDiv.setAttribute('aria-labelledby', `modalLabel-${product.product_id}`);
-    modalDiv.setAttribute('aria-hidden', 'true');
-
-    modalDiv.innerHTML = `
-        <div class="modal-dialog modal-lg" style="max-width:500px">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalLabel-${product.product_id}">${product.product_name}</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body text-center">
-                    <img src="/api/uploads/${product.product_pic}" alt="${product.product_name}" class="img-fluid mb-3" style="max-height: 400px; object-fit: contain;"> <!-- Increased modal image size -->
-                    <p><strong>Ár:</strong> ${product.price ? product.price + ' Ft' : 'N/A'}</p>
-                    <p><strong>Raktáron:</strong> ${product.in_stock}</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary add-to-cart-btn" data-product-id="${product.product_id}" data-bs-dismiss="modal">Kosárba</button>
+        <!-- Modal -->
+        <div class="modal fade" id="modal-${product.product_id}" tabindex="-1" aria-labelledby="modalLabel-${product.product_id}" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalLabel-${product.product_id}">${product.product_name}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <img src="/api/uploads/${product.product_pic}" alt="${product.product_name}" class="img-fluid mb-3">
+                        <p><strong>Raktáron:</strong> ${product.in_stock}</p>
+                        <p><strong>Ár:</strong> ${product.price ? `${product.price} Ft` : 'N/A'}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary add-to-cart-btn" data-product-id="${product.product_id}" data-bs-dismiss="modal">Add to Cart</button>
+                    </div>
                 </div>
             </div>
         </div>
-    `;
+        `;
+    });
 
-    document.body.appendChild(modalDiv);
+    row.innerHTML = html;
 
-    modalDiv.querySelector('.add-to-cart-btn').addEventListener('click', () => addToCart(product.product_id));
+    // Attach event listeners for adding products to cart
+    const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const productId = button.getAttribute('data-product-id');
+            addToCart(productId);
+        });
+    });
 }
-
 
 async function addToCart(productId) {
     try {
+        // Send a POST request to add the product to the cart
         const response = await fetch('/api/cart/takeProduct', {
             method: 'POST',
-            headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({ productId }),
-            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ productId }), // Send productId as the body
+            credentials: 'include' // Ensure credentials are sent for user authentication
         });
 
         const result = await response.json();
+
         if (response.ok) {
             console.log('Termék hozzáadva:', result);
+            alert('Product added to cart!');
         } else {
             console.error('Hiba:', result);
+            alert('Error adding to cart');
         }
     } catch (error) {
         console.error('Hiba a kosárba helyezéskor:', error);
