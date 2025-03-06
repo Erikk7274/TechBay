@@ -304,9 +304,7 @@ nav a i {
         right: calc((100vh - 1800px) / 2 + 20px);
     }
 }
-.btnPreBuilt{
-    width: 500px;
-}
+
 .btn {
     display: block;
     width: 100%;
