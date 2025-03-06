@@ -36,7 +36,7 @@ function renderProducts(products) {
 function createCard(product) {
     const cardDiv = document.createElement('div');
     cardDiv.classList.add('card', 'm-3', 'p-2', 'shadow-sm');
-    cardDiv.style.width = '15rem'; // Card width
+    cardDiv.style.width = '18rem'; // Card width
     cardDiv.style.height = 'auto'; // Auto height
     cardDiv.style.minHeight = '20rem'; // Minimum height
 
