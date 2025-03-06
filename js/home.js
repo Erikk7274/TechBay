@@ -17,12 +17,7 @@ async function getProducts() {
             method: 'GET',
             credentials: 'include'
         });
-        console.log(response);
         const products = await response.json();
-        console.log(products);
-
-        console.log(`Lekért termékek:`, products);
-
         renderProducts(products);
     } catch (error) {
         console.error('Hiba a termékek lekérésekor:', error);
@@ -30,27 +25,83 @@ async function getProducts() {
 }
 
 function renderProducts(products) {
-    console.log(products);
-    let html = '';
-
+    row.innerHTML = '';  // Clear any existing content
     products.forEach(product => {
-        html += `
-        <div class="card">
-            <div class="pic-div">
-                <img src='/api/uploads/${product.product_pic}' alt="${product.product_name}">
-            </div>
-            <div class="card-header">${product.product_name}</div>
-            <div class="card-body">
-                <p>${product.price} Ft</p>
-            </div>
-            <div class="card-footer">
-                <button class="btn btn-primary btn-add-to-cart">Add to Cart</button>
+        const cardDiv = createCard(product);
+        row.append(cardDiv);
+        createModal(product);
+    });
+}
+
+function createCard(product) {
+    const cardDiv = document.createElement('div');
+    cardDiv.classList.add('card', 'm-3', 'p-2', 'shadow-sm');
+    cardDiv.style.width = '18rem'; // You can adjust the width if needed
+
+    cardDiv.innerHTML = `
+        <div class="card-header text-center fw-bold">${product.product_name}</div>
+        <div class="card-body text-center">
+            <img src="/api/uploads/${product.product_pic}" class="img-fluid mb-3" alt="${product.product_name}">
+        </div>
+        <div class="card-footer text-center">
+            <span class="d-block mb-2">Ár: ${product.price ? product.price + ' Ft' : 'N/A'}</span>
+            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-${product.product_id}">Részletek</button>
+        </div>
+    `;
+
+    return cardDiv;
+}
+
+function createModal(product) {
+    const modalDiv = document.createElement('div');
+    modalDiv.classList.add('modal', 'fade');
+    modalDiv.id = `modal-${product.product_id}`;
+    modalDiv.setAttribute('tabindex', '-1');
+    modalDiv.setAttribute('aria-labelledby', `modalLabel-${product.product_id}`);
+    modalDiv.setAttribute('aria-hidden', 'true');
+
+    modalDiv.innerHTML = `
+        <div class="modal-dialog modal-lg" style="max-width:500px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel-${product.product_id}">${product.product_name}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img src="/api/uploads/${product.product_pic}" alt="${product.product_name}" class="img-fluid mb-3">
+                    <p><strong>Ár:</strong> ${product.price ? product.price + ' Ft' : 'N/A'}</p>
+                    <p><strong>Raktáron:</strong> ${product.in_stock}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary add-to-cart-btn" data-product-id="${product.product_id}" data-bs-dismiss="modal">Kosárba</button>
+                </div>
             </div>
         </div>
-        `;
-    });
+    `;
 
-    row.innerHTML = html;
+    document.body.appendChild(modalDiv);
+
+    modalDiv.querySelector('.add-to-cart-btn').addEventListener('click', () => addToCart(product.product_id));
+}
+
+async function addToCart(productId) {
+    try {
+        const response = await fetch('/api/cart/takeProduct', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ productId }),
+            credentials: 'include',
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+            console.log('Termék hozzáadva:', result);
+        } else {
+            console.error('Hiba:', result);
+        }
+    } catch (error) {
+        console.error('Hiba a kosárba helyezéskor:', error);
+    }
 }
 
 btnLogout.addEventListener('click', logout);
