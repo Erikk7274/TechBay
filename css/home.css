@@ -112,7 +112,6 @@ nav a i {
     background-color: #3a2d5d;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-
 }
 
 /* --- Hamburger Menü Stílusok --- */
@@ -207,6 +206,7 @@ nav a i {
         display: flex;
         border: 3px solid black;
     }
+
     .card {
         flex: 1 1 calc(50% - 16px); 
     }
@@ -348,30 +348,24 @@ nav a i {
     border: 2px solid black;
 }
 
-
-
-
-/* --- Konténer stílusok --- */
+/* --- Kártyák és képek --- */
 .card-container {
     display: flex;
-    flex-wrap: nowrap; 
-    gap: 20px;
-    justify-content: flex-start;
-    flex-direction: row;
-    overflow-x: auto; 
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
 }
 
 #row {
     display: flex;
     flex-wrap: wrap; 
     gap: 16px; 
-    justify-content: space-around; 
+    justify-content: space-around;
 }
 
 .card {
-    flex: 1 1 calc(25% - 16px); 
-    max-width: 300px; 
-    min-width: 200px; 
+    width: 250px; /* Set fixed width */
+    height: 350px; /* Set fixed height */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
     border: 1px solid #1f1d1d; 
     border-radius: 8px; 
@@ -379,16 +373,30 @@ nav a i {
     background-color: #fff;
     color: black;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
+.pic-div {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
+.pic-div img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensure the image fills the container */
+    border-radius: 3%;
+}
 
-/* --- További kártya tartalom stílusok --- */
 .card-header {
-    padding-top: 5px;
     font-size: 1.2em;
     font-weight: bold;
     margin-bottom: 10px;
+    padding-top: 5px;
 }
 
 .card-body {
@@ -398,28 +406,7 @@ nav a i {
     padding: 10px;
 }
 
-.pic-div img {
-    border: 1px solid rgb(13, 13, 13);
-    border-radius: 3%;
-    max-width: 100%;
-    height: auto;
-}
-
 .card-footer {
     margin-top: 10px;
     font-weight: 600;
-}
-
-.footer-row {
-    padding-top: 5px;
-    display: flex;
-    justify-content: space-between;
-    margin: 5px 0;
-}
-.footer-row span{
-    padding-left: 10px;
-}
-
-.card-footer span {
-    font-size: 1rem;
 }
