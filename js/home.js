@@ -35,15 +35,15 @@ function renderProducts(products) {
 
     products.forEach(product => {
         html += `
-        <div class="card" style="width: 300px; height: 400px; display: flex; flex-direction: column; justify-content: space-between; align-items: center;">
-            <div class="pic-div" style="display: flex; justify-content: center; align-items: center; width: 100%; height: 200px;">
-                <img src='/api/uploads/${product.product_pic}' alt="${product.product_name}" style="max-width: 100%; max-height: 100%; object-fit: contain;">
+        <div class="card">
+            <div class="pic-div">
+                <img src='/api/uploads/${product.product_pic}' alt="${product.product_name}">
             </div>
             <div class="card-header">${product.product_name}</div>
-            <div class="card-body" style="text-align: center; width: 100%;">
+            <div class="card-body">
                 <p>${product.price} Ft</p>
             </div>
-            <div style="width: 100%; display: flex; justify-content: center; padding-bottom: 10px;">
+            <div class="card-footer">
                 <button class="btn btn-primary btn-add-to-cart">Add to Cart</button>
             </div>
         </div>
