@@ -26,6 +26,9 @@ async function getusername() {
         const editPic = document.querySelector('.profile_pic');
         editPic.style.backgroundImage = `url('/api/uploads/${username[0].profile_pic}')`;
     }
+    else {
+        editPic.src = './img/logo.png';
+    }
 }
 
 function profileData(users)
