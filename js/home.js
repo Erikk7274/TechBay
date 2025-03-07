@@ -75,7 +75,7 @@ function createModal(product) {
                     <p><strong>Raktáron:</strong> ${product.in_stock}</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary add-to-cart-btn" data-product-id="${product.product_id}" data-bs-dismiss="modal">Kosárba</button>
+                    <button type="button" class="btn btn-primary add-to-cart-btn" data-product-id="${product.product_id}" data-bs-dismiss="modal">Hozzáadás</button>
                 </div>
             </div>
         </div>
