@@ -360,11 +360,12 @@ nav a i {
 }
 
 .profile_pic {
-    width: 100%; /* Makes it responsive */
-    max-width: 150px; /* Prevents it from being too large */
-    height: 150px; /* Fixed height */
-    border-radius: 5%; /* Slight rounding */
+    width: 100%; 
+    max-width: 150px;
+    height: 150px; 
+    border-radius: 5%; 
     object-fit: cover;
+    border: 1px solid black;
     
 }
 
