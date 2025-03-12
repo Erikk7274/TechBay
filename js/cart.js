@@ -70,7 +70,7 @@ function setUpRemoveButtons() {
 // Remove an item from the cart
 async function removeItemFromCart(productId) {
     try {
-        const response = await fetch(`/api/cart/removeItem/${productId}`, {
+        const response = await fetch(`/api/cart/removeProduct/${productId}`, {
             method: 'DELETE',
             credentials: 'include'
         });
