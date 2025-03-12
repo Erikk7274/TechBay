@@ -361,8 +361,8 @@ nav a i {
 
 .profile_pic {
     width: 100%; 
-    max-width: 150px; 
-    height: auto; 
+    width: 150px; 
+    max-height: auto; 
     max-height: 150px; 
     border-radius: 5%; 
     object-fit: cover; 
