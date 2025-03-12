@@ -364,7 +364,6 @@ nav a i {
     min-height: 150px; 
     border-radius: 5%;
     object-fit: cover; 
-    display: block;
-    margin: auto;
+    
 }
 
