@@ -117,3 +117,34 @@ confirmOrderBtn.addEventListener('click', async () => {
 function setUpButtonListeners() {
     btnBack?.addEventListener('click', () => window.location.href = 'https://techbay2.netlify.app/home.html');
 }
+async function loadCart() {
+    try {
+        const response = await fetch('/api/cart/getCart', {
+            method: 'GET',
+            credentials: 'include'
+        });
+
+        console.log('API Response:', response); // Log response status
+        if (!response.ok) throw new Error('Hiba a kosár lekérésekor');
+
+        const cart = await response.json();
+        console.log('Cart Data:', cart); // Log cart data
+
+        if (cart.length === 0) {
+            cartItemsContainer.innerHTML = '<p class="text-center">A kosár üres</p>';
+        } else {
+            cartItemsContainer.innerHTML = cart.map(item => `
+                <div class="card mb-3" data-id="${item.product_id}">
+                    <div class="card-body">
+                        <h5 class="card-title">${item.product_name}</h5>
+                        <p class="card-text">Ár: ${item.price.toLocaleString()} Ft</p>
+                        <p class="card-text">Mennyiség: ${item.quantity}</p>
+                        <button class="btn btn-danger btn-sm remove-item">Eltávolítás</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+    } catch (error) {
+        console.error('Hiba a kosár betöltésekor:', error);
+    }
+}
