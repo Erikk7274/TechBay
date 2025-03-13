@@ -1,91 +1,81 @@
-window.addEventListener('DOMContentLoaded', () => {
-    // Check if the token exists before trying to load user data
-    if (checkToken()) {
-        console.log('Token found, attempting to load user data...');
-        loadUserData();  // Proceed with loading user data
-    } else {
-        console.log('No token found, skipping data load...');
-        // Optional: Redirect to login or show a message
-        window.location.href = 'https://techbay2.netlify.app/login.html'; // Redirect to login if no token
-    }
-});
+window.addEventListener('DOMContentLoaded',getusername );
 
-// Function to check if the token exists
-function checkToken() {
-    // Retrieve token from localStorage or sessionStorage
-    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
-    console.log('Token:', token); // Debug: log token to check if it exists
-    return token && token !== '';  // Return true if token exists
-}
+const saveBtn=document.getElementById('saveBtn');
+saveBtn.addEventListener('click', editData);
+const homeBtn=document.getElementsByClassName('icon-home')[0];
+const userBtn=document.getElementsByClassName('icon-user')[0];
+const cartBtn=document.getElementsByClassName('icon-cart')[0];
+   
 
-async function loadUserData() {
-    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
-    
-    console.log('Token being sent in the request:', token); // Debug: Log token being used in the request
+const btnpHistory = document.getElementsByClassName('btnpHistory')[0];
+const btnEditPfp = document.getElementsByClassName('btnEditPfp')[0];
+const btnLogout = document.getElementsByClassName('icon-logout')[0];
+const btnSupport = document.getElementsByClassName('btnSupport')[0];
+const btnBack = document.getElementsByClassName('btnBack')[0];
 
-    // Only proceed with fetching user data if there's a valid token
+async function getusername() {
     const res = await fetch('/api/profile/Myusername', {
         method: 'GET',
-        credentials: 'include',
-        headers: {
-            'Authorization': `Bearer ${token}` // Include token in request header
-        }
+        credentials: 'include'
     });
-
-    if (!res.ok) {
-        console.error('Error fetching user data:', res.statusText);
-        alert('Error: Unable to fetch user data');
-        return;
-    }
-
     const username = await res.json();
-    console.log('User data received:', username);
-
-    if (username[0].profile_pic) {
-        document.querySelector('.profile_pic').src = `/api/uploads/${username[0].profile_pic}`;
+    console.log(username);
+    profileData(username);
+    
+    if (res.ok && username[0].profile_pic) {
+        const editPic = document.querySelector('.profile_pic');
+        editPic.src = `/api/uploads/${username[0].profile_pic}`; 
     } else {
         document.querySelector('.profile_pic').src = './img/logo.png';
     }
-
-    updateProfileData(username);
+    
+    
 }
 
-// Update the profile data displayed
-function updateProfileData(users) {
+function profileData(users)
+{
+    //const alapkep = './img/logo.png'; // Relatív elérési út
     const username = document.getElementById('username');
     const fullname = document.getElementById('fullname');    
     const postcode = document.getElementById('postal-code');
     const city = document.getElementById('city');
     const street = document.getElementById('street');
 
-    username.innerHTML = '';
-    fullname.value = '';
-    postcode.value = '';
-    city.value = '';
-    street.value = '';
+// Alapértékek tisztázása
+username.innerHTML = '';
+fullname.value = '';
+postcode.value = '';
+city.value = '';
+street.value = '';
 
-    users.forEach(user => {
-        username.textContent = user.fullname;
-        fullname.value = user.fullname;
-        postcode.value = user.postcode;
-        city.value = user.city;
-        street.value = user.street;  
-    });
+for (const user of users) {
+    username.textContent = user.fullname;
+    fullname.value = user.fullname;
+    postcode.value = user.postcode;
+    city.value = user.city;
+    street.value = user.street;  
 }
+
+
+
+}
+
+
+
 
 btnLogout.addEventListener('click', logout);
 
-homeBtn.addEventListener('click', () => {
-    window.location.href = 'https://techbay2.netlify.app/home.html';
-});
+homeBtn.addEventListener('click',()=>{
+    window.location.href='https://techbay2.netlify.app/home.html';
+})
 
-userBtn.addEventListener('click', () => {
-    window.location.href = 'https://techbay2.netlify.app/profile.html';
-});
+userBtn.addEventListener('click',()=>{
+    window.location.href='https://techbay2.netlify.app/profile.html';
+})
 
-cartBtn.addEventListener('click', () => {
-    window.location.href = 'https://techbay2.netlify.app/cart.html';
-});
+cartBtn.addEventListener('click',()=>{
+    window.location.href='https://techbay2.netlify.app/cart.html';
+})
 
 if (btnpHistory) {
     btnpHistory.addEventListener('click', () => {
@@ -105,13 +95,20 @@ if (btnEditPfp) {
     });
 }
 
+
+
 if (btnSupport) {
     btnSupport.addEventListener('click', () => {
         window.location.href = 'https://techbay2.netlify.app/support.html';
     });
 }
 
-// Logout Function
+
+// function toggleSearch() {
+//     const searchMenu = document.getElementById('keresomenu');
+//     searchMenu.classList.toggle('active');
+// }
+
 async function logout() {
     const res = await fetch('/api/auth/logout', {
         method: 'POST',
@@ -121,27 +118,68 @@ async function logout() {
     if (res.ok) {
         localStorage.removeItem('token');
         sessionStorage.removeItem('token');
-        alert('Successfully logged out');
-        window.location.href = '../index.html'; // Redirect to home or login page after logout
+
+        alert('Sikeres kijelentkezés');
+        window.location.href = '../index.html';
     } else {
-        alert('Error during logout');
+        alert('Hiba a kijelentkezéskor');
     }
 }
 
-// Function to reset profile fields after editing
-function resetInputs() {
-    document.getElementById('postal-code').value = '';
-    document.getElementById('city').value = '';
-    document.getElementById('street').value = '';
-    document.getElementById('fullname').value = '';
+async function editData(){
+    const postcode=document.getElementById('postal-code').value;
+    const city=document.getElementById('city').value;
+    const street=document.getElementById('street').value;
+    const fullname=document.getElementById('fullname').value;
+    console.log(postcode,fullname,city,street);
+    if(!postcode ||!city||!street||!fullname){
+        alert("Minden mezőt ki kell tölteni")
+    }
+    else{
+        const res=await fetch('/api/profile/editData',{
+        method:'PUT',
+        headers:{
+            'content-type':'application/json'
+        },
+        body:JSON.stringify({postcode,city,street,fullname}),
+        credentials:'include'
+    });
+    const data = await res.json();
+    console.log(data);
+
+    if (res.ok) {
+        resetInputs();
+        alert(data.message);
+        window.location.href = 'https://techbay2.netlify.app/profile.html';
+    } else if (data.errors) {
+        let errorMessage = '';
+        for (let i = 0; i < data.errors.length; i++) {
+            errorMessage += `${data.errors[i].error}\n`
+        }
+        alert(errorMessage);
+    } else if (data.error) {
+        alert(data.error);
+    } else {
+        alert('Ismeretlen hiba');
+    }
+    }
+    
 }
 
-window.addEventListener('click', (event) => {
+window.addEventListener('click', function (event) {
     const menuToggle = document.getElementById('menu-toggle');
     const menu = document.querySelector('nav');
     const hamburgerButton = document.querySelector('.hamburger-menu');
+
 
     if (!hamburgerButton.contains(event.target) && !menu.contains(event.target) && !menuToggle.contains(event.target)) {
         menuToggle.checked = false; 
     }
 });
+
+function resetInputs(){
+    document.getElementById('postal-code').value = '';
+    document.getElementById('city').value = '';
+    document.getElementById('street').value = '';
+    document.getElementById('fullname').value = '';
+}
