@@ -1,6 +1,6 @@
 window.addEventListener('DOMContentLoaded', () => {
     if (checkToken()) {
-        console.log('Token found, loading user data...');
+        console.log('Token found, attempting to load user data...');
         loadUserData();
     } else {
         console.log('No token found, redirecting to login...');
@@ -10,22 +10,27 @@ window.addEventListener('DOMContentLoaded', () => {
 
 function checkToken() {
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
-    console.log('Token in storage:', token); // Debug: check token value
+    console.log('Token in storage:', token); // Log token value for debugging
     return token && token !== '';
 }
 
 async function loadUserData() {
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
     
+    // Log the token before making the request
+    console.log('Token being sent in request:', token);
+
     const res = await fetch('/api/profile/Myusername', {
         method: 'GET',
         credentials: 'include',
         headers: {
-            'Authorization': `Bearer ${token}` // Ensure the token is sent with the request
+            'Authorization': `Bearer ${token}` // Include token in the request
         }
     });
 
-    console.log('API response:', res); // Debug: check response object
+    // Log response status and other details for debugging
+    console.log('API response status:', res.status);
+    console.log('API response:', await res.text());  // Get the raw response text for debugging
 
     if (!res.ok) {
         console.error('Error fetching user data:', res.statusText);
@@ -34,9 +39,9 @@ async function loadUserData() {
     }
 
     const username = await res.json();
-    console.log('User data:', username);
+    console.log('User data received:', username); // Log the received user data
     updateProfileData(username);
-    
+
     if (username[0].profile_pic) {
         document.querySelector('.profile_pic').src = `/api/uploads/${username[0].profile_pic}`; 
     } else {
