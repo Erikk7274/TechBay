@@ -5,6 +5,16 @@ function saveBtn() {
 const btnEdit = document.querySelector('.btnEdit');
 const btnBack = document.querySelector('.btnBack');
 
+window.addEventListener('DOMContentLoaded', () => {
+    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+    
+    if (!token) {
+        window.location.href = '../login.html';
+    } else {
+        getMemes();
+    }
+});
+
 
 const btnLogout = document.querySelector('.icon-logout');
 btnLogout.addEventListener('click', logout);
