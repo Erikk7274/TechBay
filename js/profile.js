@@ -1,4 +1,12 @@
-window.addEventListener('DOMContentLoaded', getusername);
+window.addEventListener('DOMContentLoaded', () => {
+    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+    
+    if (!token) {
+        window.location.href = '../login.html';
+    } else {
+        getusername();
+    }
+});
 
 const saveBtn = document.getElementById('saveBtn');
 saveBtn.addEventListener('click', editData);
@@ -14,25 +22,19 @@ const btnSupport = document.getElementsByClassName('btnSupport')[0];
 const btnBack = document.getElementsByClassName('btnBack')[0];
 
 async function getusername() {
-    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+    const res = await fetch('/api/profile/Myusername', {
+        method: 'GET',
+        credentials: 'include'
+    });
+    const username = await res.json();
+    console.log(username);
+    profileData(username);
     
-    if (!token) {
-        window.location.href = '../login.html';
+    if (res.ok && username[0].profile_pic) {
+        const editPic = document.querySelector('.profile_pic');
+        editPic.src = `/api/uploads/${username[0].profile_pic}`;
     } else {
-        const res = await fetch('/api/profile/Myusername', {
-            method: 'GET',
-            credentials: 'include'
-        });
-        const username = await res.json();
-        console.log(username);
-        profileData(username);
-        
-        if (res.ok && username[0].profile_pic) {
-            const editPic = document.querySelector('.profile_pic');
-            editPic.src = `/api/uploads/${username[0].profile_pic}`;
-        } else {
-            document.querySelector('.profile_pic').src = './img/logo.png';
-        }
+        document.querySelector('.profile_pic').src = './img/logo.png';
     }
 }
 
