@@ -26,11 +26,17 @@ async function getusername() {
         method: 'GET',
         credentials: 'include'
     });
+
+    if (!res.ok) {
+        window.location.href = '../login.html'; // Redirect to login if the fetch fails
+        return;
+    }
+
     const username = await res.json();
     console.log(username);
     profileData(username);
     
-    if (res.ok && username[0].profile_pic) {
+    if (username[0] && username[0].profile_pic) {
         const editPic = document.querySelector('.profile_pic');
         editPic.src = `/api/uploads/${username[0].profile_pic}`;
     } else {
@@ -51,7 +57,8 @@ function profileData(users) {
     city.value = '';
     street.value = '';
 
-    for (const user of users) {
+    if (users.length > 0) {
+        const user = users[0]; // Assuming first user is the logged-in user
         username.textContent = user.fullname;
         fullname.value = user.fullname;
         postcode.value = user.postcode;
@@ -122,7 +129,9 @@ async function editData() {
     const city = document.getElementById('city').value;
     const street = document.getElementById('street').value;
     const fullname = document.getElementById('fullname').value;
+
     console.log(postcode, fullname, city, street);
+
     if (!postcode || !city || !street || !fullname) {
         alert("Minden mezőt ki kell tölteni");
     } else {
@@ -134,6 +143,7 @@ async function editData() {
             body: JSON.stringify({ postcode, city, street, fullname }),
             credentials: 'include'
         });
+
         const data = await res.json();
         console.log(data);
 
