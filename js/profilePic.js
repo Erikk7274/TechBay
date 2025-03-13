@@ -5,16 +5,6 @@ function saveBtn() {
 const btnEdit = document.querySelector('.btnEdit');
 const btnBack = document.querySelector('.btnBack');
 
-window.addEventListener('DOMContentLoaded', () => {
-    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
-    
-    if (!token) {
-        window.location.href = '../login.html';
-    } else {
-        getMemes();
-    }
-});
-
 
 const btnLogout = document.querySelector('.icon-logout');
 btnLogout.addEventListener('click', logout);
@@ -27,14 +17,13 @@ async function logout() {
     if (res.ok) {
         localStorage.removeItem('token');
         sessionStorage.removeItem('token');
-        
+
         alert('Sikeres kijelentkezés');
-        window.location.href = '../login.html'; 
+        window.location.href = '../index.html';
     } else {
         alert('Hiba a kijelentkezéskor');
     }
 }
-
 //
 
 btnBack.addEventListener('click', () => {
