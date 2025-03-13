@@ -1,58 +1,43 @@
 window.addEventListener('DOMContentLoaded', async () => {
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
     
-    console.log("Token from storage: ", token);  // Debugging line
+    console.log("Token from storage: ", token);  // Check token in storage
 
     if (!token) {
         console.log("No token found, redirecting to login...");  // Debugging line
         window.location.href = '../login.html';  // Redirect if no token
     } else {
-        await getusername();  // If token exists, proceed to fetch user info
+        await getusername(token);  // Pass token to get username
     }
 });
 
-const saveBtn = document.getElementById('saveBtn');
-saveBtn.addEventListener('click', editData);
-
-const homeBtn = document.getElementsByClassName('icon-home')[0];
-const userBtn = document.getElementsByClassName('icon-user')[0];
-const cartBtn = document.getElementsByClassName('icon-cart')[0];
-
-const btnpHistory = document.getElementsByClassName('btnpHistory')[0];
-const btnEditPfp = document.getElementsByClassName('btnEditPfp')[0];
-const btnLogout = document.getElementsByClassName('icon-logout')[0];
-const btnSupport = document.getElementsByClassName('btnSupport')[0];
-const btnBack = document.getElementsByClassName('btnBack')[0];
-
-async function getusername() {
-    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
-    
-    console.log("Token in getusername function: ", token);  // Debugging line
+async function getusername(token) {
+    console.log("Token in getusername function: ", token);  // Check if token is passed correctly
 
     if (!token) {
-        console.log("No token found in getusername, redirecting to login...");  // Debugging line
-        window.location.href = '../login.html';  // Redirect if no token
+        console.log("No token found in getusername, redirecting to login...");
+        window.location.href = '../login.html';
         return;
     }
 
     const res = await fetch('/api/profile/Myusername', {
         method: 'GET',
         headers: {
-            'Authorization': `Bearer ${token}`  // Send token in request header
+            'Authorization': `Bearer ${token}`  // Send token in request header for authentication
         },
         credentials: 'include'
     });
 
-    console.log("Response from Myusername API:", res.status);  // Debugging line
+    console.log("Response status from Myusername API:", res.status);  // Log the response status
 
     if (!res.ok) {
-        console.log("API request failed, redirecting to login...");  // Debugging line
+        console.log("API request failed, redirecting to login...");  // Log if the API request failed
         window.location.href = '../login.html';  // Redirect if API call fails
         return;
     }
 
     const username = await res.json();
-    console.log("User Data: ", username);  // Debugging line
+    console.log("User data received: ", username);  // Log user data received from the API
 
     profileData(username);
 
@@ -86,6 +71,19 @@ function profileData(users) {
         street.value = user.street;
     }
 }
+
+const saveBtn = document.getElementById('saveBtn');
+saveBtn.addEventListener('click', editData);
+
+const homeBtn = document.getElementsByClassName('icon-home')[0];
+const userBtn = document.getElementsByClassName('icon-user')[0];
+const cartBtn = document.getElementsByClassName('icon-cart')[0];
+
+const btnpHistory = document.getElementsByClassName('btnpHistory')[0];
+const btnEditPfp = document.getElementsByClassName('btnEditPfp')[0];
+const btnLogout = document.getElementsByClassName('icon-logout')[0];
+const btnSupport = document.getElementsByClassName('btnSupport')[0];
+const btnBack = document.getElementsByClassName('btnBack')[0];
 
 btnLogout.addEventListener('click', logout);
 
@@ -124,8 +122,6 @@ if (btnSupport) {
         window.location.href = 'https://techbay2.netlify.app/support.html';
     });
 }
-
-btnLogout.addEventListener('click', logout);
 
 async function logout() {
     const res = await fetch('/api/auth/logout', {
