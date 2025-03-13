@@ -110,13 +110,12 @@ async function addToCart(productId) {
 btnLogout.addEventListener('click', logout);
 
 async function logout() {
-    const res = await fetch('http://127.0.0.1:3000/api/auth/logout', {
+    const res = await fetch('/api/auth/logout', {
         method: 'POST',
         credentials: 'include'
     });
 
     if (res.ok) {
-        // Remove token from local storage/session storage (if used)
         localStorage.removeItem('token');
         sessionStorage.removeItem('token');
 
