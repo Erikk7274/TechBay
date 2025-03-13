@@ -13,6 +13,30 @@ window.addEventListener('DOMContentLoaded', () => {
             profileInfo.style.display = 'none'; // Hide profile information if not logged in
         }
     }
+
+    // Attach event listener to the logout button
+    const btnLogout = document.getElementsByClassName('icon-logout')[0];
+    if (btnLogout) {
+        btnLogout.addEventListener('click', async () => {
+            // Send logout request to the API
+            const res = await fetch('/api/auth/logout', {
+                method: 'POST',
+                credentials: 'include'
+            });
+
+            if (res.ok) {
+                // Clear token from localStorage and sessionStorage
+                localStorage.removeItem('token');
+                sessionStorage.removeItem('token');
+
+                // Show logout success message and redirect to home page
+                alert('Sikeres kijelentkezés');
+                window.location.href = '../index.html'; // Redirect to the home page
+            } else {
+                alert('Hiba a kijelentkezéskor');
+            }
+        });
+    }
 });
 
 const saveBtn = document.getElementById('saveBtn');
@@ -23,7 +47,6 @@ const userBtn = document.getElementsByClassName('icon-user')[0];
 const cartBtn = document.getElementsByClassName('icon-cart')[0];
 const btnpHistory = document.getElementsByClassName('btnpHistory')[0];
 const btnEditPfp = document.getElementsByClassName('btnEditPfp')[0];
-const btnLogout = document.getElementsByClassName('icon-logout')[0];
 const btnSupport = document.getElementsByClassName('btnSupport')[0];
 const btnBack = document.getElementsByClassName('btnBack')[0];
 
@@ -63,23 +86,6 @@ if (btnSupport) {
         window.location.href = 'https://techbay2.netlify.app/support.html';
     });
 };
-
-// Logout function
-async function logout() {
-    const res = await fetch('/api/auth/logout', {
-        method: 'POST',
-        credentials: 'include'
-    });
-
-    if (res.ok) {
-        localStorage.removeItem('token');
-        sessionStorage.removeItem('token');
-        alert('Sikeres kijelentkezés');
-        window.location.href = '../index.html';
-    } else {
-        alert('Hiba a kijelentkezéskor');
-    }
-}
 
 // Fetch and display user profile data
 async function getusername() {
