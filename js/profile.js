@@ -1,29 +1,40 @@
 window.addEventListener('DOMContentLoaded', () => {
     if (checkToken()) {
+        console.log('Token found, loading user data...');
         loadUserData();
     } else {
+        console.log('No token found, redirecting to login...');
         window.location.href = 'https://techbay2.netlify.app/login.html';
     }
 });
 
 function checkToken() {
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+    console.log('Token in storage:', token); // Debug: check token value
     return token && token !== '';
 }
 
 async function loadUserData() {
+    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+    
     const res = await fetch('/api/profile/Myusername', {
         method: 'GET',
-        credentials: 'include'
+        credentials: 'include',
+        headers: {
+            'Authorization': `Bearer ${token}` // Ensure the token is sent with the request
+        }
     });
 
+    console.log('API response:', res); // Debug: check response object
+
     if (!res.ok) {
+        console.error('Error fetching user data:', res.statusText);
         alert('Error: Unable to fetch user data');
         return;
     }
 
     const username = await res.json();
-    console.log(username);
+    console.log('User data:', username);
     updateProfileData(username);
     
     if (username[0].profile_pic) {
