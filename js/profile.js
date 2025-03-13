@@ -1,38 +1,36 @@
 window.addEventListener('DOMContentLoaded', () => {
+    // Check if the token exists before trying to load user data
     if (checkToken()) {
         console.log('Token found, attempting to load user data...');
-        loadUserData();
+        loadUserData();  // Proceed with loading user data
     } else {
-        console.log('No token found, redirecting to login...');
-        window.location.href = 'https://techbay2.netlify.app/login.html';
+        console.log('No token found, skipping data load...');
+        // Optional: Redirect to login or show a message
+        window.location.href = 'https://techbay2.netlify.app/login.html'; // Redirect to login if no token
     }
 });
 
+// Function to check if the token exists
 function checkToken() {
-    // Check if the token exists in localStorage or sessionStorage
+    // Retrieve token from localStorage or sessionStorage
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
-    console.log('Token from localStorage/sessionStorage:', token); // Debug: Check token storage
-    return token && token !== '';
+    console.log('Token:', token); // Debug: log token to check if it exists
+    return token && token !== '';  // Return true if token exists
 }
 
 async function loadUserData() {
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
     
-    console.log('Token being sent in the request:', token); // Debug: Log the token being sent
+    console.log('Token being sent in the request:', token); // Debug: Log token being used in the request
 
+    // Only proceed with fetching user data if there's a valid token
     const res = await fetch('/api/profile/Myusername', {
         method: 'GET',
         credentials: 'include',
         headers: {
-            'Authorization': `Bearer ${token}` // Ensure token is sent in Authorization header
+            'Authorization': `Bearer ${token}` // Include token in request header
         }
     });
-
-    // Log the response details
-    console.log('API response status:', res.status);
-    console.log('Response headers:', res.headers);  // Log response headers for debugging
-    const responseText = await res.text();
-    console.log('Response text:', responseText); // Log the raw response text for debugging
 
     if (!res.ok) {
         console.error('Error fetching user data:', res.statusText);
@@ -41,7 +39,7 @@ async function loadUserData() {
     }
 
     const username = await res.json();
-    console.log('User data received:', username); // Log received user data
+    console.log('User data received:', username);
 
     if (username[0].profile_pic) {
         document.querySelector('.profile_pic').src = `/api/uploads/${username[0].profile_pic}`;
@@ -52,6 +50,7 @@ async function loadUserData() {
     updateProfileData(username);
 }
 
+// Update the profile data displayed
 function updateProfileData(users) {
     const username = document.getElementById('username');
     const fullname = document.getElementById('fullname');    
@@ -112,6 +111,7 @@ if (btnSupport) {
     });
 }
 
+// Logout Function
 async function logout() {
     const res = await fetch('/api/auth/logout', {
         method: 'POST',
@@ -122,40 +122,13 @@ async function logout() {
         localStorage.removeItem('token');
         sessionStorage.removeItem('token');
         alert('Successfully logged out');
-        window.location.href = '../index.html';
+        window.location.href = '../index.html'; // Redirect to home or login page after logout
     } else {
         alert('Error during logout');
     }
 }
 
-async function editData() {
-    const postcode = document.getElementById('postal-code').value;
-    const city = document.getElementById('city').value;
-    const street = document.getElementById('street').value;
-    const fullname = document.getElementById('fullname').value;
-
-    if (!postcode || !city || !street || !fullname) {
-        alert("All fields are required");
-    } else {
-        const res = await fetch('/api/profile/editData', {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ postcode, city, street, fullname }),
-            credentials: 'include'
-        });
-
-        const data = await res.json();
-
-        if (res.ok) {
-            resetInputs();
-            alert(data.message);
-            window.location.href = 'https://techbay2.netlify.app/profile.html';
-        } else {
-            alert(data.errors ? data.errors.map(error => error.error).join('\n') : data.error || 'Unknown error');
-        }
-    }
-}
-
+// Function to reset profile fields after editing
 function resetInputs() {
     document.getElementById('postal-code').value = '';
     document.getElementById('city').value = '';
