@@ -45,6 +45,8 @@ async function login() {
             alert("Ismeretlen hiba történt.");
             return;
         }
+        console.log("Admin státusz:", data.admin, typeof data.admin);
+
 
         if (res.ok) {
             resetInputs();
