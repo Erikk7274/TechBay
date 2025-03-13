@@ -110,20 +110,23 @@ async function addToCart(productId) {
 btnLogout.addEventListener('click', logout);
 
 async function logout() {
-    const res = await fetch('/api/auth/logout', {
+    const res = await fetch('http://127.0.0.1:3000/api/auth/logout', {
         method: 'POST',
         credentials: 'include'
     });
 
-    const data = await res.json();
-
     if (res.ok) {
-        alert(data.message);
-        window.location.href = 'https://techbay2.netlify.app/index.html';
+        // Remove token from local storage/session storage (if used)
+        localStorage.removeItem('token');
+        sessionStorage.removeItem('token');
+
+        alert('Sikeres kijelentkezés');
+        window.location.href = '../index.html';
     } else {
         alert('Hiba a kijelentkezéskor');
     }
 }
+
 
 homeBtn.addEventListener('click', () => {
     window.location.href = 'https://techbay2.netlify.app/home.html';
