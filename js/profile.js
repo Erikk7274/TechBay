@@ -1,11 +1,17 @@
 window.addEventListener('DOMContentLoaded', () => {
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+    
     if (token) {
         getusername(); // Fetch username and profile data if token exists
     } else {
-        // Hide profile-related content if no token
+        // If no token is found, set the profile picture to the default and hide the profile section
         document.querySelector('.profile_pic').src = './img/logo.png';
-        document.querySelector('.profile-info').style.display = 'none'; // Optional: Hide profile info
+
+        // Check if the profile-info exists before hiding it (you can adjust this class)
+        const profileInfo = document.querySelector('.profile-info');
+        if (profileInfo) {
+            profileInfo.style.display = 'none'; // Hide profile information if not logged in
+        }
     }
 });
 
@@ -21,7 +27,7 @@ const btnLogout = document.getElementsByClassName('icon-logout')[0];
 const btnSupport = document.getElementsByClassName('btnSupport')[0];
 const btnBack = document.getElementsByClassName('btnBack')[0];
 
-// Event listeners for buttons
+// Event listeners for navigation buttons
 homeBtn.addEventListener('click', () => {
     window.location.href = 'https://techbay2.netlify.app/home.html';
 });
