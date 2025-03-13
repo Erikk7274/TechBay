@@ -9,28 +9,30 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 function checkToken() {
+    // Check if the token exists in localStorage or sessionStorage
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
-    console.log('Token in storage:', token); // Log token value for debugging
+    console.log('Token from localStorage/sessionStorage:', token); // Debug: Check token storage
     return token && token !== '';
 }
 
 async function loadUserData() {
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
     
-    // Log the token before making the request
-    console.log('Token being sent in request:', token);
+    console.log('Token being sent in the request:', token); // Debug: Log the token being sent
 
     const res = await fetch('/api/profile/Myusername', {
         method: 'GET',
         credentials: 'include',
         headers: {
-            'Authorization': `Bearer ${token}` // Include token in the request
+            'Authorization': `Bearer ${token}` // Ensure token is sent in Authorization header
         }
     });
 
-    // Log response status and other details for debugging
+    // Log the response details
     console.log('API response status:', res.status);
-    console.log('API response:', await res.text());  // Get the raw response text for debugging
+    console.log('Response headers:', res.headers);  // Log response headers for debugging
+    const responseText = await res.text();
+    console.log('Response text:', responseText); // Log the raw response text for debugging
 
     if (!res.ok) {
         console.error('Error fetching user data:', res.statusText);
@@ -39,14 +41,15 @@ async function loadUserData() {
     }
 
     const username = await res.json();
-    console.log('User data received:', username); // Log the received user data
-    updateProfileData(username);
+    console.log('User data received:', username); // Log received user data
 
     if (username[0].profile_pic) {
-        document.querySelector('.profile_pic').src = `/api/uploads/${username[0].profile_pic}`; 
+        document.querySelector('.profile_pic').src = `/api/uploads/${username[0].profile_pic}`;
     } else {
         document.querySelector('.profile_pic').src = './img/logo.png';
     }
+
+    updateProfileData(username);
 }
 
 function updateProfileData(users) {
