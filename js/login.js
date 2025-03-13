@@ -52,7 +52,7 @@ async function login() {
                 alert("Sikeres bejelentkezés!");
                 window.location.href = 'https://techbay2.netlify.app/home.html'; 
             }
-            
+
         } else if (data.errors) {
             let errorMessage = '';
             data.errors.forEach(err => {
