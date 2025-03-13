@@ -1,12 +1,13 @@
 window.addEventListener('DOMContentLoaded', async () => {
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
     
+    console.log("Token from storage: ", token);  // Debugging line
+
     if (!token) {
-        // If no token is found, redirect to the login page
-        window.location.href = '../login.html';
+        console.log("No token found, redirecting to login...");  // Debugging line
+        window.location.href = '../login.html';  // Redirect if no token
     } else {
-        // If token exists, try to get the username
-        await getusername();
+        await getusername();  // If token exists, proceed to fetch user info
     }
 });
 
@@ -25,26 +26,34 @@ const btnBack = document.getElementsByClassName('btnBack')[0];
 
 async function getusername() {
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+    
+    console.log("Token in getusername function: ", token);  // Debugging line
 
     if (!token) {
-        window.location.href = '../login.html';  // Redirect if token is not found
+        console.log("No token found in getusername, redirecting to login...");  // Debugging line
+        window.location.href = '../login.html';  // Redirect if no token
         return;
     }
 
     const res = await fetch('/api/profile/Myusername', {
         method: 'GET',
         headers: {
-            'Authorization': `Bearer ${token}`  // Ensure you send the token in the request header
+            'Authorization': `Bearer ${token}`  // Send token in request header
         },
         credentials: 'include'
     });
 
+    console.log("Response from Myusername API:", res.status);  // Debugging line
+
     if (!res.ok) {
+        console.log("API request failed, redirecting to login...");  // Debugging line
         window.location.href = '../login.html';  // Redirect if API call fails
         return;
     }
 
     const username = await res.json();
+    console.log("User Data: ", username);  // Debugging line
+
     profileData(username);
 
     if (username[0] && username[0].profile_pic) {
