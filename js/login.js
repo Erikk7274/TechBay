@@ -29,40 +29,38 @@ async function login() {
         const res = await fetch('/api/auth/login', {
             method: 'POST',
             headers: {
-                'content-type': 'application/json'
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({ email, password }),
-            credentials: 'include' ,
+            credentials: 'include',
         });
 
-        const data = await res.json();
+        const resText = await res.text();
+        console.log("Szerver válasza:", resText);
+
+        let data;
+        try {
+            data = JSON.parse(resText);
+        } catch (e) {
+            console.error("Nem sikerült JSON-ná alakítani a választ:", e);
+            alert("Ismeretlen hiba történt.");
+            return;
+        }
+
+        console.log("Admin státusz:", data.admin, "Típus:", typeof data.admin);
 
         if (res.ok) {
             resetInputs();
 
-            
-
-            if (data.admin === 1) {
+            if (parseInt(data.admin) === 1) { // Biztosítjuk, hogy számként ellenőrizzük
                 alert("Sikeres bejelentkezés! Admin jogokkal.");
-                console.log(data.admin);
-                console.log("ADMIN VAGY");
                 window.location.href = 'https://techbay2.netlify.app/homeAdmin.html';
             } else {
-                console.log(data.admin);
                 alert("Sikeres bejelentkezés!");
-                window.location.href = 'https://techbay2.netlify.app/home.html'; 
+                window.location.href = 'https://techbay2.netlify.app/home.html';
             }
-
-        } else if (data.errors) {
-            let errorMessage = '';
-            data.errors.forEach(err => {
-                errorMessage += `${err.error}\n`;
-            });
-            alert(errorMessage);
-        } else if (data.error) {
-            alert(data.error);
         } else {
-            alert('Ismeretlen hiba történt.');
+            handleErrors(data);
         }
     } catch (error) {
         console.error("Hiba történt a kérés során:", error);
@@ -73,4 +71,15 @@ async function login() {
 function resetInputs() {
     document.getElementById('emailInput').value = '';
     document.getElementById('passwordInput').value = '';
+}
+
+function handleErrors(data) {
+    if (data.errors) {
+        let errorMessage = data.errors.map(err => err.error).join('\n');
+        alert(errorMessage);
+    } else if (data.error) {
+        alert(data.error);
+    } else {
+        alert('Ismeretlen hiba történt.');
+    }
 }
