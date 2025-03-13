@@ -17,13 +17,14 @@ async function logout() {
     if (res.ok) {
         localStorage.removeItem('token');
         sessionStorage.removeItem('token');
-
+        
         alert('Sikeres kijelentkezés');
-        window.location.href = '../index.html';
+        window.location.href = '../login.html'; 
     } else {
         alert('Hiba a kijelentkezéskor');
     }
 }
+
 //
 
 btnBack.addEventListener('click', () => {

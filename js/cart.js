@@ -13,7 +13,7 @@ async function init() {
     await loadCart();
     setUpButtonListeners();
 }
-
+btnLogout.addEventListener('click', logout);
 async function logout() {
     const res = await fetch('/api/auth/logout', {
         method: 'POST',

@@ -108,7 +108,7 @@ if (btnSupport) {
 //     const searchMenu = document.getElementById('keresomenu');
 //     searchMenu.classList.toggle('active');
 // }
-
+btnLogout.addEventListener('click', logout);
 async function logout() {
     const res = await fetch('/api/auth/logout', {
         method: 'POST',

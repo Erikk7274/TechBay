@@ -13,7 +13,7 @@ window.addEventListener('DOMContentLoaded', async () => {
         console.error('Inicializálás sikertelen:', error);
     }
 });
-
+btnLogout.addEventListener('click', logout);
 async function logout() {
     const res = await fetch('/api/auth/logout', {
         method: 'POST',
