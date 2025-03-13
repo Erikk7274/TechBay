@@ -14,13 +14,12 @@ async function logout() {
         credentials: 'include'
     });
 
-
-
-    const data = await res.json();
-
     if (res.ok) {
-        alert(data.message);
-        window.location.href = 'https://techbay2.netlify.app/index.html';
+        localStorage.removeItem('token');
+        sessionStorage.removeItem('token');
+
+        alert('Sikeres kijelentkezés');
+        window.location.href = '../index.html';
     } else {
         alert('Hiba a kijelentkezéskor');
     }

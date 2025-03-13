@@ -14,6 +14,23 @@ async function init() {
     setUpButtonListeners();
 }
 
+async function logout() {
+    const res = await fetch('/api/auth/logout', {
+        method: 'POST',
+        credentials: 'include'
+    });
+
+    if (res.ok) {
+        localStorage.removeItem('token');
+        sessionStorage.removeItem('token');
+
+        alert('Sikeres kijelentkezés');
+        window.location.href = '../index.html';
+    } else {
+        alert('Hiba a kijelentkezéskor');
+    }
+}
+
 // Load cart data and render items
 async function loadCart() {
     try {

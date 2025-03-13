@@ -4,6 +4,24 @@ const btnLogout = document.querySelector('.btnLogout');
 const btnBack = document.querySelector('.btnBack');
 const row = document.getElementById('row');
 
+async function logout() {
+    const res = await fetch('/api/auth/logout', {
+        method: 'POST',
+        credentials: 'include'
+    });
+
+    if (res.ok) {
+        localStorage.removeItem('token');
+        sessionStorage.removeItem('token');
+
+        alert('Sikeres kijelentkezés');
+        window.location.href = '../index.html';
+    } else {
+        alert('Hiba a kijelentkezéskor');
+    }
+}
+
+
 window.addEventListener('DOMContentLoaded', async () => {
     try {
         const products = await getProducts();
