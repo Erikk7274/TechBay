@@ -1,10 +1,12 @@
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('DOMContentLoaded', async () => {
     const token = localStorage.getItem('token') || sessionStorage.getItem('token');
     
     if (!token) {
+        // If no token is found, redirect to the login page
         window.location.href = '../login.html';
     } else {
-        getusername();
+        // If token exists, try to get the username
+        await getusername();
     }
 });
 
@@ -22,20 +24,29 @@ const btnSupport = document.getElementsByClassName('btnSupport')[0];
 const btnBack = document.getElementsByClassName('btnBack')[0];
 
 async function getusername() {
+    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+
+    if (!token) {
+        window.location.href = '../login.html';  // Redirect if token is not found
+        return;
+    }
+
     const res = await fetch('/api/profile/Myusername', {
         method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`  // Ensure you send the token in the request header
+        },
         credentials: 'include'
     });
 
     if (!res.ok) {
-        window.location.href = '../login.html'; // Redirect to login if the fetch fails
+        window.location.href = '../login.html';  // Redirect if API call fails
         return;
     }
 
     const username = await res.json();
-    console.log(username);
     profileData(username);
-    
+
     if (username[0] && username[0].profile_pic) {
         const editPic = document.querySelector('.profile_pic');
         editPic.src = `/api/uploads/${username[0].profile_pic}`;
@@ -58,7 +69,7 @@ function profileData(users) {
     street.value = '';
 
     if (users.length > 0) {
-        const user = users[0]; // Assuming first user is the logged-in user
+        const user = users[0];
         username.textContent = user.fullname;
         fullname.value = user.fullname;
         postcode.value = user.postcode;
@@ -130,8 +141,6 @@ async function editData() {
     const street = document.getElementById('street').value;
     const fullname = document.getElementById('fullname').value;
 
-    console.log(postcode, fullname, city, street);
-
     if (!postcode || !city || !street || !fullname) {
         alert("Minden mezőt ki kell tölteni");
     } else {
@@ -145,7 +154,6 @@ async function editData() {
         });
 
         const data = await res.json();
-        console.log(data);
 
         if (res.ok) {
             resetInputs();
