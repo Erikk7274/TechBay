@@ -3,7 +3,6 @@ const btnHardware = document.querySelector('.btnHardware');
 const btnLogout = document.querySelector('.btnLogout');
 const btnBack = document.querySelector('.btnBack');
 const row = document.getElementById('row');
-btnLogout.addEventListener('click', logout);
 async function logout() {
     const res = await fetch('/api/auth/logout', {
         method: 'POST',
