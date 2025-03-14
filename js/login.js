@@ -68,6 +68,6 @@ function handleErrors(data) {
     } else if (data.error) {
         alert(data.error);
     } else {
-        alert('Ismeretlen hiba történt.');
+        alert('Hiba történt.');
     }
 }
