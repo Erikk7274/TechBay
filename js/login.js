@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (btnLogin) {
         btnLogin.addEventListener('click', login); 
     } else {
-        console.error("Nem található a 'btnLogin' azonosítójú gomb.");
+        console.error("Nem található a 'btnLogin' gomb.");
     }
 });
 
