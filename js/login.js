@@ -13,7 +13,7 @@ async function login() {
     const passwordInput = document.getElementById('passwordInput');
 
     if (!emailInput || !passwordInput) {
-        console.error("Az 'emailInput' vagy 'passwordInput' mező nem található.");
+        console.error("Az 'emailInput' vagy 'passwordInput' nem található.");
         return;
     }
 
@@ -34,18 +34,6 @@ async function login() {
             body: JSON.stringify({ email, password }),
             credentials: 'include',
         });
-
-        const resText = await res.text();
-        console.log("Szerver válasza:", resText);
-
-        let data;
-        try {
-            data = JSON.parse(resText);
-        } catch (e) {
-            alert("Ismeretlen hiba történt.");
-            return;
-        }
-        console.log("Admin státusz:", data.admin, typeof data.admin);
 
 
         if (res.ok) {
