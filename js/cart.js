@@ -34,7 +34,7 @@ async function logout() {
 async function loadCart() {
     try {
         console.log('Loading cart...');
-        const response = await fetch('/api/cart/getCart', {
+        const response = await fetch('/api/cart/myCart', {
             method: 'GET',
             credentials: 'include'
         });
@@ -106,7 +106,7 @@ async function removeItemFromCart(productId) {
 // Handle the order button click
 orderBtn.addEventListener('click', async () => {
     try {
-        const response = await fetch('/api/cart/getCart', {
+        const response = await fetch('/api/cart/myCart', {
             method: 'GET',
             credentials: 'include'
         });
@@ -143,26 +143,26 @@ function renderOrderModal(cart) {
 }
 
 // Handle order confirmation
-confirmOrderBtn.addEventListener('click', async () => {
-    try {
-        const response = await fetch('/api/cart/order', {
-            method: 'POST',
-            credentials: 'include'
-        });
+// confirmOrderBtn.addEventListener('click', async () => {
+//     try {
+//         const response = await fetch('/api/cart/order', {
+//             method: 'POST',
+//             credentials: 'include'
+//         });
 
-        const result = await response.json();
-        if (!response.ok) {
-            throw new Error(result.message || 'Failed to place order');
-        }
+//         const result = await response.json();
+//         if (!response.ok) {
+//             throw new Error(result.message || 'Failed to place order');
+//         }
 
-        alert('Sikeres rendelés!');
-        cartItemsContainer.innerHTML = '<p class="text-center">A kosár üres</p>';
-        orderModal.hide();
-    } catch (error) {
-        console.error('Error placing order:', error);
-        alert('Hiba a rendelés leadásakor.');
-    }
-});
+//         alert('Sikeres rendelés!');
+//         cartItemsContainer.innerHTML = '<p class="text-center">A kosár üres</p>';
+//         orderModal.hide();
+//     } catch (error) {
+//         console.error('Error placing order:', error);
+//         alert('Hiba a rendelés leadásakor.');
+//     }
+// });
 
 // Set up back button listener
 function setUpButtonListeners() {
