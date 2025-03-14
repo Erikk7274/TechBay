@@ -3,8 +3,15 @@ const btnBack = document.querySelector('.btnBack');
 const orderBtn = document.getElementById('order-btn');
 const cartItemsContainer = document.getElementById('cart-items');
 const modalBody = document.getElementById('modalBody');
-const orderModal = new bootstrap.Modal(document.getElementById('orderModal'));
+const orderModalElement = document.getElementById('orderModal');
 const confirmOrderBtn = document.getElementById('confirmOrderBtn');
+
+let orderModal;
+
+// Ellenőrizzük, hogy a modal létezik-e, mielőtt inicializálnánk
+if (orderModalElement) {
+    orderModal = new bootstrap.Modal(orderModalElement);
+}
 
 // Wait for the DOM to load
 document.addEventListener('DOMContentLoaded', init);
@@ -13,20 +20,26 @@ async function init() {
     await loadCart();
     setUpButtonListeners();
 }
+
 async function logout() {
-    const res = await fetch('/api/auth/logout', {
-        method: 'POST',
-        credentials: 'include'
-    });
+    try {
+        const res = await fetch('/api/auth/logout', {
+            method: 'POST',
+            credentials: 'include'
+        });
 
-    if (res.ok) {
-        localStorage.removeItem('token');
-        sessionStorage.removeItem('token');
+        if (res.ok) {
+            localStorage.removeItem('token');
+            sessionStorage.removeItem('token');
 
-        alert('Sikeres kijelentkezés');
-        window.location.href = '../index.html';
-    } else {
-        alert('Hiba a kijelentkezéskor');
+            alert('Sikeres kijelentkezés');
+            window.location.href = '../index.html';
+        } else {
+            throw new Error('Hiba a kijelentkezéskor');
+        }
+    } catch (error) {
+        console.error(error);
+        alert(error.message);
     }
 }
 
@@ -46,11 +59,9 @@ async function loadCart() {
         const cart = await response.json();
         console.log('Cart items:', cart);
 
-        if (cart.length === 0) {
-            cartItemsContainer.innerHTML = '<p class="text-center">A kosár üres</p>';
-        } else {
-            renderCartItems(cart);
-        }
+        cartItemsContainer.innerHTML = cart.length === 0
+            ? '<p class="text-center">A kosár üres</p>'
+            : renderCartItems(cart);
     } catch (error) {
         console.error('Error loading cart:', error);
         cartItemsContainer.innerHTML = '<p class="text-center">Hiba a kosár betöltésekor.</p>';
@@ -74,10 +85,9 @@ function renderCartItems(cart) {
 
 // Set up event listeners for the remove item buttons
 function setUpRemoveButtons() {
-    const removeButtons = document.querySelectorAll('.remove-item');
-    removeButtons.forEach(button => {
+    document.querySelectorAll('.remove-item').forEach(button => {
         button.addEventListener('click', async (event) => {
-            const productId = event.target.closest('.card').getAttribute('data-id');
+            const productId = event.target.closest('.card').dataset.id;
             await removeItemFromCart(productId);
         });
     });
@@ -104,30 +114,32 @@ async function removeItemFromCart(productId) {
 }
 
 // Handle the order button click
-orderBtn.addEventListener('click', async () => {
-    try {
-        const response = await fetch('/api/cart/myCart', {
-            method: 'GET',
-            credentials: 'include'
-        });
+if (orderBtn) {
+    orderBtn.addEventListener('click', async () => {
+        try {
+            const response = await fetch('/api/cart/myCart', {
+                method: 'GET',
+                credentials: 'include'
+            });
 
-        if (!response.ok) {
-            throw new Error('Failed to fetch cart details for order');
+            if (!response.ok) {
+                throw new Error('Failed to fetch cart details for order');
+            }
+
+            const cart = await response.json();
+            if (cart.length === 0) {
+                alert('A kosár üres!');
+                return;
+            }
+
+            renderOrderModal(cart);
+            orderModal?.show();
+        } catch (error) {
+            console.error('Error fetching cart for order:', error);
+            alert('Hiba a rendelési adatok betöltésekor.');
         }
-
-        const cart = await response.json();
-        if (cart.length === 0) {
-            alert('A kosár üres!');
-            return;
-        }
-
-        renderOrderModal(cart);
-        orderModal.show();
-    } catch (error) {
-        console.error('Error fetching cart for order:', error);
-        alert('Hiba a rendelési adatok betöltésekor.');
-    }
-});
+    });
+}
 
 // Render the order details in the modal
 function renderOrderModal(cart) {
@@ -141,28 +153,6 @@ function renderOrderModal(cart) {
         </div>
     `).join('');
 }
-
-// Handle order confirmation
-// confirmOrderBtn.addEventListener('click', async () => {
-//     try {
-//         const response = await fetch('/api/cart/order', {
-//             method: 'POST',
-//             credentials: 'include'
-//         });
-
-//         const result = await response.json();
-//         if (!response.ok) {
-//             throw new Error(result.message || 'Failed to place order');
-//         }
-
-//         alert('Sikeres rendelés!');
-//         cartItemsContainer.innerHTML = '<p class="text-center">A kosár üres</p>';
-//         orderModal.hide();
-//     } catch (error) {
-//         console.error('Error placing order:', error);
-//         alert('Hiba a rendelés leadásakor.');
-//     }
-// });
 
 // Set up back button listener
 function setUpButtonListeners() {
