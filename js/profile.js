@@ -33,7 +33,7 @@ async function getusername() {
 }
 
 function profileData(users) {
-    //const alapkep = './img/logo.png'; // Relatív elérési út
+    //const alapkep = './img/logo.png';
     const username = document.getElementById('username');
     const fullname = document.getElementById('fullname');
     const postcode = document.getElementById('postal-code');
@@ -108,6 +108,10 @@ if (btnSupport) {
 //     searchMenu.classList.toggle('active');
 // }
 
+
+
+
+
 async function logout() {
     const res = await fetch('/api/auth/logout', {
         method: 'POST',
@@ -122,6 +126,9 @@ async function logout() {
         alert('Hiba a kijelentkezéskor');
     }
 }
+
+
+
 
 async function editData() {
     const postcode = document.getElementById('postal-code').value;
