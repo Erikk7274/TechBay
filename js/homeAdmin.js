@@ -1,11 +1,11 @@
 window.addEventListener('DOMContentLoaded', getProducts);
 
 // Gombok lekérése
-const btnPreBuilt = document.getElementsByClassName('btnPreBuilt')[0];
-const homeBtn = document.getElementsByClassName('icon-home')[0];
-const userBtn = document.getElementsByClassName('icon-user')[0];
-const cartBtn = document.getElementsByClassName('icon-cart')[0];
-const btnLogout = document.getElementsByClassName('icon-logout')[0];
+const btnPreBuilt = document.querySelector('.btnPreBuilt');
+const homeBtn = document.querySelector('.icon-home');
+const userBtn = document.querySelector('.icon-user');
+const cartBtn = document.querySelector('.icon-cart');
+const btnLogout = document.querySelector('.icon-logout');
 
 // Kategóriák elemeinek lekérése
 const row = document.getElementById('row');
@@ -24,8 +24,14 @@ async function getProducts() {
     }
 }
 
+// Modalok törlése, hogy ne legyenek duplikációk
+function clearModals() {
+    document.querySelectorAll('.modal').forEach(modal => modal.remove());
+}
+
 function renderProducts(products) {
-    row.innerHTML = '';  // Clear any existing content
+    row.innerHTML = '';
+    clearModals(); // Régi modalok törlése
     products.forEach(product => {
         const cardDiv = createCard(product);
         row.append(cardDiv);
@@ -36,14 +42,13 @@ function renderProducts(products) {
 function createCard(product) {
     const cardDiv = document.createElement('div');
     cardDiv.classList.add('card', 'm-2', 'p-2', 'shadow-sm');
-    cardDiv.style.width = '18rem'; // Card width
-    cardDiv.style.height = 'auto'; // Auto height
-    cardDiv.style.minHeight = '20rem'; // Minimum height
+    cardDiv.style.width = '18rem';
+    cardDiv.style.minHeight = '20rem';
 
     cardDiv.innerHTML = `
         <div class="card-header text-center fw-bold">${product.product_name}</div>
         <div class="card-body text-center">
-            <img src="/api/uploads/${product.product_pic}" class="img-fluid mb-3" alt="${product.product_name}" style="max-height: 230px; object-fit: contain;"> <!-- Increased max-height -->
+            <img src="/api/uploads/${product.product_pic}" class="img-fluid mb-3" alt="${product.product_name}" style="max-height: 230px; object-fit: contain;">
         </div>
         <div class="card-footer text-center">
             <span class="d-block mb-2">Ár: ${product.price ? product.price + ' Ft' : 'N/A'}</span>
@@ -70,7 +75,7 @@ function createModal(product) {
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
-                    <img src="/api/uploads/${product.product_pic}" alt="${product.product_name}" class="img-fluid mb-3" style="max-height: 400px; object-fit: contain;"> <!-- Increased modal image size -->
+                    <img src="/api/uploads/${product.product_pic}" alt="${product.product_name}" class="img-fluid mb-3" style="max-height: 400px; object-fit: contain;">
                     <p><strong>Ár:</strong> ${product.price ? product.price + ' Ft' : 'N/A'}</p>
                     <p><strong>Raktáron:</strong> ${product.in_stock}</p>
                 </div>
@@ -82,10 +87,8 @@ function createModal(product) {
     `;
 
     document.body.appendChild(modalDiv);
-
     modalDiv.querySelector('.add-to-cart-btn').addEventListener('click', () => addToCart(product.product_id));
 }
-
 
 async function addToCart(productId) {
     try {
@@ -107,9 +110,7 @@ async function addToCart(productId) {
     }
 }
 
-btnLogout.addEventListener('click', logout);
-
-async function logout() {
+btnLogout.addEventListener('click', async () => {
     const res = await fetch('/api/auth/logout', {
         method: 'POST',
         credentials: 'include'
@@ -118,26 +119,9 @@ async function logout() {
     if (res.ok) {
         localStorage.removeItem('token');
         sessionStorage.removeItem('token');
-
         alert('Sikeres kijelentkezés');
-        window.location.href = '../index.html';
+        window.location.href = 'https://techbay2.netlify.app/index.html';
     } else {
         alert('Hiba a kijelentkezéskor');
     }
-}
-
-homeBtn.addEventListener('click', () => {
-    window.location.href = 'https://techbay2.netlify.app/home.html';
-});
-
-userBtn.addEventListener('click', () => {
-    window.location.href = 'https://techbay2.netlify.app/profile.html';
-});
-
-cartBtn.addEventListener('click', () => {
-    window.location.href = 'https://techbay2.netlify.app/cart.html';
-});
-
-btnPreBuilt.addEventListener('click', () => {
-    window.location.href = 'https://techbay2.netlify.app/preBuilt.html';
 });
