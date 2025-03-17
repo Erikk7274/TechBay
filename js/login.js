@@ -38,9 +38,15 @@ async function login() {
 
         if (res.ok) {
             resetInputs();
+
+            if (Number(data.admin) === 1) {
+
+                alert("Sikeres bejelentkezés! Admin jogokkal.");
+                window.location.href = 'https://techbay2.netlify.app/homeAdmin.html';
+            } else {
                 alert("Sikeres bejelentkezés!");
                 window.location.href = 'https://techbay2.netlify.app/home.html';
-         
+            }
         } else {
             handleErrors(data);
         }
