@@ -9,7 +9,7 @@ function setupEventListeners() {
 
     if (btnPreBuilt) {
         btnPreBuilt.addEventListener('click', () => {
-            alert('Előre összeállított buildek gomb megnyomva!');
+            window.location.href = 'https://techbay2.netlify.app/preBuiltAdmin.html';
         });
     } else {
         console.error('Nem található btnPreBuilt elem.');
