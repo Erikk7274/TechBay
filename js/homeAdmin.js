@@ -3,8 +3,6 @@ window.addEventListener('DOMContentLoaded', getProducts);
 // Gombok lekérése
 const btnPreBuilt = document.querySelector('.btnPreBuilt');
 const homeBtn = document.querySelector('.icon-home');
-const userBtn = document.querySelector('.icon-user');
-const cartBtn = document.querySelector('.icon-cart');
 const btnLogout = document.querySelector('.icon-logout');
 
 // Kategóriák elemeinek lekérése
