@@ -15,23 +15,32 @@ function setupEventListeners() {
         console.error('Nem található btnPreBuilt elem.');
     }
 
-    btnLogout.addEventListener('click', logout);
-async function logout() {
-    const res = await fetch('/api/auth/logout', {
-        method: 'POST',
-        credentials: 'include'
-    });
-
-    if (res.ok) {
-        localStorage.removeItem('token');
-        sessionStorage.removeItem('token');
-
-        alert('Sikeres kijelentkezés');
-        window.location.href = '../index.html';
+    if (btnLogout) {
+        btnLogout.addEventListener('click', logout);
     } else {
-        alert('Hiba a kijelentkezéskor');
+        console.error('Nem található kijelentkezés gomb.');
     }
 }
+
+async function logout() {
+    try {
+        const res = await fetch('/api/auth/logout', {
+            method: 'POST',
+            credentials: 'include'
+        });
+
+        if (res.ok) {
+            localStorage.removeItem('token');
+            sessionStorage.removeItem('token');
+
+            alert('Sikeres kijelentkezés');
+            window.location.href = 'https://techbay2.netlify.app/index.html';
+        } else {
+            alert('Hiba a kijelentkezéskor');
+        }
+    } catch (error) {
+        console.error('Hiba a kijelentkezés során:', error);
+    }
 }
 
 async function getProducts() {
