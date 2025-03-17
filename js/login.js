@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const btnLogin = document.getElementById('btnLogin'); 
+    const btnLogin = document.getElementById('btnLogin');
 
     if (btnLogin) {
-        btnLogin.addEventListener('click', login); 
+        btnLogin.addEventListener('click', login);
     } else {
         console.error("Nem található a 'btnLogin' gomb.");
     }
@@ -35,12 +35,12 @@ async function login() {
             credentials: 'include',
         });
 
+        const data = await res.json(); // JSON válasz beolvasása
 
         if (res.ok) {
             resetInputs();
 
             if (Number(data.admin) === 1) {
-
                 alert("Sikeres bejelentkezés! Admin jogokkal.");
                 window.location.href = 'https://techbay2.netlify.app/homeAdmin.html';
             } else {
