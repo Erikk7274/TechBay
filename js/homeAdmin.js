@@ -1,14 +1,41 @@
-window.addEventListener('DOMContentLoaded', getProducts);
+window.addEventListener('DOMContentLoaded', () => {
+    getProducts();
+    setupEventListeners();
+});
 
-// Gombok lekérése
-const btnPreBuilt = document.querySelector('.btnPreBuilt');
-const homeBtn = document.querySelector('.icon-home');
-const btnLogout = document.querySelector('.icon-logout');
+function setupEventListeners() {
+    const btnPreBuilt = document.querySelector('.btnPreBuilt');
+    const btnLogout = document.querySelector('.icon-logout');
 
-// Kategóriák elemeinek lekérése
-const row = document.getElementById('row');
+    if (btnPreBuilt) {
+        btnPreBuilt.addEventListener('click', () => {
+            alert('Előre összeállított buildek gomb megnyomva!');
+        });
+    } else {
+        console.error('Nem található btnPreBuilt elem.');
+    }
 
-// Termékek lekérése
+    if (btnLogout) {
+        btnLogout.addEventListener('click', async () => {
+            const res = await fetch('/api/auth/logout', {
+                method: 'POST',
+                credentials: 'include'
+            });
+
+            if (res.ok) {
+                localStorage.removeItem('token');
+                sessionStorage.removeItem('token');
+                alert('Sikeres kijelentkezés');
+                window.location.href = 'https://techbay2.netlify.app/index.html';
+            } else {
+                alert('Hiba a kijelentkezéskor');
+            }
+        });
+    } else {
+        console.error('Nem található btnLogout elem.');
+    }
+}
+
 async function getProducts() {
     try {
         const response = await fetch(`/api/getProducts/getProducts_all`, {
@@ -22,19 +49,25 @@ async function getProducts() {
     }
 }
 
-// Modalok törlése, hogy ne legyenek duplikációk
-function clearModals() {
-    document.querySelectorAll('.modal').forEach(modal => modal.remove());
-}
-
 function renderProducts(products) {
+    const row = document.getElementById('row');
+    if (!row) {
+        console.error('Nem található a row elem.');
+        return;
+    }
+
     row.innerHTML = '';
-    clearModals(); // Régi modalok törlése
+    clearModals();
+
     products.forEach(product => {
         const cardDiv = createCard(product);
         row.append(cardDiv);
         createModal(product);
     });
+}
+
+function clearModals() {
+    document.querySelectorAll('.modal').forEach(modal => modal.remove());
 }
 
 function createCard(product) {
@@ -107,19 +140,3 @@ async function addToCart(productId) {
         console.error('Hiba a kosárba helyezéskor:', error);
     }
 }
-
-btnLogout.addEventListener('click', async () => {
-    const res = await fetch('/api/auth/logout', {
-        method: 'POST',
-        credentials: 'include'
-    });
-
-    if (res.ok) {
-        localStorage.removeItem('token');
-        sessionStorage.removeItem('token');
-        alert('Sikeres kijelentkezés');
-        window.location.href = 'https://techbay2.netlify.app/index.html';
-    } else {
-        alert('Hiba a kijelentkezéskor');
-    }
-});
