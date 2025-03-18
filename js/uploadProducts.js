@@ -23,7 +23,6 @@ document.addEventListener("DOMContentLoaded", () => {
             <button type="submit">Feltöltés</button>
         </form>
         <button class="btnBack">Vissza</button>
-        <button class="btnEdit">Profilkép szerkesztése</button>
     `;
 
     document.getElementById("productForm").addEventListener("submit", async (event) => {
