@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     const formContainer = document.querySelector(".container");
-    
+
     // Kategória választás form
     formContainer.innerHTML = `
         <form id="categoryForm" class="container mt-4 p-4 border rounded bg-light">
@@ -8,55 +8,35 @@ document.addEventListener("DOMContentLoaded", () => {
                 <label for="category" class="form-label">Kategória:</label>
                 <select id="category" name="category" class="form-select" required>
                     <option value="" selected disabled>Válassz kategóriát</option>
+                    <option value="product">Termék</option>
+                    <option value="config">Prebuilt (Konfiguráció)</option>
                 </select>
             </div>
         </form>
     `;
 
-    // Kategóriák lekérése a backendről
-    async function loadCategories() {
-        try {
-            const response = await fetch('/api/categories'); // A backend API végpontja
-            const categories = await response.json();
-
-            const categorySelect = document.getElementById("category");
-            categories.forEach(category => {
-                const option = document.createElement("option");
-                option.value = category.id; // A backend adataiból kell venni az ID-t
-                option.textContent = category.name; // A kategória neve
-                categorySelect.appendChild(option);
-            });
-        } catch (error) {
-            console.error("Hiba a kategóriák betöltésekor:", error);
-            alert("Hiba történt a kategóriák betöltésekor.");
-        }
-    }
-
-    // Betöltjük a kategóriákat
-    loadCategories();
-
-    // Változó a formok tárolására
-    let currentForm = null;
-
-    // Kategória kiválasztása
+    // Kategória kiválasztása esemény
     document.getElementById("category").addEventListener("change", (event) => {
         const categoryId = event.target.value;
-        
+
         // Ha volt már korábban form, akkor eltávolítjuk
         if (currentForm) {
             currentForm.remove();
         }
 
         if (categoryId === "product") {
-            // Termék form
+            // Ha terméket választanak, akkor a termékformot jelenítjük meg
             currentForm = createProductForm();
             formContainer.appendChild(currentForm);
         } else if (categoryId === "config") {
-            // Prebuilt (config) form
+            // Ha prebuilt (config) választás, akkor a prebuilt formot jelenítjük meg
             currentForm = createConfigForm();
             formContainer.appendChild(currentForm);
         }
     });
+
+    // Változó a formok tárolására
+    let currentForm = null;
 
     // Termék form létrehozása
     function createProductForm() {
@@ -100,10 +80,6 @@ document.addEventListener("DOMContentLoaded", () => {
             formData.append("price", document.getElementById("productPrice").value);
             formData.append("product_pic", document.getElementById("productImage").files[0]);
 
-            formData.append("in_stock", "1");
-            formData.append("cat_id", "1");
-            formData.append("sale", "0");
-
             try {
                 const response = await fetch("/api/add/uploadProduct", {
                     method: "POST",
@@ -128,27 +104,27 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Prebuilt (config) form létrehozása
-    function createConfigForm() {
+    async function createConfigForm() {
         const form = document.createElement("form");
         form.id = "configForm";
         form.classList.add("container", "mt-4", "p-4", "border", "rounded", "bg-light");
 
         form.innerHTML = `
             <div class="mb-3">
-                <label for="productName" class="form-label">Konfiguráció neve:</label>
-                <input type="text" id="productName" name="productName" class="form-control" required>
+                <label for="configName" class="form-label">Konfiguráció neve:</label>
+                <input type="text" id="configName" name="configName" class="form-control" required>
             </div>
             <div class="mb-3">
-                <label for="productDescription" class="form-label">Leírás:</label>
-                <textarea id="productDescription" name="productDescription" class="form-control" required></textarea>
+                <label for="configDescription" class="form-label">Leírás:</label>
+                <textarea id="configDescription" name="configDescription" class="form-control" required></textarea>
             </div>
             <div class="mb-3">
-                <label for="productPrice" class="form-label">Ár:</label>
-                <input type="number" id="productPrice" name="productPrice" class="form-control" required>
+                <label for="configPrice" class="form-label">Ár:</label>
+                <input type="number" id="configPrice" name="configPrice" class="form-control" required>
             </div>
             <div class="mb-3">
-                <label for="productImage" class="form-label">Kép feltöltése:</label>
-                <input type="file" id="productImage" name="productImage" class="form-control" accept="image/*" required>
+                <label for="configImage" class="form-label">Kép feltöltése:</label>
+                <input type="file" id="configImage" name="configImage" class="form-control" accept="image/*" required>
             </div>
             <button type="submit" class="btn btn-primary">Feltöltés</button>
             <button type="button" class="btn btn-secondary mt-2" id="backToCategory">Vissza a kategóriához</button>
@@ -163,24 +139,11 @@ document.addEventListener("DOMContentLoaded", () => {
         form.addEventListener("submit", async (event) => {
             event.preventDefault();
             const formData = new FormData();
-            
-            formData.append("config_name", document.getElementById("productName").value);
-            formData.append("description", document.getElementById("productDescription").value);
-            formData.append("price", document.getElementById("productPrice").value);
-            formData.append("config_pic", document.getElementById("productImage").files[0]);
 
-            formData.append("in_stock", "1");
-            formData.append("cat_id", "2");
-            formData.append("sale", "0");
-            formData.append("power_supply", "650W");
-            formData.append("cpu", "Intel i7");
-            formData.append("mother_board", "Asus Z490");
-            formData.append("ram", "16GB");
-            formData.append("gpu", "NVIDIA GTX 1660");
-            formData.append("hdd", "1TB HDD");
-            formData.append("ssd", "512GB SSD");
-            formData.append("cpu_cooler", "Cooler Master");
-            formData.append("active", "1");
+            formData.append("config_name", document.getElementById("configName").value);
+            formData.append("config_description", document.getElementById("configDescription").value);
+            formData.append("price", document.getElementById("configPrice").value);
+            formData.append("config_pic", document.getElementById("configImage").files[0]);
 
             try {
                 const response = await fetch("/api/add/uploadConfig", {
