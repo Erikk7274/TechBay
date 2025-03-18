@@ -36,14 +36,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
                 <div class="mb-3">
                     <label for="productDescription" class="form-label">Leírás:</label>
+                    <br>
                     <textarea id="productDescription" name="productDescription" class="form-control" required></textarea>
                 </div>
                 <div class="mb-3">
                     <label for="productPrice" class="form-label">Ár:</label>
+                    <br>
                     <input type="number" id="productPrice" name="productPrice" class="form-control" required>
                 </div>
                 <div class="mb-3">
                     <label for="productImage" class="form-label">Kép feltöltése:</label>
+                    <br>
                     <input type="file" id="productImage" name="productImage" class="form-control" accept="image/*" required>
                 </div>
                 <button type="submit" class="btn btn-primary w-100">Feltöltés</button>
@@ -91,42 +94,52 @@ document.addEventListener("DOMContentLoaded", () => {
             <form id="configForm" class="container mt-4 p-4 border rounded bg-light shadow-lg">
                 <div class="mb-3">
                     <label for="configName" class="form-label">Konfiguráció neve:</label>
+                    <br>
                     <input type="text" id="configName" name="configName" class="form-control" required>
                 </div>
                 <div class="mb-3">
                     <label for="cpu" class="form-label">CPU:</label>
+                    <br>
                     <input type="text" id="cpu" name="cpu" class="form-control" required>
                 </div>
                 <div class="mb-3">
                     <label for="motherBoard" class="form-label">Alaplap:</label>
+                    <br>
                     <input type="text" id="motherBoard" name="motherBoard" class="form-control" required>
                 </div>
                 <div class="mb-3">
                     <label for="ram" class="form-label">RAM:</label>
+                    <br>
                     <input type="text" id="ram" name="ram" class="form-control" required>
                 </div>
                 <div class="mb-3">
                     <label for="gpu" class="form-label">GPU:</label>
+                    <br>
                     <input type="text" id="gpu" name="gpu" class="form-control" required>
                 </div>
                 <div class="mb-3">
                     <label for="hdd" class="form-label">HDD:</label>
+                    <br>
                     <input type="text" id="hdd" name="hdd" class="form-control" required>
                 </div>
                 <div class="mb-3">
                     <label for="ssd" class="form-label">SSD:</label>
+                    <br>
                     <input type="text" id="ssd" name="ssd" class="form-control" required>
                 </div>
                 <div class="mb-3">
                     <label for="powerSupply" class="form-label">Tápegység:</label>
+                    <br>
                     <input type="text" id="powerSupply" name="powerSupply" class="form-control" required>
                 </div>
                 <div class="mb-3">
                     <label for="cpuCooler" class="form-label">CPU Hűtő:</label>
+                    <br>
                     <input type="text" id="cpuCooler" name="cpuCooler" class="form-control" required>
                 </div>
                 <div class="mb-3">
                     <label for="configImage" class="form-label">Kép feltöltése:</label>
+                    <br>
                     <input type="file" id="configImage" name="configImage" class="form-control" accept="image/*" required>
                 </div>
                 <button type="submit" class="btn btn-primary w-100">Feltöltés</button>
