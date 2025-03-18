@@ -50,8 +50,14 @@ document.addEventListener("DOMContentLoaded", () => {
                     <input type="file" id="productImage" name="productImage" class="form-control" accept="image/*" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Feltöltés</button>
+                <button type="button" class="btn btn-secondary" id="backToCategory">Vissza</button>
             </form>
         `;
+
+        // Vissza gomb hozzáadása
+        document.getElementById("backToCategory").addEventListener("click", () => {
+            createCategoryForm();
+        });
 
         // A termék form beküldése
         document.getElementById("productForm").addEventListener("submit", async (event) => {
@@ -127,8 +133,14 @@ document.addEventListener("DOMContentLoaded", () => {
                     <input type="file" id="configImage" name="configImage" class="form-control" accept="image/*" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Feltöltés</button>
+                <button type="button" class="btn btn-secondary" id="backToCategory">Vissza</button>
             </form>
         `;
+
+        // Vissza gomb hozzáadása
+        document.getElementById("backToCategory").addEventListener("click", () => {
+            createCategoryForm();
+        });
 
         // A konfiguráció form beküldése
         document.getElementById("configForm").addEventListener("submit", async (event) => {
@@ -167,7 +179,25 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
+
+    // Alap kategória kiválasztó form visszaállítása
+    function createCategoryForm() {
+        formContainer.innerHTML = `
+            <form id="categoryForm" class="container mt-4 p-4 border rounded bg-light">
+                <div class="mb-3">
+                    <label for="category" class="form-label">Kategória:</label>
+                    <select id="category" name="category" class="form-select" required>
+                        <option value="">Válassz egy kategóriát</option>
+                        <option value="product">Termék</option>
+                        <option value="config">Prebuilt</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Tovább</button>
+            </form>
+        `;
+    }
 });
+
 
 
     document.querySelector(".icon-logout").addEventListener("click", async () => {
