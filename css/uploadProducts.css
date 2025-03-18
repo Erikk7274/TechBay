@@ -376,7 +376,10 @@ nav a i {
 .productForm{
     background-color: #7d5fbf;
 }
-.form-control
+.form-control{
+    max-width: 300px;
+    min-height: 50px;
+}
 br{
     padding-top: 10px;
     padding-bottom: 20px;
