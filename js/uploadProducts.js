@@ -39,12 +39,35 @@ document.addEventListener("DOMContentLoaded", () => {
         event.preventDefault();
         const formData = new FormData();
         
-        formData.append("product_name", document.getElementById("productName").value);
-        formData.append("product_description", document.getElementById("productDescription").value);
-        formData.append("product_price", document.getElementById("productPrice").value);
-        formData.append("productImage", document.getElementById("productImage").files[0]);
-        
         const category = document.getElementById("category").value;
+        
+        if (category === "product") {
+            formData.append("product_name", document.getElementById("productName").value);
+            formData.append("product_description", document.getElementById("productDescription").value);
+            formData.append("price", document.getElementById("productPrice").value);
+            formData.append("product_pic", document.getElementById("productImage").files[0]);
+            formData.append("in_stock", "1"); // Hozzáadtam az "in_stock" mezőt
+            formData.append("cat_id", "1"); // Kategória azonosító, módosítsd szükség szerint
+            formData.append("sale", "0"); // Akciós termék (0 = nem akciós)
+        } else if (category === "config") {
+            formData.append("config_name", document.getElementById("productName").value);
+            formData.append("description", document.getElementById("productDescription").value);
+            formData.append("price", document.getElementById("productPrice").value);
+            formData.append("config_pic", document.getElementById("productImage").files[0]);
+            formData.append("in_stock", "1"); // Hozzáadtam az "in_stock" mezőt
+            formData.append("cat_id", "2"); // Kategória azonosító, módosítsd szükség szerint
+            formData.append("sale", "0"); // Akciós termék (0 = nem akciós)
+            formData.append("power_supply", "650W"); // Példa a "power_supply" mezőre, tedd hozzá a többit is
+            formData.append("cpu", "Intel i7"); // Példa a "cpu" mezőre
+            formData.append("mother_board", "Asus Z490"); // Példa a "mother_board" mezőre
+            formData.append("ram", "16GB"); // Példa a "ram" mezőre
+            formData.append("gpu", "NVIDIA GTX 1660"); // Példa a "gpu" mezőre
+            formData.append("hdd", "1TB HDD"); // Példa a "hdd" mezőre
+            formData.append("ssd", "512GB SSD"); // Példa a "ssd" mezőre
+            formData.append("cpu_cooler", "Cooler Master"); // Példa a "cpu_cooler" mezőre
+            formData.append("active", "1"); // Aktív konfiguráció (1 = aktív)
+        }
+
         const endpoint = category === "config" ? "/api/add/uploadConfig" : "/api/add/uploadProduct";
         
         try {
