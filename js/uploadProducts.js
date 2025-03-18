@@ -73,7 +73,6 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = 'https://techbay2.netlify.app/profile.html';
     });
     
-    document.querySelector(".btnEdit").addEventListener("click", EditProfilePic);
 
     document.querySelector(".icon-logout").addEventListener("click", async () => {
         const res = await fetch('/api/auth/logout', {
