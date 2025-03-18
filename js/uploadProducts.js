@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
             alert('Sikeres kijelentkezés');
             window.location.href = '../index.html';
         } else {
-            alert('Hiba a kijelentkezéskor');
+            alert('Hiba a kijelentkezéskor!');
         }
     });
 });
