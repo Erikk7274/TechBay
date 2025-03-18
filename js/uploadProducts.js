@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Vissza gomb hozzáadása
         document.getElementById("backToCategory").addEventListener("click", () => {
-            createCategoryForm();
+            window.location.href = '../uploadProducts.html';
         });
 
         // A termék form beküldése
@@ -139,7 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Vissza gomb hozzáadása
         document.getElementById("backToCategory").addEventListener("click", () => {
-            createCategoryForm();
+            window.location.href = '../uploadProducts.html';
         });
 
         // A konfiguráció form beküldése
