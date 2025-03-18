@@ -32,9 +32,6 @@ document.addEventListener("DOMContentLoaded", () => {
             
             <button type="submit" class="btn btn-primary">Feltöltés</button>
         </form>
-        <div class="d-flex justify-content-between mt-3">
-            <button class="btn btn-secondary btnBack">Vissza</button>
-        </div>
     `;
 
     document.getElementById("productForm").addEventListener("submit", async (event) => {
