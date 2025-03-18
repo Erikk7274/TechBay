@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
         formData.append("image", document.getElementById("productImage").files[0]);
         
         const category = document.getElementById("category").value;
-        const endpoint = category === "config" ? "/api/product/uploadConfig" : "/api/product/uploadProduct";
+        const endpoint = category === "config" ? "/api/add/uploadConfig" : "/api/add/uploadProduct";
         
         try {
             const response = await fetch(endpoint, {
