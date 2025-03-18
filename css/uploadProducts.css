@@ -1,4 +1,3 @@
-
 * {
     margin: 0;
     padding: 0;
@@ -21,40 +20,6 @@ header {
     top: 0;
     z-index: 1000;
     flex-wrap: wrap;
-}
-
-.container {
-    color: white;
-    max-width: 1000px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #3a2d5d;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.header-left {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-grow: 1;
-    justify-content: flex-start; /* Align to the left */
-}
-
-.logo img {
-    max-width: 50px;
-    max-height: 50px;
-}
-
-.menu-logo {
-    font-size: 2rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    white-space: nowrap;
-}
-
-.menu-logo-white {
-    color: #ffffff;
 }
 
 /* --- Keresőmenü --- */
@@ -85,7 +50,6 @@ header {
     flex-grow: 1;
     width: calc(100% - 100px);
 }
-
 
 /* --- Navigációs ikonok --- */
 nav {
@@ -126,7 +90,7 @@ nav a i {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* --- Hamburger Menu Styles --- */
+/* --- Hamburger Menu --- */
 .hamburger-menu {
     display: none;
     flex-direction: column;
@@ -152,10 +116,6 @@ nav a i {
     display: flex;
 }
 
-.menu-toggle:checked~nav {
-    display: flex;
-}
-
 @media screen and (max-width: 768px) {
     header {
         flex-direction: row;
@@ -168,11 +128,6 @@ nav a i {
         margin-bottom: 10px;
     }
 
-    .menu-logo {
-        font-size: 1.5rem;
-    }
-
-    
     .keresomenu {
         width: 70%;
         margin-left: 0;
@@ -227,10 +182,6 @@ nav a i {
         padding: 8px 20px;
     }
 
-    .menu-logo {
-        font-size: 1.2rem;
-    }
-
     /* Reduce height of the search menu */
     .keresomenu {
         height: 30px;
@@ -250,10 +201,6 @@ nav a i {
         padding: 8px;
         font-size: 1.2rem;
     }
-}
-
-.menu-logo a, .logo a {
-    color: black;
 }
 
 /* --- Hozzáadás gomb --- */
@@ -358,8 +305,8 @@ nav a i {
     min-width: 250px;
     min-height: 250px;
     object-fit: cover;
-
 }
+
 .edit-pic {
     height: 300px;
     max-width: 100%;
