@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <option value="config">Prebuilt</option>
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary">Tovább</button>
+           
         </form>
     `;
 
@@ -192,7 +192,6 @@ document.addEventListener("DOMContentLoaded", () => {
                         <option value="config">Prebuilt</option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary">Tovább</button>
             </form>
         `;
     }
