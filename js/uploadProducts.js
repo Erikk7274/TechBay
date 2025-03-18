@@ -1,77 +1,60 @@
 document.addEventListener("DOMContentLoaded", () => {
     const formContainer = document.querySelector(".container");
 
-    // Kategória választás form
+    // Az alap formot hozzuk létre a kategória kiválasztásához
     formContainer.innerHTML = `
         <form id="categoryForm" class="container mt-4 p-4 border rounded bg-light">
             <div class="mb-3">
                 <label for="category" class="form-label">Kategória:</label>
                 <select id="category" name="category" class="form-select" required>
-                    <option value="" selected disabled>Válassz kategóriát</option>
+                    <option value="">Válassz egy kategóriát</option>
                     <option value="product">Termék</option>
-                    <option value="config">Prebuilt (Konfiguráció)</option>
+                    <option value="config">Prebuilt</option>
                 </select>
             </div>
+            <button type="submit" class="btn btn-primary">Tovább</button>
         </form>
     `;
 
-    // Kategória kiválasztása esemény
+    // Kategória kiválasztásakor változik a form
     document.getElementById("category").addEventListener("change", (event) => {
-        const categoryId = event.target.value;
-
-        // Ha volt már korábban form, akkor eltávolítjuk
-        if (currentForm) {
-            currentForm.remove();
-        }
-
-        if (categoryId === "product") {
-            // Ha terméket választanak, akkor a termékformot jelenítjük meg
-            currentForm = createProductForm();
-            formContainer.appendChild(currentForm);
-        } else if (categoryId === "config") {
-            // Ha prebuilt (config) választás, akkor a prebuilt formot jelenítjük meg
-            currentForm = createConfigForm();
-            formContainer.appendChild(currentForm);
+        const selectedCategory = event.target.value;
+        // Ha terméket választanak, akkor a termék formot jelenítjük meg
+        if (selectedCategory === "product") {
+            createProductForm();
+        } 
+        // Ha konfigurációt választanak, akkor a config formot jelenítjük meg
+        else if (selectedCategory === "config") {
+            createConfigForm();
         }
     });
 
-    // Változó a formok tárolására
-    let currentForm = null;
-
-    // Termék form létrehozása
+    // Product form létrehozása
     function createProductForm() {
-        const form = document.createElement("form");
-        form.id = "productForm";
-        form.classList.add("container", "mt-4", "p-4", "border", "rounded", "bg-light");
-
-        form.innerHTML = `
-            <div class="mb-3">
-                <label for="productName" class="form-label">Termék neve:</label>
-                <input type="text" id="productName" name="productName" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label for="productDescription" class="form-label">Leírás:</label>
-                <textarea id="productDescription" name="productDescription" class="form-control" required></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="productPrice" class="form-label">Ár:</label>
-                <input type="number" id="productPrice" name="productPrice" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label for="productImage" class="form-label">Kép feltöltése:</label>
-                <input type="file" id="productImage" name="productImage" class="form-control" accept="image/*" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Feltöltés</button>
-            <button type="button" class="btn btn-secondary mt-2" id="backToCategory">Vissza a kategóriához</button>
+        formContainer.innerHTML = `
+            <form id="productForm" class="container mt-4 p-4 border rounded bg-light">
+                <div class="mb-3">
+                    <label for="productName" class="form-label">Termék neve:</label>
+                    <input type="text" id="productName" name="productName" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="productDescription" class="form-label">Leírás:</label>
+                    <textarea id="productDescription" name="productDescription" class="form-control" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="productPrice" class="form-label">Ár:</label>
+                    <input type="number" id="productPrice" name="productPrice" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="productImage" class="form-label">Kép feltöltése:</label>
+                    <input type="file" id="productImage" name="productImage" class="form-control" accept="image/*" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Feltöltés</button>
+            </form>
         `;
 
-        // Vissza gomb működése
-        form.querySelector("#backToCategory").addEventListener("click", () => {
-            form.remove();  // Elrejti a termék formot
-            document.getElementById("category").value = "";  // Visszaállítja a kategóriát
-        });
-
-        form.addEventListener("submit", async (event) => {
+        // A termék form beküldése
+        document.getElementById("productForm").addEventListener("submit", async (event) => {
             event.preventDefault();
             const formData = new FormData();
             
@@ -79,92 +62,126 @@ document.addEventListener("DOMContentLoaded", () => {
             formData.append("product_description", document.getElementById("productDescription").value);
             formData.append("price", document.getElementById("productPrice").value);
             formData.append("product_pic", document.getElementById("productImage").files[0]);
+            formData.append("in_stock", "1"); // Alapértelmezett érték
+            formData.append("cat_id", "1"); // Kategória id
+            formData.append("sale", "0"); // Akciós termék: 0 (nem akciós)
 
-            try {
-                const response = await fetch("/api/add/uploadProduct", {
-                    method: "POST",
-                    body: formData,
-                    credentials: "include"
-                });
+            const response = await fetch("/api/add/uploadProduct", {
+                method: "POST",
+                body: formData,
+                credentials: "include"
+            });
 
-                if (response.ok) {
-                    alert("SIKERES FELTÖLTÉS!");
-                    form.reset();
-                } else {
-                    const errorData = await response.json();
-                    alert(`Hiba történt a feltöltés során: ${errorData.message || "Ismeretlen hiba"}`);
-                }
-            } catch (error) {
-                console.error("Hálózati hiba:", error);
-                alert("Hálózati hiba történt. Ellenőrizd az internetkapcsolatot és próbáld újra.");
+            if (response.ok) {
+                alert("SIKERES FELTÖLTÉS!");
+                document.getElementById("productForm").reset();
+            } else {
+                const errorData = await response.json();
+                alert(`Hiba történt a feltöltés során: ${errorData.message || "Ismeretlen hiba"}`);
             }
         });
-
-        return form;
     }
 
-    // Prebuilt (config) form létrehozása
-    async function createConfigForm() {
-        const form = document.createElement("form");
-        form.id = "configForm";
-        form.classList.add("container", "mt-4", "p-4", "border", "rounded", "bg-light");
-
-        form.innerHTML = `
-            <div class="mb-3">
-                <label for="configName" class="form-label">Konfiguráció neve:</label>
-                <input type="text" id="configName" name="configName" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label for="configDescription" class="form-label">Leírás:</label>
-                <textarea id="configDescription" name="configDescription" class="form-control" required></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="configPrice" class="form-label">Ár:</label>
-                <input type="number" id="configPrice" name="configPrice" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label for="configImage" class="form-label">Kép feltöltése:</label>
-                <input type="file" id="configImage" name="configImage" class="form-control" accept="image/*" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Feltöltés</button>
-            <button type="button" class="btn btn-secondary mt-2" id="backToCategory">Vissza a kategóriához</button>
+    // Config form létrehozása
+    function createConfigForm() {
+        formContainer.innerHTML = `
+            <form id="configForm" class="container mt-4 p-4 border rounded bg-light">
+                <div class="mb-3">
+                    <label for="configName" class="form-label">Konfiguráció neve:</label>
+                    <input type="text" id="configName" name="configName" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="cpu" class="form-label">CPU:</label>
+                    <input type="text" id="cpu" name="cpu" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="motherBoard" class="form-label">Alaplap:</label>
+                    <input type="text" id="motherBoard" name="motherBoard" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="ram" class="form-label">RAM:</label>
+                    <input type="text" id="ram" name="ram" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="gpu" class="form-label">GPU:</label>
+                    <input type="text" id="gpu" name="gpu" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="hdd" class="form-label">HDD:</label>
+                    <input type="text" id="hdd" name="hdd" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="ssd" class="form-label">SSD:</label>
+                    <input type="text" id="ssd" name="ssd" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="powerSupply" class="form-label">Tápegység:</label>
+                    <input type="text" id="powerSupply" name="powerSupply" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="cpuCooler" class="form-label">CPU Hűtő:</label>
+                    <input type="text" id="cpuCooler" name="cpuCooler" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="configImage" class="form-label">Kép feltöltése:</label>
+                    <input type="file" id="configImage" name="configImage" class="form-control" accept="image/*" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Feltöltés</button>
+            </form>
         `;
 
-        // Vissza gomb működése
-        form.querySelector("#backToCategory").addEventListener("click", () => {
-            form.remove();  // Elrejti a konfiguráció formot
-            document.getElementById("category").value = "";  // Visszaállítja a kategóriát
-        });
-
-        form.addEventListener("submit", async (event) => {
+        // A konfiguráció form beküldése
+        document.getElementById("configForm").addEventListener("submit", async (event) => {
             event.preventDefault();
             const formData = new FormData();
 
             formData.append("config_name", document.getElementById("configName").value);
-            formData.append("config_description", document.getElementById("configDescription").value);
-            formData.append("price", document.getElementById("configPrice").value);
+            formData.append("cpu", document.getElementById("cpu").value);
+            formData.append("mother_board", document.getElementById("motherBoard").value);
+            formData.append("ram", document.getElementById("ram").value);
+            formData.append("gpu", document.getElementById("gpu").value);
+            formData.append("hdd", document.getElementById("hdd").value);
+            formData.append("ssd", document.getElementById("ssd").value);
+            formData.append("power_supply", document.getElementById("powerSupply").value);
+            formData.append("cpu_cooler", document.getElementById("cpuCooler").value);
+            formData.append("price", document.getElementById("productPrice").value);
             formData.append("config_pic", document.getElementById("configImage").files[0]);
+            formData.append("description", document.getElementById("productDescription").value);
+            formData.append("in_stock", "1");
+            formData.append("cat_id", "2");
+            formData.append("sale", "0");
+            formData.append("active", "1");
 
-            try {
-                const response = await fetch("/api/add/uploadConfig", {
-                    method: "POST",
-                    body: formData,
-                    credentials: "include"
-                });
+            const response = await fetch("/api/add/uploadConfig", {
+                method: "POST",
+                body: formData,
+                credentials: "include"
+            });
 
-                if (response.ok) {
-                    alert("SIKERES FELTÖLTÉS!");
-                    form.reset();
-                } else {
-                    const errorData = await response.json();
-                    alert(`Hiba történt a feltöltés során: ${errorData.message || "Ismeretlen hiba"}`);
-                }
-            } catch (error) {
-                console.error("Hálózati hiba:", error);
-                alert("Hálózati hiba történt. Ellenőrizd az internetkapcsolatot és próbáld újra.");
+            if (response.ok) {
+                alert("SIKERES FELTÖLTÉS!");
+                document.getElementById("configForm").reset();
+            } else {
+                const errorData = await response.json();
+                alert(`Hiba történt a feltöltés során: ${errorData.message || "Ismeretlen hiba"}`);
             }
         });
-
-        return form;
     }
 });
+
+
+    document.querySelector(".icon-logout").addEventListener("click", async () => {
+        const res = await fetch('/api/auth/logout', {
+            method: 'POST',
+            credentials: 'include'
+        });
+
+        if (res.ok) {
+            localStorage.removeItem('token');
+            sessionStorage.removeItem('token');
+            alert('Sikeres kijelentkezés');
+            window.location.href = '../index.html';
+        } else {
+            alert('Hiba a kijelentkezéskor!');
+        }
+    });
