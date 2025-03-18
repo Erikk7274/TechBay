@@ -2,6 +2,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const formContainer = document.querySelector(".container");
     formContainer.innerHTML = `
         <form id="productForm" class="container mt-4 p-4 border rounded bg-light">
+        <div class="mb-3">
+        <label for="category" class="form-label">Kategória:</label>
+        <select id="category" name="category" class="form-select" required>
+            <option value="product">Termék</option>
+            <option value="config">Prebuilt</option>
+        </select>
+    </div>
             <div class="mb-3">
                 <label for="productName" class="form-label">Termék neve:</label>
                 <input type="text" id="productName" name="productName" class="form-control" required>
@@ -22,13 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <input type="file" id="productImage" name="productImage" class="form-control" accept="image/*" required>
             </div>
             
-            <div class="mb-3">
-                <label for="category" class="form-label">Kategória:</label>
-                <select id="category" name="category" class="form-select" required>
-                    <option value="product">Termék</option>
-                    <option value="config">Prebuilt</option>
-                </select>
-            </div>
+           
             
             <button type="submit" class="btn btn-primary">Feltöltés</button>
         </form>
