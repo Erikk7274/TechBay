@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Az alap formot hozzuk létre a kategória kiválasztásához
     formContainer.innerHTML = `
-        <form id="categoryForm" class="container mt-4 p-4 border rounded bg-light">
+        <form id="categoryForm" class="container mt-4 p-4 border rounded bg-light shadow-lg">
             <div class="mb-3">
                 <label for="category" class="form-label">Kategória:</label>
                 <select id="category" name="category" class="form-select" required>
@@ -12,19 +12,15 @@ document.addEventListener("DOMContentLoaded", () => {
                     <option value="config">Prebuilt</option>
                 </select>
             </div>
-           
         </form>
     `;
 
     // Kategória kiválasztásakor változik a form
     document.getElementById("category").addEventListener("change", (event) => {
         const selectedCategory = event.target.value;
-        // Ha terméket választanak, akkor a termék formot jelenítjük meg
         if (selectedCategory === "product") {
             createProductForm();
-        } 
-        // Ha konfigurációt választanak, akkor a config formot jelenítjük meg
-        else if (selectedCategory === "config") {
+        } else if (selectedCategory === "config") {
             createConfigForm();
         }
     });
@@ -32,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Product form létrehozása
     function createProductForm() {
         formContainer.innerHTML = `
-            <form id="productForm" class="container mt-4 p-4 border rounded bg-light">
+            <form id="productForm" class="container mt-4 p-4 border rounded bg-light shadow-lg">
                 <div class="mb-3">
                     <label for="productName" class="form-label">Termék neve:</label>
                     <input type="text" id="productName" name="productName" class="form-control" required>
@@ -49,8 +45,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     <label for="productImage" class="form-label">Kép feltöltése:</label>
                     <input type="file" id="productImage" name="productImage" class="form-control" accept="image/*" required>
                 </div>
-                <button type="submit" class="btn btn-primary">Feltöltés</button>
-                <button type="button" class="btn btn-secondary" id="backToCategory">Vissza</button>
+                <button type="submit" class="btn btn-primary w-100">Feltöltés</button>
+                <button type="button" class="btn btn-secondary w-100 mt-3" id="backToCategory">Vissza</button>
             </form>
         `;
 
@@ -91,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Config form létrehozása
     function createConfigForm() {
         formContainer.innerHTML = `
-            <form id="configForm" class="container mt-4 p-4 border rounded bg-light">
+            <form id="configForm" class="container mt-4 p-4 border rounded bg-light shadow-lg">
                 <div class="mb-3">
                     <label for="configName" class="form-label">Konfiguráció neve:</label>
                     <input type="text" id="configName" name="configName" class="form-control" required>
@@ -132,8 +128,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     <label for="configImage" class="form-label">Kép feltöltése:</label>
                     <input type="file" id="configImage" name="configImage" class="form-control" accept="image/*" required>
                 </div>
-                <button type="submit" class="btn btn-primary">Feltöltés</button>
-                <button type="button" class="btn btn-secondary" id="backToCategory">Vissza</button>
+                <button type="submit" class="btn btn-primary w-100">Feltöltés</button>
+                <button type="button" class="btn btn-secondary w-100 mt-3" id="backToCategory">Vissza</button>
             </form>
         `;
 
@@ -183,7 +179,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Alap kategória kiválasztó form visszaállítása
     function createCategoryForm() {
         formContainer.innerHTML = `
-            <form id="categoryForm" class="container mt-4 p-4 border rounded bg-light">
+            <form id="categoryForm" class="container mt-4 p-4 border rounded bg-light shadow-lg">
                 <div class="mb-3">
                     <label for="category" class="form-label">Kategória:</label>
                     <select id="category" name="category" class="form-select" required>
