@@ -1,28 +1,41 @@
 document.addEventListener("DOMContentLoaded", () => {
     const formContainer = document.querySelector(".container");
     formContainer.innerHTML = `
-        <form id="productForm">
-            <label for="productName">Termék neve:</label>
-            <input type="text" id="productName" name="productName" required>
+        <form id="productForm" class="container mt-4 p-4 border rounded bg-light">
+            <div class="mb-3">
+                <label for="productName" class="form-label">Termék neve:</label>
+                <input type="text" id="productName" name="productName" class="form-control" required>
+            </div>
             
-            <label for="productDescription">Leírás:</label>
-            <textarea id="productDescription" name="productDescription" required></textarea>
+            <div class="mb-3">
+                <label for="productDescription" class="form-label">Leírás:</label>
+                <textarea id="productDescription" name="productDescription" class="form-control" required></textarea>
+            </div>
             
-            <label for="productPrice">Ár:</label>
-            <input type="number" id="productPrice" name="productPrice" required>
+            <div class="mb-3">
+                <label for="productPrice" class="form-label">Ár:</label>
+                <input type="number" id="productPrice" name="productPrice" class="form-control" required>
+            </div>
             
-            <label for="productImage">Kép feltöltése:</label>
-            <input type="file" id="productImage" name="productImage" accept="image/*" required>
+            <div class="mb-3">
+                <label for="productImage" class="form-label">Kép feltöltése:</label>
+                <input type="file" id="productImage" name="productImage" class="form-control" accept="image/*" required>
+            </div>
             
-            <label for="category">Kategória:</label>
-            <select id="category" name="category" required>
-                <option value="product">Termék</option>
-                <option value="config">Prebuilt</option>
-            </select>
+            <div class="mb-3">
+                <label for="category" class="form-label">Kategória:</label>
+                <select id="category" name="category" class="form-select" required>
+                    <option value="product">Termék</option>
+                    <option value="config">Prebuilt</option>
+                </select>
+            </div>
             
-            <button type="submit">Feltöltés</button>
+            <button type="submit" class="btn btn-primary">Feltöltés</button>
         </form>
-        <button class="btnBack">Vissza</button>
+        <div class="d-flex justify-content-between mt-3">
+            <button class="btn btn-secondary btnBack">Vissza</button>
+            <button class="btn btn-warning btnEdit">Profilkép szerkesztése</button>
+        </div>
     `;
 
     document.getElementById("productForm").addEventListener("submit", async (event) => {
