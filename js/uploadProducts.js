@@ -38,10 +38,10 @@ document.addEventListener("DOMContentLoaded", () => {
         event.preventDefault();
         const formData = new FormData();
         
-        formData.append("name", document.getElementById("productName").value);
-        formData.append("description", document.getElementById("productDescription").value);
-        formData.append("price", document.getElementById("productPrice").value);
-        formData.append("image", document.getElementById("productImage").files[0]);
+        formData.append("product_name", document.getElementById("productName").value);
+        formData.append("product_description", document.getElementById("productDescription").value);
+        formData.append("product_price", document.getElementById("productPrice").value);
+        formData.append("productImage", document.getElementById("productImage").files[0]);
         
         const category = document.getElementById("category").value;
         const endpoint = category === "config" ? "/api/add/uploadConfig" : "/api/add/uploadProduct";
@@ -57,15 +57,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 alert("SIKERES FELTÖLTÉS!");
                 document.getElementById("productForm").reset();
             } else {
-                alert("Hiba történt a feltöltés során.");
+                const errorData = await response.json();
+                alert(`Hiba történt a feltöltés során: ${errorData.message || "Ismeretlen hiba"}`);
             }
         } catch (error) {
             console.error("Hálózati hiba:", error);
-            alert("Hálózati hiba történt.");
+            alert("Hálózati hiba történt. Ellenőrizd az internetkapcsolatot és próbáld újra.");
         }
     });
-
-    
 
     document.querySelector(".icon-logout").addEventListener("click", async () => {
         const res = await fetch('/api/auth/logout', {
