@@ -34,7 +34,6 @@ document.addEventListener("DOMContentLoaded", () => {
         </form>
         <div class="d-flex justify-content-between mt-3">
             <button class="btn btn-secondary btnBack">Vissza</button>
-            <button class="btn btn-warning btnEdit">Profilkép szerkesztése</button>
         </div>
     `;
 
@@ -69,9 +68,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    document.querySelector(".btnBack").addEventListener("click", () => {
-        window.location.href = 'https://techbay2.netlify.app/profile.html';
-    });
     
 
     document.querySelector(".icon-logout").addEventListener("click", async () => {
