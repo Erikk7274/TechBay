@@ -335,7 +335,7 @@ nav a i {
     margin-top: 20px;
 }
 
-.form-control input, .form-label select {
+.form-section input, .form-section select {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
@@ -343,12 +343,12 @@ nav a i {
     border-radius: 5px;
 }
 
-.form-control .btn-save {
+.form-section .btn-save {
     background-color: #3fb663;
     color: rgb(255, 255, 255);
 }
 
-.form-control .btn-save:hover {
+.form-section .btn-save:hover {
     background-color: #2a8543;
     color: rgb(255, 255, 255);
 }
