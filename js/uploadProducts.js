@@ -31,6 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <form id="productForm" class="container mt-4 p-4 border rounded bg-light shadow-lg">
                 <div class="mb-3">
                     <label for="productName" class="form-label">Termék neve:</label>
+                    <br>
                     <input type="text" id="productName" name="productName" class="form-control" required>
                 </div>
                 <div class="mb-3">
