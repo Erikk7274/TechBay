@@ -1,4 +1,4 @@
-
+const btnHardware = document.querySelector('.btnHardware');
 const btnLogout = document.querySelector('.btnLogout');
 const btnBack = document.querySelector('.btnBack');
 const row = document.getElementById('row');
@@ -60,10 +60,13 @@ function createCard(product) {
     cardDiv.classList.add('card', 'm-3', 'p-2', 'shadow-sm');
     cardDiv.style.width = '18rem';
 
+    // Ellenőrizzük, hogy a kép létezik-e
+    const productPic = product.product_pic ? `/uploads/${product.product_pic}` : '/uploads/default.jpg';
+
     cardDiv.innerHTML = `
         <div class="card-header text-center fw-bold">${product.config_name || product.product_name}</div>
         <div class="card-body text-center">
-            <img src="/uploads/${product.product_pic}" class="img-fluid mb-3" alt="${product.config_name || product.product_name}">
+            <img src="${productPic}" class="img-fluid mb-3" alt="${product.config_name || product.product_name}">
         </div>
         <div class="card-footer text-center">
             <span class="d-block mb-2">Raktáron: ${product.in_stock}</span>
@@ -113,7 +116,8 @@ async function deleteProduct(event) {
     }
     
     try {
-        const response = await fetch(`/api/deleteConfig/${productId}`, {
+        // API végpont módosítása a kívánt formátumra
+        const response = await fetch(`/api/delete/deleteConfig/${productId}`, {
             method: 'DELETE',
             credentials: 'include',
         });
