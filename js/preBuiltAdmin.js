@@ -12,17 +12,14 @@ window.addEventListener('DOMContentLoaded', async () => {
         console.error('Inicializálás sikertelen:', error);
     }
 });
-btnLogout.addEventListener('click', logout);
 async function logout() {
     const res = await fetch('/api/auth/logout', {
         method: 'POST',
         credentials: 'include'
     });
-
     if (res.ok) {
         localStorage.removeItem('token');
         sessionStorage.removeItem('token');
-
         alert('Sikeres kijelentkezés');
         window.location.href = '../index.html';
     } else {
