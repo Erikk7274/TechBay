@@ -119,7 +119,7 @@ async function deleteProduct(event, buttonElement) {
 
     try {
         // API végpont módosítása
-        const response = await fetch(`/api/delete/deleteConfig/${productId}`, {
+        const response = await fetch(`/api/delete/deleteConfig/${pc_id}`, {
             method: 'DELETE',
             credentials: 'include',
         });
