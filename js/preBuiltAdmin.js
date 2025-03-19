@@ -4,25 +4,7 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 function setupEventListeners() {
-    const btnPreBuilt = document.querySelector('.btnPreBuilt');
     const btnLogout = document.querySelector('.icon-logout');
-    const btnAddProducts = document.querySelector('.icon-add');
-
-    if (btnPreBuilt) {
-        btnPreBuilt.addEventListener('click', () => {
-            window.location.href = 'https://techbay2.netlify.app/preBuiltAdmin.html';
-        });
-    } else {
-        console.error('Nem található btnPreBuilt elem.');
-    }
-
-    if (btnAddProducts) {
-        btnAddProducts.addEventListener('click', () => {
-            window.location.href = 'https://techbay2.netlify.app/uploadProducts.html';
-        });
-    } else {
-        console.error('Nem található az UploadProducts.');
-    }
 
     if (btnLogout) {
         btnLogout.addEventListener('click', logout);
