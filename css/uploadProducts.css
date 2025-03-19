@@ -330,50 +330,93 @@ nav a i {
 .btn:hover {
     background-color: #7d5fbf;
 }
-
-.form-label {
-    margin-top: 20px;
-}
-
-.form-section input, .form-section select {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: none;
-    border-radius: 5px;
-}
-
-
-
-
-
-.form-section .btn-save {
-    background-color: #3fb663;
-    color: rgb(255, 255, 255);
-}
-
-.form-section .btn-save:hover {
-    background-color: #2a8543;
-    color: rgb(255, 255, 255);
-}
-
-
-
-.productForm{
-    background-color: #7d5fbf;
-}
-.form-control .product .config{
-    max-width: 300px;
-    min-width: 100px;
-}
-br{
-    padding-top: 10px;
-    padding-bottom: 20px;
-}
-.form-label{
-    border: 1px black;
-    border-radius: 10%;
-}
-.config .proudct{
+/* Általános formázás */
+.form-section {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #fff;
     border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Címkék */
+.form-label {
+    font-weight: bold;
+    margin-top: 15px;
+    display: block;
+    color: #333;
+}
+
+/* Input mezők és select */
+.form-section input, 
+.form-section select, 
+.form-section textarea {
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    transition: all 0.3s ease-in-out;
+}
+
+.form-section input:focus, 
+.form-section select:focus, 
+.form-section textarea:focus {
+    border-color: #3fb663;
+    box-shadow: 0px 0px 5px rgba(63, 182, 99, 0.5);
+    outline: none;
+}
+
+/* Gombok */
+.btn-save {
+    background-color: #3fb663;
+    color: #fff;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s;
+}
+
+.btn-save:hover {
+    background-color: #2a8543;
+}
+
+/* Vissza gomb */
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    padding: 12px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* Reszponzív beállítások */
+@media (max-width: 768px) {
+    .form-section {
+        width: 90%;
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-section input,
+    .form-section select,
+    .form-section textarea {
+        padding: 10px;
+    }
+
+    .btn-save,
+    .btn-secondary {
+        padding: 10px;
+        font-size: 14px;
+    }
 }
