@@ -71,7 +71,7 @@ function createCard(product) {
             <span class="d-block mb-2">Raktáron: ${product.in_stock}</span>
             <span class="d-block mb-2">Ár: ${product.price ? product.price + ' Ft' : 'N/A'}</span>
             <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-${product.product_id}">Részletek</button>
-            <button class="btn btn-danger btn-sm mt-2" data-id="${product.product_id}" onclick="deleteProduct(event, this)">Törlés</button>
+            <button class="btn btn-danger btn-sm mt-2" data-id="${product.pc_id}" onclick="deleteProduct(event, this)">Törlés</button>
         </div>
     `;
 
@@ -119,7 +119,7 @@ async function deleteProduct(event, buttonElement) {
 
     try {
         // API végpont módosítása
-        const response = await fetch(`/api/delete/deleteConfig/${pc_id}`, {
+        const response = await fetch(`/api/delete/deleteConfig/${productId}`, {
             method: 'DELETE',
             credentials: 'include',
         });
