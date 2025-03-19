@@ -126,6 +126,10 @@ async function deleteProduct(productId) {
     try {
         const response = await fetch(`/api/delete/deleteConfig/${productId}`, {  // A végpont módosítása
             method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'  // Biztosítjuk, hogy a kérés JSON formátumban legyen
+            },
+            body: JSON.stringify({ productId }),  // A termék ID-t elküldjük a szervernek
             credentials: 'include'
         });
 
@@ -140,3 +144,4 @@ async function deleteProduct(productId) {
         console.error('Hiba a termék törlésekor:', error);
     }
 }
+
