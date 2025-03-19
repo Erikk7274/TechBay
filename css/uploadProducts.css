@@ -361,7 +361,7 @@ nav a i {
 }
 
 /* Bootstrap input styling */
-.form-control {
+.form-control .form-select {
     border: 1px solid #ced4da;
     padding: 8px; /* Csökkentett padding */
     font-size: 14px; /* Kisebb betűméret */
