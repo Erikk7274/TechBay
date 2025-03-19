@@ -118,33 +118,29 @@ function createModal(product) {
     document.body.appendChild(modalDiv);
 }
 
-async function deleteProduct(productId) {
+async function deleteProduct(configId) {
     if (!confirm('Biztosan törölni szeretnéd ezt a terméket?')) {
         return;
     }
 
     try {
-        console.log("Törléshez küldött termék ID:", productId); // Logoljuk a termék ID-ját
-        const response = await fetch(`/api/delete/deleteConfig/${productId}`, {  // A végpont módosítása
+        const response = await fetch(`/api/delete/deleteConfig/${configId}`, {  
             method: 'DELETE',
             headers: {
-                'Content-Type': 'application/json'  // Biztosítjuk, hogy a kérés JSON formátumban legyen
+                'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ productId }),  // A termék ID-t elküldjük a szervernek
+            body: JSON.stringify({ configId }),  // Most már configId-t küldünk
             credentials: 'include'
         });
 
         if (response.ok) {
-            console.log("Sikeres törlés");  // Törlés sikeres logolása
             alert('Termék sikeresen törölve.');
-            getProducts();  // Frissíti a termékek listáját
+            getProducts();  
         } else {
             const result = await response.json();
-            console.error("Törlés hiba:", result);  // Hibák logolása
             alert('Hiba a törlés során: ' + result.message);
         }
     } catch (error) {
         console.error('Hiba a termék törlésekor:', error);
     }
 }
-
