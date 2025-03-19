@@ -362,7 +362,7 @@ nav a i {
 .productForm{
     background-color: #7d5fbf;
 }
-.form-control{
+.form-control .product .config{
     max-width: 300px;
     min-width: 100px;
 }
