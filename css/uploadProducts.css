@@ -343,7 +343,7 @@ nav a i {
 .form-label {
     margin-top: 15px;
     display: block;
-    font-weight: bold;
+    font-weight: normal; /* Removed bold */
     color: #ffffff;
 }
 
