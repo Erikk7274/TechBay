@@ -353,21 +353,22 @@ nav a i {
 .form-section select, 
 .form-section textarea {
     width: 100%;
-    padding: 8px; /* Csökkentett padding */
+    padding: 6px; /* Még kisebb padding */
     margin-top: 5px;
     border-radius: 6px;
     transition: all 0.3s ease-in-out;
     font-size: 14px; /* Kisebb betűméret */
+    height: 30px; /* Még kisebb magasság */
 }
 
 /* Bootstrap input styling */
 .form-control, .form-select {
     border: 1px solid #ced4da;
-    padding: 8px; /* Csökkentett padding */
-    font-size: 14px; /* Kisebb betűméret */
+    padding: 6px; /* Csökkentett padding */
+    font-size: 14px;
     border-radius: 6px;
     box-shadow: none;
-    height: 36px; /* Fixált magasság */
+    height: 30px; /* Fixált, alacsonyabb magasság */
 }
 
 .form-control:focus {
@@ -376,15 +377,21 @@ nav a i {
     outline: none;
 }
 
+/* Textarea külön beállítás, hogy ne legyen túl alacsony */
+.form-section textarea {
+    height: 60px; /* Fixált, kisebb magasság */
+    resize: vertical; /* Engedélyezett méretezés */
+}
+
 /* Gombok */
 .btn-save {
     background-color: #3fb663;
     color: #fff;
-    padding: 10px; /* Csökkentett padding */
+    padding: 8px; /* Csökkentett padding */
     border: none;
     border-radius: 6px;
     cursor: pointer;
-    font-size: 14px; /* Kisebb betűméret */
+    font-size: 14px;
     transition: background 0.3s;
     width: 100%;
 }
@@ -397,13 +404,13 @@ nav a i {
 .btn-secondary {
     background-color: #6c757d;
     color: white;
-    padding: 10px; /* Csökkentett padding */
+    padding: 8px;
     border-radius: 6px;
     border: none;
     cursor: pointer;
     transition: background 0.3s;
     width: 100%;
-    font-size: 14px; /* Kisebb betűméret */
+    font-size: 14px;
 }
 
 .btn-secondary:hover {
@@ -422,14 +429,14 @@ nav a i {
     .form-section input,
     .form-section select,
     .form-section textarea {
-        padding: 6px; /* Tovább csökkentett padding */
+        padding: 5px;
         font-size: 13px;
-        height: 32px; /* Kisebb fixált magasság */
+        height: 28px; /* Még kisebb fixált magasság */
     }
 
     .btn-save,
     .btn-secondary {
-        padding: 8px;
+        padding: 6px;
         font-size: 13px;
     }
 }
