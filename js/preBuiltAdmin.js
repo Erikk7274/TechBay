@@ -12,9 +12,7 @@ window.addEventListener('DOMContentLoaded', async () => {
         console.error('Inicializálás sikertelen:', error);
     }
 });
-
 btnLogout.addEventListener('click', logout);
-
 async function logout() {
     const res = await fetch('/api/auth/logout', {
         method: 'POST',
@@ -24,6 +22,7 @@ async function logout() {
     if (res.ok) {
         localStorage.removeItem('token');
         sessionStorage.removeItem('token');
+
         alert('Sikeres kijelentkezés');
         window.location.href = '../index.html';
     } else {
@@ -69,8 +68,8 @@ function createCard(product) {
         <div class="card-footer text-center">
             <span class="d-block mb-2">Raktáron: ${product.in_stock}</span>
             <span class="d-block mb-2">Ár: ${product.price ? product.price + ' Ft' : 'N/A'}</span>
-            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-${product.product_id}">Részletek</button>
-            <button class="btn btn-danger btn-sm mt-2" onclick="deleteProduct(${product.product_id})">Törlés</button>
+            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-${product.config_id}">Részletek</button>
+            <button class="btn btn-danger btn-sm delete-product-btn" data-product-id="${product.config_id}">Törlés</button>
         </div>
     `;
 
@@ -102,37 +101,36 @@ function createModal(product) {
     `;
 
     document.body.appendChild(modalDiv);
+
 }
 
 async function deleteProduct(productId) {
-    if (!productId) {
-        console.error('Érvénytelen termék ID');
-        return;
-    }
-
     if (!confirm('Biztosan törölni szeretnéd ezt a terméket?')) {
         return;
     }
 
     try {
-        const response = await fetch(`/api/delete/deleteConfig/${productId}`, {
+        const response = await fetch(`/api/delete/deleteProduct/${productId}`, {
             method: 'DELETE',
+            credentials: 'include',
+            body: JSON.stringify({ productId }),
             credentials: 'include',
         });
 
         if (response.ok) {
             alert('Termék sikeresen törölve.');
-            const products = await getProducts(); // Újratöltés a törlés után
-            renderProducts(products);
+            getProducts();
         } else {
             const result = await response.json();
             alert('Hiba a törlés során: ' + result.message);
         }
     } catch (error) {
         console.error('Hiba a termék törlésekor:', error);
-        alert('Hiba történt a termék törlésekor.');
     }
 }
+
+
+
 
 function setUpButtonListeners() {
     btnBack?.addEventListener('click', () => window.location.href = 'https://techbay2.netlify.app/homeAdmin.html');
