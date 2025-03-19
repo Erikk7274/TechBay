@@ -19,6 +19,7 @@ async function logout() {
         credentials: 'include'
     });
     if (res.ok) {
+        // Tokenek törlése
         localStorage.removeItem('token');
         sessionStorage.removeItem('token');
         alert('Sikeres kijelentkezés');
@@ -77,8 +78,6 @@ function createCard(product) {
     return cardDiv;
 }
 
-
-
 function createModal(product) {
     const modalDiv = document.createElement('div');
     modalDiv.classList.add('modal', 'fade');
@@ -117,7 +116,7 @@ async function deleteProduct(event) {
     
     try {
         // API végpont módosítása
-        const response = await fetch(`/api/delete/deleteConfig/${productId}`, {
+        const response = await fetch(`/api/delete/deleteConfig/${pc_id}`, {
             method: 'DELETE',
             credentials: 'include',
         });
@@ -138,6 +137,6 @@ function setUpButtonListeners() {
         btnBack.addEventListener('click', () => window.location.href = 'https://techbay2.netlify.app/homeAdmin.html');
     }
     if (btnLogout) {
-        btnLogout.addEventListener('click', () => window.location.href = 'https://techbay2.netlify.app/index.html');
+        btnLogout.addEventListener('click', logout); // Hívja meg a logout() funkciót
     }
 }
