@@ -6,7 +6,7 @@ window.addEventListener('DOMContentLoaded', () => {
 function setupEventListeners() {
     const btnLogout = document.querySelector('.icon-logout');
     const btnBack = document.querySelector('.btnBack');
-    btnBack?.addEventListener('click', () => window.location.href = 'https://techbay2.netlify.app/home.html');
+    btnBack?.addEventListener('click', () => window.location.href = 'https://techbay2.netlify.app/homeAdmin.html');
     
     if (btnLogout) {
         btnLogout.addEventListener('click', logout);
