@@ -327,11 +327,8 @@ nav a i {
     cursor: pointer;
 }
 
-.btn:hover {
-    background-color: #7d5fbf;
-}
 
-.form-label {
+.form-section {
     margin-top: 20px;
 }
 
@@ -343,10 +340,6 @@ nav a i {
     border-radius: 5px;
 }
 
-
-
-
-
 .form-section .btn-save {
     background-color: #3fb663;
     color: rgb(255, 255, 255);
@@ -355,16 +348,6 @@ nav a i {
 .form-section .btn-save:hover {
     background-color: #2a8543;
     color: rgb(255, 255, 255);
-}
-
-
-
-.productForm{
-    background-color: #7d5fbf;
-}
-.form-control{
-    max-width: 300px;
-    min-width: 100px;
 }
 br{
     padding-top: 10px;
