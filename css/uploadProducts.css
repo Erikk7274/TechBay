@@ -28,7 +28,7 @@ header {
     max-width: 1000px;
     margin: 20px auto;
     padding: 20px;
-    background-color: #3a2d5d;
+    background-color: none;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
