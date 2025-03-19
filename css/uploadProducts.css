@@ -370,3 +370,7 @@ br{
     padding-top: 10px;
     padding-bottom: 20px;
 }
+.form-label{
+    border: 1px black;
+    border-radius: 10%;
+}
