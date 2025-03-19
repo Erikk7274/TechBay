@@ -85,6 +85,8 @@ function createModal(product) {
     modalDiv.id = `modal-${product.pc_id}`;
     modalDiv.setAttribute('tabindex', '-1');
     modalDiv.setAttribute('aria-labelledby', `modalLabel-${product.pc_id}`);
+
+    
     modalDiv.setAttribute('aria-hidden', 'true');
 
     modalDiv.innerHTML = `
