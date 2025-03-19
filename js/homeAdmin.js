@@ -169,6 +169,8 @@ async function deleteProduct(productId) {
         const response = await fetch(`/api/deleteProduct/${productId}`, {
             method: 'DELETE',
             credentials: 'include',
+            body: JSON.stringify({ productId }),
+            credentials: 'include',
         });
 
         if (response.ok) {
