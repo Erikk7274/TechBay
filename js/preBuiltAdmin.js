@@ -1,4 +1,4 @@
-const btnHardware = document.querySelector('.btnHardware');
+
 const btnLogout = document.querySelector('.btnLogout');
 const btnBack = document.querySelector('.btnBack');
 const row = document.getElementById('row');
@@ -12,6 +12,7 @@ window.addEventListener('DOMContentLoaded', async () => {
         console.error('Inicializálás sikertelen:', error);
     }
 });
+
 btnLogout.addEventListener('click', logout);
 
 async function logout() {
@@ -104,6 +105,13 @@ function createModal(product) {
 
 async function deleteProduct(event) {
     const productId = event.target.getAttribute('data-id');
+    
+    if (!productId) {
+        console.error('Termék ID hiányzik');
+        alert('Nem található termék ID.');
+        return;
+    }
+    
     try {
         const response = await fetch(`/api/deleteConfig/${productId}`, {
             method: 'DELETE',
@@ -112,7 +120,7 @@ async function deleteProduct(event) {
 
         if (!response.ok) throw new Error('Nem sikerült törölni a terméket');
 
-        // Ha a törlés sikerült, frissítsük a termékek listáját
+        // Ha a törlés sikerült, frissítjük a termékek listáját
         alert('A termék sikeresen törlésre került.');
         window.location.reload();  // Újratöltjük az oldalt, hogy frissüljön a lista
     } catch (error) {
@@ -122,7 +130,10 @@ async function deleteProduct(event) {
 }
 
 function setUpButtonListeners() {
-    btnBack?.addEventListener('click', () => window.location.href = 'https://techbay2.netlify.app/homeAdmin.html');
-    btnLogout?.addEventListener('click', () => window.location.href = 'https://techbay2.netlify.app/index.html');
-    btnBack?.addEventListener('click', () => window.location.href = 'https://techbay2.netlify.app/homeAdmin.html');
+    if (btnBack) {
+        btnBack.addEventListener('click', () => window.location.href = 'https://techbay2.netlify.app/homeAdmin.html');
+    }
+    if (btnLogout) {
+        btnLogout.addEventListener('click', () => window.location.href = 'https://techbay2.netlify.app/index.html');
+    }
 }
