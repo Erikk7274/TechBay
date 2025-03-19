@@ -58,7 +58,7 @@ function createCard(product) {
     cardDiv.classList.add('card', 'm-3', 'p-2', 'shadow-sm');
     cardDiv.style.width = '18rem';
 
-    // Helyes változó használata a képhez, most már config_pic-t használunk
+    // Ha nincs kép, használjuk az alapértelmezett képet
     const productPic = product.config_pic ? `/uploads/${product.config_pic}` : '/uploads/1.jpg';
 
     cardDiv.innerHTML = `
@@ -76,6 +76,7 @@ function createCard(product) {
 
     return cardDiv;
 }
+
 
 
 function createModal(product) {
