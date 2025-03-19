@@ -58,8 +58,8 @@ function createCard(product) {
     cardDiv.classList.add('card', 'm-3', 'p-2', 'shadow-sm');
     cardDiv.style.width = '18rem';
 
-    // Ha nincs kép, használjuk az alapértelmezett képet
-    const productPic = product.config_pic ? `/api/uploads/${product.config_pic}` : '/api/uploads/1.jpg';
+    // Ha nincs kép, vagy érvénytelen a kép, használjuk az alapértelmezett képet
+    const productPic = product.config_pic && product.config_pic !== 'undefined' ? `/api/uploads/${product.config_pic}` : '/api/uploads/1.jpg';
 
     cardDiv.innerHTML = `
         <div class="card-header text-center fw-bold">${product.config_name || product.product_name}</div>
