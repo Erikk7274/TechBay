@@ -59,7 +59,7 @@ function createCard(product) {
     cardDiv.style.width = '18rem';
 
     // Ha nincs kép, használjuk az alapértelmezett képet
-    const productPic = product.config_pic ? `/uploads/${product.config_pic}` : '/uploads/1.jpg';
+    const productPic = product.config_pic ? `/api/uploads/${product.config_pic}` : '/api/uploads/1.jpg';
 
     cardDiv.innerHTML = `
         <div class="card-header text-center fw-bold">${product.config_name || product.product_name}</div>
