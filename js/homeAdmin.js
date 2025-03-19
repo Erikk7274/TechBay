@@ -60,7 +60,7 @@ function createCard(product) {
     cardDiv.style.width = '18rem';
 
     // Ha nincs kép, vagy érvénytelen a kép, használjuk az alapértelmezett képet
-   
+    const productPic = product.config_pic ? `/api/uploads/${product.config_pic}` : '/api/uploads/1.jpg';
 
     cardDiv.innerHTML = `
         <div class="card-header text-center fw-bold">${product.config_name || product.product_name}</div>
@@ -86,6 +86,9 @@ function createModal(product) {
     modalDiv.setAttribute('aria-labelledby', `modalLabel-${product.product_id}`);
     modalDiv.setAttribute('aria-hidden', 'true');
 
+    // Ha nincs kép, vagy érvénytelen a kép, használjuk az alapértelmezett képet
+    const productPic = product.config_pic ? `/uploads/${product.config_pic}` : '/uploads/1.jpg';
+
     modalDiv.innerHTML = `
         <div class="modal-dialog modal-lg" style="max-width:500px">
             <div class="modal-content">
@@ -94,7 +97,7 @@ function createModal(product) {
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
-                    <img src="/uploads/${product.product_pic}" alt="${product.config_name || product.product_name}" class="img-fluid mb-3">
+                    <img src="${productPic}" alt="${product.config_name || product.product_name}" class="img-fluid mb-3">
                     <p><strong>Raktáron:</strong> ${product.in_stock}</p>
                     <p><strong>Ár:</strong> ${product.price ? `${product.price} Ft` : 'N/A'}</p>
                 </div>
