@@ -59,7 +59,7 @@ function createCard(product) {
     cardDiv.style.width = '18rem';
 
     // Helyes változó használata a képhez
-    const productPic = product.product_pic ? `/uploads/${product.product_pic}` : '/uploads/default.jpg';
+    const productPic = product.product_pic ? `/uploads/${product.product_pic}` : '/uploads/1.jpg';
 
     cardDiv.innerHTML = `
         <div class="card-header text-center fw-bold">${product.config_name || product.product_name}</div>
