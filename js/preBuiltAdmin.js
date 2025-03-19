@@ -76,6 +76,10 @@ function createCard(product) {
     cardDiv.style.width = '18rem';
     cardDiv.style.minHeight = '20rem';
 
+
+
+
+    
     cardDiv.innerHTML = `
         <div class="card-header text-center fw-bold">${product.config_name || product.product_name}</div>
         <div class="card-body text-center">
