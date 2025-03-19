@@ -13,6 +13,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     }
 });
 btnLogout.addEventListener('click', logout);
+
 async function logout() {
     const res = await fetch('/api/auth/logout', {
         method: 'POST',
@@ -67,6 +68,7 @@ function createCard(product) {
             <span class="d-block mb-2">Raktáron: ${product.in_stock}</span>
             <span class="d-block mb-2">Ár: ${product.price ? product.price + ' Ft' : 'N/A'}</span>
             <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-${product.product_id}">Részletek</button>
+            <button class="btn btn-danger btn-sm mt-2" data-id="${product.product_id}" onclick="deleteProduct(event)">Törlés</button>
         </div>
     `;
 
@@ -98,12 +100,26 @@ function createModal(product) {
     `;
 
     document.body.appendChild(modalDiv);
-
 }
 
+async function deleteProduct(event) {
+    const productId = event.target.getAttribute('data-id');
+    try {
+        const response = await fetch(`/api/deleteConfig/${productId}`, {
+            method: 'DELETE',
+            credentials: 'include',
+        });
 
+        if (!response.ok) throw new Error('Nem sikerült törölni a terméket');
 
-
+        // Ha a törlés sikerült, frissítsük a termékek listáját
+        alert('A termék sikeresen törlésre került.');
+        window.location.reload();  // Újratöltjük az oldalt, hogy frissüljön a lista
+    } catch (error) {
+        console.error('Hiba a törléskor:', error);
+        alert('Hiba történt a termék törlésekor.');
+    }
+}
 
 function setUpButtonListeners() {
     btnBack?.addEventListener('click', () => window.location.href = 'https://techbay2.netlify.app/homeAdmin.html');
