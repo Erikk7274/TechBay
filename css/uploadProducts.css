@@ -23,7 +23,7 @@ header {
     flex-wrap: wrap;
 }
 
-.container {
+.mian-container {
     color: white;
     max-width: 1000px;
     margin: 20px auto;
