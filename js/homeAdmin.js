@@ -100,7 +100,7 @@ function createCard(product) {
         <div class="card-footer text-center">
             <span class="d-block mb-2">Ár: ${product.price ? product.price + ' Ft' : 'N/A'}</span>
             <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-${product.product_id}">Részletek</button>
-            <button class="btn btn-danger btn-sm ms-2 delete-product-btn" data-product-id="${product.product_id}">Törlés</button>
+            <button class="btn btn-danger btn-sm delete-product-btn" data-product-id="${product.product_id}">Törlés</button>
         </div>
     `;
 
