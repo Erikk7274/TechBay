@@ -124,6 +124,7 @@ async function deleteProduct(productId) {
     }
 
     try {
+        console.log("Törléshez küldött termék ID:", productId); // Logoljuk a termék ID-ját
         const response = await fetch(`/api/delete/deleteConfig/${productId}`, {  // A végpont módosítása
             method: 'DELETE',
             headers: {
@@ -134,10 +135,12 @@ async function deleteProduct(productId) {
         });
 
         if (response.ok) {
+            console.log("Sikeres törlés");  // Törlés sikeres logolása
             alert('Termék sikeresen törölve.');
             getProducts();  // Frissíti a termékek listáját
         } else {
             const result = await response.json();
+            console.error("Törlés hiba:", result);  // Hibák logolása
             alert('Hiba a törlés során: ' + result.message);
         }
     } catch (error) {
