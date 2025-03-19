@@ -1,4 +1,3 @@
-const btnPreBuilt = document.querySelector('.btnPreBuilt');
 const btnHardware = document.querySelector('.btnHardware');
 const btnLogout = document.querySelector('.btnLogout');
 const btnBack = document.querySelector('.btnBack');
@@ -13,6 +12,7 @@ window.addEventListener('DOMContentLoaded', async () => {
         console.error('Inicializálás sikertelen:', error);
     }
 });
+
 btnLogout.addEventListener('click', logout);
 
 async function logout() {
@@ -24,7 +24,6 @@ async function logout() {
     if (res.ok) {
         localStorage.removeItem('token');
         sessionStorage.removeItem('token');
-
         alert('Sikeres kijelentkezés');
         window.location.href = '../index.html';
     } else {
@@ -105,32 +104,38 @@ function createModal(product) {
     document.body.appendChild(modalDiv);
 }
 
-function setUpButtonListeners() {
-    btnPreBuilt?.addEventListener('click', () => window.location.href = 'https://techbay2.netlify.app/preBuiltAdmin.html');
-    btnLogout?.addEventListener('click', () => window.location.href = 'https://techbay2.netlify.app/index.html');
-    btnBack?.addEventListener('click', () => window.location.href = 'https://techbay2.netlify.app/homeAdmin.html');
-}
-
 async function deleteProduct(productId) {
+    if (!productId) {
+        console.error('Érvénytelen termék ID');
+        return;
+    }
+
     if (!confirm('Biztosan törölni szeretnéd ezt a terméket?')) {
         return;
     }
 
     try {
-        const response = await fetch(`/api/deleteProduct/${productId}`, {
+        const response = await fetch(`/api/delete/deleteConfig/${productId}`, {
             method: 'DELETE',
             credentials: 'include',
         });
 
         if (response.ok) {
             alert('Termék sikeresen törölve.');
-            const products = await getProducts();
-            renderProducts(products); // újratöltés a törlés után
+            const products = await getProducts(); // Újratöltés a törlés után
+            renderProducts(products);
         } else {
             const result = await response.json();
             alert('Hiba a törlés során: ' + result.message);
         }
     } catch (error) {
         console.error('Hiba a termék törlésekor:', error);
+        alert('Hiba történt a termék törlésekor.');
     }
+}
+
+function setUpButtonListeners() {
+    btnBack?.addEventListener('click', () => window.location.href = 'https://techbay2.netlify.app/homeAdmin.html');
+    btnLogout?.addEventListener('click', () => window.location.href = 'https://techbay2.netlify.app/index.html');
+    btnBack?.addEventListener('click', () => window.location.href = 'https://techbay2.netlify.app/homeAdmin.html');
 }
