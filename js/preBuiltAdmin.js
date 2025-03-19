@@ -13,8 +13,6 @@ window.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
-btnLogout.addEventListener('click', logout);
-
 async function logout() {
     const res = await fetch('/api/auth/logout', {
         method: 'POST',
@@ -60,19 +58,19 @@ function createCard(product) {
     cardDiv.classList.add('card', 'm-3', 'p-2', 'shadow-sm');
     cardDiv.style.width = '18rem';
 
-    // Ellenőrizzük, hogy a kép létezik-e
-    const productPic = product.product_pic ? `/uploads/${product.config_pic}` : '/uploads/1.jpg';
+    // Helyes változó használata a képhez
+    const productPic = product.product_pic ? `/uploads/${product.product_pic}` : '/uploads/default.jpg';
 
     cardDiv.innerHTML = `
-        <div class="card-header text-center fw-bold">${product.config_name}</div>
+        <div class="card-header text-center fw-bold">${product.config_name || product.product_name}</div>
         <div class="card-body text-center">
-            <img src="${config_pic}" class="img-fluid mb-3" alt="${product.config_name}">
+            <img src="${productPic}" class="img-fluid mb-3" alt="${product.config_name || product.product_name}">
         </div>
         <div class="card-footer text-center">
             <span class="d-block mb-2">Raktáron: ${product.in_stock}</span>
             <span class="d-block mb-2">Ár: ${product.price ? product.price + ' Ft' : 'N/A'}</span>
-            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-${product.pc_id}">Részletek</button>
-            <button class="btn btn-danger btn-sm mt-2" data-id="${product.pc_id}" onclick="deleteProduct(event)">Törlés</button>
+            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-${product.product_id}">Részletek</button>
+            <button class="btn btn-danger btn-sm mt-2" data-id="${product.product_id}" onclick="deleteProduct(event)">Törlés</button>
         </div>
     `;
 
@@ -82,22 +80,20 @@ function createCard(product) {
 function createModal(product) {
     const modalDiv = document.createElement('div');
     modalDiv.classList.add('modal', 'fade');
-    modalDiv.id = `modal-${product.pc_id}`;
+    modalDiv.id = `modal-${product.product_id}`;
     modalDiv.setAttribute('tabindex', '-1');
-    modalDiv.setAttribute('aria-labelledby', `modalLabel-${product.pc_id}`);
-
-    
+    modalDiv.setAttribute('aria-labelledby', `modalLabel-${product.product_id}`);
     modalDiv.setAttribute('aria-hidden', 'true');
 
     modalDiv.innerHTML = `
         <div class="modal-dialog modal-lg" style="max-width:500px">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalLabel-${product.pc_id}">${product.config_name || product.config_name}</h5>
+                    <h5 class="modal-title" id="modalLabel-${product.product_id}">${product.config_name || product.product_name}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
-                    <img src="/uploads/${product.config_pic}" alt="${product.config_name}" class="img-fluid mb-3">
+                    <img src="/uploads/${product.product_pic}" alt="${product.config_name || product.product_name}" class="img-fluid mb-3">
                     <p><strong>Raktáron:</strong> ${product.in_stock}</p>
                     <p><strong>Ár:</strong> ${product.price ? `${product.price} Ft` : 'N/A'}</p>
                 </div>
@@ -118,7 +114,7 @@ async function deleteProduct(event) {
     }
     
     try {
-        // API végpont módosítása a kívánt formátumra
+        // API végpont módosítása
         const response = await fetch(`/api/delete/deleteConfig/${productId}`, {
             method: 'DELETE',
             credentials: 'include',
