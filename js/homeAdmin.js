@@ -100,8 +100,11 @@ function createCard(product) {
         <div class="card-footer text-center">
             <span class="d-block mb-2">Ár: ${product.price ? product.price + ' Ft' : 'N/A'}</span>
             <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-${product.product_id}">Részletek</button>
+            <button class="btn btn-danger btn-sm ms-2 delete-product-btn" data-product-id="${product.product_id}">Törlés</button>
         </div>
     `;
+
+    cardDiv.querySelector('.delete-product-btn').addEventListener('click', () => deleteProduct(product.product_id));
 
     return cardDiv;
 }
@@ -154,5 +157,28 @@ async function addToCart(productId) {
         }
     } catch (error) {
         console.error('Hiba a kosárba helyezéskor:', error);
+    }
+}
+
+async function deleteProduct(productId) {
+    if (!confirm('Biztosan törölni szeretnéd ezt a terméket?')) {
+        return;
+    }
+
+    try {
+        const response = await fetch(`/api/deleteProduct/${productId}`, {
+            method: 'DELETE',
+            credentials: 'include',
+        });
+
+        if (response.ok) {
+            alert('Termék sikeresen törölve.');
+            getProducts();
+        } else {
+            const result = await response.json();
+            alert('Hiba a törlés során: ' + result.message);
+        }
+    } catch (error) {
+        console.error('Hiba a termék törlésekor:', error);
     }
 }
