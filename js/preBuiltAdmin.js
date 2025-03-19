@@ -12,6 +12,7 @@ window.addEventListener('DOMContentLoaded', async () => {
         console.error('Inicializálás sikertelen:', error);
     }
 });
+btnLogout.addEventListener('click', logout);
 async function logout() {
     const res = await fetch('/api/auth/logout', {
         method: 'POST',
@@ -65,8 +66,7 @@ function createCard(product) {
         <div class="card-footer text-center">
             <span class="d-block mb-2">Raktáron: ${product.in_stock}</span>
             <span class="d-block mb-2">Ár: ${product.price ? product.price + ' Ft' : 'N/A'}</span>
-            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-${product.pc_id}">Részletek</button>
-            <button class="btn btn-danger btn-sm delete-product-btn" data-product-id="${product.pc_id}">Törlés</button>
+            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-${product.product_id}">Részletek</button>
         </div>
     `;
 
@@ -101,30 +101,6 @@ function createModal(product) {
 
 }
 
-async function deleteProduct(productId) {
-    if (!confirm('Biztosan törölni szeretnéd ezt a terméket?')) {
-        return;
-    }
-
-    try {
-        const response = await fetch(`/api/delete/deleteProduct/${productId}`, {
-            method: 'DELETE',
-            credentials: 'include',
-            body: JSON.stringify({ productId }),
-            credentials: 'include',
-        });
-
-        if (response.ok) {
-            alert('Termék sikeresen törölve.');
-            getProducts();
-        } else {
-            const result = await response.json();
-            alert('Hiba a törlés során: ' + result.message);
-        }
-    } catch (error) {
-        console.error('Hiba a termék törlésekor:', error);
-    }
-}
 
 
 
