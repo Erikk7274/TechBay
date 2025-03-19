@@ -364,6 +364,7 @@ nav a i {
 .form-select{
     padding-top: 10px;
     padding-bottom: 10px;
+    margin-top: 10px;
 }
 /* Bootstrap input styling */
 .form-control, .form-select {
