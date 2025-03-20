@@ -87,12 +87,12 @@ function createCard(product) {
         </div>
         <div class="card-footer text-center">
             <span class="d-block mb-2">Ár: ${product.price ? product.price + ' Ft' : 'N/A'}</span>
-            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-${product.product_id}">Részletek</button>
-            <button class="btn btn-danger btn-sm delete-product-btn" data-product-id="${product.product_id}">Törlés</button>
+            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-${product.pc_id}">Részletek</button>
+            <button class="btn btn-danger btn-sm delete-product-btn" data-product-id="${product.pc_id}">Törlés</button>
         </div>
     `;
 
-    cardDiv.querySelector('.delete-product-btn').addEventListener('click', () => deleteProduct(product.product_id));
+    cardDiv.querySelector('.delete-product-btn').addEventListener('click', () => deleteProduct(product.pc_id));
 
     return cardDiv;
 }
@@ -100,16 +100,16 @@ function createCard(product) {
 function createModal(product) {
     const modalDiv = document.createElement('div');
     modalDiv.classList.add('modal', 'fade');
-    modalDiv.id = `modal-${product.product_id}`;
+    modalDiv.id = `modal-${product.pc_id}`;
     modalDiv.setAttribute('tabindex', '-1');
-    modalDiv.setAttribute('aria-labelledby', `modalLabel-${product.product_id}`);
+    modalDiv.setAttribute('aria-labelledby', `modalLabel-${product.pc_id}`);
     modalDiv.setAttribute('aria-hidden', 'true');
 
     modalDiv.innerHTML = `
         <div class="modal-dialog modal-lg" style="max-width:500px">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalLabel-${product.product_id}">${product.config_name || product.product_name}</h5>
+                    <h5 class="modal-title" id="modalLabel-${product.pc_id}">${product.config_name || product.product_name}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
