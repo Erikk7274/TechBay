@@ -3,6 +3,7 @@ const btnHardware = document.querySelector('.btnHardware');
 const btnLogout = document.querySelector('.btnLogout');
 const btnBack = document.querySelector('.btnBack');
 const row = document.getElementById('row');
+
 async function logout() {
     const res = await fetch('/api/auth/logout', {
         method: 'POST',
@@ -19,7 +20,6 @@ async function logout() {
         alert('Hiba a kijelentkezéskor');
     }
 }
-
 
 window.addEventListener('DOMContentLoaded', async () => {
     try {
@@ -50,6 +50,9 @@ async function getProducts() {
 function renderProducts(products) {
     row.innerHTML = '';
     products.forEach(product => {
+        if (!product.product_pic) {
+            console.warn(`Hiányzó kép: ${product.config_name || product.product_name}`);
+        }
         const cardDiv = createCard(product);
         row.append(cardDiv);
         createModal(product);
@@ -57,6 +60,8 @@ function renderProducts(products) {
 }
 
 function createCard(product) {
+    const imgSrc = product.product_pic ? `/uploads/${product.product_pic}` : '1.jpg';
+
     const cardDiv = document.createElement('div');
     cardDiv.classList.add('card', 'm-3', 'p-2', 'shadow-sm');
     cardDiv.style.width = '18rem';
@@ -64,7 +69,7 @@ function createCard(product) {
     cardDiv.innerHTML = `
         <div class="card-header text-center fw-bold">${product.config_name || product.product_name}</div>
         <div class="card-body text-center">
-            <img src="/uploads/${product.product_pic}" class="img-fluid mb-3" alt="${product.config_name || product.product_name}">
+            <img src="${imgSrc}" class="img-fluid mb-3" alt="${product.config_name || product.product_name}" onerror="this.src='default-image.jpg'">
         </div>
         <div class="card-footer text-center">
             <span class="d-block mb-2">Raktáron: ${product.in_stock}</span>
@@ -77,6 +82,8 @@ function createCard(product) {
 }
 
 function createModal(product) {
+    const imgSrc = product.product_pic ? `/uploads/${product.product_pic}` : '1.jpg';
+
     const modalDiv = document.createElement('div');
     modalDiv.classList.add('modal', 'fade');
     modalDiv.id = `modal-${product.product_id}`;
@@ -92,7 +99,7 @@ function createModal(product) {
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
-                    <img src="/uploads/${product.product_pic}" alt="${product.config_name || product.product_name}" class="img-fluid mb-3">
+                    <img src="${imgSrc}" alt="${product.config_name || product.product_name}" class="img-fluid mb-3" onerror="this.src='default-image.jpg'">
                     <p><strong>Raktáron:</strong> ${product.in_stock}</p>
                     <p><strong>Ár:</strong> ${product.price ? `${product.price} Ft` : 'N/A'}</p>
                 </div>
