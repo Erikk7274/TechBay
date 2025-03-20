@@ -6,8 +6,11 @@ window.addEventListener('DOMContentLoaded', () => {
 function setupEventListeners() {
     const btnLogout = document.querySelector('.icon-logout');
     const btnBack = document.querySelector('.btnBack');
+
+    // Vissza gomb eseménykezelő
     btnBack?.addEventListener('click', () => window.location.href = 'https://techbay2.netlify.app/homeAdmin.html');
-    
+
+    // Kijelentkezés gomb eseménykezelő
     if (btnLogout) {
         btnLogout.addEventListener('click', logout);
     } else {
@@ -15,6 +18,7 @@ function setupEventListeners() {
     }
 }
 
+// Kijelentkezés függvény
 async function logout() {
     try {
         const res = await fetch('/api/auth/logout', {
@@ -23,6 +27,7 @@ async function logout() {
         });
 
         if (res.ok) {
+            // Tokenek törlése
             localStorage.removeItem('token');
             sessionStorage.removeItem('token');
 
@@ -36,9 +41,10 @@ async function logout() {
     }
 }
 
+// Termékek lekérése az API-ból
 async function getProducts() {
     try {
-        const response = await fetch(`/api/getProducts/getConfig_active`, {  // A végpont módosítása
+        const response = await fetch(`/api/getProducts/getConfig_active`, {
             method: 'GET',
             credentials: 'include'
         });
@@ -49,6 +55,7 @@ async function getProducts() {
     }
 }
 
+// Termékek kirajzolása az oldalra
 function renderProducts(products) {
     const row = document.getElementById('row');
     if (!row) {
@@ -56,8 +63,8 @@ function renderProducts(products) {
         return;
     }
 
-    row.innerHTML = '';
-    clearModals();
+    row.innerHTML = ''; // Korábbi termékek törlése
+    clearModals(); // Modalok törlése
 
     products.forEach(product => {
         const cardDiv = createCard(product);
@@ -66,20 +73,18 @@ function renderProducts(products) {
     });
 }
 
+// Korábbi modal ablakok törlése
 function clearModals() {
     document.querySelectorAll('.modal').forEach(modal => modal.remove());
 }
 
+// Egy adott termék kártyájának létrehozása
 function createCard(product) {
     const cardDiv = document.createElement('div');
     cardDiv.classList.add('card', 'm-2', 'p-2', 'shadow-sm');
     cardDiv.style.width = '18rem';
     cardDiv.style.minHeight = '20rem';
 
-
-
-
-    
     cardDiv.innerHTML = `
         <div class="card-header text-center fw-bold">${product.config_name || product.product_name}</div>
         <div class="card-body text-center">
@@ -92,11 +97,13 @@ function createCard(product) {
         </div>
     `;
 
+    // Törlés gomb eseménykezelője
     cardDiv.querySelector('.delete-product-btn').addEventListener('click', () => deleteProduct(product.pc_id));
 
     return cardDiv;
 }
 
+// Egy adott termék modal ablakának létrehozása
 function createModal(product) {
     const modalDiv = document.createElement('div');
     modalDiv.classList.add('modal', 'fade');
@@ -124,7 +131,8 @@ function createModal(product) {
     document.body.appendChild(modalDiv);
 }
 
-async function deleteProduct(configId) {
+// Termék törlése az API-ból
+async function deleteProduct(pc_id) {
     if (!confirm('Biztosan törölni szeretnéd ezt a terméket?')) {
         return;
     }
@@ -135,13 +143,13 @@ async function deleteProduct(configId) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ pc_id }),
+            body: JSON.stringify({ pc_id }),  
             credentials: 'include'
         });
 
         if (response.ok) {
             alert('Termék sikeresen törölve.');
-            getProducts();  
+            getProducts();  // Frissítjük a terméklistát
         } else {
             const result = await response.json();
             alert('Hiba a törlés során: ' + result.message);
