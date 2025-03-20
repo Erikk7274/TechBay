@@ -7,10 +7,13 @@ function setupEventListeners() {
     const btnLogout = document.querySelector('.icon-logout');
     const btnBack = document.querySelector('.btnBack');
 
-    // Vissza gomb eseménykezelő
-    btnBack.addEventListener('click', () => {
-        window.location.href = 'https://techbay2.netlify.app/home.html';
-    });
+    if (btnBack) {
+        btnBack.addEventListener('click', () => {
+            window.location.href = 'https://techbay2.netlify.app/home.html';
+        });
+    } else {
+        console.error('Nem található vissza gomb.');
+    }
 
     // Kijelentkezés gomb eseménykezelő
     if (btnLogout) {
