@@ -130,7 +130,7 @@ async function deleteProduct(configId) {
     }
 
     try {
-        const response = await fetch(`/api/delete/deleteConfig/${configId}`, {  
+        const response = await fetch(`/api/delete/deleteConfig/${pc_id}`, {  
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
