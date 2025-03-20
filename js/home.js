@@ -2,6 +2,7 @@ window.addEventListener('DOMContentLoaded', getProducts);
 
 // Gombok lekérése
 const btnPreBuilt = document.getElementsByClassName('btnPreBuilt')[0];
+const btnPcBuilding = document.getElementsByClassName('btnPcBuilding')[0];
 const homeBtn = document.getElementsByClassName('icon-home')[0];
 const userBtn = document.getElementsByClassName('icon-user')[0];
 const cartBtn = document.getElementsByClassName('icon-cart')[0];
@@ -141,4 +142,8 @@ cartBtn.addEventListener('click', () => {
 
 btnPreBuilt.addEventListener('click', () => {
     window.location.href = 'https://techbay2.netlify.app/preBuilt.html';
+});
+
+btnPcBuilding.addEventListener('click', () => {
+    window.location.href = 'https://techbay2.netlify.app/pcBuilding.html';
 });
