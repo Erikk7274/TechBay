@@ -60,7 +60,7 @@ function renderProducts(products) {
 }
 
 function createCard(product) {
-    const imgSrc = product.product_pic ? `/uploads/${product.product_pic}` : '1.jpg';
+   
 
     const cardDiv = document.createElement('div');
     cardDiv.classList.add('card', 'm-3', 'p-2', 'shadow-sm');
@@ -69,7 +69,7 @@ function createCard(product) {
     cardDiv.innerHTML = `
         <div class="card-header text-center fw-bold">${product.config_name || product.product_name}</div>
         <div class="card-body text-center">
-            <img src="${imgSrc}" class="img-fluid mb-3" alt="${product.config_name || product.product_name}" onerror="this.src='1.jpg'">
+            <img src="/api/uploads/${product.config_pic}" class="img-fluid mb-3" alt="${product.config_name || product.product_name}">
         </div>
         <div class="card-footer text-center">
             <span class="d-block mb-2">Raktáron: ${product.in_stock}</span>
@@ -82,7 +82,6 @@ function createCard(product) {
 }
 
 function createModal(product) {
-    const imgSrc = product.product_pic ? `/uploads/${product.product_pic}` : '1.jpg';
 
     const modalDiv = document.createElement('div');
     modalDiv.classList.add('modal', 'fade');
@@ -99,7 +98,7 @@ function createModal(product) {
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
-                    <img src="${imgSrc}" alt="${product.config_name || product.product_name}" class="img-fluid mb-3" onerror="this.src='1.jpg'">
+                    <img src="/api/uploads/${product.config_pic}" alt="${product.config_name || product.product_name}" class="img-fluid mb-3">
                     <p><strong>Raktáron:</strong> ${product.in_stock}</p>
                     <p><strong>Ár:</strong> ${product.price ? `${product.price} Ft` : 'N/A'}</p>
                 </div>
