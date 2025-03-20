@@ -1,5 +1,4 @@
 window.addEventListener('DOMContentLoaded', () => {
-    getProducts();
     setupEventListeners();
 });
 
