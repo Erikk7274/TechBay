@@ -69,7 +69,7 @@ function createCard(product) {
     cardDiv.innerHTML = `
         <div class="card-header text-center fw-bold">${product.config_name || product.product_name}</div>
         <div class="card-body text-center">
-            <img src="${imgSrc}" class="img-fluid mb-3" alt="${product.config_name || product.product_name}" onerror="this.src='default-image.jpg'">
+            <img src="${imgSrc}" class="img-fluid mb-3" alt="${product.config_name || product.product_name}" onerror="this.src='1.jpg'">
         </div>
         <div class="card-footer text-center">
             <span class="d-block mb-2">Raktáron: ${product.in_stock}</span>
@@ -99,7 +99,7 @@ function createModal(product) {
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
-                    <img src="${imgSrc}" alt="${product.config_name || product.product_name}" class="img-fluid mb-3" onerror="this.src='default-image.jpg'">
+                    <img src="${imgSrc}" alt="${product.config_name || product.product_name}" class="img-fluid mb-3" onerror="this.src='1.jpg'">
                     <p><strong>Raktáron:</strong> ${product.in_stock}</p>
                     <p><strong>Ár:</strong> ${product.price ? `${product.price} Ft` : 'N/A'}</p>
                 </div>
