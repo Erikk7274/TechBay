@@ -8,7 +8,9 @@ function setupEventListeners() {
     const btnBack = document.querySelector('.btnBack');
 
     // Vissza gomb eseménykezelő
-    btnBack?.addEventListener('click', () => window.location.href = 'https://techbay2.netlify.app/home.html');
+    btnBack.addEventListener('click', () => {
+        window.location.href = 'https://techbay2.netlify.app/home.html';
+    });
 
     // Kijelentkezés gomb eseménykezelő
     if (btnLogout) {
