@@ -135,7 +135,7 @@ async function deleteProduct(configId) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ configId }),  // Most már configId-t küldünk
+            body: JSON.stringify({ pc_id }),
             credentials: 'include'
         });
 
