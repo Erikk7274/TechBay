@@ -57,25 +57,20 @@ async function loadCart() {
         const cart = await response.json();
         console.log('Cart items:', cart);
 
-        if (!Array.isArray(cart) || cart.length === 0) {
-            cartItemsContainer.innerHTML = '<p class="text-center">A kosár üres</p>';
-        } else {
+        if (Array.isArray(cart) && cart.length > 0) {
             cartItemsContainer.innerHTML = renderCartItems(cart);
             setUpRemoveButtons();
+        } else {
+            cartItemsContainer.innerHTML = '<p class="text-center">A kosár üres</p>';
         }
     } catch (error) {
         console.error('Error loading cart:', error);
-        cartItemsContainer.innerHTML = '<p class="text-center">Hiba a kosár betöltésekor.</p>';
+        cartItemsContainer.innerHTML = `<p class="text-center">Hiba a kosár betöltésekor: ${error.message}</p>`;
     }
 }
 
-
 // Render cart items dynamically
 function renderCartItems(cart) {
-    if (!Array.isArray(cart) || cart.length === 0) {
-        return '<p class="text-center">A kosár üres</p>';
-    }
-
     return cart.map(item => `
         <div class="card mb-3" data-id="${item.product_id}">
             <div class="card-body">
@@ -87,7 +82,6 @@ function renderCartItems(cart) {
         </div>
     `).join('');
 }
-
 
 // Set up event listeners for the remove item buttons
 function setUpRemoveButtons() {
@@ -118,7 +112,6 @@ async function removeItemFromCart(productId) {
         alert('Hiba a termék eltávolításakor.');
     }
 }
-
 
 // Handle the order button click
 function setUpOrderButton() {
