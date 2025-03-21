@@ -1,6 +1,5 @@
-window.addEventListener('DOMContentLoaded', async () => {
+window.addEventListener('DOMContentLoaded', () => {
     setupEventListeners();
-    await loadHardwareOptions();
 });
 
 function setupEventListeners() {
@@ -15,6 +14,7 @@ function setupEventListeners() {
         console.error('Nem található vissza gomb.');
     }
 
+    // Kijelentkezés gomb eseménykezelő
     if (btnLogout) {
         btnLogout.addEventListener('click', logout);
     } else {
@@ -22,6 +22,7 @@ function setupEventListeners() {
     }
 }
 
+// Kijelentkezés függvény
 async function logout() {
     try {
         const res = await fetch('/api/auth/logout', {
@@ -30,6 +31,7 @@ async function logout() {
         });
 
         if (res.ok) {
+            // Tokenek törlése
             localStorage.removeItem('token');
             sessionStorage.removeItem('token');
 
@@ -43,55 +45,9 @@ async function logout() {
     }
 }
 
-async function loadHardwareOptions() {
-    try {
-        const response = await fetch('/api/getProducts/getProducts_all');
-        const options = await response.json();
-        createConfigForm(options);
-    } catch (error) {
-        console.error('Nem sikerült betölteni a hardver opciókat:', error);
-    }
-}
 
-function createConfigForm(options) {
-    const formContainer = document.getElementById('formContainer');
-    if (!formContainer) {
-        console.error('Nem található a formContainer elem.');
-        return;
-    }
-    
-    function generateSelect(id, label, options) {
-        return `
-            <div class="mb-3">
-                <label for="${id}" class="form-label">${label}:</label><br>
-                <select id="${id}" name="${id}" class="form-control config" required>
-                    ${options.map(opt => `<option value="${opt}">${opt}</option>`).join('')}
-                </select>
-            </div>
-        `;
-    }
 
-    formContainer.innerHTML = `
-        <form id="configForm" class="container mt-4 p-4 border rounded bg-light shadow-lg">
-            <div class="mb-3">
-                <label for="configName" class="form-label">Konfiguráció neve:</label>
-                <br>
-                <input type="text" id="configName" name="configName" class="form-control config" required>
-            </div>
-            ${generateSelect('cpu', 'CPU', options.cpu)}
-            ${generateSelect('motherboard', 'Alaplap', options.motherboard)}
-            ${generateSelect('ram', 'RAM', options.ram)}
-            ${generateSelect('gpu', 'GPU', options.gpu)}
-            ${generateSelect('hdd', 'HDD', options.hdd)}
-            ${generateSelect('ssd', 'SSD', options.ssd)}
-            ${generateSelect('powerSupply', 'Tápegység', options.powerSupply)}
-            ${generateSelect('cpuCooler', 'CPU Hűtő', options.cpuCooler)}
-            <div class="mb-3">
-                <label for="configImage" class="form-label">Kép feltöltése:</label>
-                <br>
-                <input type="file" id="configImage" name="configImage" class="form-control" accept="image/*" required>
-            </div>
-            <button type="submit" class="btn btn-primary w-100">Feltöltés</button>
-        </form>
-    `;
-}
+
+
+
+
