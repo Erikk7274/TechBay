@@ -65,6 +65,10 @@ async function loadCart() {
 
 // Render cart items dynamically
 function renderCartItems(cart) {
+    if (cart.length === 0) {
+        return '<p class="text-center">A kosár üres</p>';
+    }
+
     return cart.map(item => `
         <div class="card mb-3" data-id="${item.product_id}">
             <div class="card-body">
@@ -101,6 +105,13 @@ async function removeItemFromCart(productId) {
 
         console.log(`Item with ID ${productId} removed.`);
         await loadCart(); // Reload the cart after removal
+
+        // Ellenőrizzük, hogy a kosár üres-e
+        const remainingItems = document.querySelectorAll('.card.mb-3');
+        if (remainingItems.length === 0) {
+            cartItemsContainer.innerHTML = '<p class="text-center">A kosár üres</p>';
+        }
+
         setUpRemoveButtons(); // Reattach event listeners
     } catch (error) {
         console.error('Error removing item from cart:', error);
@@ -140,6 +151,11 @@ function setUpOrderButton() {
 
 // Render the order details in the modal
 function renderOrderModal(cart) {
+    if (cart.length === 0) {
+        modalBody.innerHTML = '<p class="text-center">A kosár üres</p>';
+        return;
+    }
+
     modalBody.innerHTML = cart.map(item => `
         <div class="card mb-3">
             <div class="card-body">
