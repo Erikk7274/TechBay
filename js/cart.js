@@ -57,19 +57,25 @@ async function loadCart() {
         const cart = await response.json();
         console.log('Cart items:', cart);
 
-        cartItemsContainer.innerHTML = cart.length === 0
-            ? '<p class="text-center">A kosár üres</p>'
-            : renderCartItems(cart);
-
-        setUpRemoveButtons(); // Ensure remove buttons work after re-render
+        if (!Array.isArray(cart) || cart.length === 0) {
+            cartItemsContainer.innerHTML = '<p class="text-center">A kosár üres</p>';
+        } else {
+            cartItemsContainer.innerHTML = renderCartItems(cart);
+            setUpRemoveButtons();
+        }
     } catch (error) {
         console.error('Error loading cart:', error);
         cartItemsContainer.innerHTML = '<p class="text-center">Hiba a kosár betöltésekor.</p>';
     }
 }
 
+
 // Render cart items dynamically
 function renderCartItems(cart) {
+    if (!Array.isArray(cart) || cart.length === 0) {
+        return '<p class="text-center">A kosár üres</p>';
+    }
+
     return cart.map(item => `
         <div class="card mb-3" data-id="${item.product_id}">
             <div class="card-body">
@@ -81,6 +87,7 @@ function renderCartItems(cart) {
         </div>
     `).join('');
 }
+
 
 // Set up event listeners for the remove item buttons
 function setUpRemoveButtons() {
@@ -105,12 +112,13 @@ async function removeItemFromCart(productId) {
         }
 
         console.log(`Item with ID ${productId} removed.`);
-        await loadCart(); // Reload the cart after removal
+        await loadCart(); // Frissítjük a kosarat
     } catch (error) {
         console.error('Error removing item from cart:', error);
         alert('Hiba a termék eltávolításakor.');
     }
 }
+
 
 // Handle the order button click
 function setUpOrderButton() {
