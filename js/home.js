@@ -41,13 +41,10 @@ function createCard(product) {
     cardDiv.style.height = 'auto'; // Auto height
     cardDiv.style.minHeight = '20rem'; // Minimum height
 
-    // Ha nincs kép, akkor az alapértelmezett "1.jpg" képet használja
-    const productPic = product.product_pic ? `/api/uploads/${product.product_pic}` : '/api/uploads/1.jpg';
-
     cardDiv.innerHTML = `
         <div class="card-header text-center fw-bold">${product.product_name}</div>
         <div class="card-body text-center">
-            <img src="${productPic}" class="img-fluid mb-3" alt="${product.product_name}" style="max-height: 230px; object-fit: contain;">
+            <img src="/api/uploads/${product.product_pic}" class="img-fluid mb-3" alt="${product.product_name}" style="max-height: 230px; object-fit: contain;"> <!-- Increased max-height -->
         </div>
         <div class="card-footer text-center">
             <span class="d-block mb-2">Ár: ${product.price ? product.price + ' Ft' : 'N/A'}</span>
@@ -66,9 +63,6 @@ function createModal(product) {
     modalDiv.setAttribute('aria-labelledby', `modalLabel-${product.product_id}`);
     modalDiv.setAttribute('aria-hidden', 'true');
 
-    // Ha nincs kép, akkor az alapértelmezett "1.jpg" képet használja
-    const productPic = product.product_pic ? `/api/uploads/${product.product_pic}` : '/api/uploads/1.jpg';
-
     modalDiv.innerHTML = `
         <div class="modal-dialog modal-lg" style="max-width:500px">
             <div class="modal-content">
@@ -77,7 +71,7 @@ function createModal(product) {
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
-                    <img src="${productPic}" alt="${product.product_name}" class="img-fluid mb-3" style="max-height: 400px; object-fit: contain;">
+                    <img src="/api/uploads/${product.product_pic}" alt="${product.product_name}" class="img-fluid mb-3" style="max-height: 400px; object-fit: contain;"> <!-- Increased modal image size -->
                     <p><strong>Ár:</strong> ${product.price ? product.price + ' Ft' : 'N/A'}</p>
                     <p><strong>Raktáron:</strong> ${product.in_stock}</p>
                 </div>
@@ -92,6 +86,7 @@ function createModal(product) {
 
     modalDiv.querySelector('.add-to-cart-btn').addEventListener('click', () => addToCart(product.product_id));
 }
+
 
 async function addToCart(productId) {
     try {
@@ -131,6 +126,7 @@ async function logout() {
         alert('Hiba a kijelentkezéskor');
     }
 }
+
 
 homeBtn.addEventListener('click', () => {
     window.location.href = 'https://techbay2.netlify.app/home.html';
