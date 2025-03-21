@@ -1,5 +1,6 @@
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('DOMContentLoaded', async () => {
     setupEventListeners();
+    await loadHardwareOptions();
 });
 
 function setupEventListeners() {
@@ -14,7 +15,6 @@ function setupEventListeners() {
         console.error('Nem található vissza gomb.');
     }
 
-    // Kijelentkezés gomb eseménykezelő
     if (btnLogout) {
         btnLogout.addEventListener('click', logout);
     } else {
@@ -22,7 +22,6 @@ function setupEventListeners() {
     }
 }
 
-// Kijelentkezés függvény
 async function logout() {
     try {
         const res = await fetch('/api/auth/logout', {
@@ -31,7 +30,6 @@ async function logout() {
         });
 
         if (res.ok) {
-            // Tokenek törlése
             localStorage.removeItem('token');
             sessionStorage.removeItem('token');
 
@@ -45,68 +43,55 @@ async function logout() {
     }
 }
 
+async function loadHardwareOptions() {
+    try {
+        const response = await fetch('/api/getProducts/getProducts_all');
+        const options = await response.json();
+        createConfigForm(options);
+    } catch (error) {
+        console.error('Nem sikerült betölteni a hardver opciókat:', error);
+    }
+}
 
-
-
-
-
-
-// Config form létrehozása
-function createConfigForm() {
-    formContainer.innerHTML = `
-            <form id="configForm" class="container mt-4 p-4 border rounded bg-light shadow-lg">
-                <div class="mb-3">
-                    <label for="configName" class="form-label">Konfiguráció neve:</label>
-                    <br>
-                    <input type="text" id="configName" name="configName" class="form-control config" required>
-                </div>
-                <div class="mb-3">
-                    <label for="cpu" class="form-label">CPU:</label>
-                    <br>
-                    <input type="text" id="cpu" name="cpu" class="form-control config" required>
-                </div>
-                <div class="mb-3">
-                    <label for="motherBoard" class="form-label">Alaplap:</label>
-                    <br>
-                    <input type="text" id="motherBoard" name="motherBoard" class="form-control config" required>
-                </div>
-                <div class="mb-3">
-                    <label for="ram" class="form-label">RAM:</label>
-                    <br>
-                    <input type="text" id="ram" name="ram" class="form-control config" required>
-                </div>
-                <div class="mb-3">
-                    <label for="gpu" class="form-label">GPU:</label>
-                    <br>
-                    <input type="text" id="gpu" name="gpu" class="form-control config" required>
-                </div>
-                <div class="mb-3">
-                    <label for="hdd" class="form-label">HDD:</label>
-                    <br>
-                    <input type="text" id="hdd" name="hdd" class="form-control config" required>
-                </div>
-                <div class="mb-3">
-                    <label for="ssd" class="form-label">SSD:</label>
-                    <br>
-                    <input type="text" id="ssd" name="ssd" class="form-control config" required>
-                </div>
-                <div class="mb-3">
-                    <label for="powerSupply" class="form-label">Tápegység:</label>
-                    <br>
-                    <input type="text" id="powerSupply" name="powerSupply" class="form-control config" required>
-                </div>
-                <div class="mb-3">
-                    <label for="cpuCooler" class="form-label">CPU Hűtő:</label>
-                    <br>
-                    <input type="text" id="cpuCooler" name="cpuCooler" class="form-control config" required>
-                </div>
-                <div class="mb-3">
-                    <label for="configImage" class="form-label">Kép feltöltése:</label>
-                    <br>
-                    <input type="file" id="configImage" name="configImage" class="form-control" accept="image/*" required>
-                </div>
-                <button type="submit" class="btn btn-primary w-100">Feltöltés</button>
-               
-            </form>
+function createConfigForm(options) {
+    const formContainer = document.getElementById('formContainer');
+    if (!formContainer) {
+        console.error('Nem található a formContainer elem.');
+        return;
+    }
+    
+    function generateSelect(id, label, options) {
+        return `
+            <div class="mb-3">
+                <label for="${id}" class="form-label">${label}:</label><br>
+                <select id="${id}" name="${id}" class="form-control config" required>
+                    ${options.map(opt => `<option value="${opt}">${opt}</option>`).join('')}
+                </select>
+            </div>
         `;
+    }
+
+    formContainer.innerHTML = `
+        <form id="configForm" class="container mt-4 p-4 border rounded bg-light shadow-lg">
+            <div class="mb-3">
+                <label for="configName" class="form-label">Konfiguráció neve:</label>
+                <br>
+                <input type="text" id="configName" name="configName" class="form-control config" required>
+            </div>
+            ${generateSelect('cpu', 'CPU', options.cpu)}
+            ${generateSelect('motherboard', 'Alaplap', options.motherboard)}
+            ${generateSelect('ram', 'RAM', options.ram)}
+            ${generateSelect('gpu', 'GPU', options.gpu)}
+            ${generateSelect('hdd', 'HDD', options.hdd)}
+            ${generateSelect('ssd', 'SSD', options.ssd)}
+            ${generateSelect('powerSupply', 'Tápegység', options.powerSupply)}
+            ${generateSelect('cpuCooler', 'CPU Hűtő', options.cpuCooler)}
+            <div class="mb-3">
+                <label for="configImage" class="form-label">Kép feltöltése:</label>
+                <br>
+                <input type="file" id="configImage" name="configImage" class="form-control" accept="image/*" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Feltöltés</button>
+        </form>
+    `;
 }
