@@ -50,57 +50,63 @@ async function logout() {
 
 
 
-async function getProducts() {
-    try {
-        const response = await fetch(`/api/getProducts/getConfig_active`, {
-            method: 'GET',
-            credentials: 'include'
-        });
-        const products = await response.json();
-        renderProducts(products);
-    } catch (error) {
-        console.error('Hiba a termékek lekérésekor:', error);
-    }
-}
 
-// Termékek kirajzolása az oldalra
-function renderProducts(products) {
-    const row = document.getElementById('row');
-    if (!row) {
-        console.error('Nem található a row elem.');
-        return;
-    }
-
-    row.innerHTML = ''; 
-
-    products.forEach(product => {
-        const cardDiv = createCard(product);
-        row.append(cardDiv);
-        createModal(product);
-    });
-}
-
-// Egy adott termék kártyájának létrehozása
-function createCard(product) {
-    const cardDiv = document.createElement('div');
-    cardDiv.classList.add('card', 'm-2', 'p-2', 'shadow-sm');
-    cardDiv.style.width = '18rem';
-    cardDiv.style.minHeight = '20rem';
-
-    cardDiv.innerHTML = `
-        <div class="card-header text-center fw-bold">${product.config_name || product.product_name}</div>
-        <div class="card-body text-center">
-            <img src="/api/uploads/${product.config_pic}" class="img-fluid mb-3" alt="${product.config_name || product.product_name}" style="max-height: 230px; object-fit: contain;">
-        </div>
-        <div class="card-footer text-center">
-            <span class="d-block mb-2">Ár: ${product.price ? product.price + ' Ft' : 'N/A'}</span>
-            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-${product.pc_id}">Részletek</button>
-            <button class="btn btn-danger btn-sm delete-product-btn" data-product-id="${product.pc_id}">Törlés</button>
-        </div>
-    `;
-
-    // Törlés gomb eseménykezelője
-    cardDiv.querySelector('.delete-product-btn').addEventListener('click', () => deleteProduct(product.pc_id));
-
-    return cardDiv;
+// Config form létrehozása
+function createConfigForm() {
+    formContainer.innerHTML = `
+            <form id="configForm" class="container mt-4 p-4 border rounded bg-light shadow-lg">
+                <div class="mb-3">
+                    <label for="configName" class="form-label">Konfiguráció neve:</label>
+                    <br>
+                    <input type="text" id="configName" name="configName" class="form-control config" required>
+                </div>
+                <div class="mb-3">
+                    <label for="cpu" class="form-label">CPU:</label>
+                    <br>
+                    <input type="text" id="cpu" name="cpu" class="form-control config" required>
+                </div>
+                <div class="mb-3">
+                    <label for="motherBoard" class="form-label">Alaplap:</label>
+                    <br>
+                    <input type="text" id="motherBoard" name="motherBoard" class="form-control config" required>
+                </div>
+                <div class="mb-3">
+                    <label for="ram" class="form-label">RAM:</label>
+                    <br>
+                    <input type="text" id="ram" name="ram" class="form-control config" required>
+                </div>
+                <div class="mb-3">
+                    <label for="gpu" class="form-label">GPU:</label>
+                    <br>
+                    <input type="text" id="gpu" name="gpu" class="form-control config" required>
+                </div>
+                <div class="mb-3">
+                    <label for="hdd" class="form-label">HDD:</label>
+                    <br>
+                    <input type="text" id="hdd" name="hdd" class="form-control config" required>
+                </div>
+                <div class="mb-3">
+                    <label for="ssd" class="form-label">SSD:</label>
+                    <br>
+                    <input type="text" id="ssd" name="ssd" class="form-control config" required>
+                </div>
+                <div class="mb-3">
+                    <label for="powerSupply" class="form-label">Tápegység:</label>
+                    <br>
+                    <input type="text" id="powerSupply" name="powerSupply" class="form-control config" required>
+                </div>
+                <div class="mb-3">
+                    <label for="cpuCooler" class="form-label">CPU Hűtő:</label>
+                    <br>
+                    <input type="text" id="cpuCooler" name="cpuCooler" class="form-control config" required>
+                </div>
+                <div class="mb-3">
+                    <label for="configImage" class="form-label">Kép feltöltése:</label>
+                    <br>
+                    <input type="file" id="configImage" name="configImage" class="form-control" accept="image/*" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Feltöltés</button>
+               
+            </form>
+        `;
 }
