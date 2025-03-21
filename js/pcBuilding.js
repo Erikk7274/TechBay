@@ -45,3 +45,62 @@ async function logout() {
     }
 }
 
+
+
+
+
+
+async function getProducts() {
+    try {
+        const response = await fetch(`/api/getProducts/getConfig_active`, {
+            method: 'GET',
+            credentials: 'include'
+        });
+        const products = await response.json();
+        renderProducts(products);
+    } catch (error) {
+        console.error('Hiba a termékek lekérésekor:', error);
+    }
+}
+
+// Termékek kirajzolása az oldalra
+function renderProducts(products) {
+    const row = document.getElementById('row');
+    if (!row) {
+        console.error('Nem található a row elem.');
+        return;
+    }
+
+    row.innerHTML = ''; 
+
+    products.forEach(product => {
+        const cardDiv = createCard(product);
+        row.append(cardDiv);
+        createModal(product);
+    });
+}
+
+// Egy adott termék kártyájának létrehozása
+function createCard(product) {
+    const cardDiv = document.createElement('div');
+    cardDiv.classList.add('card', 'm-2', 'p-2', 'shadow-sm');
+    cardDiv.style.width = '18rem';
+    cardDiv.style.minHeight = '20rem';
+
+    cardDiv.innerHTML = `
+        <div class="card-header text-center fw-bold">${product.config_name || product.product_name}</div>
+        <div class="card-body text-center">
+            <img src="/api/uploads/${product.config_pic}" class="img-fluid mb-3" alt="${product.config_name || product.product_name}" style="max-height: 230px; object-fit: contain;">
+        </div>
+        <div class="card-footer text-center">
+            <span class="d-block mb-2">Ár: ${product.price ? product.price + ' Ft' : 'N/A'}</span>
+            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-${product.pc_id}">Részletek</button>
+            <button class="btn btn-danger btn-sm delete-product-btn" data-product-id="${product.pc_id}">Törlés</button>
+        </div>
+    `;
+
+    // Törlés gomb eseménykezelője
+    cardDiv.querySelector('.delete-product-btn').addEventListener('click', () => deleteProduct(product.pc_id));
+
+    return cardDiv;
+}
