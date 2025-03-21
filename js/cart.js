@@ -9,13 +9,16 @@ const confirmOrderBtn = document.getElementById('confirmOrderBtn');
 let orderModal = orderModalElement ? new bootstrap.Modal(orderModalElement) : null;
 
 // Wait for the DOM to load
-document.addEventListener('DOMContentLoaded', init);
+document.addEventListener('DOMContentLoaded', () => {
+    init();
+});
 
 async function init() {
     await loadCart();
     setUpButtonListeners();
 }
 
+// Logout function
 async function logout() {
     try {
         const res = await fetch('/api/auth/logout', {
@@ -57,6 +60,8 @@ async function loadCart() {
         cartItemsContainer.innerHTML = cart.length === 0
             ? '<p class="text-center">A kosár üres</p>'
             : renderCartItems(cart);
+
+        setUpRemoveButtons(); // Ensure remove buttons work after re-render
     } catch (error) {
         console.error('Error loading cart:', error);
         cartItemsContainer.innerHTML = '<p class="text-center">Hiba a kosár betöltésekor.</p>';
@@ -65,10 +70,6 @@ async function loadCart() {
 
 // Render cart items dynamically
 function renderCartItems(cart) {
-    if (cart.length === 0) {
-        return '<p class="text-center">A kosár üres</p>';
-    }
-
     return cart.map(item => `
         <div class="card mb-3" data-id="${item.product_id}">
             <div class="card-body">
@@ -105,14 +106,6 @@ async function removeItemFromCart(productId) {
 
         console.log(`Item with ID ${productId} removed.`);
         await loadCart(); // Reload the cart after removal
-
-        // Ellenőrizzük, hogy a kosár üres-e
-        const remainingItems = document.querySelectorAll('.card.mb-3');
-        if (remainingItems.length === 0) {
-            cartItemsContainer.innerHTML = '<p class="text-center">A kosár üres</p>';
-        }
-
-        setUpRemoveButtons(); // Reattach event listeners
     } catch (error) {
         console.error('Error removing item from cart:', error);
         alert('Hiba a termék eltávolításakor.');
@@ -151,20 +144,17 @@ function setUpOrderButton() {
 
 // Render the order details in the modal
 function renderOrderModal(cart) {
-    if (cart.length === 0) {
-        modalBody.innerHTML = '<p class="text-center">A kosár üres</p>';
-        return;
-    }
-
-    modalBody.innerHTML = cart.map(item => `
-        <div class="card mb-3">
-            <div class="card-body">
-                <h5 class="card-title">${item.product_name}</h5>
-                <p class="card-text">Ár: ${item.price.toLocaleString()} Ft</p>
-                <p class="card-text">Mennyiség: ${item.quantity}</p>
+    modalBody.innerHTML = cart.length === 0
+        ? '<p class="text-center">A kosár üres</p>'
+        : cart.map(item => `
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">${item.product_name}</h5>
+                    <p class="card-text">Ár: ${item.price.toLocaleString()} Ft</p>
+                    <p class="card-text">Mennyiség: ${item.quantity}</p>
+                </div>
             </div>
-        </div>
-    `).join('');
+        `).join('');
 }
 
 // Set up back button listener
