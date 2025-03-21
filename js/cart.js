@@ -6,12 +6,7 @@ const modalBody = document.getElementById('modalBody');
 const orderModalElement = document.getElementById('orderModal');
 const confirmOrderBtn = document.getElementById('confirmOrderBtn');
 
-let orderModal;
-
-// Ellenőrizzük, hogy a modal létezik-e, mielőtt inicializálnánk
-if (orderModalElement) {
-    orderModal = new bootstrap.Modal(orderModalElement);
-}
+let orderModal = orderModalElement ? new bootstrap.Modal(orderModalElement) : null;
 
 // Wait for the DOM to load
 document.addEventListener('DOMContentLoaded', init);
@@ -70,7 +65,7 @@ async function loadCart() {
 
 // Render cart items dynamically
 function renderCartItems(cart) {
-    cartItemsContainer.innerHTML = cart.map(item => `
+    return cart.map(item => `
         <div class="card mb-3" data-id="${item.product_id}">
             <div class="card-body">
                 <h5 class="card-title">${item.product_name}</h5>
@@ -80,7 +75,6 @@ function renderCartItems(cart) {
             </div>
         </div>
     `).join('');
-    setUpRemoveButtons();
 }
 
 // Set up event listeners for the remove item buttons
@@ -107,6 +101,7 @@ async function removeItemFromCart(productId) {
 
         console.log(`Item with ID ${productId} removed.`);
         await loadCart(); // Reload the cart after removal
+        setUpRemoveButtons(); // Reattach event listeners
     } catch (error) {
         console.error('Error removing item from cart:', error);
         alert('Hiba a termék eltávolításakor.');
@@ -114,31 +109,33 @@ async function removeItemFromCart(productId) {
 }
 
 // Handle the order button click
-if (orderBtn) {
-    orderBtn.addEventListener('click', async () => {
-        try {
-            const response = await fetch('/api/cart/myCart', {
-                method: 'GET',
-                credentials: 'include'
-            });
+function setUpOrderButton() {
+    if (orderBtn) {
+        orderBtn.addEventListener('click', async () => {
+            try {
+                const response = await fetch('/api/cart/myCart', {
+                    method: 'GET',
+                    credentials: 'include'
+                });
 
-            if (!response.ok) {
-                throw new Error('Failed to fetch cart details for order');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch cart details for order');
+                }
+
+                const cart = await response.json();
+                if (cart.length === 0) {
+                    alert('A kosár üres!');
+                    return;
+                }
+
+                renderOrderModal(cart);
+                orderModal?.show();
+            } catch (error) {
+                console.error('Error fetching cart for order:', error);
+                alert('Hiba a rendelési adatok betöltésekor.');
             }
-
-            const cart = await response.json();
-            if (cart.length === 0) {
-                alert('A kosár üres!');
-                return;
-            }
-
-            renderOrderModal(cart);
-            orderModal?.show();
-        } catch (error) {
-            console.error('Error fetching cart for order:', error);
-            alert('Hiba a rendelési adatok betöltésekor.');
-        }
-    });
+        });
+    }
 }
 
 // Render the order details in the modal
@@ -159,4 +156,6 @@ function setUpButtonListeners() {
     btnBack?.addEventListener('click', () => {
         window.location.href = 'https://techbay2.netlify.app/home.html';
     });
+
+    setUpOrderButton();
 }
