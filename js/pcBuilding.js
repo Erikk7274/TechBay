@@ -44,11 +44,25 @@ async function logout() {
 
 async function getProducts() {
     try {
-        const response = await fetch(`/api/getProducts/getConfig_active`, {
-            method: 'GET',
-            credentials: 'include'
-        });
-        const products = await response.json();
+        const endpoints = {
+            cpu: '/api/getProducts_cpus',
+            motherBoard: '/api/getProducts_motherboards',
+            ram: '/api/getProducts_rams',
+            gpu: '/api/getProducts_gpus',
+            hdd: '/api/getProducts_hdds',
+            ssd: '/api/getProducts_ssds',
+            powerSupply: '/api/getProducts_powersupplys',
+            cpuCooler: '/api/getProducts_cpucoolers'
+        };
+
+        const products = {};
+
+        for (const [key, url] of Object.entries(endpoints)) {
+            const response = await fetch(url, { method: 'GET', credentials: 'include' });
+            products[key] = await response.json();
+        }
+
+        console.log("Lekért termékek:", products);
         renderConfigForm(products);
     } catch (error) {
         console.error('Hiba a termékek lekérésekor:', error);
@@ -110,6 +124,10 @@ function renderConfigForm(products) {
 }
 
 function createDropdown(id, label, items) {
+    if (!Array.isArray(items)) {
+        console.warn(`Hiányzó vagy érvénytelen adat: ${id}`);
+        items = []; // Üres tömb, hogy ne dobjon hibát
+    }
     let options = items.map(item => `<option value="${item.id}">${item.name} - ${item.price} Ft</option>`).join('');
     return `
         <div class="mb-3">
