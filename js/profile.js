@@ -26,7 +26,7 @@ async function getusername() {
         const editPic = document.querySelector('.profile_pic');
         editPic.src = `/api/uploads/${username[0].profile_pic}`;
     } else {
-        document.querySelector('.profile_pic').src = './img/logo_techbay.webp';
+        document.querySelector('.profile_pic').src = './uploads/logo_techbay.webp';
     }
 
 
