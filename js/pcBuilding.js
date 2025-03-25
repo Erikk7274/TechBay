@@ -59,7 +59,20 @@ async function getProducts() {
 
         for (const [key, url] of Object.entries(endpoints)) {
             const response = await fetch(url, { method: 'GET', credentials: 'include' });
-            products[key] = await response.json();
+
+            if (!response.ok) {
+                console.error(`Hiba a(z) ${key} lekérésekor: ${response.status} ${response.statusText}`);
+                continue;
+            }
+
+            const data = await response.json();
+
+            if (!Array.isArray(data)) {
+                console.error(`Érvénytelen adat a(z) ${key} végpontról`, data);
+                continue;
+            }
+
+            products[key] = data;
         }
 
         console.log("Lekért termékek:", products);
@@ -68,6 +81,7 @@ async function getProducts() {
         console.error('Hiba a termékek lekérésekor:', error);
     }
 }
+
 
 function renderConfigForm(products) {
     const formContainer = document.getElementById('formContainer');
