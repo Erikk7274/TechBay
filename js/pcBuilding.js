@@ -58,21 +58,24 @@ async function getProducts() {
         const products = {};
 
         for (const [key, url] of Object.entries(endpoints)) {
-            const response = await fetch(url, { method: 'GET', credentials: 'include' });
+            try {
+                const response = await fetch(url, { method: 'GET', credentials: 'include' });
+                
+                if (!response.ok) {
+                    console.error(`Hiba a(z) ${key} lekérésekor: ${response.status} ${response.statusText}`);
+                    continue;
+                }
+                
+                const data = await response.json();
+                if (!Array.isArray(data)) {
+                    console.error(`Érvénytelen adat a(z) ${key} végpontról`, data);
+                    continue;
+                }
 
-            if (!response.ok) {
-                console.error(`Hiba a(z) ${key} lekérésekor: ${response.status} ${response.statusText}`);
-                continue;
+                products[key] = data;
+            } catch (error) {
+                console.error(`Hálózati hiba a(z) ${key} lekérésekor:`, error);
             }
-
-            const data = await response.json();
-
-            if (!Array.isArray(data)) {
-                console.error(`Érvénytelen adat a(z) ${key} végpontról`, data);
-                continue;
-            }
-
-            products[key] = data;
         }
 
         console.log("Lekért termékek:", products);
@@ -81,7 +84,6 @@ async function getProducts() {
         console.error('Hiba a termékek lekérésekor:', error);
     }
 }
-
 
 function renderConfigForm(products) {
     const formContainer = document.getElementById('formContainer');
@@ -121,18 +123,22 @@ function renderConfigForm(products) {
         formData.append("sale", "0");
         formData.append("active", "1");
 
-        const response = await fetch("/api/cart/takeProduct", {
-            method: "POST",
-            body: formData,
-            credentials: "include"
-        });
+        try {
+            const response = await fetch("/api/cart/takeProduct", {
+                method: "POST",
+                body: formData,
+                credentials: "include"
+            });
 
-        if (response.ok) {
-            alert("Sikeres hozzáadás a kosárhoz!");
-            document.getElementById("configForm").reset();
-        } else {
-            const errorData = await response.json();
-            alert(`Hiba történt: ${errorData.message || "Ismeretlen hiba"}`);
+            if (response.ok) {
+                alert("Sikeres hozzáadás a kosárhoz!");
+                document.getElementById("configForm").reset();
+            } else {
+                const errorData = await response.json();
+                alert(`Hiba történt: ${errorData.message || "Ismeretlen hiba"}`);
+            }
+        } catch (error) {
+            console.error("Hálózati hiba a kosárba helyezéskor:", error);
         }
     });
 }
@@ -140,7 +146,7 @@ function renderConfigForm(products) {
 function createDropdown(id, label, items) {
     if (!Array.isArray(items)) {
         console.warn(`Hiányzó vagy érvénytelen adat: ${id}`);
-        items = []; // Üres tömb, hogy ne dobjon hibát
+        items = []; 
     }
     let options = items.map(item => `<option value="${item.id}">${item.name} - ${item.price} Ft</option>`).join('');
     return `
