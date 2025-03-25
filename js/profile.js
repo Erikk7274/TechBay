@@ -25,11 +25,11 @@ async function getusername() {
         const editPic = document.querySelector('.profile_pic');
         const profilePicUrl = `/api/uploads/${username[0].profile_pic}`;
         editPic.onerror = function() {
-            editPic.src = './img/1.jpg';
+            editPic.src = './uploads/1.jpg';
         };
         editPic.src = profilePicUrl;
     } else {
-        document.querySelector('.profile_pic').src = './img/1.jpg';
+        document.querySelector('.profile_pic').src = './uploads/1.jpg';
     }
 }
 
