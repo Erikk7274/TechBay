@@ -44,14 +44,14 @@ async function logout() {
 
 async function getProducts() {
     const endpoints = {
-        cpu: '/api/getProducts_cpus',
-        motherBoard: '/api/getProducts_motherboards',
-        ram: '/api/getProducts_rams',
-        gpu: '/api/getProducts_gpus',
-        hdd: '/api/getProducts_hdds',
-        ssd: '/api/getProducts_ssds',
-        powerSupply: '/api/getProducts_powersupplys',
-        cpuCooler: '/api/getProducts_cpucoolers'
+        cpu: '/api/get/getProducts_cpus',
+        motherBoard: '/api/get/getProducts_motherboards',
+        ram: '/api/get/getProducts_rams',
+        gpu: '/api/get/getProducts_gpus',
+        hdd: '/api/get/getProducts_hdds',
+        ssd: '/api/get/getProducts_ssds',
+        powerSupply: '/api/get/getProducts_powersupplys',
+        cpuCooler: '/api/get/getProducts_cpucoolers'
     };
 
     const products = {};
