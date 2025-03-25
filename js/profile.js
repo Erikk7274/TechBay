@@ -21,7 +21,7 @@ async function getusername() {
     console.log(username);
     profileData(username);
 
-    if (res.ok) {
+    if (res.ok && username[0].profile_pic) {
         const editPic = document.querySelector('.profile_pic');
         const profilePicUrl = `/api/uploads/${username[0].profile_pic}`;
         editPic.onerror = function() {
