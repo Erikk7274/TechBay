@@ -101,10 +101,19 @@ function createCard(product) {
             <span class="d-block mb-2">Ár: ${product.price ? product.price + ' Ft' : 'N/A'}</span>
             <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-${product.product_id}">Részletek</button>
             <button class="btn btn-danger btn-sm delete-product-btn" data-product-id="${product.product_id}">Törlés</button>
+            <div class="form-check form-switch">
+                <input class="form-check-input product-status-switch" type="checkbox" role="switch" id="switch-${product.product_id}" ${product.is_active ? 'checked' : ''} data-product-id="${product.product_id}">
+                <label class="form-check-label" for="switch-${product.product_id}">Inaktív</label>
+            </div>
         </div>
     `;
 
+    // Add event listener for the delete button
     cardDiv.querySelector('.delete-product-btn').addEventListener('click', () => deleteProduct(product.product_id));
+
+    // Add event listener for the status switch
+    const statusSwitch = cardDiv.querySelector('.product-status-switch');
+    statusSwitch.addEventListener('change', (event) => toggleProductStatus(event, product.product_id));
 
     return cardDiv;
 }
@@ -182,5 +191,27 @@ async function deleteProduct(productId) {
         }
     } catch (error) {
         console.error('Hiba a termék törlésekor:', error);
+    }
+}
+
+async function toggleProductStatus(event, productId) {
+    const isChecked = event.target.checked;
+    
+    try {
+        const response = await fetch(`/api/updateProductStatus/${productId}`, {
+            method: 'PUT',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ is_active: isChecked }),
+            credentials: 'include',
+        });
+
+        if (response.ok) {
+            console.log(`Termék ${isChecked ? 'aktív' : 'inaktív'} lett.`);
+        } else {
+            const result = await response.json();
+            alert('Hiba a státusz frissítésekor: ' + result.message);
+        }
+    } catch (error) {
+        console.error('Hiba a státusz frissítésekor:', error);
     }
 }
