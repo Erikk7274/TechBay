@@ -29,7 +29,7 @@ async function getusername() {
         };
         editPic.src = profilePicUrl;
     } else {
-        document.querySelector('.profile_pic').src = './img/logo_techbay.webp';
+        document.querySelector('.profile_pic').src = './img/1.jpg';
     }
 }
 
