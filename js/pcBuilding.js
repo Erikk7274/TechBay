@@ -108,20 +108,9 @@ function createConfigForm() {
                 <br>
                 <input type="text" id="cpuCooler" name="cpuCooler" class="form-control config" required>
             </div>
-            <div class="mb-3">
-                <label for="configImage" class="form-label">Kép feltöltése:</label>
-                <br>
-                <input type="file" id="configImage" name="configImage" class="form-control" accept="image/*" required>
-            </div>
-            <button type="submit" class="btn btn-primary w-100">Feltöltés</button>
-            <button type="button" class="btn btn-secondary w-100 mt-3" id="backToCategory">Vissza</button>
+            <button type="submit" class="btn btn-primary w-100">Kosárba</button>
         </form>
     `;
-
-    // Vissza gomb hozzáadása
-    document.getElementById("backToCategory").addEventListener("click", () => {
-        window.location.href = '../uploadProducts.html';
-    });
 
     // A konfiguráció form beküldése
     document.getElementById("configForm").addEventListener("submit", async (event) => {
@@ -145,7 +134,7 @@ function createConfigForm() {
         formData.append("sale", "0");
         formData.append("active", "1");
 
-        const response = await fetch("/api/add/uploadConfig", {
+        const response = await fetch("/api/cart/takeProduct", {
             method: "POST",
             body: formData,
             credentials: "include"
