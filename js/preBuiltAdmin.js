@@ -158,3 +158,25 @@ async function deleteProduct(pc_id) {
         console.error('Hiba a termék törlésekor:', error);
     }
 }
+
+async function toggleProductStatus(event, productId) {
+    const isChecked = event.target.checked;
+    
+    try {
+        const response = await fetch(`/api/updateProductStatus/${productId}`, {
+            method: 'PUT',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ is_active: isChecked }),
+            credentials: 'include',
+        });
+
+        if (response.ok) {
+            console.log(`Termék ${isChecked ? 'aktív' : 'inaktív'} lett.`);
+        } else {
+            const result = await response.json();
+            alert('Hiba a státusz frissítésekor: ' + result.message);
+        }
+    } catch (error) {
+        console.error('Hiba a státusz frissítésekor:', error);
+    }
+}
