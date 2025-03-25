@@ -6,7 +6,6 @@ const homeBtn = document.getElementsByClassName('icon-home')[0];
 const userBtn = document.getElementsByClassName('icon-user')[0];
 const cartBtn = document.getElementsByClassName('icon-cart')[0];
 
-
 const btnpHistory = document.getElementsByClassName('btnpHistory')[0];
 const btnEditPfp = document.getElementsByClassName('btnEditPfp')[0];
 const btnLogout = document.getElementsByClassName('icon-logout')[0];
@@ -24,16 +23,17 @@ async function getusername() {
 
     if (res.ok && username[0].profile_pic) {
         const editPic = document.querySelector('.profile_pic');
-        editPic.src = `/api/uploads/${username[0].profile_pic}`;
+        const profilePicUrl = `/api/uploads/${username[0].profile_pic}`;
+        editPic.onerror = function() {
+            editPic.src = './img/logo_techbay.webp';
+        };
+        editPic.src = profilePicUrl;
     } else {
         document.querySelector('.profile_pic').src = './img/logo_techbay.webp';
     }
-
-
 }
 
 function profileData(users) {
-    //const alapkep = './img/logo.png';
     const username = document.getElementById('username');
     const fullname = document.getElementById('fullname');
     const postcode = document.getElementById('postal-code');
@@ -54,27 +54,21 @@ function profileData(users) {
         city.value = user.city;
         street.value = user.street;
     }
-
-
-
 }
-
-
-
 
 btnLogout.addEventListener('click', logout);
 
 homeBtn.addEventListener('click', () => {
     window.location.href = 'https://techbay2.netlify.app/home.html';
-})
+});
 
 userBtn.addEventListener('click', () => {
     window.location.href = 'https://techbay2.netlify.app/profile.html';
-})
+});
 
 cartBtn.addEventListener('click', () => {
     window.location.href = 'https://techbay2.netlify.app/cart.html';
-})
+});
 
 if (btnpHistory) {
     btnpHistory.addEventListener('click', () => {
@@ -94,23 +88,11 @@ if (btnEditPfp) {
     });
 }
 
-
-
 if (btnSupport) {
     btnSupport.addEventListener('click', () => {
         window.location.href = 'https://techbay2.netlify.app/support.html';
     });
 }
-
-
-// function toggleSearch() {
-//     const searchMenu = document.getElementById('keresomenu');
-//     searchMenu.classList.toggle('active');
-// }
-
-
-
-
 
 async function logout() {
     const res = await fetch('/api/auth/logout', {
@@ -127,9 +109,6 @@ async function logout() {
     }
 }
 
-
-
-
 async function editData() {
     const postcode = document.getElementById('postal-code').value;
     const city = document.getElementById('city').value;
@@ -137,9 +116,8 @@ async function editData() {
     const fullname = document.getElementById('fullname').value;
     console.log(postcode, fullname, city, street);
     if (!postcode || !city || !street || !fullname) {
-        alert("Minden mezőt ki kell tölteni")
-    }
-    else {
+        alert("Minden mezőt ki kell tölteni");
+    } else {
         const res = await fetch('/api/profile/editData', {
             method: 'PUT',
             headers: {
@@ -158,7 +136,7 @@ async function editData() {
         } else if (data.errors) {
             let errorMessage = '';
             for (let i = 0; i < data.errors.length; i++) {
-                errorMessage += `${data.errors[i].error}\n`
+                errorMessage += `${data.errors[i].error}\n`;
             }
             alert(errorMessage);
         } else if (data.error) {
@@ -167,14 +145,12 @@ async function editData() {
             alert('Ismeretlen hiba');
         }
     }
-
 }
 
 window.addEventListener('click', function (event) {
     const menuToggle = document.getElementById('menu-toggle');
     const menu = document.querySelector('nav');
     const hamburgerButton = document.querySelector('.hamburger-menu');
-
 
     if (!hamburgerButton.contains(event.target) && !menu.contains(event.target) && !menuToggle.contains(event.target)) {
         menuToggle.checked = false;
