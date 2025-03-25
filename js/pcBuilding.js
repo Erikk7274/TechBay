@@ -1,6 +1,6 @@
 window.addEventListener('DOMContentLoaded', () => {
     setupEventListeners();
-});
+
 
 function setupEventListeners() {
     const btnLogout = document.querySelector('.icon-logout');
@@ -162,7 +162,7 @@ function createConfigForm() {
 }
 
 
-
+});
 
 
 
