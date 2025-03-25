@@ -55,22 +55,6 @@ async function getProducts() {
     };
 
     const products = {};
-
-    await Promise.all(Object.entries(endpoints).map(async ([key, url]) => {
-        try {
-            const response = await fetch(url, { method: 'GET', credentials: 'include' });
-            if (!response.ok) throw new Error(`HTTP ${response.status} - ${response.statusText}`);
-            
-            const data = await response.json();
-            if (!Array.isArray(data)) throw new Error('Érvénytelen adatstruktúra');
-            
-            products[key] = data;
-        } catch (error) {
-            console.error(`Hiba a(z) ${key} lekérésekor:`, error);
-            products[key] = [];
-        }
-    }));
-
     console.log("Lekért termékek:", products);
     renderConfigForm(products);
 }
