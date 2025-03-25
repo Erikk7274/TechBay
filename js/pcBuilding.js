@@ -1,6 +1,7 @@
 window.addEventListener('DOMContentLoaded', () => {
     setupEventListeners();
-
+    getProducts();
+});
 
 function setupEventListeners() {
     const btnLogout = document.querySelector('.icon-logout');
@@ -14,7 +15,6 @@ function setupEventListeners() {
         console.error('Nem található vissza gomb.');
     }
 
-    // Kijelentkezés gomb eseménykezelő
     if (btnLogout) {
         btnLogout.addEventListener('click', logout);
     } else {
@@ -22,7 +22,6 @@ function setupEventListeners() {
     }
 }
 
-// Kijelentkezés függvény
 async function logout() {
     try {
         const res = await fetch('/api/auth/logout', {
@@ -31,10 +30,8 @@ async function logout() {
         });
 
         if (res.ok) {
-            // Tokenek törlése
             localStorage.removeItem('token');
             sessionStorage.removeItem('token');
-
             alert('Sikeres kijelentkezés');
             window.location.href = 'https://techbay2.netlify.app/index.html';
         } else {
@@ -45,8 +42,6 @@ async function logout() {
     }
 }
 
-//termékek renderelése
-
 async function getProducts() {
     try {
         const response = await fetch(`/api/getProducts/getConfig_active`, {
@@ -54,65 +49,32 @@ async function getProducts() {
             credentials: 'include'
         });
         const products = await response.json();
-        renderProducts(products);
+        renderConfigForm(products);
     } catch (error) {
         console.error('Hiba a termékek lekérésekor:', error);
     }
 }
 
-function createConfigForm() {
+function renderConfigForm(products) {
+    const formContainer = document.getElementById('formContainer');
     formContainer.innerHTML = `
         <form id="configForm" class="container mt-4 p-4 border rounded bg-light shadow-lg">
             <div class="mb-3">
                 <label for="configName" class="form-label">Konfiguráció neve:</label>
-                <br>
-                <input type="text" id="configName" name="configName" class="form-control config" required>
+                <input type="text" id="configName" name="configName" class="form-control" required>
             </div>
-            <div class="mb-3">
-                <label for="cpu" class="form-label">CPU:</label>
-                <br>
-                <input type="text" id="cpu" name="cpu" class="form-control config" required>
-            </div>
-            <div class="mb-3">
-                <label for="motherBoard" class="form-label">Alaplap:</label>
-                <br>
-                <input type="text" id="motherBoard" name="motherBoard" class="form-control config" required>
-            </div>
-            <div class="mb-3">
-                <label for="ram" class="form-label">RAM:</label>
-                <br>
-                <input type="text" id="ram" name="ram" class="form-control config" required>
-            </div>
-            <div class="mb-3">
-                <label for="gpu" class="form-label">GPU:</label>
-                <br>
-                <input type="text" id="gpu" name="gpu" class="form-control config" required>
-            </div>
-            <div class="mb-3">
-                <label for="hdd" class="form-label">HDD:</label>
-                <br>
-                <input type="text" id="hdd" name="hdd" class="form-control config" required>
-            </div>
-            <div class="mb-3">
-                <label for="ssd" class="form-label">SSD:</label>
-                <br>
-                <input type="text" id="ssd" name="ssd" class="form-control config" required>
-            </div>
-            <div class="mb-3">
-                <label for="powerSupply" class="form-label">Tápegység:</label>
-                <br>
-                <input type="text" id="powerSupply" name="powerSupply" class="form-control config" required>
-            </div>
-            <div class="mb-3">
-                <label for="cpuCooler" class="form-label">CPU Hűtő:</label>
-                <br>
-                <input type="text" id="cpuCooler" name="cpuCooler" class="form-control config" required>
-            </div>
+            ${createDropdown('cpu', 'CPU', products.cpu)}
+            ${createDropdown('motherBoard', 'Alaplap', products.motherBoard)}
+            ${createDropdown('ram', 'RAM', products.ram)}
+            ${createDropdown('gpu', 'GPU', products.gpu)}
+            ${createDropdown('hdd', 'HDD', products.hdd)}
+            ${createDropdown('ssd', 'SSD', products.ssd)}
+            ${createDropdown('powerSupply', 'Tápegység', products.powerSupply)}
+            ${createDropdown('cpuCooler', 'CPU Hűtő', products.cpuCooler)}
             <button type="submit" class="btn btn-primary w-100">Kosárba</button>
         </form>
     `;
 
-    // A konfiguráció form beküldése
     document.getElementById("configForm").addEventListener("submit", async (event) => {
         event.preventDefault();
         const formData = new FormData();
@@ -126,9 +88,6 @@ function createConfigForm() {
         formData.append("ssd", document.getElementById("ssd").value);
         formData.append("power_supply", document.getElementById("powerSupply").value);
         formData.append("cpu_cooler", document.getElementById("cpuCooler").value);
-        formData.append("price", document.getElementById("productPrice").value);
-        formData.append("config_pic", document.getElementById("configImage").files[0]);
-        formData.append("description", document.getElementById("productDescription").value);
         formData.append("in_stock", "1");
         formData.append("cat_id", "2");
         formData.append("sale", "0");
@@ -141,17 +100,23 @@ function createConfigForm() {
         });
 
         if (response.ok) {
-            alert("SIKERES FELTÖLTÉS!");
+            alert("Sikeres hozzáadás a kosárhoz!");
             document.getElementById("configForm").reset();
         } else {
             const errorData = await response.json();
-            alert(`Hiba történt a feltöltés során: ${errorData.message || "Ismeretlen hiba"}`);
+            alert(`Hiba történt: ${errorData.message || "Ismeretlen hiba"}`);
         }
     });
 }
 
-
-});
-
-
-
+function createDropdown(id, label, items) {
+    let options = items.map(item => `<option value="${item.id}">${item.name} - ${item.price} Ft</option>`).join('');
+    return `
+        <div class="mb-3">
+            <label for="${id}" class="form-label">${label}:</label>
+            <select id="${id}" name="${id}" class="form-control" required>
+                ${options}
+            </select>
+        </div>
+    `;
+}
