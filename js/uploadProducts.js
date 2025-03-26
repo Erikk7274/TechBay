@@ -44,6 +44,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     <label for="productPrice" class="form-label">Ár:</label>
                     <input type="number" id="productPrice" name="productPrice" class="form-control product" required>
                 </div>
+                <div class="mb-3">
+                <label for="productPrice" class="form-label">Raktáron:</label>
+                <input type="number" id="productStock" name="productPrice" class="form-control product" required>
+            </div>
                 
                 <div class="mb-3 form-check form-switch">
                 <input class="form-check-input" type="checkbox" id="configStatus">
@@ -145,6 +149,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     <br>
                     <input type="text" id="cpuCooler" name="cpuCooler" class="form-control config" required>
                 </div>
+                <div class="mb-3">
+                <label for="productPrice" class="form-label">Raktáron:</label>
+                <input type="number" id="productStock" name="productPrice" class="form-control product" required>
+            </div>
                 <div class="mb-3 form-check form-switch">
                 <input class="form-check-input" type="checkbox" id="configStatus">
                 <label class="form-check-label" for="configStatus">Aktív</label>
