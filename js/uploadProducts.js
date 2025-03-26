@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
             formData.append("cat_id", "1"); // Kategória id
             formData.append("sale", document.getElementById("productSale").value);
 
-            const response = await fetch("/api/upload/uploadProduct", {
+            const response = await fetch("/api/add/uploadProduct", {
                 method: "POST",
                 body: formData,
                 credentials: "include"
@@ -185,7 +185,7 @@ document.addEventListener("DOMContentLoaded", () => {
             formData.append("sale", "0");
             formData.append("active", document.getElementById("configStatus").checked ? "1" : "0");
 
-            const response = await fetch("/api/upload/uploadConfig", {
+            const response = await fetch("/api/add/uploadConfig", {
                 method: "POST",
                 body: formData,
                 credentials: "include"
