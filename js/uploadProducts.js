@@ -45,10 +45,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     <input type="number" id="productPrice" name="productPrice" class="form-control product" required>
                 </div>
                 
-                <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="configStatus" checked>
+                <div class="mb-3 form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="configStatus">
                 <label class="form-check-label" for="configStatus">Aktív</label>
-            </div>
+                </div>
             </div>
             <div class="col-md-6 d-flex flex-column align-items-center">
             <div class="mb-3 w-100">
@@ -56,19 +56,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     <br>
                     <input type="file" id="productImage" name="productImage" class="form-control product" accept="image/*" required>
                 </div>
-
-                <div class="form-check">
-                <input class="form-check-input" type="radio" name="radioInactive" id="flexRadioDefault1">
-                <label class="form-check-label" for="flexRadioDefault1">
-                  Inactive
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="radioActive" id="flexRadioDefault2" checked>
-                <label class="form-check-label" for="flexRadioDefault2">
-                  Active
-                </label>
-              </div>
 
                 <button type="submit" class="btn btn-primary w-100">Feltöltés</button>
                 <button type="button" class="btn btn-secondary w-100 mt-3" id="backToCategory">Vissza</button>
@@ -157,6 +144,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     <label for="cpuCooler" class="form-label">CPU Hűtő:</label>
                     <br>
                     <input type="text" id="cpuCooler" name="cpuCooler" class="form-control config" required>
+                </div>
+                <div class="mb-3 form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="configStatus" checked>
+                <label class="form-check-label" for="configStatus">Aktív</label>
                 </div>
                 <div class="mb-3">
                     <label for="configImage" class="form-label">Kép feltöltése:</label>
