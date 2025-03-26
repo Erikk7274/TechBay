@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("productForm").addEventListener("submit", async (event) => {
             event.preventDefault();
             const formData = new FormData();
-            
+
             formData.append("product_name", document.getElementById("productName").value);
             formData.append("product_description", document.getElementById("productDescription").value);
             formData.append("price", document.getElementById("productPrice").value);
@@ -77,18 +77,22 @@ document.addEventListener("DOMContentLoaded", () => {
             formData.append("cat_id", "1");
             formData.append("sale", document.getElementById("productSale").value);
 
-            const response = await fetch("https://techbay2.netlify.app/api/add/uploadProduct", {
-                method: "POST",
-                body: formData,
-                credentials: "include"
-            });
+            try {
+                const response = await fetch("https://techbay2.netlify.app/api/add/uploadProduct", {
+                    method: "POST",
+                    body: formData,
+                    credentials: "include"
+                });
 
-            if (response.ok) {
-                alert("SIKERES FELTÖLTÉS!");
-                document.getElementById("productForm").reset();
-            } else {
-                const errorData = await response.json();
-                alert(`Hiba történt a feltöltés során: ${errorData.message || "Ismeretlen hiba"}`);
+                if (response.ok) {
+                    alert("SIKERES FELTÖLTÉS!");
+                    document.getElementById("productForm").reset();
+                } else {
+                    const errorData = await response.json();
+                    alert(`Hiba történt a feltöltés során: ${errorData.message || "Ismeretlen hiba"}`);
+                }
+            } catch (error) {
+                alert(`Hiba történt: ${error.message}`);
             }
         });
     }
@@ -174,18 +178,22 @@ document.addEventListener("DOMContentLoaded", () => {
             formData.append("sale", "0");
             formData.append("active", document.getElementById("configStatus").checked ? "1" : "0");
 
-            const response = await fetch("https://techbay2.netlify.app/api/add/uploadConfig", {
-                method: "POST",
-                body: formData,
-                credentials: "include"
-            });
+            try {
+                const response = await fetch("https://techbay2.netlify.app/api/add/uploadConfig", {
+                    method: "POST",
+                    body: formData,
+                    credentials: "include"
+                });
 
-            if (response.ok) {
-                alert("SIKERES FELTÖLTÉS!");
-                document.getElementById("configForm").reset();
-            } else {
-                const errorData = await response.json();
-                alert(`Hiba történt a feltöltés során: ${errorData.message || "Ismeretlen hiba"}`);
+                if (response.ok) {
+                    alert("SIKERES FELTÖLTÉS!");
+                    document.getElementById("configForm").reset();
+                } else {
+                    const errorData = await response.json();
+                    alert(`Hiba történt a feltöltés során: ${errorData.message || "Ismeretlen hiba"}`);
+                }
+            } catch (error) {
+                alert(`Hiba történt: ${error.message}`);
             }
         });
     }
