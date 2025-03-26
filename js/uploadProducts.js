@@ -44,6 +44,13 @@ document.addEventListener("DOMContentLoaded", () => {
                     <br>
                     <input type="number" id="productPrice" name="productPrice" class="form-control product" required>
                 </div>
+
+                <div class="mb-3">
+                <label for="productDescription" class="form-label">Leírás:</label>
+                <br>
+                <input type="number" id="productDescription" name="productDescription" class="form-control product">
+            </div>
+
                 <div class="mb-3">
                     <label for="productImage" class="form-label">Kép feltöltése:</label>
                     <br>

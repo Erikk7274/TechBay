@@ -18,7 +18,7 @@ async function logout() {
         localStorage.removeItem('token');
         sessionStorage.removeItem('token');
 
-        alert('Sikeres kijelentkezés');
+        alert('Kijelentkezve');
         window.location.href = '../index.html';
     } else {
         alert('Hiba a kijelentkezéskor');
