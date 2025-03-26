@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     const formContainer = document.querySelector(".container");
 
-    // Az alap formot hozzuk létre a kategória kiválasztásához
+    // Kategória kiválasztása
     formContainer.innerHTML = `
         <form id="categoryForm" class="container mt-4 p-4 border rounded bg-light shadow-lg">
             <div class="mb-3">
@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
         </form>
     `;
 
-    // Kategória kiválasztásakor változik a form
     document.getElementById("category").addEventListener("change", (event) => {
         const selectedCategory = event.target.value;
         if (selectedCategory === "product") {
@@ -25,12 +24,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Product form létrehozása
     function createProductForm() {
         formContainer.innerHTML = `
         <form id="productForm" class="container mt-4 p-4 border rounded bg-light shadow-lg">
         <div class="row">
-            <!-- Bal oldali oszlop (Termékadatok) -->
             <div class="col-md-6">
                 <div class="mb-3">
                     <label for="productName" class="form-label">Termék neve:</label>
@@ -53,26 +50,21 @@ document.addEventListener("DOMContentLoaded", () => {
                     <input type="number" id="productSale" name="productSale" class="form-control product" required>
                 </div>
             </div>
-
             <div class="col-md-6 d-flex flex-column align-items-center">
                 <div class="mb-3 w-100">
                     <label for="productImage" class="form-label">Kép feltöltése:</label>
-                    <br>
                     <input type="file" id="productImage" name="productImage" class="form-control product" accept="image/*" required>
                 </div>
-
                 <button type="submit" class="btn btn-primary w-100">Feltöltés</button>
                 <button type="button" class="btn btn-secondary w-100 mt-3" id="backToCategory">Vissza</button>
             </div>
         </form>
         `;
 
-        // Vissza gomb hozzáadása
         document.getElementById("backToCategory").addEventListener("click", () => {
             window.location.href = '../uploadProducts.html';
         });
 
-        // A termék form beküldése
         document.getElementById("productForm").addEventListener("submit", async (event) => {
             event.preventDefault();
             const formData = new FormData();
@@ -82,10 +74,10 @@ document.addEventListener("DOMContentLoaded", () => {
             formData.append("price", document.getElementById("productPrice").value);
             formData.append("product_pic", document.getElementById("productImage").files[0]);
             formData.append("in_stock", document.getElementById("productStock").value);
-            formData.append("cat_id", "1"); // Kategória id
+            formData.append("cat_id", "1");
             formData.append("sale", document.getElementById("productSale").value);
 
-            const response = await fetch("/api/add/uploadProduct", {
+            const response = await fetch("https://techbay2.netlify.app/api/add/uploadProduct", {
                 method: "POST",
                 body: formData,
                 credentials: "include"
@@ -101,7 +93,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Config form létrehozása
     function createConfigForm() {
         formContainer.innerHTML = `
             <form id="configForm" class="container mt-4 p-4 border rounded bg-light shadow-lg">
@@ -158,12 +149,10 @@ document.addEventListener("DOMContentLoaded", () => {
             </form>
         `;
 
-        // Vissza gomb hozzáadása
         document.getElementById("backToCategory").addEventListener("click", () => {
             window.location.href = '../uploadProducts.html';
         });
 
-        // A konfiguráció form beküldése
         document.getElementById("configForm").addEventListener("submit", async (event) => {
             event.preventDefault();
             const formData = new FormData();
@@ -185,7 +174,7 @@ document.addEventListener("DOMContentLoaded", () => {
             formData.append("sale", "0");
             formData.append("active", document.getElementById("configStatus").checked ? "1" : "0");
 
-            const response = await fetch("/api/add/uploadConfig", {
+            const response = await fetch("https://techbay2.netlify.app/api/add/uploadConfig", {
                 method: "POST",
                 body: formData,
                 credentials: "include"
@@ -199,21 +188,5 @@ document.addEventListener("DOMContentLoaded", () => {
                 alert(`Hiba történt a feltöltés során: ${errorData.message || "Ismeretlen hiba"}`);
             }
         });
-    }
-
-    // Alap kategória kiválasztó form visszaállítása
-    function createCategoryForm() {
-        formContainer.innerHTML = `
-            <form id="categoryForm" class="container mt-4 p-4 border rounded bg-light shadow-lg">
-                <div class="mb-3">
-                    <label for="category" class="form-label">Kategória:</label>
-                    <select id="category" name="category" class="form-select" required>
-                        <option value="">Válassz egy kategóriát</option>
-                        <option value="product">Hardware</option>
-                        <option value="config">Prebuilt Pc-k</option>
-                    </select>
-                </div>
-            </form>
-        `;
     }
 });
