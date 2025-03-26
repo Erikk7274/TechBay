@@ -146,7 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <input type="text" id="cpuCooler" name="cpuCooler" class="form-control config" required>
                 </div>
                 <div class="mb-3 form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="configStatus" checked>
+                <input class="form-check-input" type="checkbox" id="configStatus">
                 <label class="form-check-label" for="configStatus">Aktív</label>
                 </div>
                 <div class="mb-3">
