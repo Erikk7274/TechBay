@@ -47,12 +47,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div class="mb-3">
                 <label for="productPrice" class="form-label">Raktáron:</label>
                 <input type="number" id="productStock" name="productPrice" class="form-control product" required>
-            </div>
-                
-                <div class="mb-3 form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="configStatus">
-                <label class="form-check-label" for="configStatus">Aktív</label>
-                </div>
+                <div class="mb-3">
+                <label for="productPrice" class="form-label">Akció(%):</label>
+                <input type="number" id="productSale" name="productSale" class="form-control product" required>
             </div>
             <div class="col-md-6 d-flex flex-column align-items-center">
             <div class="mb-3 w-100">
