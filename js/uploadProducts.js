@@ -28,30 +28,25 @@ document.addEventListener("DOMContentLoaded", () => {
     // Product form létrehozása
     function createProductForm() {
         formContainer.innerHTML = `
-            <form id="productForm" class="container mt-4 p-4 border rounded bg-light shadow-lg">
+        <form id="productForm" class="container mt-4 p-4 border rounded bg-light shadow-lg">
+        <div class="row">
+            <!-- Bal oldali oszlop (Termékadatok) -->
+            <div class="col-md-6">
                 <div class="mb-3">
                     <label for="productName" class="form-label">Termék neve:</label>
-                    <br>
                     <input type="text" id="productName" name="productName" class="form-control product" required>
                 </div>
                 <div class="mb-3">
                     <label for="productDescription" class="form-label">Leírás:</label>
-                    <br>
                     <textarea id="productDescription" name="productDescription" class="form-control product" required></textarea>
                 </div>
                 <div class="mb-3">
                     <label for="productPrice" class="form-label">Ár:</label>
-                    <br>
                     <input type="number" id="productPrice" name="productPrice" class="form-control product" required>
                 </div>
-
-                <div class="mb-3">
-                <label for="productDescription" class="form-label">Leírás:</label>
-                <br>
-                <input type="number" id="productDescription" name="productDescription" class="form-control product">
             </div>
-
-                <div class="mb-3">
+            <div class="col-md-6 d-flex flex-column align-items-center">
+            <div class="mb-3 w-100">
                     <label for="productImage" class="form-label">Kép feltöltése:</label>
                     <br>
                     <input type="file" id="productImage" name="productImage" class="form-control product" accept="image/*" required>
