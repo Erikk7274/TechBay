@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <div class="mb-3 w-100">
                     <label for="productImage" class="form-label">Kép feltöltése:</label>
                     <br>
-                    <input type="file" id="productImage" name="productImage" class="form-control product" accept="image/*">
+                    <input type="file" id="productImage" name="productImage" class="form-control product" accept="image/*" required>
                 </div>
 
                 <button type="submit" class="btn btn-primary w-100">Feltöltés</button>
@@ -160,7 +160,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div class="mb-3">
                     <label for="configImage" class="form-label">Kép feltöltése:</label>
                     <br>
-                    <input type="file" id="configImage" name="configImage" class="form-control" accept="image/*">
+                    <input type="file" id="configImage" name="configImage" class="form-control" accept="image/*" required>
                 </div>
                 <button type="submit" class="btn btn-primary w-100">Feltöltés</button>
                 <button type="button" class="btn btn-secondary w-100 mt-3" id="backToCategory">Vissza</button>
