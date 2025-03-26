@@ -45,14 +45,17 @@ document.addEventListener("DOMContentLoaded", () => {
                     <input type="number" id="productPrice" name="productPrice" class="form-control product" required>
                 </div>
                 <div class="mb-3">
-                <label for="productPrice" class="form-label">Raktáron:</label>
-                <input type="number" id="productStock" name="productPrice" class="form-control product" required>
+                    <label for="productStock" class="form-label">Raktáron:</label>
+                    <input type="number" id="productStock" name="productStock" class="form-control product" required>
+                </div>
                 <div class="mb-3">
-                <label for="productPrice" class="form-label">Akció(%):</label>
-                <input type="number" id="productSale" name="productSale" class="form-control product" required>
+                    <label for="productSale" class="form-label">Akció(%):</label>
+                    <input type="number" id="productSale" name="productSale" class="form-control product" required>
+                </div>
             </div>
+
             <div class="col-md-6 d-flex flex-column align-items-center">
-            <div class="mb-3 w-100">
+                <div class="mb-3 w-100">
                     <label for="productImage" class="form-label">Kép feltöltése:</label>
                     <br>
                     <input type="file" id="productImage" name="productImage" class="form-control product" accept="image/*" required>
@@ -60,7 +63,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 <button type="submit" class="btn btn-primary w-100">Feltöltés</button>
                 <button type="button" class="btn btn-secondary w-100 mt-3" id="backToCategory">Vissza</button>
-            </form>
+            </div>
+        </form>
         `;
 
         // Vissza gomb hozzáadása
@@ -77,11 +81,11 @@ document.addEventListener("DOMContentLoaded", () => {
             formData.append("product_description", document.getElementById("productDescription").value);
             formData.append("price", document.getElementById("productPrice").value);
             formData.append("product_pic", document.getElementById("productImage").files[0]);
-            formData.append("in_stock", "1"); // Alapértelmezett érték
+            formData.append("in_stock", document.getElementById("productStock").value);
             formData.append("cat_id", "1"); // Kategória id
-            formData.append("sale", "0"); // Akciós termék: 0 (nem akciós)
+            formData.append("sale", document.getElementById("productSale").value);
 
-            const response = await fetch("/api/add/uploadProduct", {
+            const response = await fetch("/api/upload/uploadProduct", {
                 method: "POST",
                 body: formData,
                 credentials: "include"
@@ -103,60 +107,50 @@ document.addEventListener("DOMContentLoaded", () => {
             <form id="configForm" class="container mt-4 p-4 border rounded bg-light shadow-lg">
                 <div class="mb-3">
                     <label for="configName" class="form-label">Konfiguráció neve:</label>
-                    <br>
                     <input type="text" id="configName" name="configName" class="form-control config" required>
                 </div>
                 <div class="mb-3">
                     <label for="cpu" class="form-label">CPU:</label>
-                    <br>
                     <input type="text" id="cpu" name="cpu" class="form-control config" required>
                 </div>
                 <div class="mb-3">
                     <label for="motherBoard" class="form-label">Alaplap:</label>
-                    <br>
                     <input type="text" id="motherBoard" name="motherBoard" class="form-control config" required>
                 </div>
                 <div class="mb-3">
                     <label for="ram" class="form-label">RAM:</label>
-                    <br>
                     <input type="text" id="ram" name="ram" class="form-control config" required>
                 </div>
                 <div class="mb-3">
                     <label for="gpu" class="form-label">GPU:</label>
-                    <br>
                     <input type="text" id="gpu" name="gpu" class="form-control config" required>
                 </div>
                 <div class="mb-3">
                     <label for="hdd" class="form-label">HDD:</label>
-                    <br>
                     <input type="text" id="hdd" name="hdd" class="form-control config" required>
                 </div>
                 <div class="mb-3">
                     <label for="ssd" class="form-label">SSD:</label>
-                    <br>
                     <input type="text" id="ssd" name="ssd" class="form-control config" required>
                 </div>
                 <div class="mb-3">
                     <label for="powerSupply" class="form-label">Tápegység:</label>
-                    <br>
                     <input type="text" id="powerSupply" name="powerSupply" class="form-control config" required>
                 </div>
                 <div class="mb-3">
                     <label for="cpuCooler" class="form-label">CPU Hűtő:</label>
-                    <br>
                     <input type="text" id="cpuCooler" name="cpuCooler" class="form-control config" required>
                 </div>
                 <div class="mb-3">
-                <label for="productPrice" class="form-label">Raktáron:</label>
-                <input type="number" id="productStock" name="productPrice" class="form-control product" required>
-            </div>
+                    <label for="productPrice" class="form-label">Ár:</label>
+                    <input type="number" id="productPrice" name="productPrice" class="form-control product" required>
+                </div>
                 <div class="mb-3 form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="configStatus">
-                <label class="form-check-label" for="configStatus">Aktív</label>
+                    <input class="form-check-input" type="checkbox" id="configStatus">
+                    <label class="form-check-label" for="configStatus">Aktív</label>
                 </div>
                 <div class="mb-3">
                     <label for="configImage" class="form-label">Kép feltöltése:</label>
-                    <br>
                     <input type="file" id="configImage" name="configImage" class="form-control" accept="image/*" required>
                 </div>
                 <button type="submit" class="btn btn-primary w-100">Feltöltés</button>
@@ -189,9 +183,9 @@ document.addEventListener("DOMContentLoaded", () => {
             formData.append("in_stock", "1");
             formData.append("cat_id", "2");
             formData.append("sale", "0");
-            formData.append("active", "1");
+            formData.append("active", document.getElementById("configStatus").checked ? "1" : "0");
 
-            const response = await fetch("/api/add/uploadConfig", {
+            const response = await fetch("/api/upload/uploadConfig", {
                 method: "POST",
                 body: formData,
                 credentials: "include"
@@ -223,21 +217,3 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
     }
 });
-
-
-
-    document.querySelector(".icon-logout").addEventListener("click", async () => {
-        const res = await fetch('/api/auth/logout', {
-            method: 'POST',
-            credentials: 'include'
-        });
-
-        if (res.ok) {
-            localStorage.removeItem('token');
-            sessionStorage.removeItem('token');
-            alert('Sikeres kijelentkezés');
-            window.location.href = '../index.html';
-        } else {
-            alert('Hiba a kijelentkezéskor!');
-        }
-    });
