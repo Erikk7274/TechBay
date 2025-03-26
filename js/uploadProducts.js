@@ -56,6 +56,20 @@ document.addEventListener("DOMContentLoaded", () => {
                     <br>
                     <input type="file" id="productImage" name="productImage" class="form-control product" accept="image/*" required>
                 </div>
+
+                <div class="form-check">
+                <input class="form-check-input" type="radio" name="radioInactive" id="flexRadioDefault1">
+                <label class="form-check-label" for="flexRadioDefault1">
+                  Inactive
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="radioActive" id="flexRadioDefault2" checked>
+                <label class="form-check-label" for="flexRadioDefault2">
+                  Active
+                </label>
+              </div>
+
                 <button type="submit" class="btn btn-primary w-100">Feltöltés</button>
                 <button type="button" class="btn btn-secondary w-100 mt-3" id="backToCategory">Vissza</button>
             </form>
