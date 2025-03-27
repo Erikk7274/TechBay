@@ -118,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             productData.cat_id = catId;
         
-            console.log(productData.product_name, productData.product_description, productData.price, productData.in_stock, productData.sale, productData.sale_, productData.cat_id, productData.product_pic);
+            console.log(typeof(productData.product_name),productData.product_name, typeof(productData.product_description),productData.product_description, typeof(productData.price),productData.price, typeof(productData.in_stock),productData.in_stock, typeof(productData.sale),productData.sale, typeof(productData.sale_),productData.sale_, typeof(productData.cat_id),productData.cat_id, typeof(productData.product_pic),productData.product_pic);
         
             const response = await fetch("/api/add/uploadProduct", {
                 method: "POST",
