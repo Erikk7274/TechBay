@@ -49,6 +49,19 @@ document.addEventListener("DOMContentLoaded", () => {
                     <label for="productSale" class="form-label">Akció:</label>
                     <input type="number" id="productSale" name="productSale" class="form-control product" required>
                 </div>
+
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Dropdown button
+                     </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                </div>
+
+
             </div>
             <div class="col-md-6 d-flex flex-column align-items-center">
                 <div class="mb-3 w-100">
@@ -68,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("productForm").addEventListener("submit", async (event) => {
             event.preventDefault();
             const formData = new FormData();
-            
+
             formData.append("product_name", document.getElementById("productName").value);
             formData.append("product_description", document.getElementById("productDescription").value);
             formData.append("price", document.getElementById("productPrice").value);
