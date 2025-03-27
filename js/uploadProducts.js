@@ -84,30 +84,26 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("productSaleActive").addEventListener("change", function () {
             const saleif = document.getElementById('saleclass');
             if (this.value === "0") {
-                saleif.style.display = "none";
+                saleif.style.display = "none"; // Ha nincs akció, ne jelenjen meg az akció mértéke
             } else if (this.value === "1") {
-                saleif.style.display = "block";
+                saleif.style.display = "block"; // Ha van akció, akkor jelenjen meg
             }
         });
-
+        
         document.getElementById("productForm").addEventListener("submit", async (event) => {
             event.preventDefault();
-
+        
             const productData = {
                 product_name: document.getElementById("productName").value,
                 product_description: document.getElementById("productDescription").value,
                 price: document.getElementById("productPrice").value,
                 in_stock: document.getElementById("productStock").value,
-                sale: document.getElementById("productSale").value,
-                sale_: document.getElementById("saleclass").value,
+                sale: document.getElementById("productSale").value, // Akció mértéke
+                sale_: document.getElementById("productSaleActive").value, // Akció aktív vagy nem
                 cat_id: document.getElementById("productCategory").value,
                 product_pic: document.getElementById("productImage").files[0]
             };
-
-          
-
-            
-
+        
             const categoryValue = document.getElementById("productCategory").value;
             let catId = 0;
             if (categoryValue === "cpu") {
@@ -118,7 +114,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 catId = 8;
             }
             productData.cat_id = catId;
-            console.log(productData.product_name,productData.product_description,productData.price,productData.in_stock,productData.sale,productData.saleclass,productData.cat_id,productData.product_pic);
+        
+            console.log(productData.product_name, productData.product_description, productData.price, productData.in_stock, productData.sale, productData.sale_, productData.cat_id, productData.product_pic);
+        
             const response = await fetch("/api/add/uploadProduct", {
                 method: "POST",
                 credentials: "include",
@@ -127,7 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 },
                 body: JSON.stringify(productData)
             });
-
+        
             if (response.ok) {
                 alert("SIKERES FELTÖLTÉS!");
                 document.getElementById("productForm").reset();
