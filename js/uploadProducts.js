@@ -107,6 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.getElementById("productForm").reset();
             } else {
                 const errorData = await response.json();
+                console.error("Hiba: ", errorData);  
                 alert(`Hiba történt a feltöltés során: ${errorData.message || "Ismeretlen hiba"}`);
             }
         });
