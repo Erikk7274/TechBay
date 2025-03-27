@@ -79,7 +79,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const response = await fetch("/api/add/uploadProduct", {
                 method: "POST",
-                body: formData,
                 credentials: "include"
             });
 
