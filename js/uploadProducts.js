@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <input type="number" id="productStock" name="productStock" class="form-control product" required>
                 </div>
                 <div class="mb-3">
-                    <label for="productSale" class="form-label">Akció(%):</label>
+                    <label for="productSale" class="form-label">Akció:</label>
                     <input type="number" id="productSale" name="productSale" class="form-control product" required>
                 </div>
             </div>
