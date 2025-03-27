@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
             <div class="mb-3">
                 <label for="productSale" class="form-label">Akció mértéke:</label>
-                <input type="number" id="productSale" name="productSale" class="form-control product" disabled>
+                <input type="number" id="productSale" name="productSale" class="form-control product">
             </div>
                 <div class="mb-3">
                     <label for="productCategory" class="form-label">Termék kategória:</label>
@@ -81,17 +81,6 @@ document.addEventListener("DOMContentLoaded", () => {
             window.location.href = '../uploadProducts.html';
         });
 
-        document.getElementById("saleDropdown").addEventListener("change", (event) => {
-            const saleValue = event.target.value;
-            const productSaleInput = document.getElementById("productSale");
-            
-            if (saleValue === "1") {
-                productSaleInput.disabled = false; // Feloldja az Akció inputot
-            } else {
-                productSaleInput.disabled = true; // Lezárja az Akció inputot
-                productSaleInput.value = ''; // Ha 'Nem' a választás, töröljük az Akció mezőt
-            }
-        });
 
         document.getElementById("productForm").addEventListener("submit", async (event) => {
             event.preventDefault();
