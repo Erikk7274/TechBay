@@ -104,7 +104,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 image: document.getElementById("productImage").files[0]
             };
 
-            console.log(product_name);
+            console.log(productData.product_name);
+
             
 
             const categoryValue = document.getElementById("productCategory").value;
