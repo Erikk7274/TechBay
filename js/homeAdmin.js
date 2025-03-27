@@ -129,15 +129,11 @@ function createModal(product) {
                     <p><strong>Ár:</strong> ${product.price ? product.price + ' Ft' : 'N/A'}</p>
                     <p><strong>Raktáron:</strong> ${product.in_stock}</p>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary add-to-cart-btn" data-product-id="${product.product_id}" data-bs-dismiss="modal">Hozzáadás</button>
-                </div>
             </div>
         </div>
     `;
 
     document.body.appendChild(modalDiv);
-    modalDiv.querySelector('.add-to-cart-btn').addEventListener('click', () => addToCart(product.product_id));
 }
 
 async function addToCart(productId) {
