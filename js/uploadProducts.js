@@ -142,7 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
             formData.append("in_stock", document.getElementById("productStock").value);
             formData.append("sale", document.getElementById("productSale").value);
             formData.append("sale_", document.getElementById("saleclass").value);
-
+            console.log(formData);
 
 
 
@@ -171,7 +171,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 console.error("Hiba: ", errorData);
                 alert(`Hiba történt a feltöltés során: ${errorData.message || "Ismeretlen hiba"}`);
             }
-            console.log(formData);
+            
         });
     }
 
