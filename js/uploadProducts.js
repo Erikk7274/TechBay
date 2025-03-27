@@ -171,6 +171,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 console.error("Hiba: ", errorData);
                 alert(`Hiba történt a feltöltés során: ${errorData.message || "Ismeretlen hiba"}`);
             }
+            console.log(formData);
         });
     }
 
