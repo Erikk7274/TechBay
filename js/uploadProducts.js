@@ -104,6 +104,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 product_pic: document.getElementById("productImage").files[0]
             };
         
+
+
+            
             const categoryValue = document.getElementById("productCategory").value;
             let catId = 0;
             if (categoryValue === "cpu") {
