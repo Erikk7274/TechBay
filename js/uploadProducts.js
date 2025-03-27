@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
                 <div class="mb-3">
                     <label for="productDescription" class="form-label">Leírás:</label>
-                    <textarea id="productDescription" name="productDescription" class="form-control product" required></textarea>
+                    <textarea id="productDescription" name="productDescription" class="form-control product"></textarea>
                 </div>
                 <div class="mb-3">
                     <label for="productPrice" class="form-label">Ár:</label>
@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
                 <div class="mb-3">
                     <label for="productSale" class="form-label">Akció:</label>
-                    <input type="number" id="productSale" name="productSale" class="form-control product" required>
+                    <input type="number" id="productSale" name="productSale" class="form-control product">
                 </div>
                 <div class="mb-3">
                     <label for="productCategory" class="form-label">Termék kategória:</label>
