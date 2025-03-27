@@ -54,12 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
             <div class="mb-3">
                 <label for="productSale" class="form-label">Akció mértéke:</label>
-                <select id="productCategory" name="productCategory" class="form-select" required>
-                        <option value="">Válassz egy kategóriát</option>
-                        <option value="cpu">Processzor</option>
-                        <option value="mother_board">Alaplap</option>
-                        <option value="house">Gépház</option>
-                    </select>
+                <input type="number" id="productSale" name="productSale" class="form-control product">
             </div>
                 <div class="mb-3">
                     <label for="productCategory" class="form-label">Termék kategória:</label>
