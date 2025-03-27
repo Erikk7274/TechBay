@@ -99,12 +99,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 price: document.getElementById("productPrice").value,
                 in_stock: document.getElementById("productStock").value,
                 sale: document.getElementById("productSale").value,
-                sale_active: document.getElementById("productSaleActive").value,
-                product_category: document.getElementById("productCategory").value,
-                image: document.getElementById("productImage").files[0]
+                sale_: document.getElementById("productSaleActive").value,
+                cat_id: document.getElementById("productCategory").value,
+                product_pic: document.getElementById("productImage").files[0]
             };
 
-            console.log(productData.product_name);
+            console.log(productData.product_name,productData.product_description,productData.price,productData.in_stock,productData.sale,productData.sale_active,productData.cat_id,productData.product_pic);
 
             
 
