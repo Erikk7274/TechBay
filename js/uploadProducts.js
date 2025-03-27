@@ -118,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 catId = 8;
             }
             productData.cat_id = catId;
-            console.log(productData.product_name,productData.product_description,productData.price,productData.in_stock,productData.sale,productData.sale_active,productData.cat_id,productData.product_pic);
+            console.log(productData.product_name,productData.product_description,productData.price,productData.in_stock,productData.sale,productData.saleclass,productData.cat_id,productData.product_pic);
             const response = await fetch("/api/add/uploadProduct", {
                 method: "POST",
                 credentials: "include",
