@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 price: document.getElementById("productPrice").value,
                 in_stock: document.getElementById("productStock").value,
                 sale: document.getElementById("productSale").value,
-                sale_: document.getElementById("saleaclass").value,
+                sale_: document.getElementById("saleclass").value,
                 cat_id: document.getElementById("productCategory").value,
                 product_pic: document.getElementById("productImage").files[0]
             };
