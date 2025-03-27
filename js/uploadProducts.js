@@ -141,7 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
             formData.append("product_pic", document.getElementById("productImage").files[0]);
             formData.append("in_stock", document.getElementById("productStock").value);
             formData.append("sale", document.getElementById("productSale").value);
-            formData.append("sale_", productSaleActive);
+            formData.append("sale_", document.getElementById("saleclass").value);
 
 
 
