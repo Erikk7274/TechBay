@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <option value="1">Igen</option>
                 </select>
             </div>
-            <div class="mb-3">
+            <div class="mb-3" id="saleclass" style="display:none;">
                 <label for="productSale" class="form-label">Akció mértéke:</label>
                 <input type="number" id="productSale" name="productSale" class="form-control product">
             </div>
@@ -95,6 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const productSaleActive = document.getElementById("saleDropdown").value;
             formData.append("sale_", productSaleActive);
 
+            
             const categoryValue = document.getElementById("productCategory").value;
             let catId = 0;
             if (categoryValue === "cpu") {
