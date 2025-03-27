@@ -84,9 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("productSaleActive").addEventListener("change", function () {
             const saleif = document.getElementById('saleclass');
             if (this.value === "0") {
-     
                 saleif.style.display = "none";
-
             } else if (this.value === "1") {
                 saleif.style.display = "block";
             }
@@ -94,16 +92,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
         document.getElementById("productForm").addEventListener("submit", async (event) => {
             event.preventDefault();
-            const formData = new FormData();
 
-            formData.append("product_name", document.getElementById("productName").value);
-            formData.append("product_description", document.getElementById("productDescription").value);
-            formData.append("price", document.getElementById("productPrice").value);
-            formData.append("product_pic", document.getElementById("productImage").files[0]);
-            formData.append("in_stock", document.getElementById("productStock").value);
-            formData.append("sale", document.getElementById("productSale").value);
-            formData.append("sale_", document.getElementById("saleclass").value);
-            console.log(formData);
+            const productData = {
+                product_name: document.getElementById("productName").value,
+                product_description: document.getElementById("productDescription").value,
+                price: document.getElementById("productPrice").value,
+                in_stock: document.getElementById("productStock").value,
+                sale: document.getElementById("productSale").value,
+                sale_active: document.getElementById("productSaleActive").value,
+                product_category: document.getElementById("productCategory").value,
+                image: document.getElementById("productImage").files[0]
+            };
 
             const categoryValue = document.getElementById("productCategory").value;
             let catId = 0;
@@ -114,12 +113,15 @@ document.addEventListener("DOMContentLoaded", () => {
             } else if (categoryValue === "house") {
                 catId = 8;
             }
-            formData.append("cat_id", catId);
+            productData.cat_id = catId;
 
             const response = await fetch("/api/add/uploadProduct", {
                 method: "POST",
                 credentials: "include",
-                body: formData
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(productData)
             });
 
             if (response.ok) {
@@ -130,7 +132,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 console.error("Hiba: ", errorData);
                 alert(`Hiba történt a feltöltés során: ${errorData.message || "Ismeretlen hiba"}`);
             }
-            
         });
     }
 
@@ -196,28 +197,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
         document.getElementById("configForm").addEventListener("submit", async (event) => {
             event.preventDefault();
-            const formData = new FormData();
 
-            formData.append("config_name", document.getElementById("configName").value);
-            formData.append("cpu", document.getElementById("cpu").value);
-            formData.append("mother_board", document.getElementById("motherBoard").value);
-            formData.append("ram", document.getElementById("ram").value);
-            formData.append("gpu", document.getElementById("gpu").value);
-            formData.append("hdd", document.getElementById("hdd").value);
-            formData.append("ssd", document.getElementById("ssd").value);
-            formData.append("power_supply", document.getElementById("powerSupply").value);
-            formData.append("cpu_cooler", document.getElementById("cpuCooler").value);
-            formData.append("price", document.getElementById("productPrice").value);
-            formData.append("config_pic", document.getElementById("configImage").files[0]);
-            formData.append("description", document.getElementById("productDescription").value);
-            formData.append("in_stock", "1");
-            formData.append("sale", "0");
-            formData.append("active", document.getElementById("configStatus").checked ? "1" : "0");
+            const configData = {
+                config_name: document.getElementById("configName").value,
+                cpu: document.getElementById("cpu").value,
+                mother_board: document.getElementById("motherBoard").value,
+                ram: document.getElementById("ram").value,
+                gpu: document.getElementById("gpu").value,
+                hdd: document.getElementById("hdd").value,
+                ssd: document.getElementById("ssd").value,
+                power_supply: document.getElementById("powerSupply").value,
+                cpu_cooler: document.getElementById("cpuCooler").value,
+                price: document.getElementById("productPrice").value,
+                config_pic: document.getElementById("configImage").files[0],
+                description: document.getElementById("productDescription").value,
+                in_stock: "1",
+                sale: "0",
+                active: document.getElementById("configStatus").checked ? "1" : "0"
+            };
 
             const response = await fetch("/api/add/uploadConfig", {
                 method: "POST",
                 credentials: "include",
-                body: formData
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(configData)
             });
 
             if (response.ok) {
