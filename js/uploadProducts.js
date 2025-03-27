@@ -81,43 +81,6 @@ document.addEventListener("DOMContentLoaded", () => {
             window.location.href = '../uploadProducts.html';
         });
 
-
-        //     <div class="mb-3">
-        //     <label for="productSaleActive" class="form-label">Akció:</label>
-        //     <select id="productSaleActive" name="productSaleActive" class="form-select">
-        //         <option value="0">Nem</option>
-        //         <option value="1">Igen</option>
-        //     </select>
-        // </div>
-        // <div class="mb-3" id="saleclass" style="display:none;">
-        //     <label for="productSale" class="form-label">Akció mértéke:</label>
-        //     <input type="number" id="productSale" name="productSale" class="form-control product">
-        // </div>
-
-
-
-
-
-        // document.getElementById('szerarazva').addEventListener("change",function(){
-        //    
-        //     const szerkeszteskivalasztottakcio=document.getElementById('szerakcioszazalek');
-        //     if(this.value==="0")
-        //     {
-        //         szerkeszteskivalasztottTipus.style.display="block";
-        //         szerkeszteskivalasztottakcio.style.display="none";
-
-        //     }else if(this.value==="1")
-        //     {
-        //         szerkeszteskivalasztottTipus.style.display="block";
-        //         szerkeszteskivalasztottakcio.style.display="block";
-        //     }else{
-        //         szerkeszteskivalasztottTipus.style.display="none";
-        //         szerkeszteskivalasztottakcio.style.display="none";
-        //     }
-        // })
-
-
-
         document.getElementById("productSaleActive").addEventListener("change", function () {
             const saleif = document.getElementById('saleclass');
             if (this.value === "0") {
@@ -128,8 +91,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 saleif.style.display = "block";
             }
         });
-
-
 
         document.getElementById("productForm").addEventListener("submit", async (event) => {
             event.preventDefault();
@@ -143,8 +104,6 @@ document.addEventListener("DOMContentLoaded", () => {
             formData.append("sale", document.getElementById("productSale").value);
             formData.append("sale_", document.getElementById("saleclass").value);
             console.log(formData);
-
-
 
             const categoryValue = document.getElementById("productCategory").value;
             let catId = 0;
@@ -272,7 +231,3 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
-
-
-
-
