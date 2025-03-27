@@ -46,9 +46,16 @@ document.addEventListener("DOMContentLoaded", () => {
                     <input type="number" id="productStock" name="productStock" class="form-control product" required>
                 </div>
                 <div class="mb-3">
-                    <label for="productSale" class="form-label">Akció:</label>
-                    <input type="number" id="productSale" name="productSale" class="form-control product">
-                </div>
+                <label for="productSaleActive" class="form-label">Akció:</label>
+                <select id="productSaleActive" name="productSaleActive" class="form-select">
+                    <option value="0">Nem</option>
+                    <option value="1">Igen</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="productSale" class="form-label">Akció mértéke:</label>
+                <input type="number" id="productSale" name="productSale" class="form-control product" disabled>
+            </div>
                 <div class="mb-3">
                     <label for="productCategory" class="form-label">Termék kategória:</label>
                     <select id="productCategory" name="productCategory" class="form-select" required>
@@ -74,6 +81,18 @@ document.addEventListener("DOMContentLoaded", () => {
             window.location.href = '../uploadProducts.html';
         });
 
+        document.getElementById("saleDropdown").addEventListener("change", (event) => {
+            const saleValue = event.target.value;
+            const productSaleInput = document.getElementById("productSale");
+            
+            if (saleValue === "1") {
+                productSaleInput.disabled = false; // Feloldja az Akció inputot
+            } else {
+                productSaleInput.disabled = true; // Lezárja az Akció inputot
+                productSaleInput.value = ''; // Ha 'Nem' a választás, töröljük az Akció mezőt
+            }
+        });
+
         document.getElementById("productForm").addEventListener("submit", async (event) => {
             event.preventDefault();
             const formData = new FormData();
@@ -84,6 +103,8 @@ document.addEventListener("DOMContentLoaded", () => {
             formData.append("product_pic", document.getElementById("productImage").files[0]);
             formData.append("in_stock", document.getElementById("productStock").value);
             formData.append("sale", document.getElementById("productSale").value);
+            const saleValue = document.getElementById("saleDropdown").value;
+            formData.append("sale_", saleValue);
 
             const categoryValue = document.getElementById("productCategory").value;
             let catId = 0;
