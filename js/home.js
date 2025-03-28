@@ -79,12 +79,12 @@ function createCard(product) {
     let priceHtml = '';
     let saleHtml = '';
 
-    // Feltétel: ha az akciós ár nagyobb, mint az eredeti ár
+
     if (product.sale && product.sale < product.price) {
         priceHtml = `<span class="d-block mb-2" style="text-decoration: line-through;">Ár: ${product.price} Ft</span>`;
         saleHtml = `<span class="d-block mb-2">Akciós ár: ${product.sale} Ft</span>`;
     } else if (product.sale && product.sale >= product.price) {
-        saleHtml = ''; // Ha az akciós ár nem kisebb, akkor ne jelenjen meg
+        saleHtml = ''; 
     } else {
         priceHtml = `<span class="d-block mb-2">Ár: ${product.price ? product.price + ' Ft' : 'N/A'}</span>`;
     }
@@ -117,12 +117,12 @@ function createModal(product) {
     let priceHtmlModal = '';
     let saleHtmlModal = '';
 
-    // Feltétel: ha az akciós ár nagyobb, mint az eredeti ár
+
     if (product.sale && product.sale < product.price) {
         priceHtmlModal = `<p><strong>Eredeti ár:</strong> <span style="text-decoration: line-through;">${product.price} Ft</span></p>`;
         saleHtmlModal = `<p><strong>Akciós ár:</strong> ${product.sale} Ft</p>`;
     } else if (product.sale && product.sale >= product.price) {
-        saleHtmlModal = ''; // Ha az akciós ár nem kisebb, akkor ne jelenjen meg
+        saleHtmlModal = ''; 
     } else {
         priceHtmlModal = `<p><strong>Eredeti ár:</strong> ${product.price ? product.price + ' Ft' : 'N/A'}</p>`;
     }
