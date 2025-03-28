@@ -25,6 +25,41 @@ async function getProducts() {
     }
 }
 
+
+
+
+
+ // Kategória kiválasztása
+ formContainer.innerHTML = `
+ <form id="categoryForm" class="container mt-4 p-4 border rounded bg-light shadow-lg">
+     <div class="mb-3">
+         <label for="category" class="form-label">Kategória:</label>
+         <select id="category" name="category" class="form-select" required>
+             <option value="">Válassz egy kategóriát</option>
+             <option value="cpu">Processzor</option>
+             <option value="motherboard">Alaplap</option>
+         </select>
+     </div>
+ </form>
+`;
+document.getElementById("category").addEventListener("change", (event) => {
+    const selectedCategory = event.target.value;
+    if (selectedCategory === "product") {
+        createProductForm();
+    } else if (selectedCategory === "config") {
+        createConfigForm();
+    }
+});
+
+
+
+
+
+
+
+
+
+
 function renderProducts(products) {
     row.innerHTML = '';  // Clear any existing content
     products.forEach(product => {
@@ -41,13 +76,27 @@ function createCard(product) {
     cardDiv.style.height = 'auto'; // Auto height
     cardDiv.style.minHeight = '20rem'; // Minimum height
 
+    let priceHtml = '';
+    let saleHtml = '';
+
+    // Feltétel: ha az akciós ár nagyobb, mint az eredeti ár
+    if (product.sale && product.sale < product.price) {
+        priceHtml = `<span class="d-block mb-2" style="text-decoration: line-through;">Ár: ${product.price} Ft</span>`;
+        saleHtml = `<span class="d-block mb-2">Akciós ár: ${product.sale} Ft</span>`;
+    } else if (product.sale && product.sale >= product.price) {
+        saleHtml = ''; // Ha az akciós ár nem kisebb, akkor ne jelenjen meg
+    } else {
+        priceHtml = `<span class="d-block mb-2">Ár: ${product.price ? product.price + ' Ft' : 'N/A'}</span>`;
+    }
+
     cardDiv.innerHTML = `
         <div class="card-header text-center fw-bold">${product.product_name}</div>
         <div class="card-body text-center">
             <img src="/api/uploads/${product.product_pic}" class="img-fluid mb-3" alt="${product.product_name}" style="max-height: 230px; object-fit: contain;"> <!-- Increased max-height -->
         </div>
         <div class="card-footer text-center">
-            <span class="d-block mb-2">Ár: ${product.price ? product.price + ' Ft' : 'N/A'}</span>
+            ${priceHtml}
+            ${saleHtml}
             <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-${product.product_id}">Részletek</button>
         </div>
     `;
@@ -65,6 +114,19 @@ function createModal(product) {
     modalDiv.setAttribute('aria-labelledby', `modalLabel-${product.product_id}`);
     modalDiv.setAttribute('aria-hidden', 'true');
 
+    let priceHtmlModal = '';
+    let saleHtmlModal = '';
+
+    // Feltétel: ha az akciós ár nagyobb, mint az eredeti ár
+    if (product.sale && product.sale < product.price) {
+        priceHtmlModal = `<p><strong>Eredeti ár:</strong> <span style="text-decoration: line-through;">${product.price} Ft</span></p>`;
+        saleHtmlModal = `<p><strong>Akciós ár:</strong> ${product.sale} Ft</p>`;
+    } else if (product.sale && product.sale >= product.price) {
+        saleHtmlModal = ''; // Ha az akciós ár nem kisebb, akkor ne jelenjen meg
+    } else {
+        priceHtmlModal = `<p><strong>Eredeti ár:</strong> ${product.price ? product.price + ' Ft' : 'N/A'}</p>`;
+    }
+
     modalDiv.innerHTML = `
         <div class="modal-dialog modal-lg" style="max-width:500px">
             <div class="modal-content">
@@ -74,8 +136,8 @@ function createModal(product) {
                 </div>
                 <div class="modal-body text-center">
                     <img src="${imageUrl}" alt="${product.product_name}" class="img-fluid mb-3" style="max-height: 400px; object-fit: contain;"> <!-- Increased modal image size -->
-                    <p><strong>Eredeti ár:</strong> ${product.price ? product.price + ' Ft' : 'N/A'}</p>
-                    <p><strong>Akciós ár:</strong> ${product.sale ? product.sale + ' Ft' : 'N/A'}</p>
+                    ${priceHtmlModal}
+                    ${saleHtmlModal}
                     <p><strong>Raktáron:</strong> ${product.in_stock}</p>
                     <p><strong>Leírás:</strong><br> ${product.product_description}</p>
                 </div>
@@ -86,13 +148,11 @@ function createModal(product) {
         </div>
     `;
 
-
-    
-
     document.body.appendChild(modalDiv);
 
     modalDiv.querySelector('.add-to-cart-btn').addEventListener('click', () => addToCart(product.product_id));
 }
+
 
 
 async function addToCart(productId) {
