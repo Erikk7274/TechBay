@@ -8,7 +8,7 @@ const confirmOrderBtn = document.getElementById('confirmOrderBtn');
 
 let orderModal = orderModalElement ? new bootstrap.Modal(orderModalElement) : null;
 
-// Wait for the DOM to load
+
 document.addEventListener('DOMContentLoaded', () => {
     init();
 });
@@ -18,7 +18,6 @@ async function init() {
     setUpButtonListeners();
 }
 
-// Logout function
 async function logout() {
     try {
         const res = await fetch('/api/auth/logout', {
@@ -41,7 +40,7 @@ async function logout() {
     }
 }
 
-// Load cart data and render items
+
 async function loadCart() {
     try {
         console.log('Loading cart...');
@@ -69,7 +68,7 @@ async function loadCart() {
     }
 }
 
-// Render cart items dynamically
+
 function renderCartItems(cart) {
     return cart.map(item => `
         <div class="card mb-3" data-id="${item.product_id}">
@@ -83,7 +82,7 @@ function renderCartItems(cart) {
     `).join('');
 }
 
-// Set up event listeners for the remove item buttons
+
 function setUpRemoveButtons() {
     document.querySelectorAll('.remove-item').forEach(button => {
         button.addEventListener('click', async (event) => {
@@ -93,7 +92,7 @@ function setUpRemoveButtons() {
     });
 }
 
-// Remove an item from the cart
+
 async function removeItemFromCart(productId) {
     try {
         const response = await fetch(`/api/cart/removeProduct/${productId}`, {
@@ -106,14 +105,14 @@ async function removeItemFromCart(productId) {
         }
 
         console.log(`Item with ID ${productId} removed.`);
-        await loadCart(); // Frissítjük a kosarat
+        await loadCart(); 
     } catch (error) {
         console.error('Error removing item from cart:', error);
         alert('Hiba a termék eltávolításakor.');
     }
 }
 
-// Handle the order button click
+
 function setUpOrderButton() {
     if (orderBtn) {
         orderBtn.addEventListener('click', async () => {
@@ -143,7 +142,7 @@ function setUpOrderButton() {
     }
 }
 
-// Render the order details in the modal
+
 function renderOrderModal(cart) {
     modalBody.innerHTML = cart.length === 0
         ? '<p class="text-center">A kosár üres</p>'
@@ -158,7 +157,7 @@ function renderOrderModal(cart) {
         `).join('');
 }
 
-// Set up back button listener
+
 function setUpButtonListeners() {
     btnBack?.addEventListener('click', () => {
         window.location.href = 'https://techbay2.netlify.app/home.html';
