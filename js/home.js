@@ -10,6 +10,7 @@ const btnLogout = document.getElementsByClassName('icon-logout')[0];
 
 // Kategóriák elemeinek lekérése
 const row = document.getElementById('row');
+const categorySelect = document.getElementById('categorySelect'); // Dropdown kategória szűrő
 
 // Termékek lekérése
 async function getProducts() {
@@ -74,8 +75,7 @@ function createModal(product) {
                 </div>
                 <div class="modal-body text-center">
                     <img src="${imageUrl}" alt="${product.product_name}" class="img-fluid mb-3" style="max-height: 400px; object-fit: contain;"> <!-- Increased modal image size -->
-                    <p><strong>Eredeti ár:</strong> ${product.price ? product.price + ' Ft' : 'N/A'}</p>
-                    <p><strong>Akciós ár:</strong> ${product.sale ? product.sale + ' Ft' : 'N/A'}</p>
+                    <p><strong>Ár:</strong> ${product.price ? product.price + ' Ft' : 'N/A'}</p>
                     <p><strong>Raktáron:</strong> ${product.in_stock}</p>
                     <p><strong>Leírás:</strong><br> ${product.product_description}</p>
                 </div>
@@ -85,35 +85,56 @@ function createModal(product) {
             </div>
         </div>
     `;
-
-
-    
-
     document.body.appendChild(modalDiv);
-
-    modalDiv.querySelector('.add-to-cart-btn').addEventListener('click', () => addToCart(product.product_id));
 }
 
-
-async function addToCart(productId) {
-    try {
-        const response = await fetch('/api/cart/takeProduct', {
-            method: 'POST',
-            headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({ productId }),
-            credentials: 'include',
-        });
-
-        const result = await response.json();
-        if (response.ok) {
-            console.log('Termék hozzáadva:', result);
-        } else {
-            console.error('Hiba:', result);
+function setupCategoryFilter() {
+    categorySelect.addEventListener('change', async () => {
+        const selectedCategory = categorySelect.value;
+        try {
+            const response = await fetch(`/api/getProducts/getProducts_all`, {
+                method: 'GET',
+                credentials: 'include'
+            });
+            const products = await response.json();
+            const filteredProducts = selectedCategory === 'all' ? products : products.filter(product => product.cat_id == selectedCategory);
+            renderProducts(filteredProducts);
+        } catch (error) {
+            console.error('Hiba a termékek szűrésében:', error);
         }
+    });
+}
+
+// Kategória szűrésének inicializálása
+setupCategoryFilter();
+
+// Dropdown kategóriák beállítása
+function setupCategoryDropdown(categories) {
+    categorySelect.innerHTML = '<option value="all">Minden</option>'; // Default "Minden" option
+    categories.forEach(category => {
+        const option = document.createElement('option');
+        option.value = category.cat_id;
+        option.textContent = category.cat_name;
+        categorySelect.appendChild(option);
+    });
+}
+
+// Kategóriák lekérése
+async function getCategories() {
+    try {
+        const response = await fetch(`/api/getCategories`, {
+            method: 'GET',
+            credentials: 'include'
+        });
+        const categories = await response.json();
+        setupCategoryDropdown(categories);
     } catch (error) {
-        console.error('Hiba a kosárba helyezéskor:', error);
+        console.error('Hiba a kategóriák lekérésekor:', error);
     }
 }
+
+// Kategóriák inicializálása
+getCategories();
 
 btnLogout.addEventListener('click', logout);
 
@@ -133,7 +154,6 @@ async function logout() {
         alert('Hiba a kijelentkezéskor');
     }
 }
-
 
 homeBtn.addEventListener('click', () => {
     window.location.href = 'https://techbay2.netlify.app/home.html';
