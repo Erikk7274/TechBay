@@ -56,6 +56,8 @@ function createCard(product) {
 }
 
 function createModal(product) {
+    const imageUrl = product.product_pic ? `/api/uploads/${product.product_pic}` : '/api/uploads/1.jpg';
+
     const modalDiv = document.createElement('div');
     modalDiv.classList.add('modal', 'fade');
     modalDiv.id = `modal-${product.product_id}`;
@@ -71,7 +73,7 @@ function createModal(product) {
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
-                    <img src="/api/uploads/${product.product_pic}" alt="${product.product_name}" class="img-fluid mb-3" style="max-height: 400px; object-fit: contain;"> <!-- Increased modal image size -->
+                    <img src="${imageUrl}" alt="${product.product_name}" class="img-fluid mb-3" style="max-height: 400px; object-fit: contain;"> <!-- Increased modal image size -->
                     <p><strong>Ár:</strong> ${product.price ? product.price + ' Ft' : 'N/A'}</p>
                     <p><strong>Raktáron:</strong> ${product.in_stock}</p>
                     <p><strong>Leírás:</strong> ${product.product_description}</p>
