@@ -84,9 +84,9 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("productSaleActive").addEventListener("change", function () {
             const saleif = document.getElementById('saleclass');
             if (this.value === "0") {
-                saleif.style.display = "none"; // Ha nincs akció, ne jelenjen meg az akció mértéke
+                saleif.style.display = "none"; 
             } else if (this.value === "1") {
-                saleif.style.display = "block"; // Ha van akció, akkor jelenjen meg
+                saleif.style.display = "block"; 
             }
         });
         
@@ -98,13 +98,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 product_description: document.getElementById("productDescription").value,
                 price: document.getElementById("productPrice").value,
                 in_stock: document.getElementById("productStock").value,
-                sale: document.getElementById("productSale").value, // Akció mértéke
-                sale_: document.getElementById("productSaleActive").value, // Akció aktív vagy nem
+                sale: document.getElementById("productSale").value, 
+                sale_: document.getElementById("productSaleActive").value,
                 cat_id: document.getElementById("productCategory").value,
                 product_pic: document.getElementById("productImage").files[0]
             };
         
-
+                
 
             
             const categoryValue = document.getElementById("productCategory").value;
