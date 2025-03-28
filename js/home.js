@@ -35,16 +35,17 @@ function renderProducts(products) {
 }
 
 function createCard(product) {
+    const imageUrl = product.product_pic ? `/api/uploads/${product.product_pic}` : '/api/uploads/1.jpg';
+
     const cardDiv = document.createElement('div');
     cardDiv.classList.add('card', 'm-2', 'p-2', 'shadow-sm');
-    cardDiv.style.width = '18rem'; // Card width
-    cardDiv.style.height = 'auto'; // Auto height
-    cardDiv.style.minHeight = '20rem'; // Minimum height
+    cardDiv.style.width = '18rem';
+    cardDiv.style.minHeight = '20rem';
 
     cardDiv.innerHTML = `
         <div class="card-header text-center fw-bold">${product.product_name}</div>
         <div class="card-body text-center">
-            <img src="/api/uploads/${product.product_pic}" class="img-fluid mb-3" alt="${product.product_name}" style="max-height: 230px; object-fit: contain;"> <!-- Increased max-height -->
+            <img src="${imageUrl}" class="img-fluid mb-3" alt="${product.product_name}" style="max-height: 230px; object-fit: contain;">
         </div>
         <div class="card-footer text-center">
             <span class="d-block mb-2">Ár: ${product.price ? product.price + ' Ft' : 'N/A'}</span>
@@ -56,6 +57,8 @@ function createCard(product) {
 }
 
 function createModal(product) {
+    const imageUrl = product.product_pic ? `/api/uploads/${product.product_pic}` : '/api/uploads/1.jpg';
+
     const modalDiv = document.createElement('div');
     modalDiv.classList.add('modal', 'fade');
     modalDiv.id = `modal-${product.product_id}`;
@@ -71,7 +74,7 @@ function createModal(product) {
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
-                    <img src="/api/uploads/${product.product_pic}" alt="${product.product_name}" class="img-fluid mb-3" style="max-height: 400px; object-fit: contain;"> <!-- Increased modal image size -->
+                    <img src="${imageUrl}" alt="${product.product_name}" class="img-fluid mb-3" style="max-height: 400px; object-fit: contain;">
                     <p><strong>Ár:</strong> ${product.price ? product.price + ' Ft' : 'N/A'}</p>
                     <p><strong>Raktáron:</strong> ${product.in_stock}</p>
                     <p><strong>Leírás:</strong> ${product.product_description}</p>
@@ -83,13 +86,11 @@ function createModal(product) {
         </div>
     `;
 
-
-    
-
     document.body.appendChild(modalDiv);
 
     modalDiv.querySelector('.add-to-cart-btn').addEventListener('click', () => addToCart(product.product_id));
 }
+
 
 
 async function addToCart(productId) {
