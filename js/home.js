@@ -74,7 +74,8 @@ function createModal(product) {
                 </div>
                 <div class="modal-body text-center">
                     <img src="${imageUrl}" alt="${product.product_name}" class="img-fluid mb-3" style="max-height: 400px; object-fit: contain;"> <!-- Increased modal image size -->
-                    <p><strong>Ár:</strong> ${product.price ? product.price + ' Ft' : 'N/A'}</p>
+                    <p><strong>Eredeti ár:</strong> ${product.price ? product.price + ' Ft' : 'N/A'}</p>
+                    <p><strong>Akciós ár:</strong> ${product.sale ? product.sale + ' Ft' : 'N/A'}</p>
                     <p><strong>Raktáron:</strong> ${product.in_stock}</p>
                     <p><strong>Leírás:</strong><br> ${product.product_description}</p>
                 </div>
