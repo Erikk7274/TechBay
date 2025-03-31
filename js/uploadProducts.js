@@ -277,18 +277,7 @@ document.addEventListener("DOMContentLoaded", () => {
             configData.append('cat_id', document.getElementById("configCategory").value);
 
             const categoryValue = document.getElementById("configCategory").value;
-            let catId = 0;
-            if (categoryValue === "gaming") {
-                catId = 9;
-            } else if (categoryValue === "office") {
-                catId = 10;
-            }
-            if (catId === 0) {
-                alert("Kérlek válassz egy kategóriát!");
-                return; // Ne küldd el a formot, ha nincs kiválasztott kategória
-            }
-            configData.append('cat_id', catId);
-
+            categoryValue = 1;
             const response = await fetch("/api/add/uploadConfig", {
                 method: "POST",
                 credentials: "include",
