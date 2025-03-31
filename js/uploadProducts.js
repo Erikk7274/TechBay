@@ -197,6 +197,10 @@ document.addEventListener("DOMContentLoaded", () => {
                         <input type="text" id="cpuCooler" name="cpuCooler" class="form-control config" required>
                     </div>
                     <div class="mb-3">
+                    <label for="configDescription" class="form-label">Leírás:</label>
+                    <textarea id="configDescription" name="configDescription" class="form-control config"></textarea>
+                </div>
+                    <div class="mb-3">
                         <label for="configPrice" class="form-label">Ár:</label>
                         <input type="number" id="configPrice" name="configPrice" class="form-control config" required>
                     </div>
