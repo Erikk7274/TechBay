@@ -220,7 +220,7 @@ document.addEventListener("DOMContentLoaded", () => {
             configForm.addEventListener("submit", async (event) => {
                 event.preventDefault();
     
-                // Ellenőrizd, hogy az elem létezik
+       
                 const productPriceElement = document.getElementById("productPrice");
                 if (!productPriceElement) {
                     console.error("Ár mező nem található!");
@@ -229,10 +229,10 @@ document.addEventListener("DOMContentLoaded", () => {
     
                 const productPrice = productPriceElement.value;
     
-                // ELLENŐRIZD, HOGY AZ ÁR MEZŐ ÉS A RAKTÁRON KÉSZLET KÉSZLET ÉRVÉNYES
+       
                 if (isNaN(productPrice) || productPrice === "") {
                     alert("Ár mező nem lehet üres vagy hibás!");
-                    return; // Ne folytasd a form beküldését, ha hiba van.
+                    return; 
                 }
     
                 // Alapértelmezett adatgyűjtés
