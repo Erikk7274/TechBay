@@ -241,9 +241,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
         document.getElementById("configForm").addEventListener("submit", async (event) => {
             event.preventDefault();
-
-
-            // Ha a fenti ellenőrzés sikeres, akkor folytathatod az adatgyűjtést
+        
+            // Ár ellenőrzése
+            const configPrice = document.getElementById("configPrice").value;
+        
+            // Ellenőrizzük, hogy az ár szám és nem üres
+            if (isNaN(configPrice) || configPrice === "" || Number(configPrice) <= 0) {
+                alert("Ár mező nem lehet üres, nem szám, vagy 0-nál kisebb!");
+                return; // Ne folytasd, ha hiba van
+            }
+        
+            // Ha az ár helyes, folytatjuk az adatgyűjtést
             const configData = new FormData();
             configData.append('config_name', document.getElementById("configName").value);
             configData.append('cpu', document.getElementById("cpu").value);
@@ -255,24 +263,21 @@ document.addEventListener("DOMContentLoaded", () => {
             configData.append('ssd', document.getElementById("ssd").value);
             configData.append('power_supply', document.getElementById("powerSupply").value);
             configData.append('cpu_cooler', document.getElementById("cpuCooler").value);
-            configData.append('price', configPrice); // Módosított, biztosan szám érték kerül
+            configData.append('price', Number(configPrice)); // Ár szám formátumban
             configData.append('config_pic', document.getElementById("configImage").files[0]);
             configData.append('description', document.getElementById("configDescription").value);
             configData.append('in_stock', "1");
             configData.append('sale', document.getElementById("configSale").value); // Akció mértéke
             configData.append('sale_', document.getElementById("configSaleActive").value); // Akciós státusz
             configData.append('cat_id', 1);
-
-
-
-
-
+        
+            // Form adatküldése
             const response = await fetch("/api/add/uploadConfig", {
                 method: "POST",
                 credentials: "include",
                 body: configData
             });
-
+        
             if (response.ok) {
                 alert("SIKERES FELTÖLTÉS!");
                 document.getElementById("configForm").reset();
@@ -281,6 +286,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 alert("Hiba történt a feltöltés közben: " + errorData.message);
             }
         });
+        
     }
 
 });
