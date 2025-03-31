@@ -84,25 +84,25 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("productSaleActive").addEventListener("change", function () {
             const saleif = document.getElementById('saleclass');
             if (this.value === "0") {
-                saleif.style.display = "none"; 
+                saleif.style.display = "none";
             } else if (this.value === "1") {
-                saleif.style.display = "block"; 
+                saleif.style.display = "block";
             }
         });
 
         document.getElementById("productForm").addEventListener("submit", async (event) => {
             event.preventDefault();
-        
+
             // ELLENŐRIZD, HOGY AZ ÁR ÉS A RAKTÁRON KÉSZLET KÉSZLETEZETT
             const productPrice = document.getElementById("productPrice").value;
             const productStock = document.getElementById("productStock").value;
-        
+
             // Ha bármi nem szám, vagy üres a mező, akkor hibaüzenet
             if (isNaN(productPrice) || isNaN(productStock) || productPrice === "" || productStock === "") {
                 alert("Ár és raktáron mezők nem lehetnek üresek vagy hibásak!");
                 return; // Ne folytasd a form beküldését, ha hiba van.
             }
-        
+
             // Ha a fenti ellenőrzés sikeres, akkor folytathatod az adatgyűjtést
             const productData = new FormData();
             productData.append('product_name', document.getElementById("productName").value);
@@ -112,12 +112,12 @@ document.addEventListener("DOMContentLoaded", () => {
             productData.append('sale', document.getElementById("productSale").value);
             productData.append('sale_', document.getElementById("productSaleActive").value);
             productData.append('cat_id', document.getElementById("productCategory").value);
-        
+
             let productImage = document.getElementById("productImage").files[0];
             if (productImage) {
                 productData.append('product_pic', productImage);
             }
-        
+
             const categoryValue = document.getElementById("productCategory").value;
             let catId = 0;
             if (categoryValue === "cpu") {
@@ -127,14 +127,18 @@ document.addEventListener("DOMContentLoaded", () => {
             } else if (categoryValue === "house") {
                 catId = 8;
             }
+            if (catId === 0) {
+                alert("Kérlek válassz egy kategóriát!");
+                return; // Ne küldd el a formot, ha nincs kiválasztott kategória
+            }
             productData.append('cat_id', catId);
-        
+
             const response = await fetch("/api/add/uploadProduct", {
                 method: "POST",
                 credentials: "include",
                 body: productData
             });
-        
+
             if (response.ok) {
                 alert("SIKERES FELTÖLTÉS!");
                 document.getElementById("productForm").reset();
@@ -144,7 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 alert(`Hiba történt a feltöltés során: ${errorData.message || "Ismeretlen hiba"}`);
             }
         });
-        
+
     }
 
     function createConfigForm() {
@@ -210,31 +214,31 @@ document.addEventListener("DOMContentLoaded", () => {
                 <button type="button" class="btn btn-secondary w-100 mt-3" id="backToCategory">Vissza</button>
             </form>
         `;
-    
+
         document.getElementById("backToCategory").addEventListener("click", () => {
             window.location.href = '../uploadProducts.html';
         });
-    
+
         const configForm = document.getElementById("configForm");
         if (configForm) {
             configForm.addEventListener("submit", async (event) => {
                 event.preventDefault();
-    
-       
+
+
                 const productPriceElement = document.getElementById("productPrice");
                 if (!productPriceElement) {
                     console.error("Ár mező nem található!");
                     return;
                 }
-    
+
                 const productPrice = productPriceElement.value;
-    
-       
+
+
                 if (isNaN(productPrice) || productPrice === "") {
                     alert("Ár mező nem lehet üres vagy hibás!");
-                    return; 
+                    return;
                 }
-    
+
                 // Alapértelmezett adatgyűjtés
                 const configData = new FormData();
                 configData.append('config_name', document.getElementById("configName").value);
@@ -253,13 +257,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 configData.append('in_stock', "1");
                 configData.append('sale', "0");
                 configData.append('active', document.getElementById("configStatus").checked ? "1" : "0");
-    
+
                 const response = await fetch("/api/add/uploadConfig", {
                     method: "POST",
                     credentials: "include",
                     body: configData
                 });
-    
+
                 // const response = await fetch("/api/add/uploadProduct", {
                 //     method: "POST",
                 //     credentials: "include",
@@ -279,7 +283,7 @@ document.addEventListener("DOMContentLoaded", () => {
             console.error("A form nem található!");
         }
     }
-    
-    
-    
+
+
+
 });
