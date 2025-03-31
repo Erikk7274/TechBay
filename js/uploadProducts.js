@@ -93,20 +93,19 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("productForm").addEventListener("submit", async (event) => {
             event.preventDefault();
 
-            const productData = {
-                product_name: document.getElementById("productName").value,
-                product_description: document.getElementById("productDescription").value,
-                price: document.getElementById("productPrice").value,
-                in_stock: document.getElementById("productStock").value,
-                sale: document.getElementById("productSale").value, 
-                sale_: document.getElementById("productSaleActive").value,
-                cat_id: document.getElementById("productCategory").value,
-            };
+            const productData = new FormData();
+            productData.append('product_name', document.getElementById("productName").value);
+            productData.append('product_description', document.getElementById("productDescription").value);
+            productData.append('price', document.getElementById("productPrice").value);
+            productData.append('in_stock', document.getElementById("productStock").value);
+            productData.append('sale', document.getElementById("productSale").value); 
+            productData.append('sale_', document.getElementById("productSaleActive").value);
+            productData.append('cat_id', document.getElementById("productCategory").value);
 
-            // Kép lekérése és hozzáadása a productData-hoz
+            // Kép hozzáadása
             const productImage = document.getElementById("productImage").files[0];
             if (productImage) {
-                productData.product_pic = productImage;
+                productData.append('product_pic', productImage);
             }
 
             const categoryValue = document.getElementById("productCategory").value;
@@ -118,17 +117,12 @@ document.addEventListener("DOMContentLoaded", () => {
             } else if (categoryValue === "house") {
                 catId = 8;
             }
-            productData.cat_id = catId;
-
-            console.log(typeof(productData.product_name),productData.product_name, typeof(productData.product_description),productData.product_description, typeof(productData.price),productData.price, typeof(productData.in_stock),productData.in_stock, typeof(productData.sale),productData.sale, typeof(productData.sale_),productData.sale_, typeof(productData.cat_id),productData.cat_id, typeof(productData.product_pic),productData.product_pic);
+            productData.append('cat_id', catId);
 
             const response = await fetch("/api/add/uploadProduct", {
                 method: "POST",
                 credentials: "include",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(productData)
+                body: productData
             });
 
             if (response.ok) {
@@ -139,7 +133,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 console.error("Hiba: ", errorData);
                 alert(`Hiba történt a feltöltés során: ${errorData.message || "Ismeretlen hiba"}`);
             }
-            console.log(typeof(productData.product_name),productData.product_name, typeof(productData.product_description),productData.product_description, typeof(productData.price),productData.price, typeof(productData.in_stock),productData.in_stock, typeof(productData.sale),productData.sale, typeof(productData.sale_),productData.sale_, typeof(productData.cat_id),productData.cat_id, typeof(productData.product_pic),productData.product_pic);
         });
     }
 
@@ -206,31 +199,27 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("configForm").addEventListener("submit", async (event) => {
             event.preventDefault();
 
-            const configData = {
-                config_name: document.getElementById("configName").value,
-                cpu: document.getElementById("cpu").value,
-                mother_board: document.getElementById("motherBoard").value,
-                ram: document.getElementById("ram").value,
-                gpu: document.getElementById("gpu").value,
-                hdd: document.getElementById("hdd").value,
-                ssd: document.getElementById("ssd").value,
-                power_supply: document.getElementById("powerSupply").value,
-                cpu_cooler: document.getElementById("cpuCooler").value,
-                price: document.getElementById("productPrice").value,
-                config_pic: document.getElementById("configImage").files[0],
-                description: document.getElementById("productDescription").value,
-                in_stock: "1",
-                sale: "0",
-                active: document.getElementById("configStatus").checked ? "1" : "0"
-            };
+            const configData = new FormData();
+            configData.append('config_name', document.getElementById("configName").value);
+            configData.append('cpu', document.getElementById("cpu").value);
+            configData.append('mother_board', document.getElementById("motherBoard").value);
+            configData.append('ram', document.getElementById("ram").value);
+            configData.append('gpu', document.getElementById("gpu").value);
+            configData.append('hdd', document.getElementById("hdd").value);
+            configData.append('ssd', document.getElementById("ssd").value);
+            configData.append('power_supply', document.getElementById("powerSupply").value);
+            configData.append('cpu_cooler', document.getElementById("cpuCooler").value);
+            configData.append('price', document.getElementById("productPrice").value);
+            configData.append('config_pic', document.getElementById("configImage").files[0]);
+            configData.append('description', document.getElementById("productDescription").value);
+            configData.append('in_stock', "1");
+            configData.append('sale', "0");
+            configData.append('active', document.getElementById("configStatus").checked ? "1" : "0");
 
             const response = await fetch("/api/add/uploadConfig", {
                 method: "POST",
                 credentials: "include",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(configData)
+                body: configData
             });
 
             if (response.ok) {
@@ -240,7 +229,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 const errorData = await response.json();
                 alert(`Hiba történt a feltöltés során: ${errorData.message || "Ismeretlen hiba"}`);
             }
-            console.log(...formData.entries());
         });
     }
 });
