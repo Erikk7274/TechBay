@@ -126,20 +126,19 @@ document.addEventListener("DOMContentLoaded", () => {
                 productData.append('product_pic', productImage);
             }
 
-            const categoryValue = document.getElementById("productCategory").value;
-            let catId = 6;
+            let catId = 6;  // Alapértelmezett kategória
             if (categoryValue === "cpu") {
                 catId = 6;
             } else if (categoryValue === "mother_board") {
                 catId = 7;
             } else if (categoryValue === "house") {
                 catId = 8;
-            }
-            if (catId === 0) {
-                alert("Kérlek válassz egy kategóriát!");
-                return; // Ne küldd el a formot, ha nincs kiválasztott kategória
+            } else {
+                alert("Kérlek válassz egy kategóriát!"); // Ha nem érvényes kategória
+                return; // Ne folytasd a form beküldését, ha nincs kiválasztott kategória
             }
             productData.append('cat_id', catId);
+
 
             const response = await fetch("/api/add/uploadProduct", {
                 method: "POST",
@@ -253,17 +252,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
         document.getElementById("configForm").addEventListener("submit", async (event) => {
             event.preventDefault();
-        
+
             // Ár ellenőrzése
             const configPrice = document.getElementById("configPrice").value;
-        
+
             // Ellenőrizzük, hogy az ár szám és nem üres
             if (isNaN(configPrice) || configPrice === "" || Number(configPrice) <= 0) {
                 alert("Ár mező nem lehet üres, nem szám, vagy 0-nál kisebb!");
                 return; // Ne folytasd, ha hiba van
             }
-        
-         
+
+
             // Ha az ár helyes, folytatjuk az adatgyűjtést
             const configData = new FormData();
             configData.append('config_name', document.getElementById("configName").value);
@@ -284,14 +283,14 @@ document.addEventListener("DOMContentLoaded", () => {
             configData.append('sale_', document.getElementById("configSaleActive").value); // Akciós státusz
             configData.append('active', document.getElementById("configActive").checked ? "1" : "0");
             configData.append('cat_id', 1);
-        
+
             // Form adatküldése
             const response = await fetch("/api/add/uploadConfig", {
                 method: "POST",
                 credentials: "include",
                 body: configData
             });
-        
+
             if (response.ok) {
                 alert("SIKERES FELTÖLTÉS!");
                 document.getElementById("configForm").reset();
@@ -300,7 +299,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 alert("Hiba történt a feltöltés közben: " + errorData.message);
             }
         });
-        
+
     }
 
 });
