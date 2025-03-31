@@ -163,6 +163,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     <input type="text" id="motherBoard" name="motherBoard" class="form-control config" required>
                 </div>
                 <div class="mb-3">
+                    <label for="house" class="form-label">épház:</label>
+                    <input type="text" id="house" name="motherBoard" class="form-control config" required>
+                </div>
+                <div class="mb-3">
                     <label for="ram" class="form-label">RAM:</label>
                     <input type="text" id="ram" name="ram" class="form-control config" required>
                 </div>
