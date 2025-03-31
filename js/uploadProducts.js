@@ -121,7 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
             };
 
             // Send the data to the server as before
-            const response = await fetch("/api/add/uploadProduct", {
+            const response = await fetch("/api/add/uploadProducts", {
                 method: "POST",
                 credentials: "include",
                 headers: {
