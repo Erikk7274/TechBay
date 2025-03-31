@@ -59,6 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div class="mb-3">
                     <label for="productCategory" class="form-label">Termék kategória:</label>
                     <select id="productCategory" name="productCategory" class="form-select" required>
+                        <option value="">Válassz egy kategóriát</option>
                         <option value="cpu">Processzor</option>
                         <option value="mother_board">Alaplap</option>
                         <option value="house">Gépház</option>
@@ -127,8 +128,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 catId = 8;
             }
             if (catId === 0) {
-                catId=6;
-                return;
+                alert("Kérlek válassz egy kategóriát!");
+                return; // Ne küldd el a formot, ha nincs kiválasztott kategória
             }
             productData.append('cat_id', catId);
 
@@ -198,6 +199,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     <input type="number" id="productPrice" name="productPrice" class="form-control product" required>
                 </div>
                 <div class="mb-3">
+                <label for="productSalePrice" class="form-label">Akciós ár:</label>
+                <input type="number" id="productSalePrice" name="productSalePrice" class="form-control product" required>
+            </div>
+                <div class="mb-3">
                 <label for="productDescription" class="form-label">Leírás:</label>
                 <textarea id="productDescription" name="productDescription" class="form-control product"></textarea>
             </div>
@@ -254,7 +259,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 configData.append('config_pic', document.getElementById("configImage").files[0]);
                 configData.append('description', document.getElementById("productDescription").value);
                 configData.append('in_stock', "1");
-                configData.append('sale', "0");
+                configData.append('sale_', "0");
                 configData.append('active', document.getElementById("configStatus").checked ? "1" : "0");
 
                 const response = await fetch("/api/add/uploadConfig", {
