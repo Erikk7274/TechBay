@@ -274,10 +274,9 @@ document.addEventListener("DOMContentLoaded", () => {
             configData.append('in_stock', "1");
             configData.append('sale', document.getElementById("configSale").value); // Akció mértéke
             configData.append('sale_', document.getElementById("configSaleActive").value); // Akciós státusz
-            configData.append('cat_id', document.getElementById("configCategory").value);
+            configData.append('cat_id', 1);
 
-            const categoryValue = document.getElementById("configCategory").value;
-            categoryValue = 1;
+
             const response = await fetch("/api/add/uploadConfig", {
                 method: "POST",
                 credentials: "include",
