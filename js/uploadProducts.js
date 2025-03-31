@@ -249,19 +249,33 @@ document.addEventListener("DOMContentLoaded", () => {
                 configData.append('sale', "0");
                 configData.append('active', document.getElementById("configStatus").checked ? "1" : "0");
     
+               
                 const response = await fetch("/api/add/uploadConfig", {
                     method: "POST",
                     credentials: "include",
                     body: configData
                 });
-    
+                
                 if (response.ok) {
-                    alert("SIKERES FELTÖLTÉS!");
-                    document.getElementById("configForm").reset();
+                    try {
+                        const responseData = await response.json();
+                        alert("SIKERES FELTÖLTÉS!");
+                        document.getElementById("configForm").reset();
+                    } catch (error) {
+                        console.error("Válasz hiba: nem JSON formátumban érkezett", error);
+                        alert("A szerver válasza nem volt JSON formátumban.");
+                    }
                 } else {
-                    const errorData = await response.json();
-                    alert(`Hiba történt a feltöltés során: ${errorData.message || "Ismeretlen hiba"}`);
+                    console.error("Hiba történt a kérés feldolgozása során", response);
+                    const errorText = await response.text();
+                    alert(`Hiba történt a feltöltés során: ${errorText || "Ismeretlen hiba"}`);
                 }
+                
+                
+
+
+                
+                
             });
         } else {
             console.error("A form nem található!");
