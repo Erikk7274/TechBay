@@ -150,7 +150,42 @@ document.addEventListener("DOMContentLoaded", () => {
     function createConfigForm() {
         formContainer.innerHTML = `
             <form id="configForm" class="container mt-4 p-4 border rounded bg-light shadow-lg">
-                <!-- Form mezők... -->
+                <div class="mb-3">
+                    <label for="configName" class="form-label">Konfiguráció neve:</label>
+                    <input type="text" id="configName" name="configName" class="form-control config" required>
+                </div>
+                <div class="mb-3">
+                    <label for="cpu" class="form-label">CPU:</label>
+                    <input type="text" id="cpu" name="cpu" class="form-control config" required>
+                </div>
+                <div class="mb-3">
+                    <label for="motherBoard" class="form-label">Alaplap:</label>
+                    <input type="text" id="motherBoard" name="motherBoard" class="form-control config" required>
+                </div>
+                <div class="mb-3">
+                    <label for="ram" class="form-label">RAM:</label>
+                    <input type="text" id="ram" name="ram" class="form-control config" required>
+                </div>
+                <div class="mb-3">
+                    <label for="gpu" class="form-label">GPU:</label>
+                    <input type="text" id="gpu" name="gpu" class="form-control config" required>
+                </div>
+                <div class="mb-3">
+                    <label for="hdd" class="form-label">HDD:</label>
+                    <input type="text" id="hdd" name="hdd" class="form-control config" required>
+                </div>
+                <div class="mb-3">
+                    <label for="ssd" class="form-label">SSD:</label>
+                    <input type="text" id="ssd" name="ssd" class="form-control config" required>
+                </div>
+                <div class="mb-3">
+                    <label for="powerSupply" class="form-label">Tápegység:</label>
+                    <input type="text" id="powerSupply" name="powerSupply" class="form-control config" required>
+                </div>
+                <div class="mb-3">
+                    <label for="cpuCooler" class="form-label">CPU Hűtő:</label>
+                    <input type="text" id="cpuCooler" name="cpuCooler" class="form-control config" required>
+                </div>
                 <div class="mb-3">
                     <label for="productPrice" class="form-label">Ár:</label>
                     <input type="number" id="productPrice" name="productPrice" class="form-control product" required>
@@ -217,5 +252,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
+    
     
 });
