@@ -190,6 +190,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     <label for="productPrice" class="form-label">Ár:</label>
                     <input type="number" id="productPrice" name="productPrice" class="form-control product" required>
                 </div>
+                <div class="mb-3">
+                <label for="productDescription" class="form-label">Leírás:</label>
+                <textarea id="productDescription" name="productDescription" class="form-control product"></textarea>
+            </div>
                 <div class="mb-3 form-check form-switch">
                     <input class="form-check-input" type="checkbox" id="configStatus">
                     <label class="form-check-label" for="configStatus">Aktív</label>
