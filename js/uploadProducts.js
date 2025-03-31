@@ -51,11 +51,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     <option value="0">Nem</option>
                     <option value="1">Igen</option>
                 </select>
-            </div>
-            <div class="mb-3" id="saleclass" style="display:none;">
-            <label for="productSale" class="form-label">Akció mértéke:</label>
-            <input type="number" id="productSale" name="productSale" class="form-control product" value="0">
-        </div>
+                </div>
+                <div class="mb-3" id="saleclass" style="display:none;">
+                    <label for="productSale" class="form-label">Akció mértéke:</label>
+                    <input type="number" id="productSale" name="productSale" class="form-control product" value="0">
+                </div>
                 <div class="mb-3">
                     <label for="productCategory" class="form-label">Termék kategória:</label>
                     <select id="productCategory" name="productCategory" class="form-select" required>
@@ -65,6 +65,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         <option value="house">Gépház</option>
                     </select>
                 </div>
+                <div class="mb-3">
+                    <label for="productSale" class="form-label">Akció mértéke:</label>
+                    <input type="number" id="productSale" name="productSale" class="form-control product" value="0">
+                </div>
+
             </div>
             <div class="col-md-6 d-flex flex-column align-items-center">
                 <div class="mb-3 w-100">
@@ -112,6 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
             productData.append('sale', document.getElementById("productSale").value);
             productData.append('sale_', document.getElementById("productSaleActive").value);
             productData.append('cat_id', document.getElementById("productCategory").value);
+            productData.append('active', document.getElementById("productActive").checked ? "1" : "0");
 
             let productImage = document.getElementById("productImage").files[0];
             if (productImage) {
@@ -213,6 +219,10 @@ document.addEventListener("DOMContentLoaded", () => {
                         <label for="configSale" class="form-label">Akció mértéke:</label>
                         <input type="number" id="configSale" name="configSale" class="form-control" value="0">
                     </div>
+                    <div class="mb-3">
+                    <label for="configActive" class="form-label">Aktív:</label>
+                    <input type="checkbox" id="configActive" name="configActive" class="form-check-input" value="1">
+                </div>
                 </div>
                 <div class="col-md-6 d-flex flex-column align-items-center">
                     <div class="mb-3 w-100">
@@ -251,7 +261,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 return; // Ne folytasd, ha hiba van
             }
         
-            let activeValue = document.getElementById("configSaleActive").value === "1" ? 1 : 0;
+         
             // Ha az ár helyes, folytatjuk az adatgyűjtést
             const configData = new FormData();
             configData.append('config_name', document.getElementById("configName").value);
@@ -270,7 +280,8 @@ document.addEventListener("DOMContentLoaded", () => {
             configData.append('in_stock', "1");
             configData.append('sale', document.getElementById("configSale").value); // Akció mértéke
             configData.append('sale_', document.getElementById("configSaleActive").value); // Akciós státusz
-            configData.append('cat_id', activeValue);
+            configData.append('active', document.getElementById("configActive").checked ? "1" : "0");
+            configData.append('cat_id', 1);
         
             // Form adatküldése
             const response = await fetch("/api/add/uploadConfig", {
