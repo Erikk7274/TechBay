@@ -209,14 +209,6 @@ document.addEventListener("DOMContentLoaded", () => {
                         <label for="configSale" class="form-label">Akció mértéke:</label>
                         <input type="number" id="configSale" name="configSale" class="form-control" value="0">
                     </div>
-                    <div class="mb-3">
-                        <label for="configCategory" class="form-label">Prebuilt kategória:</label>
-                        <select id="configCategory" name="configCategory" class="form-select" required>
-                            <option value="">Válassz egy kategóriát</option>
-                            <option value="gaming">Gaming</option>
-                            <option value="office">Irodai</option>
-                        </select>
-                    </div>
                 </div>
                 <div class="col-md-6 d-flex flex-column align-items-center">
                     <div class="mb-3 w-100">
@@ -278,7 +270,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-            
+
 
             const response = await fetch("/api/add/uploadConfig", {
                 method: "POST",
