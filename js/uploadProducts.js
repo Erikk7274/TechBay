@@ -251,6 +251,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 return; // Ne folytasd, ha hiba van
             }
         
+            let activeValue = document.getElementById("configSaleActive").value === "1" ? 1 : 0;
             // Ha az ár helyes, folytatjuk az adatgyűjtést
             const configData = new FormData();
             configData.append('config_name', document.getElementById("configName").value);
@@ -269,7 +270,7 @@ document.addEventListener("DOMContentLoaded", () => {
             configData.append('in_stock', "1");
             configData.append('sale', document.getElementById("configSale").value); // Akció mértéke
             configData.append('sale_', document.getElementById("configSaleActive").value); // Akciós státusz
-            configData.append('cat_id', 1);
+            configData.append('cat_id', activeValue);
         
             // Form adatküldése
             const response = await fetch("/api/add/uploadConfig", {
