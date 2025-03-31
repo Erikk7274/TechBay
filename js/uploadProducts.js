@@ -198,10 +198,16 @@ document.addEventListener("DOMContentLoaded", () => {
                     <label for="productPrice" class="form-label">Ár:</label>
                     <input type="number" id="productPrice" name="productPrice" class="form-control product" required>
                 </div>
-                <div class="mb-3">
-                <label for="productSalePrice" class="form-label">Akciós ár:</label>
-                <input type="number" id="productSalePrice" name="productSalePrice" class="form-control product" required>
+                <label for="productSaleActive" class="form-label">Akció:</label>
+                <select id="productSaleActive" name="productSaleActive" class="form-select">
+                    <option value="0">Nem</option>
+                    <option value="1">Igen</option>
+                </select>
             </div>
+            <div class="mb-3" id="saleclass" style="display:none;">
+            <label for="productSale" class="form-label">Akció mértéke:</label>
+            <input type="number" id="productSale" name="productSale" class="form-control product" value="0">
+        </div>
                 <div class="mb-3">
                 <label for="productDescription" class="form-label">Leírás:</label>
                 <textarea id="productDescription" name="productDescription" class="form-control product"></textarea>
@@ -218,6 +224,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 <button type="button" class="btn btn-secondary w-100 mt-3" id="backToCategory">Vissza</button>
             </form>
         `;
+
+        document.getElementById("productSaleActive").addEventListener("change", function () {
+            const saleif = document.getElementById('saleclass');
+            if (this.value === "0") {
+                saleif.style.display = "none";
+            } else if (this.value === "1") {
+                saleif.style.display = "block";
+            }
+        });
 
         document.getElementById("backToCategory").addEventListener("click", () => {
             window.location.href = '../uploadProducts.html';
