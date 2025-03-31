@@ -238,15 +238,6 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("configForm").addEventListener("submit", async (event) => {
             event.preventDefault();
 
-            // ELLENŐRIZD, HOGY AZ ÁR ÉS A RAKTÁRON KÉSZLET KÉSZLETEZETT
-            const configPrice = document.getElementById("configPrice").value;
-            const configStock = document.getElementById("configStock").value;
-
-            // Ha bármi nem szám, vagy üres a mező, akkor hibaüzenet
-            if (isNaN(configPrice) || isNaN(configStock) || configPrice === "" || configStock === "") {
-                alert("Ár és raktáron mezők nem lehetnek üresek vagy hibásak!");
-                return; // Ne folytasd a form beküldését, ha hiba van.
-            }
 
             // Ha a fenti ellenőrzés sikeres, akkor folytathatod az adatgyűjtést
             const configData = new FormData();
