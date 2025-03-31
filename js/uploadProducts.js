@@ -157,28 +157,54 @@ document.addEventListener("DOMContentLoaded", () => {
             <div class="row">
                 <div class="col-md-6">
                     <div class="mb-3">
-                        <label for="configName" class="form-label">Prebuilt neve:</label>
-                        <input type="text" id="configName" name="configName" class="form-control" required>
+                        <label for="configName" class="form-label">Konfiguráció neve:</label>
+                        <input type="text" id="configName" name="configName" class="form-control config" required>
                     </div>
                     <div class="mb-3">
-                        <label for="configDescription" class="form-label">Leírás:</label>
-                        <textarea id="configDescription" name="configDescription" class="form-control"></textarea>
+                        <label for="cpu" class="form-label">CPU:</label>
+                        <input type="text" id="cpu" name="cpu" class="form-control config" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="motherBoard" class="form-label">Alaplap:</label>
+                        <input type="text" id="motherBoard" name="motherBoard" class="form-control config" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="house" class="form-label">Gépház:</label>
+                        <input type="text" id="house" name="house" class="form-control config" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="ram" class="form-label">RAM:</label>
+                        <input type="text" id="ram" name="ram" class="form-control config" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="gpu" class="form-label">GPU:</label>
+                        <input type="text" id="gpu" name="gpu" class="form-control config" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="hdd" class="form-label">HDD:</label>
+                        <input type="text" id="hdd" name="hdd" class="form-control config" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="ssd" class="form-label">SSD:</label>
+                        <input type="text" id="ssd" name="ssd" class="form-control config" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="powerSupply" class="form-label">Tápegység:</label>
+                        <input type="text" id="powerSupply" name="powerSupply" class="form-control config" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="cpuCooler" class="form-label">CPU Hűtő:</label>
+                        <input type="text" id="cpuCooler" name="cpuCooler" class="form-control config" required>
                     </div>
                     <div class="mb-3">
                         <label for="configPrice" class="form-label">Ár:</label>
-                        <input type="number" id="configPrice" name="configPrice" class="form-control" required>
+                        <input type="number" id="configPrice" name="configPrice" class="form-control config" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="configStock" class="form-label">Raktáron:</label>
-                        <input type="number" id="configStock" name="configStock" class="form-control" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="configSaleActive" class="form-label">Akció:</label>
-                        <select id="configSaleActive" name="configSaleActive" class="form-select">
-                            <option value="0">Nem</option>
-                            <option value="1">Igen</option>
-                        </select>
-                    </div>
+                    <label for="configSaleActive" class="form-label">Akció:</label>
+                    <select id="configSaleActive" name="configSaleActive" class="form-select">
+                        <option value="0">Nem</option>
+                        <option value="1">Igen</option>
+                    </select>
                     <div class="mb-3" id="saleclass" style="display:none;">
                         <label for="configSale" class="form-label">Akció mértéke:</label>
                         <input type="number" id="configSale" name="configSale" class="form-control" value="0">
@@ -233,17 +259,22 @@ document.addEventListener("DOMContentLoaded", () => {
             // Ha a fenti ellenőrzés sikeres, akkor folytathatod az adatgyűjtést
             const configData = new FormData();
             configData.append('config_name', document.getElementById("configName").value);
-            configData.append('config_description', document.getElementById("configDescription").value);
+            configData.append('cpu', document.getElementById("cpu").value);
+            configData.append('mother_board', document.getElementById("motherBoard").value);
+            configData.append('house', document.getElementById("house").value);
+            configData.append('ram', document.getElementById("ram").value);
+            configData.append('gpu', document.getElementById("gpu").value);
+            configData.append('hdd', document.getElementById("hdd").value);
+            configData.append('ssd', document.getElementById("ssd").value);
+            configData.append('power_supply', document.getElementById("powerSupply").value);
+            configData.append('cpu_cooler', document.getElementById("cpuCooler").value);
             configData.append('price', configPrice); // Módosított, biztosan szám érték kerül
-            configData.append('in_stock', configStock); // Módosított, biztosan szám érték kerül
-            configData.append('sale', document.getElementById("configSale").value);
+            configData.append('config_pic', document.getElementById("configImage").files[0]);
+            configData.append('description', document.getElementById("configDescription").value);
+            configData.append('in_stock', "1");
+            configData.append('sale', document.getElementById("configSale").value); // Akció mértéke
             configData.append('sale_', document.getElementById("configSaleActive").value); // Akciós státusz
             configData.append('cat_id', document.getElementById("configCategory").value);
-
-            let configImage = document.getElementById("configImage").files[0];
-            if (configImage) {
-                configData.append('config_pic', configImage);
-            }
 
             const categoryValue = document.getElementById("configCategory").value;
             let catId = 0;
