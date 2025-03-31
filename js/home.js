@@ -141,6 +141,8 @@ async function addToCart(productId) {
     }
 }
 
+
+
 btnLogout.addEventListener('click', async () => {
     const res = await fetch('/api/auth/logout', { method: 'POST', credentials: 'include' });
     if (res.ok) {
