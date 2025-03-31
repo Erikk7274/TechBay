@@ -59,7 +59,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div class="mb-3">
                     <label for="productCategory" class="form-label">Termék kategória:</label>
                     <select id="productCategory" name="productCategory" class="form-select" required>
-                        <option value="">Válassz egy kategóriát</option>
                         <option value="cpu">Processzor</option>
                         <option value="mother_board">Alaplap</option>
                         <option value="house">Gépház</option>
@@ -128,8 +127,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 catId = 8;
             }
             if (catId === 0) {
-                alert("Kérlek válassz egy kategóriát!");
-                return; // Ne küldd el a formot, ha nincs kiválasztott kategória
+                catId=6;
+                return;
             }
             productData.append('cat_id', catId);
 
