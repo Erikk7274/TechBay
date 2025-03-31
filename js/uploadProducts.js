@@ -93,19 +93,13 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("productForm").addEventListener("submit", async (event) => {
             event.preventDefault();
         
-            const productData = {
-                product_name: document.getElementById("productName").value,
-                product_description: document.getElementById("productDescription").value,
-                price: document.getElementById("productPrice").value,
-                in_stock: document.getElementById("productStock").value,
-                sale: document.getElementById("productSale").value, 
-                sale_: document.getElementById("productSaleActive").value,
-                cat_id: document.getElementById("productCategory").value,
-                product_pic: document.getElementById("productImage").files[0]
-            };
-        
-                
-
+            const formData = new FormData();
+            formData.append("product_name", document.getElementById("productName").value);
+            formData.append("product_description", document.getElementById("productDescription").value);
+            formData.append("price", document.getElementById("productPrice").value);
+            formData.append("in_stock", document.getElementById("productStock").value);
+            formData.append("sale", document.getElementById("productSale").value);
+            formData.append("sale_", document.getElementById("productSaleActive").value);
             
             const categoryValue = document.getElementById("productCategory").value;
             let catId = 0;
@@ -116,29 +110,33 @@ document.addEventListener("DOMContentLoaded", () => {
             } else if (categoryValue === "house") {
                 catId = 8;
             }
-            productData.cat_id = catId;
+            formData.append("cat_id", catId);
+            
+            const fileInput = document.getElementById("productImage");
+            if (fileInput.files.length > 0) {
+                formData.append("product_pic", fileInput.files[0]);
+            }
         
-            console.log(typeof(productData.product_name),productData.product_name, typeof(productData.product_description),productData.product_description, typeof(productData.price),productData.price, typeof(productData.in_stock),productData.in_stock, typeof(productData.sale),productData.sale, typeof(productData.sale_),productData.sale_, typeof(productData.cat_id),productData.cat_id, typeof(productData.product_pic),productData.product_pic);
+            try {
+                const response = await fetch("/api/add/uploadProduct", {
+                    method: "POST",
+                    credentials: "include",
+                    body: formData // Nem kell "Content-Type", mert a `FormData` magától kezeli
+                });
         
-            const response = await fetch("/api/add/uploadProduct", {
-                method: "POST",
-                credentials: "include",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(productData)
-            });
-        
-            if (response.ok) {
-                alert("SIKERES FELTÖLTÉS!");
-                document.getElementById("productForm").reset();
-            } else {
-                const errorData = await response.json();
-                console.error("Hiba: ", errorData);
-                alert(`Hiba történt a feltöltés során: ${errorData.message || "Ismeretlen hiba"}`);
+                if (response.ok) {
+                    alert("SIKERES FELTÖLTÉS!");
+                    document.getElementById("productForm").reset();
+                } else {
+                    const errorData = await response.json();
+                    alert(`Hiba történt a feltöltés során: ${errorData.message || "Ismeretlen hiba"}`);
+                }
+            } catch (error) {
+                console.error("Hálózati hiba: ", error);
+                alert("Hálózati hiba történt, próbáld újra.");
             }
         });
-    }
+    }        
 
     function createConfigForm() {
         formContainer.innerHTML = `
