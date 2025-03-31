@@ -277,6 +277,9 @@ document.addEventListener("DOMContentLoaded", () => {
             configData.append('cat_id', 1);
 
 
+
+            
+
             const response = await fetch("/api/add/uploadConfig", {
                 method: "POST",
                 credentials: "include",
