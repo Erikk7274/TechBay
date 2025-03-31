@@ -92,23 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
         document.getElementById("productForm").addEventListener("submit", async (event) => {
             event.preventDefault();
-
-            const productImageFile = document.getElementById("productImage").files[0];
-            let productImageBase64 = "";
-
-            if (productImageFile) {
-                const reader = new FileReader();
-                reader.onloadend = function () {
-                    productImageBase64 = reader.result.split(',')[1]; // Get base64 string part
-                    sendProductData(productImageBase64);
-                };
-                reader.readAsDataURL(productImageFile);
-            } else {
-                sendProductData(productImageBase64); // Handle case where no image is selected
-            }
-        });
-
-        async function sendProductData(productImageBase64) {
+        
             const productData = {
                 product_name: document.getElementById("productName").value,
                 product_description: document.getElementById("productDescription").value,
@@ -117,10 +101,26 @@ document.addEventListener("DOMContentLoaded", () => {
                 sale: document.getElementById("productSale").value, 
                 sale_: document.getElementById("productSaleActive").value,
                 cat_id: document.getElementById("productCategory").value,
-                product_pic: productImageBase64 // Send base64 image here
+                product_pic: document.getElementById("productImage").files[0]
             };
+        
+            
+                
 
-            // Send the data to the server as before
+            
+            const categoryValue = document.getElementById("productCategory").value;
+            let catId = 0;
+            if (categoryValue === "cpu") {
+                catId = 6;
+            } else if (categoryValue === "mother_board") {
+                catId = 7;
+            } else if (categoryValue === "house") {
+                catId = 8;
+            }
+            productData.cat_id = catId;
+        
+            console.log(typeof(productData.product_name),productData.product_name, typeof(productData.product_description),productData.product_description, typeof(productData.price),productData.price, typeof(productData.in_stock),productData.in_stock, typeof(productData.sale),productData.sale, typeof(productData.sale_),productData.sale_, typeof(productData.cat_id),productData.cat_id, typeof(productData.product_pic),productData.product_pic);
+        
             const response = await fetch("/api/add/uploadProduct", {
                 method: "POST",
                 credentials: "include",
@@ -129,15 +129,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 },
                 body: JSON.stringify(productData)
             });
-
+        
             if (response.ok) {
                 alert("SIKERES FELTÖLTÉS!");
                 document.getElementById("productForm").reset();
             } else {
                 const errorData = await response.json();
+                console.error("Hiba: ", errorData);
                 alert(`Hiba történt a feltöltés során: ${errorData.message || "Ismeretlen hiba"}`);
             }
-        }
+            console.log(typeof(productData.product_name),productData.product_name, typeof(productData.product_description),productData.product_description, typeof(productData.price),productData.price, typeof(productData.in_stock),productData.in_stock, typeof(productData.sale),productData.sale, typeof(productData.sale_),productData.sale_, typeof(productData.cat_id),productData.cat_id, typeof(productData.product_pic),productData.product_pic);
+        
+        });
     }
 
     function createConfigForm() {
@@ -203,22 +206,6 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("configForm").addEventListener("submit", async (event) => {
             event.preventDefault();
 
-            const configImageFile = document.getElementById("configImage").files[0];
-            let configImageBase64 = "";
-
-            if (configImageFile) {
-                const reader = new FileReader();
-                reader.onloadend = function () {
-                    configImageBase64 = reader.result.split(',')[1]; // Get base64 string part
-                    sendConfigData(configImageBase64);
-                };
-                reader.readAsDataURL(configImageFile);
-            } else {
-                sendConfigData(configImageBase64); // Handle case where no image is selected
-            }
-        });
-
-        async function sendConfigData(configImageBase64) {
             const configData = {
                 config_name: document.getElementById("configName").value,
                 cpu: document.getElementById("cpu").value,
@@ -230,7 +217,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 power_supply: document.getElementById("powerSupply").value,
                 cpu_cooler: document.getElementById("cpuCooler").value,
                 price: document.getElementById("productPrice").value,
-                config_pic: configImageBase64, // Send base64 image here
+                config_pic: document.getElementById("configImage").files[0],
                 description: document.getElementById("productDescription").value,
                 in_stock: "1",
                 sale: "0",
@@ -253,6 +240,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const errorData = await response.json();
                 alert(`Hiba történt a feltöltés során: ${errorData.message || "Ismeretlen hiba"}`);
             }
-        }
+            console.log(...formData.entries());
+        });
     }
 });
