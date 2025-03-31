@@ -89,10 +89,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 saleif.style.display = "block"; 
             }
         });
-        
+
         document.getElementById("productForm").addEventListener("submit", async (event) => {
             event.preventDefault();
-        
+
             const productData = {
                 product_name: document.getElementById("productName").value,
                 product_description: document.getElementById("productDescription").value,
@@ -101,13 +101,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 sale: document.getElementById("productSale").value, 
                 sale_: document.getElementById("productSaleActive").value,
                 cat_id: document.getElementById("productCategory").value,
-                product_pic: document.getElementById("productImage").files[0]
             };
-        
-            
-                
 
-            
+            // Kép lekérése és hozzáadása a productData-hoz
+            const productImage = document.getElementById("productImage").files[0];
+            if (productImage) {
+                productData.product_pic = productImage;
+            }
+
             const categoryValue = document.getElementById("productCategory").value;
             let catId = 0;
             if (categoryValue === "cpu") {
@@ -118,9 +119,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 catId = 8;
             }
             productData.cat_id = catId;
-        
+
             console.log(typeof(productData.product_name),productData.product_name, typeof(productData.product_description),productData.product_description, typeof(productData.price),productData.price, typeof(productData.in_stock),productData.in_stock, typeof(productData.sale),productData.sale, typeof(productData.sale_),productData.sale_, typeof(productData.cat_id),productData.cat_id, typeof(productData.product_pic),productData.product_pic);
-        
+
             const response = await fetch("/api/add/uploadProduct", {
                 method: "POST",
                 credentials: "include",
@@ -129,7 +130,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 },
                 body: JSON.stringify(productData)
             });
-        
+
             if (response.ok) {
                 alert("SIKERES FELTÖLTÉS!");
                 document.getElementById("productForm").reset();
@@ -139,7 +140,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 alert(`Hiba történt a feltöltés során: ${errorData.message || "Ismeretlen hiba"}`);
             }
             console.log(typeof(productData.product_name),productData.product_name, typeof(productData.product_description),productData.product_description, typeof(productData.price),productData.price, typeof(productData.in_stock),productData.in_stock, typeof(productData.sale),productData.sale, typeof(productData.sale_),productData.sale_, typeof(productData.cat_id),productData.cat_id, typeof(productData.product_pic),productData.product_pic);
-        
         });
     }
 
