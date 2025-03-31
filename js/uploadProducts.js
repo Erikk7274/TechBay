@@ -65,6 +65,8 @@ document.addEventListener("DOMContentLoaded", () => {
                         <option value="house">Gépház</option>
                     </select>
                 </div>
+
+                
                 <div class="mb-3">
                 <label for="productActive" class="form-label">Aktív:</label>
                 <input type="checkbox" id="productActive" name="productActive" class="form-check-input" value="1">
