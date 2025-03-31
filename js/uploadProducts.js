@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <label for="productCategory" class="form-label">Termék kategória:</label>
                     <select id="productCategory" name="productCategory" class="form-select" required>
                         <option value="">Válassz egy kategóriát</option>
-                        <option value="cpu">Processzor</option>
+                        <option value="6">Processzor</option>
                         <option value="mother_board">Alaplap</option>
                         <option value="house">Gépház</option>
                     </select>
@@ -92,22 +92,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
         document.getElementById("productForm").addEventListener("submit", async (event) => {
             event.preventDefault();
-
+        
+            // ELLENŐRIZD, HOGY AZ ÁR ÉS A RAKTÁRON KÉSZLET KÉSZLETEZETT
+            const productPrice = document.getElementById("productPrice").value;
+            const productStock = document.getElementById("productStock").value;
+        
+            // Ha bármi nem szám, vagy üres a mező, akkor hibaüzenet
+            if (isNaN(productPrice) || isNaN(productStock) || productPrice === "" || productStock === "") {
+                alert("Ár és raktáron mezők nem lehetnek üresek vagy hibásak!");
+                return; // Ne folytasd a form beküldését, ha hiba van.
+            }
+        
+            // Ha a fenti ellenőrzés sikeres, akkor folytathatod az adatgyűjtést
             const productData = new FormData();
             productData.append('product_name', document.getElementById("productName").value);
             productData.append('product_description', document.getElementById("productDescription").value);
-            productData.append('price', document.getElementById("productPrice").value);
-            productData.append('in_stock', document.getElementById("productStock").value);
-            productData.append('sale', document.getElementById("productSale").value); 
+            productData.append('price', productPrice); // Módosított, biztosan szám érték kerül
+            productData.append('in_stock', productStock); // Módosított, biztosan szám érték kerül
+            productData.append('sale', document.getElementById("productSale").value);
             productData.append('sale_', document.getElementById("productSaleActive").value);
             productData.append('cat_id', document.getElementById("productCategory").value);
-
-    
+        
             let productImage = document.getElementById("productImage").files[0];
             if (productImage) {
                 productData.append('product_pic', productImage);
             }
-
+        
             const categoryValue = document.getElementById("productCategory").value;
             let catId = 0;
             if (categoryValue === "cpu") {
@@ -118,13 +128,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 catId = 8;
             }
             productData.append('cat_id', catId);
-
+        
             const response = await fetch("/api/add/uploadProduct", {
                 method: "POST",
                 credentials: "include",
                 body: productData
             });
-
+        
             if (response.ok) {
                 alert("SIKERES FELTÖLTÉS!");
                 document.getElementById("productForm").reset();
@@ -134,6 +144,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 alert(`Hiba történt a feltöltés során: ${errorData.message || "Ismeretlen hiba"}`);
             }
         });
+        
     }
 
     function createConfigForm() {
