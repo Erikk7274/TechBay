@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <label for="productCategory" class="form-label">Termék kategória:</label>
                     <select id="productCategory" name="productCategory" class="form-select" required>
                         <option value="">Válassz egy kategóriát</option>
-                        <option value="6">Processzor</option>
+                        <option value="cpu">Processzor</option>
                         <option value="mother_board">Alaplap</option>
                         <option value="house">Gépház</option>
                     </select>
