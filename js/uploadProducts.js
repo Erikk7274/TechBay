@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
             productData.append('sale_', document.getElementById("productSaleActive").value);
             productData.append('cat_id', document.getElementById("productCategory").value);
 
-            // Kép hozzáadása
+    
             const productImage = document.getElementById("productImage").files[0];
             if (productImage) {
                 productData.append('product_pic', productImage);
