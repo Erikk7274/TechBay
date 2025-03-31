@@ -207,51 +207,63 @@ document.addEventListener("DOMContentLoaded", () => {
             window.location.href = '../uploadProducts.html';
         });
     
-        document.getElementById("configForm").addEventListener("submit", async (event) => {
-            event.preventDefault();
+        const configForm = document.getElementById("configForm");
+        if (configForm) {
+            configForm.addEventListener("submit", async (event) => {
+                event.preventDefault();
     
-            // ELLENŐRIZD, HOGY AZ ÁR MEZŐ ÉS A RAKTÁRON KÉSZLET KÉSZLET ÉRVÉNYES
-            const productPrice = document.getElementById("productPrice").value;
-            
-            // Ha bármelyik mező nem szám vagy üres, akkor hibaüzenet
-            if (isNaN(productPrice) || productPrice === "") {
-                alert("Ár mező nem lehet üres vagy hibás!");
-                return; // Ne folytasd a form beküldését, ha hiba van.
-            }
+                // Ellenőrizd, hogy az elem létezik
+                const productPriceElement = document.getElementById("productPrice");
+                if (!productPriceElement) {
+                    console.error("Ár mező nem található!");
+                    return;
+                }
     
-            // Alapértelmezett adatgyűjtés
-            const configData = new FormData();
-            configData.append('config_name', document.getElementById("configName").value);
-            configData.append('cpu', document.getElementById("cpu").value);
-            configData.append('mother_board', document.getElementById("motherBoard").value);
-            configData.append('ram', document.getElementById("ram").value);
-            configData.append('gpu', document.getElementById("gpu").value);
-            configData.append('hdd', document.getElementById("hdd").value);
-            configData.append('ssd', document.getElementById("ssd").value);
-            configData.append('power_supply', document.getElementById("powerSupply").value);
-            configData.append('cpu_cooler', document.getElementById("cpuCooler").value);
-            configData.append('price', productPrice); // Módosított, biztosan szám érték kerül
-            configData.append('config_pic', document.getElementById("configImage").files[0]);
-            configData.append('description', document.getElementById("productDescription").value);
-            configData.append('in_stock', "1");
-            configData.append('sale', "0");
-            configData.append('active', document.getElementById("configStatus").checked ? "1" : "0");
+                const productPrice = productPriceElement.value;
     
-            const response = await fetch("/api/add/uploadConfig", {
-                method: "POST",
-                credentials: "include",
-                body: configData
+                // ELLENŐRIZD, HOGY AZ ÁR MEZŐ ÉS A RAKTÁRON KÉSZLET KÉSZLET ÉRVÉNYES
+                if (isNaN(productPrice) || productPrice === "") {
+                    alert("Ár mező nem lehet üres vagy hibás!");
+                    return; // Ne folytasd a form beküldését, ha hiba van.
+                }
+    
+                // Alapértelmezett adatgyűjtés
+                const configData = new FormData();
+                configData.append('config_name', document.getElementById("configName").value);
+                configData.append('cpu', document.getElementById("cpu").value);
+                configData.append('mother_board', document.getElementById("motherBoard").value);
+                configData.append('ram', document.getElementById("ram").value);
+                configData.append('gpu', document.getElementById("gpu").value);
+                configData.append('hdd', document.getElementById("hdd").value);
+                configData.append('ssd', document.getElementById("ssd").value);
+                configData.append('power_supply', document.getElementById("powerSupply").value);
+                configData.append('cpu_cooler', document.getElementById("cpuCooler").value);
+                configData.append('price', productPrice); // Módosított, biztosan szám érték kerül
+                configData.append('config_pic', document.getElementById("configImage").files[0]);
+                configData.append('description', document.getElementById("productDescription").value);
+                configData.append('in_stock', "1");
+                configData.append('sale', "0");
+                configData.append('active', document.getElementById("configStatus").checked ? "1" : "0");
+    
+                const response = await fetch("/api/add/uploadConfig", {
+                    method: "POST",
+                    credentials: "include",
+                    body: configData
+                });
+    
+                if (response.ok) {
+                    alert("SIKERES FELTÖLTÉS!");
+                    document.getElementById("configForm").reset();
+                } else {
+                    const errorData = await response.json();
+                    alert(`Hiba történt a feltöltés során: ${errorData.message || "Ismeretlen hiba"}`);
+                }
             });
-    
-            if (response.ok) {
-                alert("SIKERES FELTÖLTÉS!");
-                document.getElementById("configForm").reset();
-            } else {
-                const errorData = await response.json();
-                alert(`Hiba történt a feltöltés során: ${errorData.message || "Ismeretlen hiba"}`);
-            }
-        });
+        } else {
+            console.error("A form nem található!");
+        }
     }
+    
     
     
 });
