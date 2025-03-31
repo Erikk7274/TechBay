@@ -77,7 +77,7 @@ function createCard(product) {
     cardDiv.innerHTML = `
         <div class="card-header text-center fw-bold">${product.product_name}</div>
         <div class="card-body text-center">
-            <img src="/api/uploads/${product.product_pic}" class="img-fluid mb-3" alt="${product.product_name}" style="max-height: 230px; object-fit: contain;">
+            <img src="${product.product_pic}" class="img-fluid mb-3" alt="${product.product_name}" style="max-height: 230px; object-fit: contain;">
         </div>
         <div class="card-footer text-center">
             ${priceHtml}
@@ -110,7 +110,7 @@ function createModal(product) {
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body text-center">
-                    <img src="/api/uploads/${product.product_pic}" alt="${product.product_name}" class="img-fluid mb-3" style="max-height: 400px; object-fit: contain;">
+                    <img src="${product.product_pic}" alt="${product.product_name}" class="img-fluid mb-3" style="max-height: 400px; object-fit: contain;">
                     ${priceHtmlModal}
                     ${saleHtmlModal}
                     <p><strong>Raktáron:</strong> ${product.in_stock}</p>
@@ -140,8 +140,6 @@ async function addToCart(productId) {
         console.error('Hiba a kosárba helyezéskor:', error);
     }
 }
-
-
 
 btnLogout.addEventListener('click', async () => {
     const res = await fetch('/api/auth/logout', { method: 'POST', credentials: 'include' });
