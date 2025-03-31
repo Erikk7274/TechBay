@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     </select>
                 </div>
 
-                
+
                 <div class="mb-3">
                 <label for="productActive" class="form-label">Aktív:</label>
                 <input type="checkbox" id="productActive" name="productActive" class="form-check-input" value="1">
@@ -127,7 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             const categoryValue = document.getElementById("productCategory").value;
-            let catId = 0;
+            let catId = 6;
             if (categoryValue === "cpu") {
                 catId = 6;
             } else if (categoryValue === "mother_board") {
