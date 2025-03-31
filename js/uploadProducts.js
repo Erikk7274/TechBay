@@ -66,9 +66,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label for="productSale" class="form-label">Akció mértéke:</label>
-                    <input type="number" id="productSale" name="productSale" class="form-control product" value="0">
-                </div>
+                <label for="productActive" class="form-label">Aktív:</label>
+                <input type="checkbox" id="productActive" name="productActive" class="form-check-input" value="1">
+            </div>
 
             </div>
             <div class="col-md-6 d-flex flex-column align-items-center">
