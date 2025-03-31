@@ -120,15 +120,22 @@ document.addEventListener("DOMContentLoaded", () => {
         
             console.log(typeof(productData.product_name),productData.product_name, typeof(productData.product_description),productData.product_description, typeof(productData.price),productData.price, typeof(productData.in_stock),productData.in_stock, typeof(productData.sale),productData.sale, typeof(productData.sale_),productData.sale_, typeof(productData.cat_id),productData.cat_id, typeof(productData.product_pic),productData.product_pic);
         
-            const response = await fetch("/api/add/uploadProduct", {
-                method: "POST",
-                credentials: "include",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(productData)
-            });
-        
+            const formData = new FormData();
+formData.append("product_name", document.getElementById("productName").value);
+formData.append("product_description", document.getElementById("productDescription").value);
+formData.append("price", document.getElementById("productPrice").value);
+formData.append("in_stock", document.getElementById("productStock").value);
+formData.append("sale", document.getElementById("productSale").value);
+formData.append("sale_", document.getElementById("productSaleActive").value);
+formData.append("cat_id", catId);
+formData.append("product_pic", document.getElementById("productImage").files[0]);
+
+const response = await fetch("/api/add/uploadProduct", {
+    method: "POST",
+    credentials: "include",
+    body: formData
+});
+
             if (response.ok) {
                 alert("SIKERES FELTÖLTÉS!");
                 document.getElementById("productForm").reset();
