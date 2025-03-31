@@ -123,7 +123,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const response = await fetch("/api/add/uploadProduct", {
                 method: "POST",
                 credentials: "include",
-                body: JSON.stringify(productData)
+                body: productData
             });
         
             if (response.ok) {
