@@ -103,7 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
             productData.append('cat_id', document.getElementById("productCategory").value);
 
     
-            const productImage = document.getElementById("productImage").files[0];
+            let productImage = document.getElementById("productImage").files[0];
             if (productImage) {
                 productData.append('product_pic', productImage);
             }
