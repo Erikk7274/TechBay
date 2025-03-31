@@ -196,7 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
                 <div class="mb-3">
                     <label for="productPrice" class="form-label">Ár:</label>
-                    <input type="number" id="productPrice" name="productPrice" class="form-control product" required>
+                    <input type="number" id="productPrice" name="productPrice" class="form-control config" required>
                 </div>
                 <label for="productSaleActive" class="form-label">Akció:</label>
                 <select id="productSaleActive" name="productSaleActive" class="form-select">
@@ -205,12 +205,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 </select>
             </div>
             <div class="mb-3" id="saleclass" style="display:none;">
-            <label for="productSale" class="form-label">Akció mértéke:</label>
-            <input type="number" id="productSale" name="productSale" class="form-control product" value="0">
+            <label for="configSale" class="form-label">Akció mértéke:</label>
+            <input type="number" id="configSale" name="configSale" class="form-control config" value="0">
         </div>
                 <div class="mb-3">
-                <label for="productDescription" class="form-label">Leírás:</label>
-                <textarea id="productDescription" name="productDescription" class="form-control product"></textarea>
+                <label for="configDescription" class="form-label">Leírás:</label>
+                <textarea id="configDescription" name="configDescription" class="form-control config"></textarea>
             </div>
                 <div class="mb-3 form-check form-switch">
                     <input class="form-check-input" type="checkbox" id="configStatus">
@@ -272,8 +272,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 configData.append('cpu_cooler', document.getElementById("cpuCooler").value);
                 configData.append('price', productPrice); // Módosított, biztosan szám érték kerül
                 configData.append('config_pic', document.getElementById("configImage").files[0]);
-                configData.append('description', document.getElementById("productDescription").value);
+                configData.append('description', document.getElementById("configDescription").value);
                 configData.append('in_stock', "1");
+                productData.append('sale', document.getElementById("configSale").value);
                 configData.append('sale_', "0");
                 configData.append('active', document.getElementById("configStatus").checked ? "1" : "0");
 
