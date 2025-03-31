@@ -58,20 +58,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
                 <div class="mb-3">
                     <label for="productCategory" class="form-label">Termék kategória:</label>
-                    <select id="productCategory" name="productCategory" class="form-select" required>
-                        <option value="">Válassz egy kategóriát</option>
-                        <option value="cpu">Processzor</option>
-                        <option value="mother_board">Alaplap</option>
-                        <option value="house">Gépház</option>
+                    <select id="productCategory" name="productCategory" class="form-select">
+                        <option value="6">Processzor</option>
+                        <option value="7">Alaplap</option>
+                        <option value="8">Gépház</option>
+                        <option value="9">Videókártya</option>
+                        <option value="10">RAM</option>
+                        <option value="11">Táp egység</option>
+                        <option value="12">HDD</option>
+                        <option value="13">SSD</option>
+                        <option value="14">Processzor hűtő</option>
                     </select>
                 </div>
-
-
-                <div class="mb-3">
-                <label for="productActive" class="form-label">Aktív:</label>
-                <input type="checkbox" id="productActive" name="productActive" class="form-check-input" value="1">
-            </div>
-
             </div>
             <div class="col-md-6 d-flex flex-column align-items-center">
                 <div class="mb-3 w-100">
@@ -126,18 +124,42 @@ document.addEventListener("DOMContentLoaded", () => {
                 productData.append('product_pic', productImage);
             }
 
-            let catId = 6;  // Alapértelmezett kategória
-            if (categoryValue === "cpu") {
-                catId = 6;
-            } else if (categoryValue === "mother_board") {
-                catId = 7;
-            } else if (categoryValue === "house") {
-                catId = 8;
-            } else {
-                alert("Kérlek válassz egy kategóriát!"); // Ha nem érvényes kategória
-                return; // Ne folytasd a form beküldését, ha nincs kiválasztott kategória
+            let catId = 0;
+            switch(catId){
+                case 6:
+                    
+                    break;
+                case 7:
+                    break;
+                case 8:
+                    break;
+                case 9:
+                    break;
+                case 10:
+                    break;
+                case 11:
+                    break;
+                case 12:
+                    break;
+                case 13:
+                    break;
+                case 14:
+                    break;
             }
-            productData.append('cat_id', catId);
+
+
+            // let catId = 6;  // Alapértelmezett kategória
+            // if (categoryValue === "cpu") {
+            //     catId = 6;
+            // } else if (categoryValue === "mother_board") {
+            //     catId = 7;
+            // } else if (categoryValue === "house") {
+            //     catId = 8;
+            // } else {
+            //     alert("Kérlek válassz egy kategóriát!"); // Ha nem érvényes kategória
+            //     return; // Ne folytasd a form beküldését, ha nincs kiválasztott kategória
+            // }
+            // productData.append('cat_id', catId);
 
 
             const response = await fetch("/api/add/uploadProduct", {
