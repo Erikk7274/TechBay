@@ -236,6 +236,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 configData.append('config_name', document.getElementById("configName").value);
                 configData.append('cpu', document.getElementById("cpu").value);
                 configData.append('mother_board', document.getElementById("motherBoard").value);
+                configData.append('house', document.getElementById("house").value);
                 configData.append('ram', document.getElementById("ram").value);
                 configData.append('gpu', document.getElementById("gpu").value);
                 configData.append('hdd', document.getElementById("hdd").value);
@@ -249,33 +250,26 @@ document.addEventListener("DOMContentLoaded", () => {
                 configData.append('sale', "0");
                 configData.append('active', document.getElementById("configStatus").checked ? "1" : "0");
     
-               
                 const response = await fetch("/api/add/uploadConfig", {
                     method: "POST",
                     credentials: "include",
                     body: configData
                 });
-                
+    
+                // const response = await fetch("/api/add/uploadProduct", {
+                //     method: "POST",
+                //     credentials: "include",
+                //     body: productData
+                // });
+
+
                 if (response.ok) {
-                    try {
-                        const responseData = await response.json();
-                        alert("SIKERES FELTÖLTÉS!");
-                        document.getElementById("configForm").reset();
-                    } catch (error) {
-                        console.error("Válasz hiba: nem JSON formátumban érkezett", error);
-                        alert("A szerver válasza nem volt JSON formátumban.");
-                    }
+                    alert("SIKERES FELTÖLTÉS!");
+                    document.getElementById("configForm").reset();
                 } else {
-                    console.error("Hiba történt a kérés feldolgozása során", response);
-                    const errorText = await response.text();
-                    alert(`Hiba történt a feltöltés során: ${errorText || "Ismeretlen hiba"}`);
+                    const errorData = await response.json();
+                    alert(`Hiba történt a feltöltés során: ${errorData.message || "Ismeretlen hiba"}`);
                 }
-                
-                
-
-
-                
-                
             });
         } else {
             console.error("A form nem található!");
