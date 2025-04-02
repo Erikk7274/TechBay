@@ -13,6 +13,35 @@ const row = document.getElementById('row');
 const formContainer = document.getElementById('formContainer');
 
 // Termékek lekérése
+
+
+// Kategória kiválasztása
+formContainer.innerHTML = `
+    <form id="categoryForm" class="container mt-4 p-4 border rounded bg-light shadow-lg">
+        <div class="mb-3">
+            <label for="category" class="form-label">Válassz egy kategóriát:</label>
+            <select id="category" name="category" class="form-select" required>
+                <option value="1">Összes</option>
+                <option value="6">CPU</option>
+                <option value="7">Alaplap</option>
+                <option value="8">Gépház</option>
+                <option value="9">Videókártya</option>
+                <option value="10">RAM</option>
+                <option value="11">Tápegység</option>
+                <option value="12">HDD</option>
+                <option value="13">SSD</option>
+                <option value="14">Processzor hűtő</option>
+            </select>
+        </div>
+    </form>
+`;
+
+document.getElementById("category").addEventListener("change", (event) => {
+    if(this.value==1){
+        getProducts();
+    }
+});
+
 async function getProducts() {
     try {
         const response = await fetch(`/api/getProducts/getProducts_all`, {
@@ -21,41 +50,26 @@ async function getProducts() {
         });
         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
         const products = await response.json();
+
         renderProducts(products);
     } catch (error) {
         console.error('Hiba a termékek lekérésekor:', error);
     }
 }
+async function getProducts_cpu() {
+    try {
+        const response = await fetch(`/api/getProducts/getProducts_cpus`, {
+            method: 'GET',
+            credentials: 'include'
+        });
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+        const products = await response.json();
 
-// Kategória kiválasztása
-formContainer.innerHTML = `
-        <form id="categoryForm" class="container mt-4 p-4 border rounded bg-light shadow-lg">
-            <div class="mb-3">
-                <label for="category" class="form-label">Válassz egy kategóriát:</label>
-                <select id="category" name="category" class="form-select" required>
-                    <option value="product">CPU</option>
-                    <option value="config">Alaplap</option>
-                    <option value="product">Gépház</option>
-                    <option value="config">Videókártya</option>
-                    <option value="product">RAM</option>
-                    <option value="config">Tápegység</option>
-                    <option value="product">HDD</option>
-                    <option value="config">SSD</option>
-                    <option value="product">Processzor hűtő</option>
-                    
-                </select>
-            </div>
-        </form>
-    `;
-    document.getElementById("category").addEventListener("change", (event) => {
-        const selectedCategory = event.target.value;
-        if (selectedCategory === "product") {
-            createProductForm();
-        } else if (selectedCategory === "config") {
-            createConfigForm();
-        }
-    });
-
+        renderProducts(products);
+    } catch (error) {
+        console.error('Hiba a termékek lekérésekor:', error);
+    }
+}
 
 function renderProducts(products) {
     row.innerHTML = '';
@@ -79,7 +93,7 @@ function createCard(product) {
         ? `<span class="d-block mb-2">Akciós ár: ${product.sale} Ft</span>`
         : '';
 
-        cardDiv.innerHTML = `
+    cardDiv.innerHTML = `
         <div class="card-header text-center fw-bold">${product.product_name || product.product_name}</div>
         <div class="card-body text-center">
             <img src="/api/uploads/${product.product_pic}" class="img-fluid mb-3" alt="${product.product_name || product.product_name}">
