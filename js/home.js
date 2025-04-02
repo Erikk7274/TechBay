@@ -37,10 +37,10 @@ formContainer.innerHTML = `
 `;
 
 document.getElementById("category").addEventListener("change", (event) => {
-    if(this.value==1){
+    if(this.value==="1"){
         getProducts();
     }
-    if(this.value==2){
+    if(this.value==="2"){
         getProducts_cpu();
     }
 });
