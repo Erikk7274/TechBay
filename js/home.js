@@ -62,12 +62,11 @@ function renderProducts(products) {
 
 function createCard(product) {
     const cardDiv = document.createElement('div');
-    cardDiv.classList.add('col-md-4', 'd-flex'); // Egy oszlopba rendezi a kártyát
-
+    cardDiv.classList.add('col-md-4', 'd-flex'); 
     const cardInnerDiv = document.createElement('div');
-    cardInnerDiv.classList.add('card', 'm-2', 'p-2', 'shadow-sm', 'w-100', 'd-flex', 'flex-column', 'align-items-center'); 
-    cardInnerDiv.style.minHeight = '24rem'; // Minimális magasság
+    cardInnerDiv.classList.add('card', 'm-2', 'p-2', 'shadow-sm', 'w-100', 'd-flex', 'flex-column'); 
 
+    cardInnerDiv.style.minHeight = '22rem';
 
     let priceHtml = product.sale && product.sale < product.price 
         ? `<span class="d-block mb-2" style="text-decoration: line-through;">Ár: ${product.price} Ft</span>`
