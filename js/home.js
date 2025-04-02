@@ -28,15 +28,14 @@ async function getProducts() {
 }
 
 // Kategória kiválasztása
-if (formContainer) {
-    formContainer.innerHTML = `
+formContainer.innerHTML = `
         <form id="categoryForm" class="container mt-4 p-4 border rounded bg-light shadow-lg">
             <div class="mb-3">
                 <label for="category" class="form-label">Kategória:</label>
                 <select id="category" name="category" class="form-select" required>
                     <option value="">Válassz egy kategóriát</option>
-                    <option value="cpu">Processzor</option>
-                    <option value="motherboard">Alaplap</option>
+                    <option value="product">Termék</option>
+                    <option value="config">Prebuilt</option>
                 </select>
             </div>
         </form>
@@ -49,7 +48,7 @@ if (formContainer) {
             createConfigForm();
         }
     });
-}
+
 
 function renderProducts(products) {
     row.innerHTML = '';
