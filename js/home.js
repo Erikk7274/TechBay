@@ -62,32 +62,36 @@ function renderProducts(products) {
 
 function createCard(product) {
     const cardDiv = document.createElement('div');
-    cardDiv.classList.add('col-md-4', 'd-flex'); 
-    const cardInnerDiv = document.createElement('div');
-    cardInnerDiv.classList.add('card', 'm-2', 'p-2', 'shadow-sm', 'w-100', 'd-flex', 'flex-column'); 
+    cardDiv.classList.add('col-md-4', 'd-flex'); // Egy oszlopba rendezi a kártyát
 
-    cardInnerDiv.style.minHeight = '22rem';
+    const cardInnerDiv = document.createElement('div');
+    cardInnerDiv.classList.add('card', 'm-2', 'p-2', 'shadow-sm', 'w-100', 'd-flex', 'flex-column', 'align-items-center'); 
+    cardInnerDiv.style.minHeight = '24rem'; // Minimális magasság
 
     let priceHtml = product.sale && product.sale < product.price 
-        ? `<span class="d-block mb-2" style="text-decoration: line-through;">Ár: ${product.price} Ft</span>`
+        ? `<span class="d-block mb-2 text-muted" style="text-decoration: line-through;">Ár: ${product.price} Ft</span>`
         : `<span class="d-block mb-2">Ár: ${product.price ? product.price + ' Ft' : 'N/A'}</span>`;
 
     let saleHtml = product.sale && product.sale < product.price 
-        ? `<span class="d-block mb-2">Akciós ár: ${product.sale} Ft</span>`
+        ? `<span class="d-block mb-2 fw-bold text-danger">Akciós ár: ${product.sale} Ft</span>`
         : '';
 
-    cardDiv.innerHTML = `
-        <div class="card-header text-center fw-bold">${product.product_name}</div>
-        <div class="card-body text-center">
-        <img src="/api/uploads/${product.product_pic}" class="img-fluid mb-3" alt="${product.product_name || product.product_name}">
-        <div class="card-footer text-center">
+    cardInnerDiv.innerHTML = `
+        <div class="card-body text-center d-flex flex-column align-items-center">
+            <img src="/api/uploads/${product.product_pic}" class="img-fluid mb-3" alt="${product.product_name}">
+            <div class="card-title fw-bold mt-2">${product.product_name}</div>
+        </div>
+        <div class="card-footer text-center w-100">
             ${priceHtml}
             ${saleHtml}
             <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-${product.product_id}">Részletek</button>
         </div>
     `;
+
+    cardDiv.appendChild(cardInnerDiv);
     return cardDiv;
 }
+
 
 function createModal(product) {
     const modalDiv = document.createElement('div');
