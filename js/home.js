@@ -161,3 +161,11 @@ btnPreBuilt.addEventListener('click', async () => {
     }
 });
 
+btnPcBuilding.addEventListener('click', async () => {
+    if (btnPreBuilt) {
+        window.location.href = '../pcBuilding.html';
+    } else {
+        alert('A gomb nem található');
+    }
+});
+
