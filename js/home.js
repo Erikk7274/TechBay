@@ -154,7 +154,7 @@ btnLogout.addEventListener('click', async () => {
 });
 
 btnPreBuilt.addEventListener('click', async () => {
-    if (res.ok) {
+    if (btnPreBuilt) {
         window.location.href = '../preBuilt.html';
     } else {
         alert('A gomb nem található');
