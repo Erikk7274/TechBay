@@ -124,28 +124,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 productData.append('product_pic', productImage);
             }
 
-            let catId = 0;
-            switch(catId){
-                case 6:
-                    
-                    break;
-                case 7:
-                    break;
-                case 8:
-                    break;
-                case 9:
-                    break;
-                case 10:
-                    break;
-                case 11:
-                    break;
-                case 12:
-                    break;
-                case 13:
-                    break;
-                case 14:
-                    break;
-            }
+            //category id
+
+            let catId = parseInt(document.getElementById("productCategory").value);
+
+            document.getElementById("productCategory").addEventListener("change", function () {
+                catId = parseInt(this.value);
+                console.log("catId értéke:", catId);
+            });
+
 
 
             // let catId = 6;  // Alapértelmezett kategória
