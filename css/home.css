@@ -411,5 +411,6 @@ nav a i {
     font-weight: 600;
 }
 #categoryForm,#formContainer{
+    color: black;
     background-color: #7d5fbf;
 }
