@@ -31,9 +31,8 @@ async function getProducts() {
 formContainer.innerHTML = `
         <form id="categoryForm" class="container mt-4 p-4 border rounded bg-light shadow-lg">
             <div class="mb-3">
-                <label for="category" class="form-label">Kategória:</label>
+                <label for="category" class="form-label">Válassz egy kategóriát:</label>
                 <select id="category" name="category" class="form-select" required>
-                    <option value="">Válassz egy kategóriát</option>
                     <option value="product">CPU</option>
                     <option value="config">GPU</option>
                 </select>
