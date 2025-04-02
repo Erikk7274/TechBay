@@ -37,13 +37,17 @@ formContainer.innerHTML = `
 `;
 
 document.getElementById("category").addEventListener("change", (event) => {
-    if(this.value==="1"){
+    if (this.value === "1") {
         getProducts();
         renderProducts();
+        createCard();
+        createModal();
     }
-    if(this.value==="6"){
+    if (this.value === "6") {
         getProducts_cpu();
         renderProducts();
+        createCard();
+        createModal();
     }
 });
 
