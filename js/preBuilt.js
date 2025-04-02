@@ -60,11 +60,10 @@ function renderProducts(products) {
 }
 
 function createCard(product) {
-
-
     const cardDiv = document.createElement('div');
     cardDiv.classList.add('card', 'm-3', 'p-2', 'shadow-sm');
     cardDiv.style.width = '18rem';
+
     let priceHtml = product.sale && product.sale < product.price
         ? `<span class="d-block mb-2" style="text-decoration: line-through;">Ár: ${product.price} Ft</span>`
         : `<span class="d-block mb-2">Ár: ${product.price ? product.price + ' Ft' : 'N/A'}</span>`;
