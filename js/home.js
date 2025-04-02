@@ -152,3 +152,12 @@ btnLogout.addEventListener('click', async () => {
         alert('Hiba a kijelentkezéskor');
     }
 });
+
+btnPreBuilt.addEventListener('click', async () => {
+    if (res.ok) {
+        window.location.href = '../preBuilt.html';
+    } else {
+        alert('A gomb nem található');
+    }
+});
+
