@@ -109,7 +109,7 @@ function createModal(product) {
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body text-center">
-                    <img src="${product.product_pic}" alt="${product.product_name}" class="img-fluid mb-3" style="max-height: 400px; object-fit: contain;">
+                <img src="/api/uploads/${product.product_pic}" class="img-fluid mb-3" alt="${product.product_name || product.product_name}">
                     ${priceHtmlModal}
                     ${saleHtmlModal}
                     <p><strong>Raktáron:</strong> ${product.in_stock}</p>
