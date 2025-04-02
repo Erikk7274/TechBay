@@ -62,7 +62,7 @@ function renderProducts(products) {
 
 function createCard(product) {
     const cardDiv = document.createElement('div');
-    cardDiv.classList.add('card', 'm-2', 'p-2', 'shadow-sm','d-flex','col-md-4');
+    cardDiv.classList.add('card', 'm-2', 'p-2', 'shadow-sm','d-flex','col-md-4','mb-3','col-sm-6');
     cardDiv.style.width = '18rem';
     cardDiv.style.minHeight = '24rem';
 
