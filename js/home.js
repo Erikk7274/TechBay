@@ -40,6 +40,9 @@ document.getElementById("category").addEventListener("change", (event) => {
     if(this.value==1){
         getProducts();
     }
+    if(this.value==2){
+        getProducts_cpu();
+    }
 });
 
 async function getProducts() {
