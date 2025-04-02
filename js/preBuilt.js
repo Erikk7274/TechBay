@@ -79,6 +79,7 @@ function createCard(product) {
         <div class="card-footer text-center">
             <span class="d-block mb-2">Raktáron: ${product.in_stock}</span>
             <span class="d-block mb-2">Ár: ${product.price ? product.price + ' Ft' : 'N/A'}</span>
+
             <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-${product.pc_id}">Részletek</button>
         </div>
     `;
@@ -106,6 +107,7 @@ function createModal(product) {
                     <img src="/api/uploads/${product.config_pic}" alt="${product.config_name || product.config_name}" class="img-fluid mb-3">
                     <p><strong>Raktáron:</strong> ${product.in_stock}</p>
                     <p><strong>Ár:</strong> ${product.price ? `${product.price} Ft` : 'N/A'}</p>
+                    <p><strong>Leírás:</strong><br> ${product.product_description}</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary add-to-cart-btn" data-product-id="${product.config_id}" data-bs-dismiss="modal">Kosárba</button>
