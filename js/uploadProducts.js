@@ -117,7 +117,6 @@ document.addEventListener("DOMContentLoaded", () => {
             productData.append('sale', document.getElementById("productSale").value);
             productData.append('sale_', document.getElementById("productSaleActive").value);
             productData.append('cat_id', document.getElementById("productCategory").value);
-            productData.append('active', document.getElementById("productActive").checked ? "1" : "0");
 
             let productImage = document.getElementById("productImage").files[0];
             if (productImage) {
