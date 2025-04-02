@@ -34,8 +34,8 @@ formContainer.innerHTML = `
                 <label for="category" class="form-label">Kategória:</label>
                 <select id="category" name="category" class="form-select" required>
                     <option value="">Válassz egy kategóriát</option>
-                    <option value="product">Termék</option>
-                    <option value="config">Prebuilt</option>
+                    <option value="product">CPU</option>
+                    <option value="config">GPU</option>
                 </select>
             </div>
         </form>
