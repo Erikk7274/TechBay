@@ -66,9 +66,10 @@ async function loadCart() {
     }
 }
 
+// Render cart items based on the new database structure
 function renderCartItems(cart) {
     return cart.map(item => `
-        <div class="card mb-3" data-id="${item.product_id}">
+        <div class="card mb-3" data-id="${item.cart_item_id}">
             <div class="card-body">
                 <h5 class="card-title">${item.product_name}</h5>
                 <p class="card-text">Ár: ${item.price.toLocaleString()} Ft</p>
@@ -79,18 +80,19 @@ function renderCartItems(cart) {
     `).join('');
 }
 
+// Set up event listeners for the remove buttons
 function setUpRemoveButtons() {
     document.querySelectorAll('.remove-item').forEach(button => {
         button.addEventListener('click', async (event) => {
-            const productId = event.target.closest('.card').dataset.id;
-            await removeItemFromCart(productId);
+            const cartItemId = event.target.closest('.card').dataset.id;
+            await removeItemFromCart(cartItemId);
         });
     });
 }
 
-async function removeItemFromCart(productId) {
+async function removeItemFromCart(cartItemId) {
     try {
-        const response = await fetch(`/api/cart/removeProduct/${productId}`, {
+        const response = await fetch(`/api/cart/removeProduct/${cartItemId}`, {
             method: 'DELETE',
             credentials: 'include'
         });
@@ -99,7 +101,7 @@ async function removeItemFromCart(productId) {
             throw new Error('Failed to remove item from cart');
         }
 
-        console.log(`Item with ID ${productId} removed.`);
+        console.log(`Item with ID ${cartItemId} removed.`);
         await loadCart(); 
     } catch (error) {
         console.error('Error removing item from cart:', error);
@@ -152,7 +154,7 @@ function renderOrderModal(cart) {
 
 function setUpButtonListeners() {
     btnBack?.addEventListener('click', () => {
-        window.location.href = '../home.html';
+        window.location.href = 'https://techbay2.netlify.app/home.html';
     });
 
     setUpOrderButton();
