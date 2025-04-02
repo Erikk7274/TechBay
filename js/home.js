@@ -22,7 +22,7 @@ formContainer.innerHTML = `
             <label for="category" class="form-label">Válassz egy kategóriát:</label>
             <select id="category" name="category" class="form-select" required>
                 <option value="1">Összes</option>
-                <option value="6">CPU</option>
+                <option value="6">Processzor</option>
                 <option value="7">Alaplap</option>
                 <option value="8">Gépház</option>
                 <option value="9">Videókártya</option>
