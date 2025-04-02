@@ -8,7 +8,6 @@ const confirmOrderBtn = document.getElementById('confirmOrderBtn');
 
 let orderModal = orderModalElement ? new bootstrap.Modal(orderModalElement) : null;
 
-
 document.addEventListener('DOMContentLoaded', () => {
     init();
 });
@@ -40,7 +39,6 @@ async function logout() {
     }
 }
 
-
 async function loadCart() {
     try {
         console.log('Loading cart...');
@@ -68,7 +66,6 @@ async function loadCart() {
     }
 }
 
-
 function renderCartItems(cart) {
     return cart.map(item => `
         <div class="card mb-3" data-id="${item.product_id}">
@@ -82,7 +79,6 @@ function renderCartItems(cart) {
     `).join('');
 }
 
-
 function setUpRemoveButtons() {
     document.querySelectorAll('.remove-item').forEach(button => {
         button.addEventListener('click', async (event) => {
@@ -91,7 +87,6 @@ function setUpRemoveButtons() {
         });
     });
 }
-
 
 async function removeItemFromCart(productId) {
     try {
@@ -111,7 +106,6 @@ async function removeItemFromCart(productId) {
         alert('Hiba a termék eltávolításakor.');
     }
 }
-
 
 function setUpOrderButton() {
     if (orderBtn) {
@@ -142,7 +136,6 @@ function setUpOrderButton() {
     }
 }
 
-
 function renderOrderModal(cart) {
     modalBody.innerHTML = cart.length === 0
         ? '<p class="text-center">A kosár üres</p>'
@@ -156,7 +149,6 @@ function renderOrderModal(cart) {
             </div>
         `).join('');
 }
-
 
 function setUpButtonListeners() {
     btnBack?.addEventListener('click', () => {
