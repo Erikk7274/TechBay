@@ -34,7 +34,15 @@ formContainer.innerHTML = `
                 <label for="category" class="form-label">Válassz egy kategóriát:</label>
                 <select id="category" name="category" class="form-select" required>
                     <option value="product">CPU</option>
-                    <option value="config">GPU</option>
+                    <option value="config">Alaplap</option>
+                    <option value="product">Gépház</option>
+                    <option value="config">Videókártya</option>
+                    <option value="product">RAM</option>
+                    <option value="config">Tápegység</option>
+                    <option value="product">HDD</option>
+                    <option value="config">SSD</option>
+                    <option value="product">Processzor hűtő</option>
+                    
                 </select>
             </div>
         </form>
