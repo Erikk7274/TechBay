@@ -152,7 +152,7 @@ function renderOrderModal(cart) {
 
 function setUpButtonListeners() {
     btnBack?.addEventListener('click', () => {
-        window.location.href = 'https://techbay2.netlify.app/home.html';
+        window.location.href = '../home.html';
     });
 
     setUpOrderButton();
