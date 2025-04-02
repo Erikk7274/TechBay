@@ -365,7 +365,7 @@ nav a i {
 
 .card {
     width: 250px; /* Set fixed width */
-    height: 350px; /* Set fixed height */
+    max-height: 350px; /* Set fixed height */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
     border: 1px solid #1f1d1d; 
     border-radius: 8px; 
