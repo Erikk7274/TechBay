@@ -44,7 +44,7 @@ async function loadCart() {
         console.log('Loading cart...');
         const response = await fetch('/api/cart/myCart', {
             method: 'GET',
-            credentials: 'include'
+            credentials: 'include' // A cookie-kat is küldjük, ha szükséges
         });
 
         if (!response.ok) {
@@ -52,7 +52,7 @@ async function loadCart() {
         }
 
         const cart = await response.json();
-        console.log('Cart items:', cart);
+        console.log('Cart items:', cart);  // Itt nézd meg, mi érkezik vissza
 
         if (Array.isArray(cart) && cart.length > 0) {
             cartItemsContainer.innerHTML = renderCartItems(cart);
@@ -65,6 +65,7 @@ async function loadCart() {
         cartItemsContainer.innerHTML = `<p class="text-center">Hiba a kosár betöltésekor: ${error.message}</p>`;
     }
 }
+
 
 
 // Render cart items based on the new database structure
