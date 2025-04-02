@@ -77,7 +77,7 @@ function createCard(product) {
         cardDiv.innerHTML = `
         <div class="card-header text-center fw-bold">${product.config_name || product.product_name}</div>
         <div class="card-body text-center">
-            <img src="/api/uploads/${product.config_pic}" class="img-fluid mb-3" alt="${product.config_name || product.product_name}">
+            <img src="/api/uploads/${product.product_pic}" class="img-fluid mb-3" alt="${product.product_name || product.product_name}">
         </div>
         <div class="card-footer text-center">
             <span class="d-block mb-2">Raktáron: ${product.in_stock}</span>
