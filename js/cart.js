@@ -66,6 +66,7 @@ async function loadCart() {
     }
 }
 
+
 // Render cart items based on the new database structure
 function renderCartItems(cart) {
     return cart.map(item => `
