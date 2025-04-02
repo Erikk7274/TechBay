@@ -65,15 +65,15 @@ function createCard(product) {
     cardDiv.classList.add('card', 'm-3', 'p-2', 'shadow-sm');
     cardDiv.style.width = '18rem';
 
-    let priceHtml = product.sale && product.sale < product.price 
+    let priceHtml = product.sale && product.sale < product.price
         ? `<span class="d-block mb-2" style="text-decoration: line-through;">Ár: ${product.price} Ft</span>`
         : `<span class="d-block mb-2">Ár: ${product.price ? product.price + ' Ft' : 'N/A'}</span>`;
 
-    let saleHtml = product.sale && product.sale < product.price 
+    let saleHtml = product.sale && product.sale < product.price
         ? `<span class="d-block mb-2">Akciós ár: ${product.sale} Ft</span>`
         : '';
 
-        cardDiv.innerHTML = `
+    cardDiv.innerHTML = `
         <div class="card-header text-center fw-bold">${product.config_name || product.product_name}</div>
         <div class="card-body text-center">
             <img src="/api/uploads/${product.product_pic}" class="img-fluid mb-3" alt="${product.product_name || product.product_name}">
@@ -93,11 +93,11 @@ function createModal(product) {
     modalDiv.id = `modal-${product.product_id}`;
     modalDiv.setAttribute('tabindex', '-1');
 
-    let priceHtmlModal = product.sale && product.sale < product.price 
+    let priceHtmlModal = product.sale && product.sale < product.price
         ? `<p><strong>Eredeti ár:</strong> <span style="text-decoration: line-through;">${product.price} Ft</span></p>`
         : `<p><strong>Eredeti ár:</strong> ${product.price ? product.price + ' Ft' : 'N/A'}</p>`;
 
-    let saleHtmlModal = product.sale && product.sale < product.price 
+    let saleHtmlModal = product.sale && product.sale < product.price
         ? `<p><strong>Akciós ár:</strong> ${product.sale} Ft</p>`
         : '';
 
