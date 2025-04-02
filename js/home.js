@@ -62,7 +62,7 @@ function renderProducts(products) {
 
 function createCard(product) {
     const cardDiv = document.createElement('div');
-    cardDiv.classList.add('card', 'm-2', 'p-2', 'shadow-sm','d-flex','col-md-4','mb-3','col-sm-6');
+    cardDiv.classList.add('card', 'm-3', 'p-2', 'shadow-sm');
     cardDiv.style.width = '18rem';
     cardDiv.style.minHeight = '24rem';
 
@@ -74,13 +74,14 @@ function createCard(product) {
         ? `<span class="d-block mb-2">Akciós ár: ${product.sale} Ft</span>`
         : '';
 
-    cardDiv.innerHTML = `
-        <div class="card-header text-center fw-bold">${product.product_name}</div>
+        cardDiv.innerHTML = `
+        <div class="card-header text-center fw-bold">${product.config_name || product.product_name}</div>
         <div class="card-body text-center">
-        <img src="/api/uploads/${product.product_pic}" class="img-fluid mb-3" alt="${product.product_name || product.product_name}">
+            <img src="/api/uploads/${product.config_pic}" class="img-fluid mb-3" alt="${product.config_name || product.product_name}">
+        </div>
         <div class="card-footer text-center">
-            ${priceHtml}
-            ${saleHtml}
+            <span class="d-block mb-2">Raktáron: ${product.in_stock}</span>
+            <span class="d-block mb-2">Ár: ${product.price ? product.price + ' Ft' : 'N/A'}</span>
             <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-${product.product_id}">Részletek</button>
         </div>
     `;
