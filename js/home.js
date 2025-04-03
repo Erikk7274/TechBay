@@ -306,7 +306,7 @@ function createModal(product) {
 
 async function addToCart(productId) {
     try {
-        const response = await fetch('/api/cart/takeProduct', {
+        const response = await fetch(`/api/cart/takeProduct/${productId}`, {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify({ productId }),
