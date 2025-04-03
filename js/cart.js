@@ -71,9 +71,9 @@ async function loadCart() {
 // Render cart items based on the new database structure
 function renderCartItems(cart) {
     return cart.map(item => {
-        const price = item.price ? item.price.toLocaleString() : 'N/A';  // Ellenőrzés hozzáadása
+        const price = item.price ? item.price.toLocaleString() : 'N/A';
         return `
-            <div class="card mb-3" data-id="${item.product_id}">
+            <div class="card mb-3" data-id="${item.product_id}">  <!-- Changed cart_item_id to product_id -->
                 <div class="card-body">
                     <h5 class="card-title">${item.product_name}</h5>
                     <p class="card-text">Ár: ${price} Ft</p>
@@ -86,6 +86,7 @@ function renderCartItems(cart) {
 }
 
 
+
 // Set up event listeners for the remove buttons
 function setUpRemoveButtons() {
     document.querySelectorAll('.remove-item').forEach(button => {
@@ -96,9 +97,9 @@ function setUpRemoveButtons() {
     });
 }
 
-async function removeItemFromCart(cartItemId) {
+async function removeItemFromCart(productId) {  // Changed cartItemId to productId
     try {
-        const response = await fetch(`/api/cart/removeProduct/${cartItemId}`, {
+        const response = await fetch(`/api/cart/removeProduct/${productId}`, {
             method: 'DELETE',
             credentials: 'include'
         });
@@ -107,13 +108,14 @@ async function removeItemFromCart(cartItemId) {
             throw new Error('Failed to remove item from cart');
         }
 
-        console.log(`Item with ID ${cartItemId} removed.`);
-        await loadCart(); 
+        console.log(`Item with ID ${productId} removed.`);
+        await loadCart();
     } catch (error) {
         console.error('Error removing item from cart:', error);
         alert('Hiba a termék eltávolításakor.');
     }
 }
+
 
 function setUpOrderButton() {
     if (orderBtn) {
