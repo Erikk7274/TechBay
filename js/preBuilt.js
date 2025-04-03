@@ -50,6 +50,7 @@ async function getProducts() {
 function renderProducts(products) {
     row.innerHTML = '';
 
+    //ha nincs elérhető:
     if (!products || products.length === 0) {
         row.innerHTML = `
             <div class="w-100 text-center p-5 text-white" id="noProductText">

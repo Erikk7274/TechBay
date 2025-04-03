@@ -27,7 +27,8 @@ header {
     align-items: center;
     gap: 10px;
     flex-grow: 1;
-    justify-content: flex-start; /* Align to the left */
+    justify-content: flex-start;
+    /* Align to the left */
 }
 
 .logo img {
@@ -169,7 +170,7 @@ nav a i {
 
     .keresomenu input {
         font-size: 1rem;
-        width: 90%; 
+        width: 90%;
     }
 
     /* Navigációs menü módosítása */
@@ -196,7 +197,8 @@ nav a i {
 
     .hamburger-menu {
         display: flex;
-        order: 2; /* Hamburger menü a jobb oldalra */
+        order: 2;
+        /* Hamburger menü a jobb oldalra */
     }
 
     .menu-toggle:checked~nav {
@@ -207,12 +209,14 @@ nav a i {
         display: flex;
         border: 3px solid black;
     }
+
     .card {
-        flex: 1 1 calc(50% - 16px); 
+        flex: 1 1 calc(50% - 16px);
     }
 }
 
 @media screen and (max-width: 480px) {
+
     /* Fejléc magasságának csökkentése */
     header {
         padding: 8px 20px;
@@ -243,7 +247,8 @@ nav a i {
     }
 }
 
-.menu-logo a, .logo a {
+.menu-logo a,
+.logo a {
     color: black;
 }
 
@@ -326,7 +331,8 @@ nav a i {
     margin-top: 20px;
 }
 
-.form-section input, .form-section select {
+.form-section input,
+.form-section select {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
@@ -354,28 +360,28 @@ nav a i {
 /* --- Konténer stílusok --- */
 .card-container {
     display: flex;
-    flex-wrap: nowrap; 
+    flex-wrap: nowrap;
     gap: 20px;
     justify-content: flex-start;
     flex-direction: row;
-    overflow-x: auto; 
+    overflow-x: auto;
 }
 
 #row {
     display: flex;
-    flex-wrap: wrap; 
-    gap: 16px; 
-    justify-content: space-around; 
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: space-around;
 }
 
 .card {
-    flex: 1 1 calc(25% - 16px); 
-    max-width: 300px; 
-    min-width: 200px; 
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
-    border: 1px solid #1f1d1d; 
-    border-radius: 8px; 
-    overflow: hidden; 
+    flex: 1 1 calc(25% - 16px);
+    max-width: 300px;
+    min-width: 200px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #1f1d1d;
+    border-radius: 8px;
+    overflow: hidden;
     background-color: #fff;
     color: black;
     text-align: center;
@@ -416,7 +422,8 @@ nav a i {
     justify-content: space-between;
     margin: 5px 0;
 }
-.footer-row span{
+
+.footer-row span {
     padding-left: 10px;
 }
 
@@ -424,7 +431,7 @@ nav a i {
     font-size: 1rem;
 }
 
-
-
-
-
+#noProductText h2 {
+    color: white;
+    font-weight: bold;
+}
