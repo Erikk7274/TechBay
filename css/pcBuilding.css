@@ -98,6 +98,7 @@ nav a i {
 }
 
 .icon-home:hover,
+.icon-cart:hover,
 .icon-user:hover,
 .icon-logout:hover {
     transform: scale(1.1);
