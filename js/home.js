@@ -227,7 +227,7 @@ function renderProducts(products) {
 
     if (!products || products.length === 0) {
         row.innerHTML = `
-            <div class="w-100 text-center p-5" id="noProductText">
+            <div class="w-100 text-center p-5 text-white" id="noProductText">
                 <h2 class="text-muted">Nincs elérhető termék raktáron!</h2>
             </div>
         `;
