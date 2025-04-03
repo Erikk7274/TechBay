@@ -69,7 +69,7 @@ async function getProducts() {
 }
 async function getProducts_cpu() {
     try {
-        const response = await fetch(`/api/getProducts/getProducts_cpu`, {
+        const response = await fetch(`/api/getProducts/getProducts_cpus`, {
             method: 'GET',
             credentials: 'include'
         });
