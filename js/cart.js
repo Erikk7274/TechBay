@@ -75,7 +75,7 @@ function renderCartItems(cart) {
         return `
             <div class="card mb-3" data-id="${item.product_id}">  <!-- Changed cart_item_id to product_id -->
                 <div class="card-body">
-                    <h5 class="card-title">${item.product_name||item.config_name}</h5>
+                    <h5 class="card-title">${item.product_name}</h5>
                     <p class="card-text">Ár: ${price} Ft</p>
                     <p class="card-text">Mennyiség: ${item.quantity}</p>
                     <button class="btn btn-danger btn-sm remove-item">Eltávolítás</button>
@@ -154,7 +154,7 @@ function renderOrderModal(cart) {
             return `
                 <div class="card mb-3">
                     <div class="card-body">
-                        <h5 class="card-title">${item.product_name||item.config_name}</h5>
+                        <h5 class="card-title">${item.product_name}</h5>
                         <p class="card-text">Ár: ${price} Ft</p>
                         <p class="card-text">Mennyiség: ${item.quantity}</p>
                     </div>
