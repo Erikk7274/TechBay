@@ -49,6 +49,16 @@ async function getProducts() {
 
 function renderProducts(products) {
     row.innerHTML = '';
+
+    if (!products || products.length === 0) {
+        row.innerHTML = `
+            <div class="w-100 text-center p-5 text-white" id="noProductText">
+                <h2>Nincs elérhető termék raktáron!</h2>
+            </div>
+        `;
+        return;
+    }
+
     products.forEach(product => {
         if (!product.product_pic) {
             console.warn(`Hiányzó kép: ${product.config_name || product.config_name}`);
