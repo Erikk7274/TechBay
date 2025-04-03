@@ -425,7 +425,7 @@ nav a i {
     background-color: #7d5fbf;
 }
 
-#noProductText {
+#noProductText h2{
     color: white;
     font-weight: bold;
 }
