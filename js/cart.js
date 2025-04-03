@@ -73,7 +73,7 @@ function renderCartItems(cart) {
     return cart.map(item => {
         const price = item.price ? item.price.toLocaleString() : 'N/A';  // Ellenőrzés hozzáadása
         return `
-            <div class="card mb-3" data-id="${item.cart_item_id}">
+            <div class="card mb-3" data-id="${item.product_id}">
                 <div class="card-body">
                     <h5 class="card-title">${item.product_name}</h5>
                     <p class="card-text">Ár: ${price} Ft</p>
