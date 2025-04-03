@@ -44,7 +44,7 @@ async function loadCart() {
         console.log('Loading cart...');
         const response = await fetch('/api/cart/myCart', {
             method: 'GET',
-            credentials: 'include' // A cookie-kat is küldjük, ha szükséges
+            credentials: 'include' 
         });
 
         if (!response.ok) {
@@ -52,7 +52,7 @@ async function loadCart() {
         }
 
         const cart = await response.json();
-        console.log('Cart items:', cart);  // Itt nézd meg, mi érkezik vissza
+        console.log('Cart items:', cart);  
 
         if (Array.isArray(cart) && cart.length > 0) {
             cartItemsContainer.innerHTML = renderCartItems(cart);
@@ -70,17 +70,21 @@ async function loadCart() {
 
 // Render cart items based on the new database structure
 function renderCartItems(cart) {
-    return cart.map(item => `
-        <div class="card mb-3" data-id="${item.cart_item_id}">
-            <div class="card-body">
-                <h5 class="card-title">${item.product_name}</h5>
-                <p class="card-text">Ár: ${item.price.toLocaleString()} Ft</p>
-                <p class="card-text">Mennyiség: ${item.quantity}</p>
-                <button class="btn btn-danger btn-sm remove-item">Eltávolítás</button>
+    return cart.map(item => {
+        const price = item.price ? item.price.toLocaleString() : 'N/A';  // Ellenőrzés hozzáadása
+        return `
+            <div class="card mb-3" data-id="${item.cart_item_id}">
+                <div class="card-body">
+                    <h5 class="card-title">${item.product_name}</h5>
+                    <p class="card-text">Ár: ${price} Ft</p>
+                    <p class="card-text">Mennyiség: ${item.quantity}</p>
+                    <button class="btn btn-danger btn-sm remove-item">Eltávolítás</button>
+                </div>
             </div>
-        </div>
-    `).join('');
+        `;
+    }).join('');
 }
+
 
 // Set up event listeners for the remove buttons
 function setUpRemoveButtons() {
@@ -143,16 +147,20 @@ function setUpOrderButton() {
 function renderOrderModal(cart) {
     modalBody.innerHTML = cart.length === 0
         ? '<p class="text-center">A kosár üres</p>'
-        : cart.map(item => `
-            <div class="card mb-3">
-                <div class="card-body">
-                    <h5 class="card-title">${item.product_name}</h5>
-                    <p class="card-text">Ár: ${item.price.toLocaleString()} Ft</p>
-                    <p class="card-text">Mennyiség: ${item.quantity}</p>
+        : cart.map(item => {
+            const price = item.price ? item.price.toLocaleString() : 'N/A';  // Ellenőrzés hozzáadása
+            return `
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">${item.product_name}</h5>
+                        <p class="card-text">Ár: ${price} Ft</p>
+                        <p class="card-text">Mennyiség: ${item.quantity}</p>
+                    </div>
                 </div>
-            </div>
-        `).join('');
+            `;
+        }).join('');
 }
+
 
 function setUpButtonListeners() {
     btnBack?.addEventListener('click', () => {
