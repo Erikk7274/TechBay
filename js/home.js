@@ -43,33 +43,43 @@ function loadProducts(categoryId) {
     switch (categoryId) {
         case "1":
             getProducts();
+            console.log(categoryId);
             break;
         case "6":
             getProducts_cpu();
+            console.log(categoryId);
             break;
         case "7":
             getProducts_motherboards();
+            console.log(categoryId);
             break;
         case "8":
             getProducts_houses();
+            console.log(categoryId);
             break;
         case "9":
             getProducts_gpus();
+            console.log(categoryId);
             break;
         case "10":
             getProducts_rams();
+            console.log(categoryId);
             break;
         case "11":
             getProducts_powersupplys();
+            console.log(categoryId);
             break;
         case "12":
             getProducts_hdds();
+            console.log(categoryId);
             break;
         case "13":
             getProducts_ssds();
+            console.log(categoryId);
             break;
         case "14":
             getProducts_cpucoolers();
+            console.log(categoryId);
             break;
         default:
             console.warn("Nincs megfelelő API ehhez a kategóriához:", categoryId);
