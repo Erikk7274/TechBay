@@ -35,21 +35,24 @@ formContainer.innerHTML = `
         </div>
     </form>
 `;
-
 document.getElementById("category").addEventListener("change", (event) => {
-    if (this.value === "1") {
-        getProducts();
-        renderProducts();
-        createCard();
-        createModal();
-    }
-    if (this.value === "6") {
-        getProducts_cpu();
-        renderProducts();
-        createCard();
-        createModal();
-    }
+    const categoryId = event.target.value;
+    loadProducts(categoryId);
 });
+function loadProducts(categoryId) {
+    switch (categoryId) {
+        case "1":
+            getProducts();
+            break;
+        case "6":
+            getProducts_cpu();
+            break;
+        default:
+            console.warn("Nincs megfelelő API ehhez a kategóriához:", categoryId);
+            break;
+    }
+}
+
 
 async function getProducts() {
     try {
@@ -59,7 +62,6 @@ async function getProducts() {
         });
         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
         const products = await response.json();
-
         renderProducts(products);
     } catch (error) {
         console.error('Hiba a termékek lekérésekor:', error);
@@ -67,21 +69,20 @@ async function getProducts() {
 }
 async function getProducts_cpu() {
     try {
-        const response = await fetch(`/api/getProducts/getProducts_cpus`, {
+        const response = await fetch(`/api/getProducts/getProducts_cpu`, {
             method: 'GET',
             credentials: 'include'
         });
         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
         const products = await response.json();
-
         renderProducts(products);
     } catch (error) {
-        console.error('Hiba a termékek lekérésekor:', error);
+        console.error('Hiba a CPU termékek lekérésekor:', error);
     }
 }
 
 function renderProducts(products) {
-    row.innerHTML = '';
+    row.innerHTML = ''; // Clear previous products
     products.forEach(product => {
         const cardDiv = createCard(product);
         row.append(cardDiv);
@@ -176,19 +177,11 @@ btnLogout.addEventListener('click', async () => {
     }
 });
 
-btnPreBuilt.addEventListener('click', async () => {
-    if (btnPreBuilt) {
-        window.location.href = '../preBuilt.html';
-    } else {
-        alert('A gomb nem található');
-    }
+document.getElementById("btnPreBuilt").addEventListener('click', () => {
+    window.location.href = '../preBuilt.html';
 });
 
-btnPcBuilding.addEventListener('click', async () => {
-    if (btnPreBuilt) {
-        window.location.href = '../pcBuilding.html';
-    } else {
-        alert('A gomb nem található');
-    }
+document.getElementById("btnPcBuilding").addEventListener('click', () => {
+    window.location.href = '../pcBuilding.html';
 });
 
