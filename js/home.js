@@ -177,11 +177,19 @@ btnLogout.addEventListener('click', async () => {
     }
 });
 
-document.getElementById("btnPreBuilt").addEventListener('click', () => {
-    window.location.href = '../preBuilt.html';
+btnPreBuilt.addEventListener('click', async () => {
+    if (btnPreBuilt) {
+        window.location.href = '../preBuilt.html';
+    } else {
+        alert('A gomb nem található');
+    }
 });
 
-document.getElementById("btnPcBuilding").addEventListener('click', () => {
-    window.location.href = '../pcBuilding.html';
+btnPcBuilding.addEventListener('click', async () => {
+    if (btnPreBuilt) {
+        window.location.href = '../pcBuilding.html';
+    } else {
+        alert('A gomb nem található');
+    }
 });
 
