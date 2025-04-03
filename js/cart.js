@@ -150,11 +150,11 @@ function renderOrderModal(cart) {
     modalBody.innerHTML = cart.length === 0
         ? '<p class="text-center">A kosár üres</p>'
         : cart.map(item => {
-            const price = item.price ? item.price.toLocaleString() : 'N/A';  // Ellenőrzés hozzáadása
+            const price = item.price ? item.price.toLocaleString() : 'N/A'; 
             return `
                 <div class="card mb-3">
                     <div class="card-body">
-                        <h5 class="card-title">${item.product_name||item.config_name}</h5>
+                        <h5 class="card-title">${item.product_name}</h5>
                         <p class="card-text">Ár: ${price} Ft</p>
                         <p class="card-text">Mennyiség: ${item.quantity}</p>
                     </div>
