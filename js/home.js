@@ -12,10 +12,7 @@ const btnLogout = document.getElementsByClassName('icon-logout')[0];
 const row = document.getElementById('row');
 const formContainer = document.getElementById('formContainer');
 
-// Termékek lekérése
-
-
-// Kategória kiválasztása
+// Kategória kiválasztása formcontainer
 formContainer.innerHTML = `
     <form id="categoryForm" class="container mt-4 p-4 border rounded bg-light shadow-lg">
         <div class="mb-3">
@@ -39,6 +36,7 @@ document.getElementById("category").addEventListener("change", (event) => {
     const categoryId = event.target.value;
     loadProducts(categoryId);
 });
+//switch a kategoria kivalasztasara
 function loadProducts(categoryId) {
     switch (categoryId) {
         case "1":
@@ -86,6 +84,8 @@ function loadProducts(categoryId) {
             break;
     }
 }
+
+
 
 
 async function getProducts() {
@@ -219,14 +219,29 @@ async function getProducts_cpucoolers() {
     }
 }
 
+
+
+
 function renderProducts(products) {
-    row.innerHTML = ''; // Clear previous products
+    row.innerHTML = ''; // ez törli a tartalmat
+
+    if (!products || products.length === 0) {
+        row.innerHTML = `
+            <div class="w-100 text-center p-5">
+                <h2 class="text-muted">Nincs elérhető termék raktáron!</h2>
+            </div>
+        `;
+        return;
+    }
+
     products.forEach(product => {
         const cardDiv = createCard(product);
         row.append(cardDiv);
         createModal(product);
     });
 }
+
+
 
 function createCard(product) {
     const cardDiv = document.createElement('div');
@@ -288,6 +303,9 @@ function createModal(product) {
 
     modalDiv.querySelector('.add-to-cart-btn').addEventListener('click', () => addToCart(product.product_id));
 }
+
+
+
 async function addToCart(productId) {
     try {
         const response = await fetch('/api/cart/takeProduct', {
@@ -302,6 +320,9 @@ async function addToCart(productId) {
         console.error('Hiba a kosárba helyezéskor:', error);
     }
 }
+
+
+
 
 btnLogout.addEventListener('click', async () => {
     const res = await fetch('/api/auth/logout', { method: 'POST', credentials: 'include' });
