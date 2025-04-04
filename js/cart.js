@@ -71,23 +71,23 @@ async function loadCart() {
 // Render cart items based on the new database structure
 function renderCartItems(cart) {
     return cart.map(item => {
-        const price = item.price || item.pc_price;
+        const price = item.price||item.pc_price;
         return `
-            <div class="card mb-3" data-id="${item.cart_item_id}"> <!-- Ezt ellenőrizd! -->
+            <div class="card mb-3" data-id="${item.product_id||item.pc_id}">
                 <div class="card-body">
                     <h5 class="card-title">${item.product_name || item.pc_name}</h5>
-                    <p class="card-text">Ár: ${price} Ft</p>
-                    <label for="quantity-${item.cart_item_id}">Mennyiség:</label>
-                    <select id="quantity-${item.cart_item_id}" class="form-select quantity-select">
+                    <p class="card-text">Ár: ${price||pc_price} Ft</p>
+                    <label for="quantity-${item.product_id||item.pc_id}">Mennyiség:</label>
+                    <select id="quantity-${item.product_id||item.pc_id}" class="form-select quantity-select">
                         ${generateQuantityOptions(item.quantity)}
                     </select>
+                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-${item.product_id||item.pc_id}">Részletek</button>
                     <button class="btn btn-danger btn-sm remove-item">Eltávolítás</button>
                 </div>
             </div>
         `;
     }).join('');
 }
-
 
 
 
@@ -115,7 +115,7 @@ async function removeItemFromCart(cart_item_id) {
     try {
         console.log("Törlendő termék ID:", cart_item_id); 
 
-        const response = await fetch(`/api/cart/removeProduct/${cart_item_id}`, {
+        const response = await fetch(`/api/cart/removeProduct/:${cart_item_id}`, {
             method: 'DELETE',
             credentials: 'include'
         });
