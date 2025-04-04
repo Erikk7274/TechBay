@@ -123,7 +123,7 @@ async function removeItemFromCart(cart_item_id) {
         }
 
         console.log(`Item with ID ${cart_item_id} removed. API Response:`, responseData);
-        location.reload();
+        init();
         // Kosár frissítése hibák kezelése után
         if (response.ok) {
             await loadCart();  // Itt frissítjük a kosarat a termék törlése után
