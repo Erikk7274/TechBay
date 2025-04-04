@@ -113,23 +113,27 @@ function setUpRemoveButtons() {
 
 async function removeItemFromCart(cart_item_id) {  
     try {
-        console.log("Törlendő termék ID:", cart_item_id);
+        console.log("Törlendő termék ID:", cart_item_id); 
+
         const response = await fetch(`/api/cart/removeProduct/${cart_item_id}`, {
             method: 'DELETE',
             credentials: 'include'
         });
 
+        const responseData = await response.json(); // API válasz kiolvasása
+
         if (!response.ok) {
-            throw new Error('Failed to remove item from cart');
+            throw new Error(`Hiba: ${response.status} - ${responseData.message || 'Ismeretlen hiba'}`);
         }
 
-        console.log(`Item with ID ${cart_item_id} removed.`);
+        console.log(`Item with ID ${cart_item_id} removed. API Response:`, responseData);
         await loadCart();
     } catch (error) {
         console.error('Error removing item from cart:', error);
-        alert('Hiba a termék eltávolításakor.');
+        alert(`Hiba a termék eltávolításakor: ${error.message}`);
     }
 }
+
 
 
 function setUpOrderButton() {
