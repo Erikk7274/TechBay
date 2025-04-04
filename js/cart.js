@@ -88,6 +88,10 @@ function renderCartItems(cart) {
     }).join('');
 }
 
+
+
+
+
 function generateQuantityOptions(selectedQuantity) {
     let options = "";
     for (let i = 1; i <= 99; i++) {
