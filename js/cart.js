@@ -124,9 +124,12 @@ async function removeItemFromCart(cart_item_id) {
 
         console.log(`Item with ID ${cart_item_id} removed. API Response:`, responseData);
         
-        // Kosár frissítése hibák kezelése után
-        if (response.ok) {
-            await loadCart();  // Itt frissítjük a kosarat a termék törlése után
+        await loadCart(); // Biztosítjuk, hogy frissül a kosár
+
+        // A terméket a DOM-ból is eltávolítjuk
+        const itemCard = document.querySelector(`[cart-item-id="${cart_item_id}"]`);
+        if (itemCard) {
+            itemCard.remove();  // Eltávolítjuk a DOM-ból a törölt elemet
         }
 
     } catch (error) {
