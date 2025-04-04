@@ -73,12 +73,12 @@ function renderCartItems(cart) {
     return cart.map(item => {
         const price = item.price ? item.price.toLocaleString() : 'N/A';
         return `
-            <div class="card mb-3" data-id="${item.product_id}">
+            <div class="card mb-3" data-id="${item.product_id||item.pc_id}">
                 <div class="card-body">
                     <h5 class="card-title">${item.product_name || item.pc_name}</h5>
                     <p class="card-text">Ár: ${price} Ft</p>
-                    <label for="quantity-${item.product_id}">Mennyiség:</label>
-                    <select id="quantity-${item.product_id}" class="form-select quantity-select">
+                    <label for="quantity-${item.product_id||item.pc_id}">Mennyiség:</label>
+                    <select id="quantity-${item.product_id||item.pc_id}" class="form-select quantity-select">
                         ${generateQuantityOptions(item.quantity)}
                     </select>
                     <button class="btn btn-danger btn-sm remove-item">Eltávolítás</button>
