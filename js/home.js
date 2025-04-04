@@ -300,7 +300,7 @@ function createModal(product) {
     document.body.appendChild(modalDiv);
 
     modalDiv.querySelector('.add-to-cart-btn').addEventListener('click', () => addToCart(product.product_id));
-}
+} 
 
 
 

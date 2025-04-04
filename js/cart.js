@@ -73,11 +73,14 @@ function renderCartItems(cart) {
     return cart.map(item => {
         const price = item.price ? item.price.toLocaleString() : 'N/A';
         return `
-            <div class="card mb-3" data-id="${item.product_id}">  <!-- Changed cart_item_id to product_id -->
+            <div class="card mb-3" data-id="${item.product_id}">
                 <div class="card-body">
                     <h5 class="card-title">${item.product_name}</h5>
                     <p class="card-text">Ár: ${price} Ft</p>
-                    <p class="card-text">Mennyiség: ${item.quantity}</p>
+                    <label for="quantity-${item.product_id}">Mennyiség:</label>
+                    <select id="quantity-${item.product_id}" class="form-select quantity-select">
+                        ${generateQuantityOptions(item.quantity)}
+                    </select>
                     <button class="btn btn-danger btn-sm remove-item">Eltávolítás</button>
                 </div>
             </div>
@@ -85,7 +88,13 @@ function renderCartItems(cart) {
     }).join('');
 }
 
-
+function generateQuantityOptions(selectedQuantity) {
+    let options = "";
+    for (let i = 1; i <= 99; i++) {
+        options += `<option value="${i}" ${i === selectedQuantity ? 'selected' : ''}>${i}</option>`;
+    }
+    return options;
+}
 
 // Set up event listeners for the remove buttons
 function setUpRemoveButtons() {
