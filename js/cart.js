@@ -48,9 +48,6 @@ async function loadCart() {
             credentials: 'include' 
         });
 
-        if (!response.ok) {
-            throw new Error(`Failed to fetch cart: ${response.status} ${response.statusText}`);
-        }
 
         const cart = await response.json();
         console.log('Cart items:', cart);  
