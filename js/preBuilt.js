@@ -117,7 +117,7 @@ function createModal(product) {
                 <div class="modal-body text-center">
                     <img src="/api/uploads/${product.pc_pic}" alt="${product.pc_name}" class="img-fluid mb-3">
                     <p><strong>Raktáron:</strong> ${product.in_stock}</p>
-                    <p><strong>Ár:</strong> ${product.pc_price ? `${product.pc_pc_price} Ft` : 'N/A'}</p>
+                    <p><strong>Ár:</strong> ${product.pc_price ? `${product.pc_price} Ft` : 'N/A'}</p>
                     <p><strong>Leírás:</strong><br> ${product.pc_description}</p>
                 </div>
                 <div class="modal-footer">
