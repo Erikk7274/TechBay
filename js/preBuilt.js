@@ -75,11 +75,11 @@ function createCard(product) {
     cardDiv.classList.add('card', 'm-3', 'p-2', 'shadow-sm');
     cardDiv.style.width = '18rem';
 
-    let priceHtml = product.sale && product.sale < product.price
-        ? `<span class="d-block mb-2" style="text-decoration: line-through;">Ár: ${product.price} Ft</span>`
-        : `<span class="d-block mb-2">Ár: ${product.price ? product.price + ' Ft' : 'N/A'}</span>`;
+    let pc_priceHtml = product.sale && product.sale < product.pc_price
+        ? `<span class="d-block mb-2" style="text-decoration: line-through;">Ár: ${product.pc_price} Ft</span>`
+        : `<span class="d-block mb-2">Ár: ${product.pc_price ? product.pc_price + ' Ft' : 'N/A'}</span>`;
 
-    let saleHtml = product.sale && product.sale < product.price
+    let saleHtml = product.sale && product.sale < product.pc_price
         ? `<span class="d-block mb-2">Akciós ár: ${product.sale} Ft</span>`
         : '';
     cardDiv.innerHTML = `
@@ -89,7 +89,7 @@ function createCard(product) {
         </div>
         <div class="card-footer text-center">
             <span class="d-block mb-2">Raktáron: ${product.in_stock}</span>
-            <span class="d-block mb-2">Ár: ${product.price ? product.price + ' Ft' : 'N/A'}</span>
+            <span class="d-block mb-2">Ár: ${product.pc_price ? product.pc_price + ' Ft' : 'N/A'}</span>
 
             <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-${product.pc_id}">Részletek</button>
         </div>
@@ -117,7 +117,7 @@ function createModal(product) {
                 <div class="modal-body text-center">
                     <img src="/api/uploads/${product.pc_pic}" alt="${product.pc_name}" class="img-fluid mb-3">
                     <p><strong>Raktáron:</strong> ${product.in_stock}</p>
-                    <p><strong>Ár:</strong> ${product.price ? `${product.price} Ft` : 'N/A'}</p>
+                    <p><strong>Ár:</strong> ${product.pc_price ? `${product.pc_pc_price} Ft` : 'N/A'}</p>
                     <p><strong>Leírás:</strong><br> ${product.pc_description}</p>
                 </div>
                 <div class="modal-footer">
