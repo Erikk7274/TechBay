@@ -113,6 +113,7 @@ function setUpRemoveButtons() {
 
 async function removeItemFromCart(cart_item_id) {  
     try {
+        console.log("Törlendő termék ID:", cart_item_id);
         const response = await fetch(`/api/cart/removeProduct/${cart_item_id}`, {
             method: 'DELETE',
             credentials: 'include'
