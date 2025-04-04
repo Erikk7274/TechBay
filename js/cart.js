@@ -111,9 +111,9 @@ function setUpRemoveButtons() {
     });
 }
 
-async function removeItemFromCart(productId) {  // Changed cartItemId to productId
+async function removeItemFromCart(cart_item_id) {  
     try {
-        const response = await fetch(`/api/cart/removeProduct/${productId}`, {
+        const response = await fetch(`/api/cart/removeProduct/${cart_item_id}`, {
             method: 'DELETE',
             credentials: 'include'
         });
@@ -122,7 +122,7 @@ async function removeItemFromCart(productId) {  // Changed cartItemId to product
             throw new Error('Failed to remove item from cart');
         }
 
-        console.log(`Item with ID ${productId} removed.`);
+        console.log(`Item with ID ${cart_item_id} removed.`);
         await loadCart();
     } catch (error) {
         console.error('Error removing item from cart:', error);
