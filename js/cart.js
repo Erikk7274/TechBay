@@ -71,7 +71,7 @@ async function loadCart() {
 // Render cart items based on the new database structure
 function renderCartItems(cart) {
     return cart.map(item => {
-        const price = item.price||item.pc_price ? item.price.toLocaleString() : 'N/A';
+        const price = item.price||item.pc_price;
         return `
             <div class="card mb-3" data-id="${item.product_id||item.pc_id}">
                 <div class="card-body">
