@@ -123,14 +123,18 @@ async function removeItemFromCart(cart_item_id) {
         }
 
         console.log(`Item with ID ${cart_item_id} removed. API Response:`, responseData);
-        await loadCart();
+        
+        // Kosár frissítése hibák kezelése után
+        if (response.ok) {
+            await loadCart();  // Itt frissítjük a kosarat a termék törlése után
+        }
 
-        location.reload();
     } catch (error) {
         console.error('Error removing item from cart:', error);
         alert(`Hiba a termék eltávolításakor: ${error.message}`);
     }
 }
+
 
 
 
