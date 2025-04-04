@@ -30,6 +30,7 @@ async function logout() {
 
             alert('Sikeres kijelentkezés');
             window.location.href = '../index.html';
+            location.reload();
         } else {
             throw new Error('Hiba a kijelentkezéskor');
         }
