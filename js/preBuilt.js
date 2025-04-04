@@ -62,7 +62,7 @@ function renderProducts(products) {
 
     products.forEach(product => {
         if (!product.product_pic) {
-            console.warn(`Hiányzó kép: ${product.config_name || product.config_name}`);
+            console.warn(`Hiányzó kép: ${product.pc_name || product.pc_name}`);
         }
         const cardDiv = createCard(product);
         row.append(cardDiv);
@@ -83,9 +83,9 @@ function createCard(product) {
         ? `<span class="d-block mb-2">Akciós ár: ${product.sale} Ft</span>`
         : '';
     cardDiv.innerHTML = `
-        <div class="card-header text-center fw-bold">${product.config_name || product.product_name}</div>
+        <div class="card-header text-center fw-bold">${product.pc_name || product.product_name}</div>
         <div class="card-body text-center">
-            <img src="/api/uploads/${product.config_pic}" class="img-fluid mb-3" alt="${product.config_name || product.config_name}">
+            <img src="/api/uploads/${product.pc_pic}" class="img-fluid mb-3" alt="${product.pc_name || product.pc_name}">
         </div>
         <div class="card-footer text-center">
             <span class="d-block mb-2">Raktáron: ${product.in_stock}</span>
@@ -111,17 +111,17 @@ function createModal(product) {
         <div class="modal-dialog modal-lg" style="max-width:500px">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalLabel-${product.pc_id}">${product.config_name || product.config_name}</h5>
+                    <h5 class="modal-title" id="modalLabel-${product.pc_id}">${product.pc_name}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
-                    <img src="/api/uploads/${product.config_pic}" alt="${product.config_name || product.config_name}" class="img-fluid mb-3">
+                    <img src="/api/uploads/${product.pc_pic}" alt="${product.pc_name}" class="img-fluid mb-3">
                     <p><strong>Raktáron:</strong> ${product.in_stock}</p>
                     <p><strong>Ár:</strong> ${product.price ? `${product.price} Ft` : 'N/A'}</p>
-                    <p><strong>Leírás:</strong><br> ${product.description}</p>
+                    <p><strong>Leírás:</strong><br> ${product.pc_description}</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary add-to-cart-btn" data-product-id="${product.config_id}" data-bs-dismiss="modal">Kosárba</button>
+                    <button type="button" class="btn btn-primary add-to-cart-btn" data-product-id="${product.pc_id}" data-bs-dismiss="modal">Kosárba</button>
                 </div>
             </div>
         </div>
