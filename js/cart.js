@@ -81,6 +81,7 @@ function renderCartItems(cart) {
                     <select id="quantity-${item.product_id||item.pc_id}" class="form-select quantity-select">
                         ${generateQuantityOptions(item.quantity)}
                     </select>
+                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-${item.product_id||item.pc_id}">Részletek</button>
                     <button class="btn btn-danger btn-sm remove-item">Eltávolítás</button>
                 </div>
             </div>
