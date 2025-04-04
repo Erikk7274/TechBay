@@ -71,12 +71,12 @@ async function loadCart() {
 // Render cart items based on the new database structure
 function renderCartItems(cart) {
     return cart.map(item => {
-        const price = item.price ? item.price.toLocaleString() : 'N/A';
+        const price = item.price||item.pc_price ? item.price.toLocaleString() : 'N/A';
         return `
             <div class="card mb-3" data-id="${item.product_id||item.pc_id}">
                 <div class="card-body">
                     <h5 class="card-title">${item.product_name || item.pc_name}</h5>
-                    <p class="card-text">Ár: ${price} Ft</p>
+                    <p class="card-text">Ár: ${price||pc_price} Ft</p>
                     <label for="quantity-${item.product_id||item.pc_id}">Mennyiség:</label>
                     <select id="quantity-${item.product_id||item.pc_id}" class="form-select quantity-select">
                         ${generateQuantityOptions(item.quantity)}
@@ -171,6 +171,41 @@ function renderOrderModal(cart) {
             `;
         }).join('');
 }
+
+// function createModal(product) {
+
+//     const modalDiv = document.createElement('div');
+//     modalDiv.classList.add('modal', 'fade');
+//     modalDiv.id = `modal-${product.product_id}`;
+//     modalDiv.setAttribute('tabindex', '-1');
+//     modalDiv.setAttribute('aria-labelledby', `modalLabel-${product.product_id}`);
+//     modalDiv.setAttribute('aria-hidden', 'true');
+
+//     modalDiv.innerHTML = `
+//         <div class="modal-dialog modal-lg" style="max-width:500px">
+//             <div class="modal-content">
+//                 <div class="modal-header">
+//                     <h5 class="modal-title" id="modalLabel-${product.product_id}">${product.product_name || product.product_name}</h5>
+//                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+//                 </div>
+//                 <div class="modal-body text-center">
+//                     <img src="/api/uploads/${product.product_pic}" alt="${product.product_name || product.product_name}" class="img-fluid mb-3">
+//                     <p><strong>Raktáron:</strong> ${product.in_stock}</p>
+//                     <p><strong>Ár:</strong> ${product.price ? `${product.price} Ft` : 'N/A'}</p>
+//                     <p><strong>Leírás:</strong><br> ${product.product_description}</p>
+//                 </div>
+//                 <div class="modal-footer">
+//                     <button type="button" class="btn btn-primary add-to-cart-btn" data-product-id="${product.product_id}" data-bs-dismiss="modal">Kosárba</button>
+//                 </div>
+//             </div>
+//         </div>
+//     `;
+
+//     document.body.appendChild(modalDiv);
+
+//     modalDiv.querySelector('.add-to-cart-btn').addEventListener('click', () => addToCart(product.product_id));
+// } 
+
 
 
 function setUpButtonListeners() {
