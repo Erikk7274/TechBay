@@ -72,27 +72,23 @@ async function loadCart() {
 function renderCartItems(cart) {
     return cart.map(item => {
         console.log(item);
-        const price = item.price||item.pc_price;
+        const price = item.price || item.pc_price;
         return `
-            <div class="card mb-3" data-id="${item.product_id ?? item.pc_id ?? 'hiba'}">
+            <div class="card mb-3" cart-item-id="${item.cart_item_id}" data-id="${item.product_id ?? item.pc_id ?? 'hiba'}">
                 <div class="card-body">
                     <h5 class="card-title">${item.product_name || item.pc_name}</h5>
-                    <p class="card-text">Ár: ${price||pc_price} Ft</p>
-                    <label for="quantity-${item.product_id||item.pc_id}">Mennyiség:</label>
-                    <select id="quantity-${item.product_id||item.pc_id}" class="form-select quantity-select">
+                    <p class="card-text">Ár: ${price || pc_price} Ft</p>
+                    <label for="quantity-${item.product_id || item.pc_id}">Mennyiség:</label>
+                    <select id="quantity-${item.product_id || item.pc_id}" class="form-select quantity-select">
                         ${generateQuantityOptions(item.quantity)}
                     </select>
-                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-${item.product_id||item.pc_id}">Részletek</button>
+                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-${item.product_id || item.pc_id}">Részletek</button>
                     <button class="btn btn-danger btn-sm remove-item">Eltávolítás</button>
                 </div>
             </div>
         `;
     }).join('');
 }
-
-
-
-
 
 function generateQuantityOptions(selectedQuantity) {
     let options = "";
@@ -106,7 +102,7 @@ function generateQuantityOptions(selectedQuantity) {
 function setUpRemoveButtons() {
     document.querySelectorAll('.remove-item').forEach(button => {
         button.addEventListener('click', async (event) => {
-            const cartItemId = event.target.closest('.card').dataset.id;
+            const cartItemId = event.target.closest('.card').getAttribute('cart-item-id');  // Get the cart-item-id
             await removeItemFromCart(cartItemId);
         });
     });
