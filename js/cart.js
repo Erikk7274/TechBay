@@ -104,7 +104,6 @@ function setUpRemoveButtons() {
         button.addEventListener('click', async (event) => {
             const cartItemId = event.target.closest('.card').getAttribute('cart-item-id');  // Get the cart-item-id
             await removeItemFromCart(cartItemId);
-            location.reload();
 
         });
     });
@@ -127,6 +126,8 @@ async function removeItemFromCart(cart_item_id) {
 
         console.log(`Item with ID ${cart_item_id} removed. API Response:`, responseData);
         await loadCart();
+
+        location.reload();
     } catch (error) {
         console.error('Error removing item from cart:', error);
         alert(`Hiba a termék eltávolításakor: ${error.message}`);
