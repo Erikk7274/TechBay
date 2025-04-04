@@ -125,12 +125,7 @@ async function removeItemFromCart(cart_item_id) {
         console.log(`Item with ID ${cart_item_id} removed. API Response:`, responseData);
         
         await loadCart(); // Biztosítjuk, hogy frissül a kosár
-
-        // A terméket a DOM-ból is eltávolítjuk
-        const itemCard = document.querySelector(`[cart-item-id="${cart_item_id}"]`);
-        if (itemCard) {
-            itemCard.remove();  // Eltávolítjuk a DOM-ból a törölt elemet
-        }
+        //gyula egy kurva
 
     } catch (error) {
         console.error('Error removing item from cart:', error);
