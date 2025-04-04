@@ -104,7 +104,7 @@ function setUpRemoveButtons() {
         button.addEventListener('click', async (event) => {
             const cartItemId = event.target.closest('.card').getAttribute('cart-item-id');  // Get the cart-item-id
             await removeItemFromCart(cartItemId);
-            location.reload(true);
+            location.reload();
 
         });
     });
