@@ -75,7 +75,7 @@ function renderCartItems(cart) {
         return `
             <div class="card mb-3" data-id="${item.product_id}">
                 <div class="card-body">
-                    <h5 class="card-title">${item.product_name}</h5>
+                    <h5 class="card-title">${item.product_name || item.pc_name}</h5>
                     <p class="card-text">Ár: ${price} Ft</p>
                     <label for="quantity-${item.product_id}">Mennyiség:</label>
                     <select id="quantity-${item.product_id}" class="form-select quantity-select">
@@ -163,7 +163,7 @@ function renderOrderModal(cart) {
             return `
                 <div class="card mb-3">
                     <div class="card-body">
-                        <h5 class="card-title">${item.product_name}</h5>
+                        <h5 class="card-title">${item.product_name || item.pc_name}</h5>
                         <p class="card-text">Ár: ${price} Ft</p>
                         <p class="card-text">Mennyiség: ${item.quantity}</p>
                     </div>
