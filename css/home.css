@@ -432,3 +432,6 @@ nav a i {
     font-weight: bold;
 }
 
+.quantity-select{
+    max-width: 5px;
+}
