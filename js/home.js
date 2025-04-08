@@ -289,6 +289,10 @@ function createModal(product) {
                     <p><strong>Raktáron:</strong> ${product.in_stock}</p>
                     <p><strong>Ár:</strong> ${product.price ? `${product.price} Ft` : 'N/A'}</p>
                     <p><strong>Leírás:</strong><br> ${product.description}</p>
+                    <label for="quantity-${item.product_id || item.pc_id}">Mennyiség:</label>
+                    <select id="quantity-${item.product_id || item.pc_id}" class="form-select quantity-select">
+                        ${generateQuantityOptions(item.quantity)}
+                    </select>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary add-to-cart-btn" data-product-id="${product.product_id}" data-bs-dismiss="modal">Kosárba</button>
@@ -302,6 +306,13 @@ function createModal(product) {
     modalDiv.querySelector('.add-to-cart-btn').addEventListener('click', () => addToCart(product.product_id));
 } 
 
+function generateQuantityOptions(selectedQuantity) {
+    let options = "";
+    for (let i = 1; i <= 99; i++) {
+        options += `<option value="${i}" ${i === selectedQuantity ? 'selected' : ''}>${i}</option>`;
+    }
+    return options;
+}
 
 
 async function addToCart(productId) {
