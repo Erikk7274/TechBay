@@ -150,6 +150,7 @@ async function removeItemFromCart(cart_item_id) {
 
 
 
+
 function setUpOrderButton() {
     if (orderBtn) {
         orderBtn.addEventListener('click', async () => {
