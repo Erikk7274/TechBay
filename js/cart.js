@@ -58,6 +58,7 @@ async function loadCart() {
         } else {
             cartItemsContainer.innerHTML = '<p class="text-center">A kosár üres</p>';
         }
+        fullprice(cart);
     } catch (error) {
         console.error('Error loading cart:', error);
         cartItemsContainer.innerHTML = `<p class="text-center">Hiba a kosár betöltésekor: ${error.message}</p>`;
