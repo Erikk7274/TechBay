@@ -109,29 +109,35 @@ function setUpRemoveButtons() {
 
 async function removeItemFromCart(cart_item_id) {  
     try {
-        console.log("Törlendő termék ID:", cart_item_id); 
+        console.log("Törlendő termék ID:", cart_item_id);
 
         const response = await fetch(`/api/cart/removeProduct/${cart_item_id}`, {
             method: 'DELETE',
             credentials: 'include'
         });
 
-        const responseData = await response.json(); 
+        const responseData = await response.json();
 
         if (!response.ok) {
             throw new Error(`Hiba: ${response.status} - ${responseData.message || 'Ismeretlen hiba'}`);
         }
 
         console.log(`Item with ID ${cart_item_id} removed. API Response:`, responseData);
-        
-        await loadCart(); // Biztosítjuk, hogy frissül a kosár
-        //gyula egy kurva
+
+        // Ellenőrizzük, hogy az eltávolított elem volt-e az utolsó a kosárban
+        const cartItems = document.querySelectorAll('.card[cart-item-id]');
+        if (cartItems.length === 1) { // Ha csak egy elem volt, ami most törlődik
+            cartItemsContainer.innerHTML = '<p class="text-center">A kosár üres</p>';
+        } else {
+            await loadCart(); // Ha marad más elem, akkor újratöltjük a kosarat
+        }
 
     } catch (error) {
         console.error('Error removing item from cart:', error);
         alert(`Hiba a termék eltávolításakor: ${error.message}`);
     }
 }
+
 
 
 
