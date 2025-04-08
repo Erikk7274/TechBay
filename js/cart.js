@@ -109,19 +109,24 @@ function setUpRemoveButtons() {
 
 async function removeItemFromCart(cart_item_id) {  
     try {
-        console.log("Törlendő termék ID:", cart_item_id);
+        console.log(`Törlendő termék ID: ${cart_item_id}`);
+
+        // Fetch előtti log
+        console.log(`Küldött DELETE request: /api/cart/removeProduct/${cart_item_id}`);
 
         const response = await fetch(`/api/cart/removeProduct/${cart_item_id}`, {
             method: 'DELETE',
             credentials: 'include'
         });
 
+        console.log(`Response status: ${response.status}`);
+
         if (!response.ok) {
             throw new Error(`Hiba: ${response.status} - ${response.statusText}`);
         }
 
         const responseData = await response.json();
-        console.log(`Item with ID ${cart_item_id} removed. API Response:`, responseData);
+        console.log(`Item removed. API Response:`, responseData);
 
         // Ellenőrizzük, hogy az eltávolított elem volt-e az utolsó a kosárban
         const cartItems = document.querySelectorAll('.card[cart-item-id]');
@@ -132,15 +137,21 @@ async function removeItemFromCart(cart_item_id) {
         }
 
     } catch (error) {
-        console.error('Error removing item from cart:', error);
+        console.error('Hiba a törlés során:', error);
         alert(`Hiba a termék eltávolításakor: ${error.message}`);
 
-        // Ha a hiba egy hálózati hiba, újratöltjük az oldalt
+        // **Új kosárbetöltés sikertelen törlés után**
+        console.log("Újratöltjük a kosár tartalmát...");
+        await loadCart();
+
+        // Ha továbbra is gond van, frissítjük az oldalt
         if (error.message.includes("Failed to fetch")) {
-            location.reload();
+            console.log("Hálózati hiba észlelve, újratöltés...");
+            setTimeout(() => location.reload(), 1000); // Egy kis késleltetés után reload
         }
     }
 }
+
 
 
 
