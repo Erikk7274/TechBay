@@ -328,12 +328,12 @@ function generateQuantityOptions(maxQuantity) {
 
 
 
-async function addToCart(productId) {
+async function addToCart(productId, quantity) {
     try {
         const response = await fetch(`/api/cart/takeProduct/${productId}`, {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({ productId, quantity }),
+            body: JSON.stringify({ productId, quantity }),  
             credentials: 'include',
         });
         const result = await response.json();
@@ -342,6 +342,7 @@ async function addToCart(productId) {
         console.error('Hiba a kosárba helyezéskor:', error);
     }
 }
+
 
 
 
