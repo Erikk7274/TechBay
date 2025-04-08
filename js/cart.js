@@ -80,7 +80,6 @@ function renderCartItems(cart) {
                     <select id="quantity-${item.product_id || item.pc_id}" class="form-select quantity-select">
                         ${generateQuantityOptions(item.quantity)}
                     </select>
-                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-${item.product_id || item.pc_id}">Részletek</button>
                     <button class="btn btn-danger btn-sm remove-item">Eltávolítás</button>
                 </div>
             </div>
@@ -100,7 +99,7 @@ function generateQuantityOptions(selectedQuantity) {
 function setUpRemoveButtons() {
     document.querySelectorAll('.remove-item').forEach(button => {
         button.addEventListener('click', async (event) => {
-            const cartItemId = event.target.closest('.card').getAttribute('cart-item-id');  // Get the cart-item-id
+            const cartItemId = event.target.closest('.card').getAttribute('cart-item-id');  
             await removeItemFromCart(cartItemId);
 
         });
@@ -111,7 +110,6 @@ async function removeItemFromCart(cart_item_id) {
     try {
         console.log(`Törlendő termék ID: ${cart_item_id}`);
 
-        // Fetch előtti log
         console.log(`Küldött DELETE request: /api/cart/removeProduct/${cart_item_id}`);
 
         const response = await fetch(`/api/cart/removeProduct/${cart_item_id}`, {
@@ -128,12 +126,12 @@ async function removeItemFromCart(cart_item_id) {
         const responseData = await response.json();
         console.log(`Item removed. API Response:`, responseData);
 
-        // Ellenőrizzük, hogy az eltávolított elem volt-e az utolsó a kosárban
+       
         const cartItems = document.querySelectorAll('.card[cart-item-id]');
         if (cartItems.length === 0) {
             cartItemsContainer.innerHTML = '<p class="text-center">A kosár üres</p>';
         } else {
-            // Ha még van termék, frissítjük a kosár listát
+           
             await loadCart();
         }
 
@@ -141,14 +139,14 @@ async function removeItemFromCart(cart_item_id) {
         console.error('Hiba a törlés során:', error);
         alert(`Hiba a termék eltávolításakor: ${error.message}`);
 
-        // **Új kosárbetöltés sikertelen törlés után**
+        
         console.log("Újratöltjük a kosár tartalmát...");
         await loadCart();
 
-        // Ha továbbra is gond van, frissítjük az oldalt
+      
         if (error.message.includes("Failed to fetch")) {
             console.log("Hálózati hiba észlelve, újratöltés...");
-            setTimeout(() => location.reload(), 1000); // Egy kis késleltetés után reload
+            setTimeout(() => location.reload(), 1000);
         }
     }
 }
@@ -240,7 +238,28 @@ function renderOrderModal(cart) {
 //     modalDiv.querySelector('.add-to-cart-btn').addEventListener('click', () => addToCart(product.product_id));
 // } 
 
+async function fullprice(cart) {
+    try {
+        const response = await fetch('/api/cart/sumPrice', {
+            method: 'GET',
+            credentials: 'include'
+        });
 
+        if (!response.ok) {
+            throw new Error('Failed to fetch final price');
+        }
+
+        const data = await response.json();
+        const totalPrice = data.totalPrice || 0;
+
+        modalBody.innerHTML = `
+            <p class="text-center">Végleges ár: ${totalPrice.toLocaleString()} Ft</p>
+        `;
+    } catch (error) {
+        console.error('Error fetching final price:', error);
+        modalBody.innerHTML = `<p class="text-center">Hiba a végleges ár betöltésekor: ${error.message}</p>`;
+    }
+}
 
 function setUpButtonListeners() {
     btnBack?.addEventListener('click', () => {
