@@ -48,26 +48,23 @@ async function loadCart() {
             credentials: 'include' 
         });
 
-
         const cart = await response.json();
         console.log('Cart items:', cart);  
 
-        if (!cart || Object.keys(cart).length === 0) {
-            // Ha a válasz üres objektum, vagy null, akkor üres kosarat jelenítünk meg
+        if (!Array.isArray(cart) || cart.length === 0) {
+            // Ha üres a kosár (üres tömb vagy nem tömb)
             return cartItemsContainer.innerHTML = '<p class="text-center">A kosár üres</p>';
         }
 
-        if (Array.isArray(cart) && cart.length > 0) {
-            cartItemsContainer.innerHTML = renderCartItems(cart);
-            setUpRemoveButtons();
-            fullprice(cart);  // Show full price only when cart is not empty
-        }
+        cartItemsContainer.innerHTML = renderCartItems(cart);
+        setUpRemoveButtons();
+        fullprice(cart);  // Show full price only when cart is not empty
+
     } catch (error) {
         console.error('Error loading cart:', error);
         cartItemsContainer.innerHTML = `<p class="text-center">Hiba a kosár betöltésekor: ${error.message}</p>`;
     }
 }
-
 
 
 // Render cart items based on the new database structure
