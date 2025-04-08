@@ -130,9 +130,10 @@ async function removeItemFromCart(cart_item_id) {
 
         // Ellenőrizzük, hogy az eltávolított elem volt-e az utolsó a kosárban
         const cartItems = document.querySelectorAll('.card[cart-item-id]');
-        if (cartItems.length === 1) {
+        if (cartItems.length === 0) {
             cartItemsContainer.innerHTML = '<p class="text-center">A kosár üres</p>';
         } else {
+            // Ha még van termék, frissítjük a kosár listát
             await loadCart();
         }
 
@@ -151,6 +152,7 @@ async function removeItemFromCart(cart_item_id) {
         }
     }
 }
+
 
 
 
