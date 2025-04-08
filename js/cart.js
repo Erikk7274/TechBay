@@ -251,7 +251,7 @@ async function fullprice(cart) {
         }
 
         const data = await response.json();
-        const totalPrice = data.totalPrice || 0;
+        const totalPrice = data.totalPrice;
 
         // Initialize the fullpriceHTML element
         const fullpriceHTML = document.getElementById('fullpriceHTML');
