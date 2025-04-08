@@ -433,5 +433,7 @@ nav a i {
 }
 
 .quantity-select{
-    max-width: 15px;
+    text-align: left;
+    color: black;
+    max-width: 25px;
 }
