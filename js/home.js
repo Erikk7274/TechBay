@@ -297,7 +297,7 @@ function createModal(product) {
                     <p><strong>Leírás:</strong><br> ${product.description}</p>
                     <label for="quantity-${product.product_id}" class="form-label">Mennyiség:</label>
                     <select id="quantity-${product.product_id}" class="form-select quantity-select">
-                        ${generateQuantityOptions(product.in_stock)} db
+                        ${generateQuantityOptions(product.in_stock)}
                     </select>
                     
                 </div>
