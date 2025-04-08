@@ -253,6 +253,10 @@ function createCard(product) {
     let saleHtml = product.sale && product.sale < product.price
         ? `<span class="d-block mb-2">Akciós ár: ${product.sale} Ft</span>`
         : '';
+    let quantityOptions = '';
+    for (let i = 1; i <= product.quantity; i++) {
+        quantityOptions += `<option value="${i}">${i}</option>`;
+    }
 
     cardDiv.innerHTML = `
         <div class="card-header text-center fw-bold">${product.product_name || product.product_name}</div>
@@ -276,7 +280,10 @@ function createModal(product) {
     modalDiv.setAttribute('tabindex', '-1');
     modalDiv.setAttribute('aria-labelledby', `modalLabel-${product.product_id}`);
     modalDiv.setAttribute('aria-hidden', 'true');
-
+    let quantityOptions = '';
+    for (let i = 1; i <= product.quantity; i++) {
+        quantityOptions += `<option value="${i}">${i}</option>`;
+    }
     modalDiv.innerHTML = `
         <div class="modal-dialog modal-lg" style="max-width:500px">
             <div class="modal-content">
@@ -289,7 +296,12 @@ function createModal(product) {
                     <p><strong>Raktáron:</strong> ${product.in_stock}</p>
                     <p><strong>Ár:</strong> ${product.price ? `${product.price} Ft` : 'N/A'}</p>
                     <p><strong>Leírás:</strong><br> ${product.description}</p>
-                
+                    <div class="mb-3">
+                    <label for="quantity-${product.product_id}" class="form-label">Mennyiség:</label>
+                    <select id="quantity-${product.product_id}" class="form-select form-select-sm">
+                        ${quantityOptions}
+                    </select>
+                </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary add-to-cart-btn" data-product-id="${product.product_id}" data-bs-dismiss="modal">Kosárba</button>
@@ -301,7 +313,7 @@ function createModal(product) {
     document.body.appendChild(modalDiv);
 
     modalDiv.querySelector('.add-to-cart-btn').addEventListener('click', () => addToCart(product.product_id));
-} 
+}
 
 
 
@@ -310,11 +322,11 @@ async function addToCart(productId) {
         const response = await fetch(`/api/cart/takeProduct/${productId}`, {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({ productId }),
+            body: JSON.stringify({ productId, quantity }),
             credentials: 'include',
         });
         const result = await response.json();
-        console.log(response.ok ? 'Termék hozzáadva:' : 'Hiba:', result);
+        console.log(response.ok ? `Termék hozzáadva (${quantity} db):` : 'Hiba:', result);
     } catch (error) {
         console.error('Hiba a kosárba helyezéskor:', error);
     }
