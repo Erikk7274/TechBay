@@ -273,7 +273,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Ha az ár helyes, folytatjuk az adatgyűjtést
             const configData = new FormData();
-            configData.append('config_name', document.getElementById("configName").value);
+            configData.append('pc_name', document.getElementById("configName").value);
             configData.append('cpu', document.getElementById("cpu").value);
             configData.append('mother_board', document.getElementById("motherBoard").value);
             configData.append('house', document.getElementById("house").value);
@@ -284,8 +284,8 @@ document.addEventListener("DOMContentLoaded", () => {
             configData.append('power_supply', document.getElementById("powerSupply").value);
             configData.append('cpu_cooler', document.getElementById("cpuCooler").value);
             configData.append('price', Number(configPrice)); // Ár szám formátumban
-            configData.append('config_pic', document.getElementById("configImage").files[0]);
-            configData.append('description', document.getElementById("configDescription").value);
+            configData.append('pc_pic', document.getElementById("configImage").files[0]);
+            configData.append('pc_description', document.getElementById("configDescription").value);
             configData.append('in_stock', "1");
             configData.append('sale', document.getElementById("configSale").value); // Akció mértéke
             configData.append('sale_', document.getElementById("configSaleActive").value); // Akciós státusz
