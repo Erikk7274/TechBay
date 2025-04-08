@@ -55,6 +55,25 @@ async function getProducts() {
     };
 
     const products = {};
+    
+    // Fetch data from each endpoint and populate the products object
+    for (const [key, endpoint] of Object.entries(endpoints)) {
+        try {
+            const response = await fetch(endpoint, {
+                method: 'GET',
+                credentials: 'include'
+            });
+
+            if (response.ok) {
+                products[key] = await response.json();  // Store the response data
+            } else {
+                console.error(`Error fetching ${key}:`, response.statusText);
+            }
+        } catch (error) {
+            console.error(`Error fetching ${key}:`, error);
+        }
+    }
+
     console.log("Lekért termékek:", products);
     renderConfigForm(products);
 }
