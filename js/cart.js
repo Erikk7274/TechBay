@@ -111,47 +111,47 @@ async function removeItemFromCart(cart_item_id) {
     try {
         console.log(`Törlendő termék ID: ${cart_item_id}`);
 
-        // Küldjük el a DELETE requestet
+        // Fetch előtti log
+        console.log(`Küldött DELETE request: /api/cart/removeProduct/${cart_item_id}`);
+
         const response = await fetch(`/api/cart/removeProduct/${cart_item_id}`, {
             method: 'DELETE',
             credentials: 'include'
         });
 
-        // Ellenőrizzük, hogy a válasz sikeres-e
+        console.log(`Response status: ${response.status}`);
+
         if (!response.ok) {
-            throw new Error(`Hiba történt: ${response.status} - ${response.statusText}`);
+            throw new Error(`Hiba: ${response.status} - ${response.statusText}`);
         }
 
-        // Ha nem érkezett válasz, ne próbálkozzunk JSON értelmezésével
-        const responseText = await response.text();
-        if (!responseText) {
-            throw new Error('Üres válasz érkezett a szervertől.');
-        }
+        const responseData = await response.json();
+        console.log(`Item removed. API Response:`, responseData);
 
-        // A válasz sikeres törlésről szól
-        console.log('Termék törölve:', responseText);
-
-        // Frissítsük a frontend tartalmát (kosár állapotát)
+        // Ellenőrizzük, hogy az eltávolított elem volt-e az utolsó a kosárban
         const cartItems = document.querySelectorAll('.card[cart-item-id]');
         if (cartItems.length === 0) {
             cartItemsContainer.innerHTML = '<p class="text-center">A kosár üres</p>';
         } else {
-            // Az utolsó termék törlésekor nem szükséges újratölteni a kosarat a backendről
-            cartItemsContainer.removeChild(event.target.closest('.card'));
+            // Ha még van termék, frissítjük a kosár listát
+            await loadCart();
         }
 
     } catch (error) {
         console.error('Hiba a törlés során:', error);
         alert(`Hiba a termék eltávolításakor: ${error.message}`);
 
-        // Ha a hiba hálózati probléma, próbálkozunk újratölteni az oldalt
-        if (error.message.includes('Failed to fetch')) {
-            console.log('Hálózati hiba, újratöltjük az oldalt...');
-            setTimeout(() => location.reload(), 1000); // Kis késleltetéssel reload
+        // **Új kosárbetöltés sikertelen törlés után**
+        console.log("Újratöltjük a kosár tartalmát...");
+        await loadCart();
+
+        // Ha továbbra is gond van, frissítjük az oldalt
+        if (error.message.includes("Failed to fetch")) {
+            console.log("Hálózati hiba észlelve, újratöltés...");
+            setTimeout(() => location.reload(), 1000); // Egy kis késleltetés után reload
         }
     }
 }
-
 
 
 
