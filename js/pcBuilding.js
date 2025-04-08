@@ -201,7 +201,14 @@ function renderConfigForm(products) {
                 <label for="configName" class="form-label">Konfiguráció neve:</label>
                 <input type="text" id="configName" name="configName" class="form-control" required>
             </div>
-            ${Object.keys(products).map(key => createDropdown(key, key.toUpperCase(), products[key])).join('')}
+            ${renderCategoryDropdown('cpu', 'CPU', products.cpu)}
+            ${renderCategoryDropdown('motherboard', 'Alaplap', products.motherboard)}
+            ${renderCategoryDropdown('ram', 'RAM', products.ram)}
+            ${renderCategoryDropdown('gpu', 'GPU', products.gpu)}
+            ${renderCategoryDropdown('powerSupply', 'Tápegység', products.powerSupply)}
+            ${renderCategoryDropdown('hdd', 'HDD', products.hdd)}
+            ${renderCategoryDropdown('ssd', 'SSD', products.ssd)}
+            ${renderCategoryDropdown('cooler', 'Hűtő', products.cooler)}
             <button type="submit" class="btn btn-primary w-100">Kosárba</button>
         </form>
     `;
@@ -225,17 +232,36 @@ function renderConfigForm(products) {
             alert(`Hiba történt: ${error.message || "Ismeretlen hiba"}`);
         }
     });
-}
 
-function createDropdown(id, label, items) {
-    if (!Array.isArray(items)) items = [];
-    let options = items.map(item => `<option value="${item.id}">${item.name} - ${item.price} Ft</option>`).join('');
-    return `
-        <div class="mb-3">
-            <label for="${id}" class="form-label">${label}:</label>
-            <select id="${id}" name="${id}" class="form-control" required>
-                ${options}
-            </select>
-        </div>
-    `;
+    // Add event listeners to dropdowns to send selected data to API
+    document.querySelectorAll('select').forEach(select => {
+        select.addEventListener('change', async (e) => {
+            const selectedValue = e.target.value;
+            const categoryId = e.target.id;
+
+            if (!selectedValue) return; // Skip if no product selected
+
+            const data = {
+                productId: selectedValue,
+                categoryId: categoryId
+            };
+
+            try {
+                const response = await fetch(`/api/buildPc_${categoryId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                    credentials: 'include'
+                });
+
+                if (!response.ok) throw new Error(await response.text());
+
+                alert(`${categoryId.toUpperCase()} hozzáadva a konfigurációhoz!`);
+            } catch (error) {
+                alert(`Hiba történt: ${error.message || "Ismeretlen hiba"}`);
+            }
+        });
+    });
 }
