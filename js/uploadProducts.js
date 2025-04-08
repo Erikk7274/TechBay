@@ -111,7 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // Ha a fenti ellenőrzés sikeres, akkor folytathatod az adatgyűjtést
             const productData = new FormData();
             productData.append('product_name', document.getElementById("productName").value);
-            productData.append('product_description', document.getElementById("productDescription").value);
+            productData.append('description', document.getElementById("productDescription").value);
             productData.append('price', productPrice); // Módosított, biztosan szám érték kerül
             productData.append('in_stock', productStock); // Módosított, biztosan szám érték kerül
             productData.append('sale', document.getElementById("productSale").value);
