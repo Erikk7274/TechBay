@@ -45,11 +45,11 @@ async function loadCart() {
         console.log('Loading cart...');
         const response = await fetch('/api/cart/myCart', {
             method: 'GET',
-            credentials: 'include' 
+            credentials: 'include'
         });
 
         const cart = await response.json();
-        console.log('Cart items:', cart);  
+        console.log('Cart items:', cart);
 
         if (!Array.isArray(cart) || cart.length === 0) {
             // Ha üres a kosár (üres tömb vagy nem tömb)
@@ -100,7 +100,7 @@ function generateQuantityOptions(selectedQuantity) {
 function setUpRemoveButtons() {
     document.querySelectorAll('.remove-item').forEach(button => {
         button.addEventListener('click', async (event) => {
-            const cartItemId = event.target.closest('.card').getAttribute('cart-item-id');  
+            const cartItemId = event.target.closest('.card').getAttribute('cart-item-id');
             console.log(cartItemId);
             await removeItemFromCart(cartItemId);
 
@@ -108,7 +108,7 @@ function setUpRemoveButtons() {
     });
 }
 
-async function removeItemFromCart(cart_item_id) {  
+async function removeItemFromCart(cart_item_id) {
     try {
         console.log(`Törlendő termék ID: ${cart_item_id}`);
         console.log(`Küldött DELETE request: /api/cart/removeProduct/${cart_item_id}`);
@@ -129,9 +129,10 @@ async function removeItemFromCart(cart_item_id) {
             cartItemsContainer.innerHTML = '<p class="text-center">A kosár üres</p>';
         } else {
             const responseData = await response.json();
-            console.log(`Item removed. API Response:`, responseData);
-
-            await loadCart();  // Ha nem üres, akkor újratöltjük a kosarat
+            if (responseData.message === 'Sikeres törlés!') {
+                console.log(`Item removed. API Response:`, responseData);
+                await loadCart();  // Ha nem üres, akkor újratöltjük a kosarat
+            }
         }
 
     } catch (error) {
@@ -184,7 +185,7 @@ function renderOrderModal(cart) {
     modalBody.innerHTML = cart.length === 0
         ? '<p class="text-center">A kosár üres</p>'
         : cart.map(item => {
-            const price = item.price ? item.price.toLocaleString() : 'N/A'; 
+            const price = item.price ? item.price.toLocaleString() : 'N/A';
             return `
                 <div class="card mb-3">
                     <div class="card-body">
@@ -214,7 +215,7 @@ async function fullprice(cart) {
 
         // Initialize the fullpriceHTML element
         const fullpriceHTML = document.getElementById('fullpriceHTML');
-        
+
         // Show total price only if the cart is not empty
         if (cart && cart.length > 0 && totalPrice > 0) {
             fullpriceHTML.innerHTML = `
