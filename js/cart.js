@@ -252,14 +252,20 @@ async function fullprice(cart) {
         const data = await response.json();
         const totalPrice = data.totalPrice || 0;
 
+        // Initialize the fullpriceHTML element
+        const fullpriceHTML = document.getElementById('fullpriceHTML');
+        
+        // Update the inner HTML with the final price
         fullpriceHTML.innerHTML = `
             <p class="text-center">Végleges ár: ${totalPrice.toLocaleString()} Ft</p>
         `;
     } catch (error) {
         console.error('Error fetching final price:', error);
-        modalBody.innerHTML = `<p class="text-center">Hiba a végleges ár betöltésekor: ${error.message}</p>`;
+        const fullpriceHTML = document.getElementById('fullpriceHTML');
+        fullpriceHTML.innerHTML = `<p class="text-center">Hiba a végleges ár betöltésekor: ${error.message}</p>`;
     }
 }
+
 
 function setUpButtonListeners() {
     btnBack?.addEventListener('click', () => {
