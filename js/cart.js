@@ -58,7 +58,14 @@ async function loadCart() {
         } else {
             cartItemsContainer.innerHTML = '<p class="text-center">A kosár üres</p>';
         }
-        fullprice(cart);
+        if (Array.isArray(cart) && cart.length > 0) {
+            cartItemsContainer.innerHTML = renderCartItems(cart);
+            setUpRemoveButtons();
+            fullprice(cart);  // Show full price only when cart is not empty
+        } else {
+            cartItemsContainer.innerHTML = '<p class="text-center">A kosár üres</p>';
+            document.getElementById('fullpriceHTML').innerHTML = ''; // Clear the full price if cart is empty
+        }
     } catch (error) {
         console.error('Error loading cart:', error);
         cartItemsContainer.innerHTML = `<p class="text-center">Hiba a kosár betöltésekor: ${error.message}</p>`;
@@ -256,10 +263,14 @@ async function fullprice(cart) {
         // Initialize the fullpriceHTML element
         const fullpriceHTML = document.getElementById('fullpriceHTML');
         
-        // Update the inner HTML with the final price
-        fullpriceHTML.innerHTML = `
-            <p class="text-center">Végleges ár: ${totalPrice.toLocaleString()} Ft</p>
-        `;
+        // Show total price only if the cart is not empty
+        if (cart && cart.length > 0 && totalPrice > 0) {
+            fullpriceHTML.innerHTML = `
+                <p class="text-center">Végleges ár: ${totalPrice.toLocaleString()} Ft</p>
+            `;
+        } else {
+            fullpriceHTML.innerHTML = ''; // Clear the price if it's 0 or cart is empty
+        }
     } catch (error) {
         console.error('Error fetching final price:', error);
         const fullpriceHTML = document.getElementById('fullpriceHTML');
