@@ -116,27 +116,32 @@ async function removeItemFromCart(cart_item_id) {
             credentials: 'include'
         });
 
-        const responseData = await response.json();
-
         if (!response.ok) {
-            throw new Error(`Hiba: ${response.status} - ${responseData.message || 'Ismeretlen hiba'}`);
+            throw new Error(`Hiba: ${response.status} - ${response.statusText}`);
         }
 
+        const responseData = await response.json();
         console.log(`Item with ID ${cart_item_id} removed. API Response:`, responseData);
 
         // Ellenőrizzük, hogy az eltávolított elem volt-e az utolsó a kosárban
         const cartItems = document.querySelectorAll('.card[cart-item-id]');
-        if (cartItems.length === 1) { // Ha csak egy elem volt, ami most törlődik
+        if (cartItems.length === 1) {
             cartItemsContainer.innerHTML = '<p class="text-center">A kosár üres</p>';
         } else {
-            await loadCart(); // Ha marad más elem, akkor újratöltjük a kosarat
+            await loadCart();
         }
 
     } catch (error) {
         console.error('Error removing item from cart:', error);
         alert(`Hiba a termék eltávolításakor: ${error.message}`);
+
+        // Ha a hiba egy hálózati hiba, újratöltjük az oldalt
+        if (error.message.includes("Failed to fetch")) {
+            location.reload();
+        }
     }
 }
+
 
 
 
