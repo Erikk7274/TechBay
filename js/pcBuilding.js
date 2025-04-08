@@ -55,6 +55,7 @@ async function getProducts() {
         console.error('Hiba a termékek lekérésekor:', error);
     }
 }
+
 async function getProducts_cpu() {
     try {
         const response = await fetch(`/api/getProducts/getProducts_cpus`, {
@@ -68,6 +69,7 @@ async function getProducts_cpu() {
         console.error('Hiba a CPU termékek lekérésekor:', error);
     }
 }
+
 async function getProducts_motherboards() {
     try {
         const response = await fetch(`/api/getProducts/getProducts_motherboards`, {
@@ -81,6 +83,7 @@ async function getProducts_motherboards() {
         console.error('Hiba az alaplap termékek lekérésekor:', error);
     }
 }
+
 async function getProducts_houses() {
     try {
         const response = await fetch(`/api/getProducts/getProducts_houses`, {
@@ -94,6 +97,7 @@ async function getProducts_houses() {
         console.error('Hiba a gépház termékek lekérésekor:', error);
     }
 }
+
 async function getProducts_gpus() {
     try {
         const response = await fetch(`/api/getProducts/getProducts_gpus`, {
@@ -107,6 +111,7 @@ async function getProducts_gpus() {
         console.error('Hiba a gpu termékek lekérésekor:', error);
     }
 }
+
 async function getProducts_rams() {
     try {
         const response = await fetch(`/api/getProducts/getProducts_rams`, {
@@ -117,9 +122,10 @@ async function getProducts_rams() {
         const products = await response.json();
         renderProducts(products);
     } catch (error) {
-        console.error('Hiba a gpu termékek lekérésekor:', error);
+        console.error('Hiba a ram termékek lekérésekor:', error);
     }
 }
+
 async function getProducts_powersupplys() {
     try {
         const response = await fetch(`/api/getProducts/getProducts_powersupplys`, {
@@ -130,9 +136,10 @@ async function getProducts_powersupplys() {
         const products = await response.json();
         renderProducts(products);
     } catch (error) {
-        console.error('Hiba a gpu termékek lekérésekor:', error);
+        console.error('Hiba az tápegység termékek lekérésekor:', error);
     }
 }
+
 async function getProducts_hdds() {
     try {
         const response = await fetch(`/api/getProducts/getProducts_hdds`, {
@@ -143,9 +150,10 @@ async function getProducts_hdds() {
         const products = await response.json();
         renderProducts(products);
     } catch (error) {
-        console.error('Hiba a gpu termékek lekérésekor:', error);
+        console.error('Hiba a HDD termékek lekérésekor:', error);
     }
 }
+
 async function getProducts_ssds() {
     try {
         const response = await fetch(`/api/getProducts/getProducts_ssds`, {
@@ -156,9 +164,10 @@ async function getProducts_ssds() {
         const products = await response.json();
         renderProducts(products);
     } catch (error) {
-        console.error('Hiba a gpu termékek lekérésekor:', error);
+        console.error('Hiba az SSD termékek lekérésekor:', error);
     }
 }
+
 async function getProducts_cpucoolers() {
     try {
         const response = await fetch(`/api/getProducts/getProducts_cpucoolers`, {
@@ -169,33 +178,15 @@ async function getProducts_cpucoolers() {
         const products = await response.json();
         renderProducts(products);
     } catch (error) {
-        console.error('Hiba a gpu termékek lekérésekor:', error);
+        console.error('Hiba a CPU hűtők lekérésekor:', error);
     }
 }
 
-    const products = {};
-    
-    // Fetch data from each endpoint and populate the products object
-    for (const [key, endpoint] of Object.entries(endpoints)) {
-        try {
-            const response = await fetch(endpoint, {
-                method: 'GET',
-                credentials: 'include'
-            });
-
-            if (response.ok) {
-                products[key] = await response.json();  // Store the response data
-            } else {
-                console.error(`Error fetching ${key}:`, response.statusText);
-            }
-        } catch (error) {
-            console.error(`Error fetching ${key}:`, error);
-        }
-    }
-
-    console.log("Lekért termékek:", products);
-    renderConfigForm(products);
-
+function renderProducts(products) {
+    // This function will render the products to the page
+    // Implement as needed
+    console.log(products);
+}
 
 function renderConfigForm(products) {
     const formContainer = document.getElementById('formContainer');
@@ -203,7 +194,7 @@ function renderConfigForm(products) {
         console.error("Nem található a formContainer elem.");
         return;
     }
-    
+
     formContainer.innerHTML = `
         <form id="configForm" class="container mt-4 p-4 border rounded bg-light shadow-lg">
             <div class="mb-3">
