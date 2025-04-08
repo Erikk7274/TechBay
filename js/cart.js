@@ -123,7 +123,6 @@ async function removeItemFromCart(cart_item_id) {
 
         if (!response.ok) {
             throw new Error(`Hiba: ${response.status} - ${response.statusText}`);
-            window.location.href = 'https://techbay2.netlify.app/home.html';
         }
 
         const responseData = await response.json();
@@ -176,7 +175,6 @@ function setUpOrderButton() {
 
                 const cart = await response.json();
                 if (cart.length === 0) {
-                    window.location.href = 'https://techbay2.netlify.app/cart.html';
                     alert('A kosár üres!');
                     return;
                 }
