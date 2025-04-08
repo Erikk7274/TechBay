@@ -12,7 +12,7 @@ function setupEventListeners() {
             window.location.href = 'https://techbay2.netlify.app/home.html';
         });
     } else {
-        console.error('Nem található vissza gomb.');
+        console.error('Nem található a vissza gomb.');
     }
 
     if (btnLogout) {
@@ -43,16 +43,135 @@ async function logout() {
 }
 
 async function getProducts() {
-    const endpoints = {
-        cpu: '/api/get/getProducts_cpus',
-        motherBoard: '/api/get/getProducts_motherboards',
-        ram: '/api/get/getProducts_rams',
-        gpu: '/api/get/getProducts_gpus',
-        hdd: '/api/get/getProducts_hdds',
-        ssd: '/api/get/getProducts_ssds',
-        powerSupply: '/api/get/getProducts_powersupplys',
-        cpuCooler: '/api/get/getProducts_cpucoolers'
-    };
+    try {
+        const response = await fetch(`/api/getProducts/getProducts_all`, {
+            method: 'GET',
+            credentials: 'include'
+        });
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+        const products = await response.json();
+        renderProducts(products);
+    } catch (error) {
+        console.error('Hiba a termékek lekérésekor:', error);
+    }
+}
+async function getProducts_cpu() {
+    try {
+        const response = await fetch(`/api/getProducts/getProducts_cpus`, {
+            method: 'GET',
+            credentials: 'include'
+        });
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+        const products = await response.json();
+        renderProducts(products);
+    } catch (error) {
+        console.error('Hiba a CPU termékek lekérésekor:', error);
+    }
+}
+async function getProducts_motherboards() {
+    try {
+        const response = await fetch(`/api/getProducts/getProducts_motherboards`, {
+            method: 'GET',
+            credentials: 'include'
+        });
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+        const products = await response.json();
+        renderProducts(products);
+    } catch (error) {
+        console.error('Hiba az alaplap termékek lekérésekor:', error);
+    }
+}
+async function getProducts_houses() {
+    try {
+        const response = await fetch(`/api/getProducts/getProducts_houses`, {
+            method: 'GET',
+            credentials: 'include'
+        });
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+        const products = await response.json();
+        renderProducts(products);
+    } catch (error) {
+        console.error('Hiba a gépház termékek lekérésekor:', error);
+    }
+}
+async function getProducts_gpus() {
+    try {
+        const response = await fetch(`/api/getProducts/getProducts_gpus`, {
+            method: 'GET',
+            credentials: 'include'
+        });
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+        const products = await response.json();
+        renderProducts(products);
+    } catch (error) {
+        console.error('Hiba a gpu termékek lekérésekor:', error);
+    }
+}
+async function getProducts_rams() {
+    try {
+        const response = await fetch(`/api/getProducts/getProducts_rams`, {
+            method: 'GET',
+            credentials: 'include'
+        });
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+        const products = await response.json();
+        renderProducts(products);
+    } catch (error) {
+        console.error('Hiba a gpu termékek lekérésekor:', error);
+    }
+}
+async function getProducts_powersupplys() {
+    try {
+        const response = await fetch(`/api/getProducts/getProducts_powersupplys`, {
+            method: 'GET',
+            credentials: 'include'
+        });
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+        const products = await response.json();
+        renderProducts(products);
+    } catch (error) {
+        console.error('Hiba a gpu termékek lekérésekor:', error);
+    }
+}
+async function getProducts_hdds() {
+    try {
+        const response = await fetch(`/api/getProducts/getProducts_hdds`, {
+            method: 'GET',
+            credentials: 'include'
+        });
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+        const products = await response.json();
+        renderProducts(products);
+    } catch (error) {
+        console.error('Hiba a gpu termékek lekérésekor:', error);
+    }
+}
+async function getProducts_ssds() {
+    try {
+        const response = await fetch(`/api/getProducts/getProducts_ssds`, {
+            method: 'GET',
+            credentials: 'include'
+        });
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+        const products = await response.json();
+        renderProducts(products);
+    } catch (error) {
+        console.error('Hiba a gpu termékek lekérésekor:', error);
+    }
+}
+async function getProducts_cpucoolers() {
+    try {
+        const response = await fetch(`/api/getProducts/getProducts_cpucoolers`, {
+            method: 'GET',
+            credentials: 'include'
+        });
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+        const products = await response.json();
+        renderProducts(products);
+    } catch (error) {
+        console.error('Hiba a gpu termékek lekérésekor:', error);
+    }
+}
 
     const products = {};
     
@@ -76,7 +195,7 @@ async function getProducts() {
 
     console.log("Lekért termékek:", products);
     renderConfigForm(products);
-}
+
 
 function renderConfigForm(products) {
     const formContainer = document.getElementById('formContainer');
