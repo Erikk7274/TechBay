@@ -252,7 +252,7 @@ async function fullprice(cart) {
         const data = await response.json();
         const totalPrice = data.totalPrice || 0;
 
-        modalBody.innerHTML = `
+        fullpriceHTML.innerHTML = `
             <p class="text-center">Végleges ár: ${totalPrice.toLocaleString()} Ft</p>
         `;
     } catch (error) {
