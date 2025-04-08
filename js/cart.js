@@ -55,16 +55,10 @@ async function loadCart() {
         if (Array.isArray(cart) && cart.length > 0) {
             cartItemsContainer.innerHTML = renderCartItems(cart);
             setUpRemoveButtons();
-        } else {
-            cartItemsContainer.innerHTML = '<p class="text-center">A kosár üres</p>';
-        }
-        if (Array.isArray(cart) && cart.length > 0) {
-            cartItemsContainer.innerHTML = renderCartItems(cart);
-            setUpRemoveButtons();
             fullprice(cart);  // Show full price only when cart is not empty
-        } else {
-            cartItemsContainer.innerHTML = '<p class="text-center">A kosár üres</p>';
-            document.getElementById('fullpriceHTML').innerHTML = ''; // Clear the full price if cart is empty
+            return;
+        } else if (cart.length === 0) {
+            return cartItemsContainer.innerHTML = '<p class="text-center">A kosár üres</p>';
         }
     } catch (error) {
         console.error('Error loading cart:', error);
