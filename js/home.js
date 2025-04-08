@@ -312,7 +312,10 @@ function createModal(product) {
 
     document.body.appendChild(modalDiv);
 
-    modalDiv.querySelector('.add-to-cart-btn').addEventListener('click', () => addToCart(product.product_id));
+    modalDiv.querySelector('.add-to-cart-btn').addEventListener('click', () => {
+        const selectedQuantity = document.getElementById(`quantity-${product.product_id}`).value;
+        addToCart(product.product_id, selectedQuantity);
+    });;
 }
 
 
