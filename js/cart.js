@@ -101,6 +101,7 @@ function setUpRemoveButtons() {
     document.querySelectorAll('.remove-item').forEach(button => {
         button.addEventListener('click', async (event) => {
             const cartItemId = event.target.closest('.card').getAttribute('cart-item-id');  
+            console.log(cartItemId);
             await removeItemFromCart(cartItemId);
 
         });
