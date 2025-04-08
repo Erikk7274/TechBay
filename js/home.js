@@ -293,14 +293,15 @@ function createModal(product) {
                 </div>
                 <div class="modal-body text-center">
                     <img src="/api/uploads/${product.product_pic}" alt="${product.product_name || product.product_name}" class="img-fluid mb-3">
-                    <p><strong>Raktáron:</strong> ${product.in_stock}</p>
-                    <p><strong>Ár:</strong> ${product.price ? `${product.price} Ft` : 'N/A'}</p>
-                    <p><strong>Leírás:</strong><br> ${product.description}</p>
                     <div class="mb-3">
                     <label for="quantity-${product.product_id}" class="form-label">Mennyiség:</label>
                     <select id="quantity-${product.product_id}" class="form-select form-select-sm">
                         ${quantityOptions}
                     </select>
+                    <p><strong>Raktáron:</strong> ${product.in_stock}</p>
+                    <p><strong>Ár:</strong> ${product.price ? `${product.price} Ft` : 'N/A'}</p>
+                    <p><strong>Leírás:</strong><br> ${product.description}</p>
+                    
                 </div>
                 </div>
                 <div class="modal-footer">
