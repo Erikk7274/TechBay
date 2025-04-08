@@ -280,7 +280,7 @@ function createModal(product) {
     modalDiv.setAttribute('tabindex', '-1');
     modalDiv.setAttribute('aria-labelledby', `modalLabel-${product.product_id}`);
     modalDiv.setAttribute('aria-hidden', 'true');
-    
+
     modalDiv.innerHTML = `
         <div class="modal-dialog modal-lg" style="max-width:500px">
             <div class="modal-content">
@@ -292,8 +292,8 @@ function createModal(product) {
                     <img src="/api/uploads/${product.product_pic}" alt="${product.product_name || product.product_name}" class="img-fluid mb-3">
                     <div class="mb-3">
                     <label for="quantity-${product.product_id}" class="form-label">Mennyiség:</label>
-                    <select id="quantity-${product.product_id || product.pc_id}" class="form-select quantity-select">
-                        ${generateQuantityOptions(product.quantity)}
+                    <select id="quantity-${product.product_id}" class="form-select quantity-select">
+                        ${generateQuantityOptions(product.in_stock)}
                     </select>
                     <p><strong>Raktáron:</strong> ${product.in_stock}</p>
                     <p><strong>Ár:</strong> ${product.price ? `${product.price} Ft` : 'N/A'}</p>
@@ -315,13 +315,16 @@ function createModal(product) {
         addToCart(product.product_id, selectedQuantity);
     });;
 }
-function generateQuantityOptions(selectedQuantity) {
+
+
+function generateQuantityOptions(maxQuantity) {
     let options = "";
-    for (let i = 1; i <= 99; i++) {
-        options += `<option value="${i}" ${i === selectedQuantity ? 'selected' : ''}>${i}</option>`;
+    for (let i = 1; i <= maxQuantity; i++) {  // Csak a raktáron lévő mennyiségig generálja az opciókat
+        options += `<option value="${i}">${i}</option>`;
     }
-    return options;
+    return options || '<option value="0" disabled>Nincs raktáron</option>';  // Ha nincs készleten, akkor inaktív
 }
+
 
 
 async function addToCart(productId) {
