@@ -52,13 +52,15 @@ async function loadCart() {
         const cart = await response.json();
         console.log('Cart items:', cart);  
 
+        if (!cart || Object.keys(cart).length === 0) {
+            // Ha a válasz üres objektum, vagy null, akkor üres kosarat jelenítünk meg
+            return cartItemsContainer.innerHTML = '<p class="text-center">A kosár üres</p>';
+        }
+
         if (Array.isArray(cart) && cart.length > 0) {
             cartItemsContainer.innerHTML = renderCartItems(cart);
             setUpRemoveButtons();
             fullprice(cart);  // Show full price only when cart is not empty
-            return;
-        } else if (cart.length === 0) {
-            return cartItemsContainer.innerHTML = '<p class="text-center">A kosár üres</p>';
         }
     } catch (error) {
         console.error('Error loading cart:', error);
