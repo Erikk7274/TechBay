@@ -67,23 +67,22 @@ async function loadCart() {
 }
 
 
-// Render cart items based on the new database structure
+
 // Render cart items based on the new database structure
 function renderCartItems(cart) {
     return cart.map(item => {
-        console.log(item);
         const price = item.price || item.pc_price;
-        const productImage = item.product_pic ? `/api/uploads/${item.product_pic}` : 'default-image.jpg';  // Ha nincs kép, legyen alapértelmezett
+        const imageUrl = `/api/uploads/${item.product_pic}`;
         return `
             <div class="card mb-3" cart-item-id="${item.cart_item_id}" data-id="${item.product_id ?? item.pc_id ?? 'hiba'}">
                 <div class="row g-0">
-                    <div class="col-md-2">
-                        <img src="${productImage}" alt="${item.product_name || item.pc_name}" class="img-fluid rounded-start" style="max-height: 80px; object-fit: contain;">
+                    <div class="col-3 d-flex align-items-center">
+                        <img src="${imageUrl}" class="img-fluid rounded-start" alt="${item.product_name || 'Termékkép'}">
                     </div>
-                    <div class="col-md-10">
+                    <div class="col-9">
                         <div class="card-body">
                             <h5 class="card-title">${item.product_name || item.pc_name}</h5>
-                            <p class="card-text">Ár: ${price || pc_price} Ft</p>
+                            <p class="card-text">Ár: ${price} Ft</p>
                             <label for="quantity-${item.product_id || item.pc_id}">Mennyiség:</label>
                             <select id="quantity-${item.product_id || item.pc_id}" class="form-select quantity-select">
                                 ${generateQuantityOptions(item.quantity)}
@@ -97,6 +96,7 @@ function renderCartItems(cart) {
     }).join('');
 }
 
+
 // Render order modal with product images
 function renderOrderModal(cart) {
     modalBody.innerHTML = cart.length === 0
@@ -109,7 +109,7 @@ function renderOrderModal(cart) {
                 <div class="row g-0 align-items-center">
                         <div class="col-md-2">
                         <img src="${productImage}" alt="${item.product_name || item.pc_name}" 
-                        class="img-fluid rounded" style="max-width: 80px; height: auto;float:right;">
+                        class="img-fluid rounded" style="max-width: 80px; height: auto;">
                         </div>
                         <div class="col-md-10">
                             <div class="card-body">
