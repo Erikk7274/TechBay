@@ -103,7 +103,7 @@ function renderOrderModal(cart) {
         ? '<p class="text-center">A kosár üres</p>'
         : cart.map(item => {
             const price = item.price ? item.price.toLocaleString() : 'N/A';
-            const productImage = item.product_pic ? `/api/uploads/${item.product_pic}` : 'default-image.jpg';
+            const productImage = item.product_pic ? `/api/uploads/${item.product_pic}` : '1.jpg';
             return `
                 <div class="card mb-3">
                     <div class="row g-0">
