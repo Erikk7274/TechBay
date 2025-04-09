@@ -218,27 +218,34 @@ async function fullprice(cart) {
             credentials: 'include'
         });
 
+        console.log('Response status:', response.status); // Logoljunk válasz státuszt
+
         if (!response.ok) {
             throw new Error('Failed to fetch final price');
         }
 
         const data = await response.json();
+        console.log('Received data from sumPrice API:', data); // Logoljunk az adatokat
+
+        // Ha nincs benne totalPrice, akkor logoljunk
+        if (!data.totalPrice) {
+            console.error('No totalPrice in response:', data);
+            throw new Error('No totalPrice found in response');
+        }
+
         const totalPrice = data.totalPrice;
 
-        // Ha van ár, akkor beállítjuk
         if (cart && cart.length > 0 && totalPrice > 0) {
             fullpriceContainer.innerHTML = `<p>Végleges ár: ${totalPrice.toLocaleString()} Ft</p>`;
         } else {
             fullpriceContainer.innerHTML = '<p>Hiba a végleges ár betöltésekor.</p>';
         }
-
-        // Ellenőrizzük a container láthatóságát a konzolban
-        console.log('Fullprice container:', fullpriceContainer);
     } catch (error) {
         console.error('Error fetching final price:', error);
         fullpriceContainer.innerHTML = `<p class="text-center">Hiba a végleges ár betöltésekor: ${error.message}</p>`;
     }
 }
+
 
 
 function setUpButtonListeners() {
