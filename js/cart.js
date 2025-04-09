@@ -206,7 +206,7 @@ function renderOrderModal(cart) {
     }
 }
 
-onst fullpriceContainer = document.createElement('div');
+const fullpriceContainer = document.createElement('div');
 fullpriceContainer.id = 'fullpriceHTML';
 fullpriceContainer.className = 'text-center mt-3';
 
