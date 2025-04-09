@@ -352,3 +352,9 @@ nav a i {
 .imgpfp {
     border: 2px solid black;
 }
+#fullpriceHTML {
+    margin-top: 20px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: black;
+}
