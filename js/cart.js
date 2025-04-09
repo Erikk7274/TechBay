@@ -232,21 +232,27 @@ function renderOrderModal(cart) {
         ? '<p class="text-center">A kosár üres</p>'
         : cart.map(item => {
             const price = item.price ? item.price.toLocaleString() : 'N/A';
+            const productImage = item.product_pic ? `/api/uploads/${item.product_pic}` : '1.jpg';
             return `
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <h5 class="card-title">${item.product_name || item.pc_name}</h5>
-                        <p class="card-text">Ár: ${price} Ft</p>
-                        <p class="card-text">Mennyiség: ${item.quantity}</p>
+                <div class="card mb-3 position-relative">
+                    <div class="row g-0 align-items-center">
+                        <div class="col-md-10">
+                            <div class="card-body">
+                                <h5 class="card-title">${item.product_name || item.pc_name}</h5>
+                                <p class="card-text">Ár: ${price} Ft</p>
+                                <p class="card-text">Mennyiség: ${item.quantity}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-2 position-absolute top-0 end-0 p-2">
+                            <img src="${productImage}" alt="${item.product_name || item.pc_name}" 
+                            class="img-fluid rounded" style="max-width: 50px; height: auto;">
+                        </div>
                     </div>
                 </div>
             `;
         }).join('');
 
-    // Elhelyezzük a full price-ot a modalBody végén
     modalBody.appendChild(fullpriceContainer);
-
-    // Debugging: Ellenőrizzük, hogy biztosan ott van-e a modalban
     console.log('Modal body after appending full price:', modalBody);
 }
 
