@@ -72,16 +72,24 @@ function renderCartItems(cart) {
     return cart.map(item => {
         console.log(item);
         const price = item.price || item.pc_price;
+        const productImage = item.image_url || 'logo.jpg';
         return `
             <div class="card mb-3" cart-item-id="${item.cart_item_id}" data-id="${item.product_id ?? item.pc_id ?? 'hiba'}">
-                <div class="card-body">
-                    <h5 class="card-title">${item.product_name || item.pc_name}</h5>
-                    <p class="card-text">Ár: ${price || pc_price} Ft</p>
-                    <label for="quantity-${item.product_id || item.pc_id}">Mennyiség:</label>
-                    <select id="quantity-${item.product_id || item.pc_id}" class="form-select quantity-select">
-                        ${generateQuantityOptions(item.quantity)}
-                    </select>
-                    <button class="btn btn-danger btn-sm remove-item">Eltávolítás</button>
+                <div class="row g-0">
+                    <div class="col-md-2">
+                        <img src="${productImage}" alt="${item.product_name || item.pc_name}" class="img-fluid rounded-start" style="max-height: 80px; object-fit: contain;">
+                    </div>
+                    <div class="col-md-10">
+                        <div class="card-body">
+                            <h5 class="card-title">${item.product_name || item.pc_name}</h5>
+                            <p class="card-text">Ár: ${price || pc_price} Ft</p>
+                            <label for="quantity-${item.product_id || item.pc_id}">Mennyiség:</label>
+                            <select id="quantity-${item.product_id || item.pc_id}" class="form-select quantity-select">
+                                ${generateQuantityOptions(item.quantity)}
+                            </select>
+                            <button class="btn btn-danger btn-sm remove-item">Eltávolítás</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         `;
