@@ -226,7 +226,7 @@ async function fullprice(cart) {
 
         const data = await response.json();
         console.log('Received data from sumPrice API:', data); // Logoljunk az adatokat
-        console.log(data.sumPrice);
+        console.log(data[0].sumPrice);
         // Ellenőrizzük, hogy van-e sumPrice a válaszban
         if (!data || !data.sumPrice) {
             console.error('No sumPrice in response:', data);
