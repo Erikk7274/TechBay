@@ -200,12 +200,13 @@ function renderOrderModal(cart) {
             `;
         }).join('');
 
-    // Add full price after rendering the items
-    modalBody.appendChild(fullpriceContainer);
+    // Elhelyezem a full price-ot a modalBody végén
+    if (modalBody) {
+        modalBody.appendChild(fullpriceContainer);
+    }
 }
 
-
-const fullpriceContainer = document.createElement('div');
+onst fullpriceContainer = document.createElement('div');
 fullpriceContainer.id = 'fullpriceHTML';
 fullpriceContainer.className = 'text-center mt-3';
 
@@ -223,10 +224,11 @@ async function fullprice(cart) {
         const data = await response.json();
         const totalPrice = data.totalPrice;
 
+        // Ha a végleges ár nagyobb mint 0, akkor megjelenítjük
         if (cart && cart.length > 0 && totalPrice > 0) {
             fullpriceContainer.innerHTML = `<p class="text-center">Végleges ár: ${totalPrice.toLocaleString()} Ft</p>`;
         } else {
-            fullpriceContainer.innerHTML = '';
+            fullpriceContainer.innerHTML = ''; // Ha nincs végleges ár, ne jelenjen meg semmi
         }
     } catch (error) {
         console.error('Error fetching final price:', error);
