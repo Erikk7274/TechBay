@@ -227,16 +227,16 @@ async function fullprice(cart) {
         const data = await response.json();
         console.log('Received data from sumPrice API:', data); // Logoljunk az adatokat
 
-        // Ha nincs benne sumPrice, akkor logoljunk
-        if (!data.sumPrice) {
+        // Ellenőrizzük, hogy van-e sumPrice a válaszban
+        if (!data || !data.sumPrice) {
             console.error('No sumPrice in response:', data);
             throw new Error('No sumPrice found in response');
         }
 
-        const sumPrice = data.sumPrice;
+        const totalPrice = data.sumPrice || 0;  // Ha nincs sumPrice, akkor 0-t használunk
 
-        if (cart && cart.length > 0 && sumPrice > 0) {
-            fullpriceContainer.innerHTML = `<p>Végleges ár: ${sumPrice.toLocaleString()} Ft</p>`;
+        if (cart && cart.length > 0 && totalPrice > 0) {
+            fullpriceContainer.innerHTML = `<p>Végleges ár: ${totalPrice.toLocaleString()} Ft</p>`;
         } else {
             fullpriceContainer.innerHTML = '<p>Hiba a végleges ár betöltésekor.</p>';
         }
