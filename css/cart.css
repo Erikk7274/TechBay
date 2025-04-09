@@ -358,3 +358,9 @@ nav a i {
     font-weight: bold;
     color: black;
 }
+@media (max-width: 576px) {
+    .cart-item img {
+        max-width: 100%;
+        height: auto;
+    }
+}
