@@ -199,7 +199,7 @@ function renderOrderModal(cart) {
                 </div>
             `;
         }).join('');
-        modalBody.appendChild(fullpriceContainer);
+       
 }
 
 
