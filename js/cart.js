@@ -233,7 +233,7 @@ async function fullprice(cart) {
             throw new Error('No totalPrice found in response');
         }
 
-        const totalPrice = data.totalPrice;
+        const totalPrice = data.sumPrice;
 
         if (cart && cart.length > 0 && totalPrice > 0) {
             fullpriceContainer.innerHTML = `<p>Végleges ár: ${totalPrice.toLocaleString()} Ft</p>`;
