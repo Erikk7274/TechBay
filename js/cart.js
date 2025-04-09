@@ -74,22 +74,20 @@ function renderCartItems(cart) {
         const price = item.price || item.pc_price;
         const imageUrl = `/api/uploads/${item.product_pic}`;
         return `
-            <div class="card mb-3 p-2 shadow-sm" cart-item-id="${item.cart_item_id}" data-id="${item.product_id ?? item.pc_id ?? 'hiba'}">
+            <div class="card mb-3" cart-item-id="${item.cart_item_id}" data-id="${item.product_id ?? item.pc_id ?? 'hiba'}">
                 <div class="row g-0">
-                    <div class="col-12 col-sm-3 d-flex align-items-center justify-content-center">
-                        <img src="${imageUrl}" class="img-fluid rounded" 
-                            alt="${item.product_name || 'Termékkép'}" 
-                            style="max-width: 80px; height: auto;">
+                    <div class="col-3 d-flex align-items-center">
+                        <img src="${imageUrl}" class="img-fluid rounded-start" alt="${item.product_name || 'Termékkép'}">
                     </div>
-                    <div class="col-12 col-sm-9">
-                        <div class="card-body text-center text-sm-start">
+                    <div class="col-9">
+                        <div class="card-body">
                             <h5 class="card-title">${item.product_name || item.pc_name}</h5>
                             <p class="card-text">Ár: ${price} Ft</p>
                             <label for="quantity-${item.product_id || item.pc_id}">Mennyiség:</label>
                             <select id="quantity-${item.product_id || item.pc_id}" class="form-select quantity-select">
                                 ${generateQuantityOptions(item.quantity)}
                             </select>
-                            <button class="btn btn-danger btn-sm remove-item mt-2">Eltávolítás</button>
+                            <button class="btn btn-danger btn-sm remove-item">Eltávolítás</button>
                         </div>
                     </div>
                 </div>
@@ -99,24 +97,22 @@ function renderCartItems(cart) {
 }
 
 
-
 // Render order modal with product images
 function renderOrderModal(cart) {
     modalBody.innerHTML = cart.length === 0
         ? '<p class="text-center">A kosár üres</p>'
         : cart.map(item => {
             const price = item.price ? item.price.toLocaleString() : 'N/A';
-            const imageUrl = `/api/uploads/${item.product_pic}`;
+            const productImage = item.product_pic ? `/api/uploads/${item.product_pic}` : '1.jpg';
             return `
-                <div class="card mb-3 p-2 shadow-sm">
-                    <div class="row g-0">
-                        <div class="col-12 col-sm-3 d-flex align-items-center justify-content-center">
-                            <img src="${imageUrl}" class="img-fluid rounded"
-                                alt="${item.product_name || 'Termékkép'}"
-                                style="max-width: 80px; height: auto;">
+                <div class="card mb-3">
+                <div class="row g-0 align-items-center">
+                        <div class="col-md-2">
+                        <img src="${productImage}" alt="${item.product_name || item.pc_name}" 
+                        class="img-fluid rounded" style="max-width: 80px; height: auto;">
                         </div>
-                        <div class="col-12 col-sm-9">
-                            <div class="card-body text-center text-sm-start">
+                        <div class="col-md-10">
+                            <div class="card-body">
                                 <h5 class="card-title">${item.product_name || item.pc_name}</h5>
                                 <p class="card-text">Ár: ${price} Ft</p>
                                 <p class="card-text">Mennyiség: ${item.quantity}</p>
@@ -127,9 +123,12 @@ function renderOrderModal(cart) {
             `;
         }).join('');
 
+    // Elhelyezzük a full price-ot a modalBody végén
     modalBody.appendChild(fullpriceContainer);
-}
 
+    // Debugging: Ellenőrizzük, hogy biztosan ott van-e a modalban
+    console.log('Modal body after appending full price:', modalBody);
+}
 
 
 function generateQuantityOptions(selectedQuantity) {
