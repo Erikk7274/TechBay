@@ -200,10 +200,11 @@ function renderOrderModal(cart) {
             `;
         }).join('');
 
-    // Elhelyezem a full price-ot a modalBody végén
-    if (modalBody) {
-        modalBody.appendChild(fullpriceContainer);
-    }
+    // Elhelyezzük a full price-ot a modalBody végén
+    modalBody.appendChild(fullpriceContainer);
+
+    // Debugging: Ellenőrizzük, hogy biztosan ott van-e a modalban
+    console.log('Modal body after appending full price:', modalBody);
 }
 
 const fullpriceContainer = document.createElement('div');
@@ -224,12 +225,15 @@ async function fullprice(cart) {
         const data = await response.json();
         const totalPrice = data.totalPrice;
 
-        // Ha a végleges ár nagyobb mint 0, akkor megjelenítjük
+        // Ha van ár, akkor beállítjuk
         if (cart && cart.length > 0 && totalPrice > 0) {
-            fullpriceContainer.innerHTML = `<p class="text-center">Végleges ár: ${totalPrice.toLocaleString()} Ft</p>`;
+            fullpriceContainer.innerHTML = `<p>Végleges ár: ${totalPrice.toLocaleString()} Ft</p>`;
         } else {
-            fullpriceContainer.innerHTML = ''; // Ha nincs végleges ár, ne jelenjen meg semmi
+            fullpriceContainer.innerHTML = '<p>Hiba a végleges ár betöltésekor.</p>';
         }
+
+        // Ellenőrizzük a container láthatóságát a konzolban
+        console.log('Fullprice container:', fullpriceContainer);
     } catch (error) {
         console.error('Error fetching final price:', error);
         fullpriceContainer.innerHTML = `<p class="text-center">Hiba a végleges ár betöltésekor: ${error.message}</p>`;
