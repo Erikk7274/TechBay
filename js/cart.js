@@ -106,9 +106,10 @@ function renderOrderModal(cart) {
             const productImage = item.product_pic ? `/api/uploads/${item.product_pic}` : '1.jpg';
             return `
                 <div class="card mb-3">
-                    <div class="row g-0">
+                <div class="row g-0 align-items-center">
                         <div class="col-md-2">
-                            <img src="${productImage}" alt="${item.product_name || item.pc_name}" class="img-fluid rounded-start" style="max-height: 80px; object-fit: contain;">
+                        <img src="${productImage}" alt="${item.product_name || item.pc_name}" 
+                        class="img-fluid rounded" style="max-width: 80px; height: auto;">
                         </div>
                         <div class="col-md-10">
                             <div class="card-body">
