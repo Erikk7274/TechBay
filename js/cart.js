@@ -181,6 +181,9 @@ function setUpOrderButton() {
     }
 }
 
+
+
+
 function renderOrderModal(cart) {
     modalBody.innerHTML = cart.length === 0
         ? '<p class="text-center">A kosár üres</p>'
@@ -196,6 +199,7 @@ function renderOrderModal(cart) {
                 </div>
             `;
         }).join('');
+        modalBody.appendChild(fullpriceContainer);
 }
 
 
