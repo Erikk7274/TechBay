@@ -245,7 +245,7 @@ function renderOrderModal(cart) {
                         </div>
                         <div class="col-md-2 position-absolute top-0 end-0 p-2">
                             <img src="${productImage}" alt="${item.product_name || item.pc_name}" 
-                            class="img-fluid rounded" style="max-width: 50px; height: auto;border:1px black">
+                            class="img-fluid rounded" style="max-width: 50px; height: auto;border:1px solid black">
                         </div>
                     </div>
                 </div>
