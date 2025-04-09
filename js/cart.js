@@ -68,11 +68,12 @@ async function loadCart() {
 
 
 // Render cart items based on the new database structure
+// Render cart items based on the new database structure
 function renderCartItems(cart) {
     return cart.map(item => {
         console.log(item);
         const price = item.price || item.pc_price;
-        const productImage = item.image_url || 'logo.jpg';
+        const productImage = item.product_pic ? `/api/uploads/${item.product_pic}` : 'default-image.jpg';  // Ha nincs kép, legyen alapértelmezett
         return `
             <div class="card mb-3" cart-item-id="${item.cart_item_id}" data-id="${item.product_id ?? item.pc_id ?? 'hiba'}">
                 <div class="row g-0">
@@ -89,14 +90,45 @@ function renderCartItems(cart) {
                             </select>
                             <button class="btn btn-danger btn-sm remove-item">Eltávolítás</button>
                         </div>
-                        
                     </div>
                 </div>
             </div>
         `;
-
     }).join('');
 }
+
+// Render order modal with product images
+function renderOrderModal(cart) {
+    modalBody.innerHTML = cart.length === 0
+        ? '<p class="text-center">A kosár üres</p>'
+        : cart.map(item => {
+            const price = item.price ? item.price.toLocaleString() : 'N/A';
+            const productImage = item.product_pic ? `/api/uploads/${item.product_pic}` : 'default-image.jpg';  // Ha nincs kép, legyen alapértelmezett
+            return `
+                <div class="card mb-3">
+                    <div class="row g-0">
+                        <div class="col-md-2">
+                            <img src="${productImage}" alt="${item.product_name || item.pc_name}" class="img-fluid rounded-start" style="max-height: 80px; object-fit: contain;">
+                        </div>
+                        <div class="col-md-10">
+                            <div class="card-body">
+                                <h5 class="card-title">${item.product_name || item.pc_name}</h5>
+                                <p class="card-text">Ár: ${price} Ft</p>
+                                <p class="card-text">Mennyiség: ${item.quantity}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+    // Elhelyezzük a full price-ot a modalBody végén
+    modalBody.appendChild(fullpriceContainer);
+
+    // Debugging: Ellenőrizzük, hogy biztosan ott van-e a modalban
+    console.log('Modal body after appending full price:', modalBody);
+}
+
 
 function generateQuantityOptions(selectedQuantity) {
     let options = "";
