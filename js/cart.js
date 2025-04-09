@@ -199,9 +199,15 @@ function renderOrderModal(cart) {
                 </div>
             `;
         }).join('');
-       
+
+    // Add full price after rendering the items
+    modalBody.appendChild(fullpriceContainer);
 }
 
+
+const fullpriceContainer = document.createElement('div');
+fullpriceContainer.id = 'fullpriceHTML';
+fullpriceContainer.className = 'text-center mt-3';
 
 async function fullprice(cart) {
     try {
@@ -217,21 +223,14 @@ async function fullprice(cart) {
         const data = await response.json();
         const totalPrice = data.totalPrice;
 
-        // Initialize the fullpriceHTML element
-        const fullpriceHTML = document.getElementById('fullpriceHTML');
-
-        // Show total price only if the cart is not empty
         if (cart && cart.length > 0 && totalPrice > 0) {
-            fullpriceHTML.innerHTML = `
-                <p class="text-center">Végleges ár: ${totalPrice.toLocaleString()} Ft</p>
-            `;
+            fullpriceContainer.innerHTML = `<p class="text-center">Végleges ár: ${totalPrice.toLocaleString()} Ft</p>`;
         } else {
-            fullpriceHTML.innerHTML = ''; // Clear the price if it's 0 or cart is empty
+            fullpriceContainer.innerHTML = '';
         }
     } catch (error) {
         console.error('Error fetching final price:', error);
-        const fullpriceHTML = document.getElementById('fullpriceHTML');
-        fullpriceHTML.innerHTML = `<p class="text-center">Hiba a végleges ár betöltésekor: ${error.message}</p>`;
+        fullpriceContainer.innerHTML = `<p class="text-center">Hiba a végleges ár betöltésekor: ${error.message}</p>`;
     }
 }
 
