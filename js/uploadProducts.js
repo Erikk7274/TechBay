@@ -299,6 +299,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 body: configData
             });
 
+            const responseText = await response.text(); // a válasz szöveges formában
+console.log(responseText); // Naplózd ki a választ
+
             if (response.ok) {
                 alert("SIKERES FELTÖLTÉS!");
                 document.getElementById("configForm").reset();
