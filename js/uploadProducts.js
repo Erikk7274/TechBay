@@ -282,7 +282,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
 
-            // Ha az ár helyes, folytatjuk az adatgyűjtést
+          
             const configData = new FormData();
             configData.append('pc_name', document.getElementById("configName").value);
             configData.append('cpu', document.getElementById("cpu").value);
