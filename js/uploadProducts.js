@@ -297,7 +297,7 @@ document.addEventListener("DOMContentLoaded", () => {
             configData.append('pc_price', Number(configPrice)); // Ár szám formátumban
             configData.append('pc_pic', document.getElementById("configImage").files[0]);
             configData.append('pc_description', document.getElementById("configDescription").value);
-            configData.append('in_stock', "1");
+            configData.append('in_stock', document.getElementById("configStock").value);
             configData.append('sale', document.getElementById("configSale").value); // Akció mértéke
             configData.append('sale_', document.getElementById("configSaleActive").value); // Akciós státusz
             configData.append('active', document.getElementById("configActive").checked ? "1" : "0");
