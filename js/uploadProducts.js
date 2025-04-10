@@ -301,7 +301,8 @@ document.addEventListener("DOMContentLoaded", () => {
             configData.append('sale', document.getElementById("configSale").value); // Akció mértéke
             configData.append('sale_', document.getElementById("configSaleActive").value); // Akciós státusz
             configData.append('active', document.getElementById("configActive").checked ? "1" : "0");
-            
+            configData.append('cat_id', catId);
+
 
             // Form adatküldése
             const response = await fetch("/api/add/uploadConfig", {
