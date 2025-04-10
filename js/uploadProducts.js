@@ -283,7 +283,7 @@ document.addEventListener("DOMContentLoaded", () => {
             configData.append('ssd', document.getElementById("ssd").value);
             configData.append('power_supply', document.getElementById("powerSupply").value);
             configData.append('cpu_cooler', document.getElementById("cpuCooler").value);
-            configData.append('price', Number(configPrice)); // Ár szám formátumban
+            configData.append('pc_price', Number(configPrice)); // Ár szám formátumban
             configData.append('pc_pic', document.getElementById("configImage").files[0]);
             configData.append('pc_description', document.getElementById("configDescription").value);
             configData.append('in_stock', "1");
