@@ -229,6 +229,10 @@ document.addEventListener("DOMContentLoaded", () => {
                         <input type="number" id="configSale" name="configSale" class="form-control" value="0">
                     </div>
                     <div class="mb-3">
+                    <label for="configStock" class="form-label">Raktáron:</label>
+                    <input type="number" id="configStock" name="configStock" class="form-control config" required>
+                    </div>
+                    <div class="mb-3">
                     <label for="configActive" class="form-label">Aktív:</label>
                     <input type="checkbox" id="configActive" name="configActive" class="form-check-input" value="1">
                 </div>
@@ -268,6 +272,13 @@ document.addEventListener("DOMContentLoaded", () => {
             if (isNaN(configPrice) || configPrice === "" || Number(configPrice) <= 0) {
                 alert("Ár mező nem lehet üres, nem szám, vagy 0-nál kisebb!");
                 return; // Ne folytasd, ha hiba van
+            }
+
+            const configStock = document.getElementById("configStock").value;
+
+            if (isNaN(configStock) || configStock === "") {
+                alert("A raktáron mezők nem lehetnek üresek vagy hibásak!");
+                return; 
             }
 
 
