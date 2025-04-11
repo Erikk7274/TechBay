@@ -261,7 +261,6 @@ function renderOrderModal(cart) {
 const fullpriceContainer = document.createElement('div');
 fullpriceContainer.id = 'fullpriceHTML';
 fullpriceContainer.className = 'text-center mt-3';
-document.body.prepend(topFullPriceContainer);
 async function fullprice(cart) {
     try {
         const response = await fetch('/api/cart/sumPrice', {
