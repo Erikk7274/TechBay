@@ -233,6 +233,9 @@ function renderOrderModal(cart) {
         : cart.map(item => {
             const price = item.price ? item.price.toLocaleString() : 'N/A';
             const productImage = `/api/uploads/${item.product_pic || item.pc_pic}`;
+            console.log("product_pic:", item.product_pic);
+console.log("pc_pic:", item.pc_pic);
+
 
         
 
