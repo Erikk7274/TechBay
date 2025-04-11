@@ -232,7 +232,8 @@ function renderOrderModal(cart) {
         ? '<p class="text-center">A kosár üres</p>'
         : cart.map(item => {
             const price = item.price ? item.price.toLocaleString() : 'N/A';
-            const productImage = item.product_pic ? `/api/uploads/${item.product_pic}` : '1.jpg' || item.pc_pic ? `/api/uploads/${item.pc_pic}` : '1.jpg';
+            const productImage = item.product_pic ? `/api/uploads/${item.product_pic}`: item.pc_pic ? `/api/uploads/${item.pc_pic}` : '1.jpg';
+
             return `
                 <div class="card mb-3 position-relative">
                     <div class="row g-0 align-items-center">
@@ -266,7 +267,7 @@ async function fullprice(cart) {
             method: 'GET',
             credentials: 'include'
         });
-        
+
         console.log('Response status:', response.status); // Logoljunk válasz státuszt
 
         if (!response.ok) {
