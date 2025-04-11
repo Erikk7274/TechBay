@@ -231,7 +231,7 @@ function renderOrderModal(cart) {
     modalBody.innerHTML = cart.length === 0
         ? '<p class="text-center">A kosár üres</p>'
         : cart.map(item => {
-            const price = item.price ? item.price.toLocaleString() : 'N/A';
+            const price = (item.price || item.pc_price) ? (item.price || item.pc_price).toLocaleString() : 'N/A';
             const productImage = item.product_pic ? `/api/uploads/${item.product_pic}` : item.pc_pic ? `/api/uploads/${item.pc_pic}` : '1.jpg';
 
             return `
@@ -245,9 +245,8 @@ function renderOrderModal(cart) {
                             </div>
                         </div>
                         <div class="col-md-2 position-absolute top-0 end-0 p-2">
-                        <img src="${productImage}" alt="${item.product_name || item.pc_name}">
- 
-                            class="img-fluid rounded" style="max-width: 50px; height: auto;border:1px solid black">
+                            <img src="${productImage}" alt="${item.product_name || item.pc_name}"
+                                 class="img-fluid rounded" style="max-width: 100%; height: auto; border: 1px solid black;">
                         </div>
                     </div>
                 </div>
@@ -257,6 +256,7 @@ function renderOrderModal(cart) {
     modalBody.appendChild(fullpriceContainer);
     console.log('Modal body after appending full price:', modalBody);
 }
+
 
 const fullpriceContainer = document.createElement('div');
 fullpriceContainer.id = 'fullpriceHTML';
