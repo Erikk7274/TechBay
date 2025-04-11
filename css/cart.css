@@ -379,3 +379,6 @@ nav a i {
     object-fit: contain; 
 }
 
+.card-body .product-image {
+    position: static;  
+}
