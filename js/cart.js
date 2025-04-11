@@ -77,7 +77,7 @@ function renderCartItems(cart) {
             <div class="card mb-3" cart-item-id="${item.cart_item_id}" data-id="${item.product_id ?? item.pc_id ?? 'hiba'}">
                 <div class="row g-0">
                     <div class="col-3 d-flex align-items-center">
-                        <img src="${imageUrl}" class="img-static rounded-start" alt="${item.product_name||item.pc_name || 'Termékkép'}">
+                        <img src="${imageUrl}" class="img-fluid rounded-start" alt="${item.product_name||item.pc_name || 'Termékkép'}">
                     </div>
                     <div class="col-9">
                         <div class="card-body">
