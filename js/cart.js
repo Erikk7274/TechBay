@@ -139,7 +139,7 @@ function generateQuantityOptions(selectedQuantity) {
     return options;
 }
 
-// Set up event listeners for the remove buttons
+
 function setUpRemoveButtons() {
     document.querySelectorAll('.remove-item').forEach(button => {
         button.addEventListener('click', async (event) => {
