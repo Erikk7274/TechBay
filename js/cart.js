@@ -269,7 +269,7 @@ async function fullprice(cart) {
             credentials: 'include'
         });
 
-        console.log('Response status:', response.status); // Logoljunk válasz státuszt
+        console.log('Response status:', response.status); 
 
         if (!response.ok) {
             throw new Error('Failed to fetch final price');

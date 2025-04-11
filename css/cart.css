@@ -357,3 +357,9 @@ nav a i {
         height: auto;
     }
 }
+@media (max-width: 720px) {
+    .cart-item img {
+        max-width: 100%;
+        height: auto;
+    }
+}
