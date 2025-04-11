@@ -139,7 +139,7 @@ function generateQuantityOptions(selectedQuantity) {
     return options;
 }
 
-
+// Set up event listeners for the remove buttons
 function setUpRemoveButtons() {
     document.querySelectorAll('.remove-item').forEach(button => {
         button.addEventListener('click', async (event) => {
@@ -167,7 +167,7 @@ async function removeItemFromCart(cart_item_id) {
             throw new Error(`Hiba: ${response.status} - ${response.statusText}`);
         }
 
-       
+        // Ha a válasz 204 (üres kosár), akkor üres kosár üzenetet jelenítünk meg
         if (response.status === 204) {
             cartItemsContainer.innerHTML = '<p class="text-center">A kosár üres</p>';
         } else {
@@ -261,6 +261,7 @@ function renderOrderModal(cart) {
 const fullpriceContainer = document.createElement('div');
 fullpriceContainer.id = 'fullpriceHTML';
 fullpriceContainer.className = 'text-center mt-3';
+document.body.prepend(topFullPriceContainer);
 async function fullprice(cart) {
     try {
         const response = await fetch('/api/cart/sumPrice', {
