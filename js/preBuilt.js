@@ -90,10 +90,7 @@ function createCard(product) {
         <div class="card-footer text-center">
             <span class="d-block mb-2">Raktáron: ${product.in_stock}</span>
             <span class="d-block mb-2">Ár: ${product.pc_price ? product.pc_price + ' Ft' : 'N/A'}</span>
-            <label for="quantity-${product.product_id}" class="form-label">Vásárlás mennyisége:</label>
-                    <select id="quantity-${product.product_id}" class="form-select quantity-select">
-                        ${generateQuantityOptions(product.in_stock)}
-                    </select>
+            
 
             <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-${product.pc_id}">Részletek</button>
         </div>
@@ -123,6 +120,10 @@ function createModal(product) {
                     <p><strong>Raktáron:</strong> ${product.in_stock}</p>
                     <p><strong>Ár:</strong> ${product.pc_price ? `${product.pc_price} Ft` : 'N/A'}</p>
                     <p><strong>Leírás:</strong><br> ${product.pc_description}</p>
+                    <label for="quantity-${product.product_id}" class="form-label">Vásárlás mennyisége:</label>
+                    <select id="quantity-${product.product_id}" class="form-select quantity-select">
+                        ${generateQuantityOptions(product.in_stock)}
+                    </select>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary add-to-cart-btn" data-product-id="${product.pc_id}" data-bs-dismiss="modal">Kosárba</button>
@@ -134,6 +135,13 @@ function createModal(product) {
     document.body.appendChild(modalDiv);
 
     modalDiv.querySelector('.add-to-cart-btn').addEventListener('click', () => addToCart(product.pc_id));
+}
+function generateQuantityOptions(maxQuantity) {
+    let options = "";
+    for (let i = 1; i <= maxQuantity; i++) {  // Csak a raktáron lévő mennyiségig generálja az opciókat
+        options += `<option value="${i}">${i}</option>`;
+    }
+    return options || '<option value="0" disabled>Nincs raktáron</option>';  // Ha nincs készleten, akkor inaktív
 }
 
 function setUpButtonListeners() {
