@@ -138,10 +138,10 @@ function createModal(product) {
 }
 function generateQuantityOptions(maxQuantity) {
     let options = "";
-    for (let i = 1; i <= maxQuantity; i++) {  // Csak a raktáron lévő mennyiségig generálja az opciókat
+    for (let i = 1; i <= maxQuantity; i++) {  
         options += `<option value="${i}">${i}</option>`;
     }
-    return options || '<option value="0" disabled>Nincs raktáron</option>';  // Ha nincs készleten, akkor inaktív
+    return options || '<option value="0" disabled>Nincs raktáron</option>'; 
 }
 
 function setUpButtonListeners() {
@@ -151,16 +151,31 @@ function setUpButtonListeners() {
     btnBack?.addEventListener('click', () => window.location.href = 'https://techbay2.netlify.app/home.html');
 }
 
-async function addToCart(productId,quantity) {
+// async function addToCart(productId,quantity) {
+//     try {
+//         const response = await fetch('/api/cart/takeProduct/:${product_id}', {
+//             method: 'POST',
+//             headers: { 'content-type': 'application/json' },
+//             credentials: 'include',
+//         });
+
+//         const result = await response.json();
+//         response.ok ? console.log('Termék hozzáadva:', result) : console.error('Hiba:', result);
+//     } catch (error) {
+//         console.error('Hiba a kosárba helyezéskor:', error);
+//     }
+// }
+
+async function addToCart(productId, quantity) {
     try {
-        const response = await fetch('/api/cart/takeProduct/:${product_id}', {
+        const response = await fetch(`/api/cart/takeProduct/${productId}`, {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ productId, quantity }),  
             credentials: 'include',
         });
-
         const result = await response.json();
-        response.ok ? console.log('Termék hozzáadva:', result) : console.error('Hiba:', result);
+        console.log(response.ok ? `Termék hozzáadva (${quantity} db):` : 'Hiba:', result);
     } catch (error) {
         console.error('Hiba a kosárba helyezéskor:', error);
     }
