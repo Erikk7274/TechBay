@@ -90,6 +90,10 @@ function createCard(product) {
         <div class="card-footer text-center">
             <span class="d-block mb-2">Raktáron: ${product.in_stock}</span>
             <span class="d-block mb-2">Ár: ${product.pc_price ? product.pc_price + ' Ft' : 'N/A'}</span>
+            <label for="quantity-${product.product_id}" class="form-label">Vásárlás mennyisége:</label>
+                    <select id="quantity-${product.product_id}" class="form-select quantity-select">
+                        ${generateQuantityOptions(product.in_stock)}
+                    </select>
 
             <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-${product.pc_id}">Részletek</button>
         </div>
