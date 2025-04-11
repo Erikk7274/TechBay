@@ -72,7 +72,7 @@ async function loadCart() {
 function renderCartItems(cart) {
     return cart.map(item => {
         const price = item.price || item.pc_price;
-        const imageUrl = `/api/uploads/${item.product_pic}`;
+        const imageUrl = item.product_pic ? `/api/uploads/${item.product_pic}` : '1.jpg';
         return `
             <div class="card mb-3" cart-item-id="${item.cart_item_id}" data-id="${item.product_id ?? item.pc_id ?? 'hiba'}">
                 <div class="row g-0">
@@ -233,9 +233,6 @@ function renderOrderModal(cart) {
         : cart.map(item => {
             const price = item.price ? item.price.toLocaleString() : 'N/A';
             const productImage = item.product_pic ? `/api/uploads/${item.product_pic}` : item.pc_pic ? `/api/uploads/${item.pc_pic}` : '1.jpg';
-
-
-        
 
             return `
                 <div class="card mb-3 position-relative">
