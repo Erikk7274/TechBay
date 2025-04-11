@@ -372,24 +372,40 @@ nav a i {
     }
 }
 
-/* --- Modal képek--- */
+/* --- Modal body módosítása a képek reszponzív pozicionálásához --- */
 .modal-body .card {
     position: relative;
 }
 
-
+/* --- Kép pozicionálása jobb felső sarokba, fix helyen --- */
 .modal-body .card .product-image {
     position: absolute;
     top: 10px;
     right: 10px;
-    max-width: 80px; 
+    max-width: 80px; /* Kép méretének korlátozása */
     height: auto;
     border-radius: 8px;
     border: 1px solid #ddd;
 }
 
-
+/* --- A card body biztosítja, hogy a kép ne takarja el a szöveget --- */
 .card-body {
-    padding-right: 100px;  
+    padding-right: 100px;  /* Balra tolja a szöveget, hogy legyen hely a képnek */
     text-align: left;
+}
+
+/* --- Kép reszponzív viselkedése kisebb képernyőkön --- */
+@media (max-width: 750px) {
+    .modal-body .card .product-image {
+        position: relative;  /* Kép ne legyen abszolút pozicionálva, így rugalmasabban elhelyezhető */
+        max-width: 60px;  /* Kép kisebb méretre csökkentése kisebb képernyőkön */
+        margin-top: 10px;
+        margin-bottom: 10px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .card-body {
+        padding-right: 0;  /* A padding csökkentése, hogy jobban illeszkedjen kisebb képernyőkön */
+    }
 }
