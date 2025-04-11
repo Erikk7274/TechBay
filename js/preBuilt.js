@@ -134,7 +134,10 @@ function createModal(product) {
 
     document.body.appendChild(modalDiv);
 
-    modalDiv.querySelector('.add-to-cart-btn').addEventListener('click', () => addToCart(product.pc_id));
+    modalDiv.querySelector('.add-to-cart-btn').addEventListener('click', () => {
+        const selectedQuantity = document.getElementById(`quantity-${product.pc_id}`).value;
+        addToCart(product.pc_id, selectedQuantity);
+    });;
 }
 function generateQuantityOptions(maxQuantity) {
     let options = "";
