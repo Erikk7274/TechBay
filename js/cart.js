@@ -253,9 +253,11 @@ function renderOrderModal(cart) {
             `;
         }).join('');
 
+    // Biztosítjuk, hogy a teljes ár tartalom is helyesen jelenjen meg
     modalBody.appendChild(fullpriceContainer);
     console.log('Modal body after appending full price:', modalBody);
 }
+
 
 
 const fullpriceContainer = document.createElement('div');
