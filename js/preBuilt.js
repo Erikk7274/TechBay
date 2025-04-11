@@ -120,8 +120,8 @@ function createModal(product) {
                     <p><strong>Raktáron:</strong> ${product.in_stock}</p>
                     <p><strong>Ár:</strong> ${product.pc_price ? `${product.pc_price} Ft` : 'N/A'}</p>
                     <p><strong>Leírás:</strong><br> ${product.pc_description}</p>
-                    <label for="quantity-${product.product_id}" class="form-label">Vásárlás mennyisége:</label>
-                    <select id="quantity-${product.product_id}" class="form-select quantity-select">
+                    <label for="quantity-${product.pc_id}" class="form-label">Vásárlás mennyisége:</label>
+                    <select id="quantity-${product.pc_id}" class="form-select quantity-select">
                         ${generateQuantityOptions(product.in_stock)}
                     </select>
                 </div>
@@ -151,7 +151,7 @@ function setUpButtonListeners() {
     btnBack?.addEventListener('click', () => window.location.href = 'https://techbay2.netlify.app/home.html');
 }
 
-async function addToCart(productId) {
+async function addToCart(productId,quantity) {
     try {
         const response = await fetch('/api/cart/takeProduct/:${product_id}', {
             method: 'POST',
