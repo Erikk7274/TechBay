@@ -232,9 +232,7 @@ function renderOrderModal(cart) {
         ? '<p class="text-center">A kosár üres</p>'
         : cart.map(item => {
             const price = item.price ? item.price.toLocaleString() : 'N/A';
-            const productImage = `/api/uploads/${item.product_pic || item.pc_pic}`;
-            console.log("product_pic:", item.product_pic);
-console.log("pc_pic:", item.pc_pic);
+            const productImage = item.product_pic ? `/api/uploads/${item.product_pic}` : item.pc_pic ? `/api/uploads/${item.pc_pic}` : '1.jpg';
 
 
         
@@ -250,7 +248,8 @@ console.log("pc_pic:", item.pc_pic);
                             </div>
                         </div>
                         <div class="col-md-2 position-absolute top-0 end-0 p-2">
-                            <img src="${productImage}" alt="${item.product_name || item.pc_name}" 
+                        <img src="${productImage}" alt="${item.product_name || item.pc_name}">
+ 
                             class="img-fluid rounded" style="max-width: 50px; height: auto;border:1px solid black">
                         </div>
                     </div>
