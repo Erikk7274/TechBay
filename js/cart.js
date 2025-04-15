@@ -300,6 +300,8 @@ async function fullprice(cart) {
 
 
 
+
+
 function setUpButtonListeners() {
     btnBack?.addEventListener('click', () => {
         window.location.href = 'https://techbay2.netlify.app/home.html';
@@ -307,3 +309,71 @@ function setUpButtonListeners() {
 
     setUpOrderButton();
 }
+
+
+
+
+
+
+// Rendelés megerősítése
+if (confirmOrderBtn) confirmOrderBtn.addEventListener('click', showPaymentModal);
+
+// Fizetési modal bezárása
+const closePaymentModal = document.querySelector('#paymentModal .close');
+if (closePaymentModal) closePaymentModal.addEventListener('click', closeModal);
+
+const paymentForm = document.getElementById('paymentForm');
+if (paymentForm) paymentForm.addEventListener('submit', handlePayment);
+
+function closeModal() {
+    const modal = document.querySelector('.modal');
+    if (modal) modal.style.display = 'none';
+}
+
+function showPaymentModal() {
+    // Bezárjuk a rendelés modalt
+    document.getElementById('orderModal').style.display = 'none';
+    // Megnyitjuk a fizetés modalt
+    document.getElementById('paymentModal').style.display = 'block';
+}
+
+async function handlePayment(event) {
+    event.preventDefault();
+    const cardNumber = document.getElementById('cardNumber').value;
+    const expiryDate = document.getElementById('expiryDate').value;
+    const cvv = document.getElementById('cvv').value;
+
+    // Validáljuk a kártya adatokat (például formátum alapján)
+    if (cardNumber && expiryDate && cvv) {
+        // Fizetési folyamat
+        await processPayment(cardNumber, expiryDate, cvv);
+    } else {
+        alert("Kérlek, töltsd ki az összes mezőt!");
+    }
+}
+
+async function processPayment(cardNumber, expiryDate, cvv) {
+    try {
+        const res = await fetch('/api/payment', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ cardNumber, expiryDate, cvv })
+        });
+        const data = await res.json();
+        if (res.ok) {
+            alert('Fizetés sikeres!');
+            // Hívjuk az API-t az order adatok küldésére
+            await fetch('/api/order/itemsOrder', { method: 'POST' });
+            // Töröljük a kosarat és bezárjuk a fizetési modalt
+            closeModal();
+        } else {
+            alert('Hiba a fizetés során.');
+        }
+    } catch (error) {
+        console.error('Hiba a fizetés közben:', error);
+    }
+
+}
+
