@@ -372,14 +372,15 @@ function showPaymentModal(cart) {
 // Rendelés megerősítése és fizetési modal megnyitása
 async function confirmOrder(cart) {
     try {
-        const response = await fetch('/api/itemsOrder', {
+        const response = await fetch('https://techbay2.netlify.app/api/itemsOrder', {
             method: 'POST',
+            credentials: 'include',
+            body: JSON.stringify(cart),
             headers: {
                 'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ items: cart }), // A kosár termékei
-            credentials: 'include',
+            }
         });
+
 
         if (!response.ok) {
             throw new Error('Hiba a rendelés leadása során');
