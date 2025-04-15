@@ -46,6 +46,44 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+
+async function getOrderHistory() {
+    try {
+        const res = await fetch('/api/profile/MyOrderHistory', {
+            method: 'GET',
+            credentials: 'include'
+        });
+
+        if (!res.ok) {
+            throw new Error('Nem sikerült lekérni a rendelési előzményeket.');
+        }
+
+        const orders = await res.json();
+        const container = document.querySelector('.container');
+
+        const ul = document.createElement('ul');
+        ul.classList.add('order-list');
+
+        orders.forEach(order => {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <strong>Rendelés ID:</strong> ${order.order_id || 'N/A'} <br>
+                <strong>Dátum:</strong> ${order.order_date || 'N/A'} <br>
+                <strong>Összeg:</strong> ${order.total_amount || 'N/A'} Ft <br>
+                <strong>Státusz:</strong> ${order.status || 'N/A'}
+                <hr>
+            `;
+            ul.appendChild(li);
+        });
+
+        container.appendChild(ul);
+
+    } catch (error) {
+        console.error('Hiba a rendelés betöltésekor:', error);
+    }
+}
+
+
 async function getusername() {
     const res = await fetch('/api/profile/Myusername', {
         method: 'GET',

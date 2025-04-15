@@ -354,21 +354,17 @@ nav a i {
     color: rgb(255, 255, 255);
 }
 
-.imgpfp {
-    border: 2px solid black;
-    min-width: 250px;
-    min-height: 250px;
+
+
+.order-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 2rem;
 }
 
-.profile_pic {
-    width: 100%; 
-    max-width: 150px;
-    height: 150px; 
-    border-radius: 5%; 
-    object-fit: cover;
-    border: 1px solid black;
-    min-width: 150px;
-    max-height: 150px;
-    
+.order-list li {
+    background: #f1f1f1;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 8px;
 }
-
