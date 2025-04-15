@@ -375,7 +375,6 @@ async function confirmOrder(cart) {
         const response = await fetch('/api/itemsOrder', {
             method: 'POST',
             credentials: 'include',
-            body: JSON.stringify(cart),
             headers: {
                 'Content-Type': 'application/json',
             }
@@ -399,7 +398,7 @@ async function confirmOrder(cart) {
     }
 }
 
-// A Tovább gomb eseménykezelője
+
 document.getElementById('confirmOrderBtn').addEventListener('click', async () => {
     try {
         const response = await fetch('/api/cart/myCart', {
@@ -417,7 +416,7 @@ document.getElementById('confirmOrderBtn').addEventListener('click', async () =>
             return;
         }
 
-        // Fizetési modal megjelenítése a kosár adataival
+       
         showPaymentModal(cart);
 
     } catch (error) {
