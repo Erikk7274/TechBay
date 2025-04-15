@@ -113,9 +113,7 @@ function createCard(product) {
     return cardDiv;
 }
 
-// Egy adott termék modal ablakának létrehozása
 function createModal(product) {
-
     const modalDiv = document.createElement('div');
     modalDiv.classList.add('modal', 'fade');
     modalDiv.id = `modal-${product.pc_id}`;
@@ -137,14 +135,16 @@ function createModal(product) {
                     <p><strong>Leírás:</strong><br> ${product.pc_description}</p>
                 </div>
                 <div class="modal-footer">
-                <button class="btn btn-danger btn-sm delete-product-btn" data-product-id="${product.pc_id}">Törlés</button>
+                    <button class="btn btn-danger btn-sm delete-product-btn" data-product-id="${product.pc_id}">Törlés</button>
                 </div>
-            `;
+            </div>
+        </div>
+    `;
 
     // Törlés gomb eseménykezelője
-    cardDiv.querySelector('.delete-product-btn').addEventListener('click', () => deleteProduct(product.pc_id));
+    modalDiv.querySelector('.delete-product-btn').addEventListener('click', () => deleteProduct(product.pc_id));
 
-    return cardDiv;
+    document.body.append(modalDiv);
 }
 
 // Termék törlése az API-ból
