@@ -301,6 +301,87 @@ async function fullprice(cart) {
 
 
 
+
+// Fizetés megerősítése
+function confirmOrder() {
+    // A rendelés megerősítése után bezárjuk a fizetési modalt
+    const paymentModal = document.getElementById('paymentModal');
+    if (paymentModal) {
+        paymentModal.style.display = 'none'; // Fizetés modal bezárása
+    }
+
+    // Itt helyezheted el a rendelés véglegesítése logikáját
+    alert('A rendelésed sikeresen véglegesítve lett!');
+
+    // Tovább küldheted a rendelést a backendhez a kívánt API hívásokkal
+    try {
+        const response = await fetch('/api/cart/confirmOrder', {
+            method: 'POST',
+            credentials: 'include',
+        });
+
+        if (response.ok) {
+            const responseData = await response.json();
+            if (responseData.message === 'Rendelés sikeresen rögzítve') {
+                alert('Rendelés sikeresen rögzítve!');
+                // Itt lehetőség van a felhasználót a fizetési rendszerhez irányítani
+                window.location.href = '/payment-page'; // Vagy más fizetési oldal URL-je
+            } else {
+                alert('Hiba történt a rendelés megerősítésekor.');
+            }
+        } else {
+            throw new Error('Hiba a rendelés megerősítésekor');
+        }
+    } catch (error) {
+        console.error('Error confirming order:', error);
+        alert('Hiba történt a rendelés megerősítésekor. Kérem próbálja újra.');
+    }
+}
+
+// Fizetési modal megnyitása
+function showPaymentModal() {
+    // Bezárjuk a rendelés modalt (ha van)
+    const orderModal = document.getElementById('orderModal');
+    if (orderModal) {
+        orderModal.style.display = 'none'; // Rendelés modal bezárása
+    }
+
+    // Megnyitjuk a fizetési modalt
+    const paymentModal = document.getElementById('paymentModal');
+    if (paymentModal) {
+        paymentModal.style.display = 'block'; // Fizetés modal megjelenítése
+    } else {
+        console.error('Fizetési modal nem található!');
+    }
+}
+
+// Fizetési modal bezárása
+function closePaymentModal() {
+    const paymentModal = document.getElementById('paymentModal');
+    if (paymentModal) {
+        paymentModal.style.display = 'none'; // Fizetés modal bezárása
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function setUpButtonListeners() {
     btnBack?.addEventListener('click', () => {
         window.location.href = 'https://techbay2.netlify.app/home.html';
