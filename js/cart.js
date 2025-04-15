@@ -332,10 +332,20 @@ function closeModal() {
 
 function showPaymentModal() {
     // Bezárjuk a rendelés modalt
-    document.getElementById('orderModal').style.display = 'none';
+    const orderModal = document.getElementById('orderModal');
+    if (orderModal) {
+        orderModal.style.display = 'none'; // Rendelés modal bezárása
+    }
+
     // Megnyitjuk a fizetés modalt
-    document.getElementById('paymentModal').style.display = 'block';
+    const paymentModal = document.getElementById('paymentModal');
+    if (paymentModal) {
+        paymentModal.style.display = 'block'; // Fizetés modal megjelenítése
+    } else {
+        console.error('Fizetési modal nem található!');
+    }
 }
+
 
 async function handlePayment(event) {
     event.preventDefault();
