@@ -84,6 +84,7 @@ function createCard(product) {
     cardDiv.classList.add('card', 'm-2', 'p-2', 'shadow-sm');
     cardDiv.style.width = '18rem';
     cardDiv.style.minHeight = '20rem';
+
     let pc_priceHtml = product.sale && product.sale < product.pc_price
         ? `<span class="d-block mb-2" style="text-decoration: line-through;">Ár: ${product.pc_price} Ft</span>`
         : `<span class="d-block mb-2">Ár: ${product.pc_price ? product.pc_price + ' Ft' : 'N/A'}</span>`;
@@ -92,16 +93,16 @@ function createCard(product) {
         ? `<span class="d-block mb-2">Akciós ár: ${product.sale} Ft</span>`
         : '';
 
-
     cardDiv.innerHTML = `
-    <div class="card-header text-center fw-bold">${product.pc_name || product.product_name}</div>
-    <div class="card-body text-center">
-        <img src="/api/uploads/${product.pc_pic}" class="img-fluid mb-3" alt="${product.pc_name || product.pc_name}">
-    </div>
-    <div class="card-footer text-center">
-        <span class="d-block mb-2">Raktáron: ${product.in_stock}</span>
-        <span class="d-block mb-2">Ár: ${product.pc_price ? product.pc_price + ' Ft' : 'N/A'}</span>
-        
+        <div class="card-header text-center fw-bold">${product.pc_name || product.product_name}</div>
+        <div class="card-body text-center">
+            <img src="/api/uploads/${product.pc_pic}" class="img-fluid mb-3" alt="${product.pc_name || product.pc_name}">
+        </div>
+        <div class="card-footer text-center">
+            <span class="d-block mb-2">Raktáron: ${product.in_stock}</span>
+            ${pc_priceHtml}
+            ${saleHtml}
+            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-${product.pc_id}">Részletek</button>
             <button class="btn btn-danger btn-sm delete-product-btn" data-product-id="${product.pc_id}">Törlés</button>
         </div>
     `;
