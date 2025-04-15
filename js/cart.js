@@ -323,8 +323,9 @@ function createPaymentModal(cart) {
                     <ul id="cart-item-list"></ul> <!-- Termékek listája -->
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bezárás</button>
+                    
                     <button type="button" class="btn btn-primary" id="confirmPaymentBtn">Fizetés megerősítése</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bezárás</button>
                 </div>
             </div>
         </div>
