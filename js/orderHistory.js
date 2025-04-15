@@ -60,7 +60,7 @@ async function getOrderHistory() {
         const container = document.getElementById('order-history');
 
         if (!items.length) {
-            container.innerHTML = '<p>Nincsenek rendelési adatok.</p>';
+            container.innerHTML = '<h3 class="text-center">Nincsenek rendelési adatok.</h3>';
             return;
         }
 
