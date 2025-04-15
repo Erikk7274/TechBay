@@ -4,7 +4,7 @@ const orderBtn = document.getElementById('order-btn');
 const cartItemsContainer = document.getElementById('cart-items');
 const modalBody = document.getElementById('modalBody');
 const orderModalElement = document.getElementById('orderModal');
-
+const confirmOrderBtn = document.getElementById('confirmOrderBtn');
 
 let orderModal = orderModalElement ? new bootstrap.Modal(orderModalElement) : null;
 
@@ -263,6 +263,7 @@ function renderOrderModal(cart) {
 const fullpriceContainer = document.createElement('div');
 fullpriceContainer.id = 'fullpriceHTML';
 fullpriceContainer.className = 'text-center mt-3';
+
 async function fullprice(cart) {
     try {
         const response = await fetch('/api/cart/sumPrice', {
@@ -300,44 +301,6 @@ async function fullprice(cart) {
 
 
 
-const fullpriceContainer = document.createElement('div');
-fullpriceContainer.id = 'fullpriceHTML';
-fullpriceContainer.className = 'text-center mt-3';
-
-async function fullprice(cart) {
-    try {
-        const response = await fetch('/api/cart/sumPrice', {
-            method: 'GET',
-            credentials: 'include'
-        });
-
-        console.log('Response status:', response.status);
-
-        if (!response.ok) {
-            throw new Error('Failed to fetch final price');
-        }
-
-        const data = await response.json();
-        console.log('Received data from sumPrice API:', data); // Logoljunk az adatokat
-        if (!data || !data[0].sumPrice) {
-            console.error('No sumPrice in response:', data);
-            throw new Error('No sumPrice found in response');
-        }
-
-        const totalPrice = data[0].sumPrice || 0;
-
-        if (cart && cart.length > 0 && totalPrice > 0) {
-            fullpriceContainer.innerHTML = `<p>Végleges ár: ${totalPrice.toLocaleString()} Ft</p>`;
-        } else {
-            fullpriceContainer.innerHTML = '<p>Hiba a végleges ár betöltésekor.</p>';
-        }
-    } catch (error) {
-        console.error('Error fetching final price:', error);
-        fullpriceContainer.innerHTML = `<p class="text-center">Hiba a végleges ár betöltésekor: ${error.message}</p>`;
-    }
-}
-
-// Set up button listeners
 function setUpButtonListeners() {
     btnBack?.addEventListener('click', () => {
         window.location.href = 'https://techbay2.netlify.app/home.html';
