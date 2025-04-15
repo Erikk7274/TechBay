@@ -364,7 +364,7 @@ function showPaymentModal(cart) {
     if (orderModal) {
         const orderModalInstance = bootstrap.Modal.getInstance(orderModal);
         if (orderModalInstance) {
-            orderModalInstance.hide(); // Bezárjuk a rendelési modalt
+            orderModalInstance.hide(); 
         }
     }
 }
