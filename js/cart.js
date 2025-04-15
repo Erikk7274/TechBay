@@ -77,7 +77,7 @@ function renderCartItems(cart) {
             <div class="card mb-3" cart-item-id="${item.cart_item_id}" data-id="${item.product_id ?? item.pc_id ?? 'hiba'}">
                 <div class="row g-0">
                     <div class="col-3 d-flex align-items-center">
-                        <img src="${imageUrl}" class="img-fluid rounded-start" alt="${item.product_name||item.pc_name || 'Termékkép'}">
+                        <img src="${imageUrl}" class="img-fluid rounded-start" alt="${item.product_name || item.pc_name || 'Termékkép'}">
                     </div>
                     <div class="col-9">
                         <div class="card-body">
@@ -271,7 +271,7 @@ async function fullprice(cart) {
             credentials: 'include'
         });
 
-        console.log('Response status:', response.status); 
+        console.log('Response status:', response.status);
 
         if (!response.ok) {
             throw new Error('Failed to fetch final price');
@@ -298,6 +298,16 @@ async function fullprice(cart) {
         fullpriceContainer.innerHTML = `<p class="text-center">Hiba a végleges ár betöltésekor: ${error.message}</p>`;
     }
 }
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -349,11 +359,13 @@ function showPaymentModal() {
     // Megnyitjuk a fizetési modalt
     const paymentModal = document.getElementById('paymentModal');
     if (paymentModal) {
+        console.log("Fizetési modal megjelenítése...");
         paymentModal.style.display = 'block'; // Fizetés modal megjelenítése
     } else {
         console.error('Fizetési modal nem található!');
     }
 }
+
 
 // Fizetési modal bezárása
 function closePaymentModal() {
