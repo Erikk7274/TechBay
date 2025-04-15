@@ -338,7 +338,7 @@ function createPaymentModal(cart) {
     const cartItemList = document.getElementById('cart-item-list');
     cart.forEach(item => {
         const li = document.createElement('li');
-        li.textContent = `${item.product_name || item.pc_name} - <b>${item.quantity}</b> db - <b>${item.price || item.pc_price}</b> Ft`;
+        li.textContent = `${item.product_name || item.pc_name} - ${item.quantity} db - ${item.price || item.pc_price} Ft`;
         cartItemList.appendChild(li);
     });
 
