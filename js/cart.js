@@ -4,7 +4,7 @@ const orderBtn = document.getElementById('order-btn');
 const cartItemsContainer = document.getElementById('cart-items');
 const modalBody = document.getElementById('modalBody');
 const orderModalElement = document.getElementById('orderModal');
-const confirmOrderBtn = document.getElementById('confirmOrderBtn');
+
 
 let orderModal = orderModalElement ? new bootstrap.Modal(orderModalElement) : null;
 
@@ -300,8 +300,44 @@ async function fullprice(cart) {
 
 
 
+const fullpriceContainer = document.createElement('div');
+fullpriceContainer.id = 'fullpriceHTML';
+fullpriceContainer.className = 'text-center mt-3';
 
+async function fullprice(cart) {
+    try {
+        const response = await fetch('/api/cart/sumPrice', {
+            method: 'GET',
+            credentials: 'include'
+        });
 
+        console.log('Response status:', response.status);
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch final price');
+        }
+
+        const data = await response.json();
+        console.log('Received data from sumPrice API:', data); // Logoljunk az adatokat
+        if (!data || !data[0].sumPrice) {
+            console.error('No sumPrice in response:', data);
+            throw new Error('No sumPrice found in response');
+        }
+
+        const totalPrice = data[0].sumPrice || 0;
+
+        if (cart && cart.length > 0 && totalPrice > 0) {
+            fullpriceContainer.innerHTML = `<p>Végleges ár: ${totalPrice.toLocaleString()} Ft</p>`;
+        } else {
+            fullpriceContainer.innerHTML = '<p>Hiba a végleges ár betöltésekor.</p>';
+        }
+    } catch (error) {
+        console.error('Error fetching final price:', error);
+        fullpriceContainer.innerHTML = `<p class="text-center">Hiba a végleges ár betöltésekor: ${error.message}</p>`;
+    }
+}
+
+// Set up button listeners
 function setUpButtonListeners() {
     btnBack?.addEventListener('click', () => {
         window.location.href = 'https://techbay2.netlify.app/home.html';
@@ -309,81 +345,3 @@ function setUpButtonListeners() {
 
     setUpOrderButton();
 }
-
-
-
-
-
-
-// Rendelés megerősítése
-if (confirmOrderBtn) confirmOrderBtn.addEventListener('click', showPaymentModal);
-
-// Fizetési modal bezárása
-const closePaymentModal = document.querySelector('#paymentModal .close');
-if (closePaymentModal) closePaymentModal.addEventListener('click', closeModal);
-
-const paymentForm = document.getElementById('paymentForm');
-if (paymentForm) paymentForm.addEventListener('submit', handlePayment);
-
-function closeModal() {
-    const modal = document.querySelector('.modal');
-    if (modal) modal.style.display = 'none';
-}
-
-function showPaymentModal() {
-    // Bezárjuk a rendelés modalt
-    const orderModal = document.getElementById('orderModal');
-    if (orderModal) {
-        orderModal.style.display = 'none'; // Rendelés modal bezárása
-    }
-
-    // Megnyitjuk a fizetés modalt
-    const paymentModal = document.getElementById('paymentModal');
-    if (paymentModal) {
-        paymentModal.style.display = 'block'; // Fizetés modal megjelenítése
-    } else {
-        console.error('Fizetési modal nem található!');
-    }
-}
-
-
-async function handlePayment(event) {
-    event.preventDefault();
-    const cardNumber = document.getElementById('cardNumber').value;
-    const expiryDate = document.getElementById('expiryDate').value;
-    const cvv = document.getElementById('cvv').value;
-
-    // Validáljuk a kártya adatokat (például formátum alapján)
-    if (cardNumber && expiryDate && cvv) {
-        // Fizetési folyamat
-        await processPayment(cardNumber, expiryDate, cvv);
-    } else {
-        alert("Kérlek, töltsd ki az összes mezőt!");
-    }
-}
-
-async function processPayment(cardNumber, expiryDate, cvv) {
-    try {
-        const res = await fetch('/api/payment', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ cardNumber, expiryDate, cvv })
-        });
-        const data = await res.json();
-        if (res.ok) {
-            alert('Fizetés sikeres!');
-            // Hívjuk az API-t az order adatok küldésére
-            await fetch('/api/order/itemsOrder', { method: 'POST' });
-            // Töröljük a kosarat és bezárjuk a fizetési modalt
-            closeModal();
-        } else {
-            alert('Hiba a fizetés során.');
-        }
-    } catch (error) {
-        console.error('Hiba a fizetés közben:', error);
-    }
-
-}
-
