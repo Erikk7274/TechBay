@@ -303,10 +303,8 @@ async function fullprice(cart) {
 
 
 
-
-
 // Fizetési modal létrehozása JavaScript-ben
-function createPaymentModal() {
+function createPaymentModal(cart) {
     // Ellenőrizzük, hogy már létezik-e a fizetési modal
     if (document.getElementById('paymentModal')) {
         return; // Ha már létezik, nem hozunk létre újat
@@ -322,11 +320,11 @@ function createPaymentModal() {
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Fizetési információk itt.</p>
+                    <ul id="cart-item-list"></ul> <!-- Termékek listája -->
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bezárás</button>
-                    <button type="button" class="btn btn-primary">Fizetés megerősítése</button>
+                    <button type="button" class="btn btn-primary" id="confirmPaymentBtn">Fizetés megerősítése</button>
                 </div>
             </div>
         </div>
@@ -334,11 +332,24 @@ function createPaymentModal() {
 
     // Hozzáadjuk a body-hoz a fizetési modal HTML-t
     document.body.insertAdjacentHTML('beforeend', paymentModalHTML);
+
+    // Betöltjük a kosár termékeit a fizetési modalba
+    const cartItemList = document.getElementById('cart-item-list');
+    cart.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = `${item.product_name || item.pc_name} - ${item.quantity} db - ${item.price || item.pc_price} Ft`;
+        cartItemList.appendChild(li);
+    });
+
+    // Rendelés megerősítése
+    document.getElementById('confirmPaymentBtn').addEventListener('click', () => {
+        confirmOrder(cart);
+    });
 }
 
 // Fizetési modal megjelenítése
-function showPaymentModal() {
-    createPaymentModal(); // Létrehozzuk a fizetési modalt, ha még nem létezik
+function showPaymentModal(cart) {
+    createPaymentModal(cart); // Létrehozzuk a fizetési modalt, ha még nem létezik
 
     const paymentModal = document.getElementById('paymentModal');
     const paymentModalInstance = new bootstrap.Modal(paymentModal);
@@ -355,12 +366,60 @@ function showPaymentModal() {
 }
 
 // Rendelés megerősítése és fizetési modal megnyitása
-async function confirmOrder() {
-    showPaymentModal(); // Fizetési modal megjelenítése
+async function confirmOrder(cart) {
+    try {
+        const response = await fetch('/api/itemsOrder', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ items: cart }), // A kosár termékei
+            credentials: 'include',
+        });
+
+        if (!response.ok) {
+            throw new Error('Hiba a rendelés leadása során');
+        }
+
+        const result = await response.json();
+        if (result.success) {
+            alert('Rendelés sikeresen leadva!');
+            // További logika a rendelés után (pl. visszairányítás a kezdőlapra)
+        } else {
+            alert('Hiba a rendelés feldolgozása során');
+        }
+    } catch (error) {
+        console.error('Hiba a rendelés leadása során:', error);
+        alert('Hiba a rendelés feldolgozása során');
+    }
 }
 
 // A Tovább gomb eseménykezelője
-document.getElementById('confirmOrderBtn').addEventListener('click', confirmOrder);
+document.getElementById('confirmOrderBtn').addEventListener('click', async () => {
+    try {
+        const response = await fetch('/api/cart/myCart', {
+            method: 'GET',
+            credentials: 'include'
+        });
+
+        if (!response.ok) {
+            throw new Error('Nem sikerült betölteni a kosarat');
+        }
+
+        const cart = await response.json();
+        if (cart.length === 0) {
+            alert('A kosár üres!');
+            return;
+        }
+
+        // Fizetési modal megjelenítése a kosár adataival
+        showPaymentModal(cart);
+
+    } catch (error) {
+        console.error('Hiba a kosár betöltésekor:', error);
+        alert('Hiba a kosár betöltésekor');
+    }
+});
 
 // A Mégse gomb eseménykezelője az orderModal-hoz
 document.querySelector('.btn-secondary[data-bs-dismiss="modal"]').addEventListener('click', function () {
@@ -383,7 +442,6 @@ document.querySelector('.btn-close').addEventListener('click', function () {
         }
     }
 });
-
 
 
 
