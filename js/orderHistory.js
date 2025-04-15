@@ -54,23 +54,21 @@ async function getOrderHistory() {
             credentials: 'include'
         });
 
-        if (!res.ok) {
-            throw new Error('Nem sikerült lekérni a rendelési előzményeket.');
-        }
+        if (!res.ok) throw new Error('Nem sikerült lekérni a rendelési előzményeket.');
 
-        const orders = await res.json();
+        const items = await res.json();
         const container = document.querySelector('.container');
 
         const ul = document.createElement('ul');
         ul.classList.add('order-list');
 
-        orders.forEach(order => {
+        items.forEach(item => {
             const li = document.createElement('li');
             li.innerHTML = `
-                <strong>Rendelés ID:</strong> ${order.order_id || 'N/A'} <br>
-                <strong>Dátum:</strong> ${order.order_date || 'N/A'} <br>
-                <strong>Összeg:</strong> ${order.total_amount || 'N/A'} Ft <br>
-                <strong>Státusz:</strong> ${order.status || 'N/A'}
+                <strong>Termék ID:</strong> ${item.product_id} <br>
+                <strong>Mennyiség:</strong> ${item.quantity} <br>
+                <strong>Egységár:</strong> ${item.unit_price} Ft <br>
+                <strong>Rendelés ID:</strong> ${item.order_id}
                 <hr>
             `;
             ul.appendChild(li);
@@ -82,6 +80,7 @@ async function getOrderHistory() {
         console.error('Hiba a rendelés betöltésekor:', error);
     }
 }
+
 
 
 async function logout() {
