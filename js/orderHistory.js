@@ -73,7 +73,6 @@ async function getOrderHistory() {
                 <strong>Termék ID:</strong> ${item.product_id} <br>
                 <strong>Mennyiség:</strong> ${item.quantity} <br>
                 <strong>Egységár:</strong> ${item.unit_price} Ft <br>
-                <strong>Rendelés ID:</strong> ${item.order_id}
                 <hr>
             `;
             ul.appendChild(li);
