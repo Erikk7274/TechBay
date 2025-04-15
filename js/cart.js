@@ -324,7 +324,7 @@ function createPaymentModal(cart) {
                 </div>
                 <div class="modal-footer">
                     
-                    <button type="button" class="btn btn-primary" id="confirmPaymentBtn">Fizetés megerősítése</button>
+                    <button type="button" class="btn btn-primary" id="confirmPaymentBtn">Megrendelés</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bezárás</button>
                 </div>
             </div>
