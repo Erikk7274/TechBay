@@ -370,6 +370,7 @@ function showPaymentModal(cart) {
 }
 
 
+
 async function confirmOrder(cart) {
     try {
         const response = await fetch('/api/order/itemsOrder', {
@@ -381,12 +382,34 @@ async function confirmOrder(cart) {
             }
         });
 
+        if (!response.ok) {
+            throw new Error('Hiba a rendelés leadásakor');
+        }
+
+        const allOrderResponse = await fetch('/api/order/allOrder', {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!allOrderResponse.ok) {
+            throw new Error('Hiba az összes rendelés végpont meghívásakor');
+        }
+
+        alert('Sikeres rendelés!');
+        location.reload();
 
     } catch (error) {
-        console.error('Hiba a rendelés leadása során:', error);
-        alert('Hiba a rendelés feldolgozása során');
+        console.error('Hiba a rendelés feldolgozása során:', error);
+        alert('Hiba a rendelés feldolgozása során: ' + error.message);
     }
 }
+
+
+
+
 
 
 document.getElementById('confirmOrderBtn').addEventListener('click', async () => {
@@ -406,7 +429,7 @@ document.getElementById('confirmOrderBtn').addEventListener('click', async () =>
             return;
         }
 
-       
+
         showPaymentModal(cart);
 
     } catch (error) {
