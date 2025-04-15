@@ -1,5 +1,5 @@
 window.addEventListener('DOMContentLoaded', () => {
-    getusername();
+    
 
     const saveBtn = document.getElementById('saveBtn');
     if (saveBtn) saveBtn.addEventListener('click', editData);
@@ -83,23 +83,6 @@ async function getOrderHistory() {
     }
 }
 
-
-async function getusername() {
-    const res = await fetch('/api/profile/Myusername', {
-        method: 'GET',
-        credentials: 'include'
-    });
-    const username = await res.json();
-    console.log(username);
-    profileData(username);
-
-    const profilePic = document.querySelector('.profile_pic');
-    if (res.ok && username[0].profile_pic) {
-        profilePic.src = `/api/uploads/${username[0].profile_pic}`;
-    } else {
-        profilePic.src = '/uploads/1.jpg';
-    }
-}
 
 async function logout() {
     const res = await fetch('/api/auth/logout', {
