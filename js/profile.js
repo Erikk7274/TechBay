@@ -78,7 +78,7 @@ cartBtn.addEventListener('click', () => {
 
 if (btnpHistory) {
     btnpHistory.addEventListener('click', () => {
-        window.location.href = 'https://techbay2.netlify.app/purchaseHistory.html';
+        window.location.href = 'https://techbay2.netlify.app/orderHistory.html';
     });
 }
 
