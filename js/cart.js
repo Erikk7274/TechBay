@@ -372,7 +372,7 @@ function showPaymentModal(cart) {
 
 async function confirmOrder(cart) {
     try {
-        const response = await fetch('/api/itemsOrder', {
+        const response = await fetch('/api/order/itemsOrder', {
             method: 'POST',
             credentials: 'include',
             headers: {
