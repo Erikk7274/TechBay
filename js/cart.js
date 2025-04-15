@@ -369,10 +369,10 @@ function showPaymentModal(cart) {
     }
 }
 
-// Rendelés megerősítése és fizetési modal megnyitása
+
 async function confirmOrder(cart) {
     try {
-        const response = await fetch('https://techbay2.netlify.app/api/itemsOrder', {
+        const response = await fetch('/api/itemsOrder', {
             method: 'POST',
             credentials: 'include',
             body: JSON.stringify(cart),
@@ -389,7 +389,7 @@ async function confirmOrder(cart) {
         const result = await response.json();
         if (result.success) {
             alert('Rendelés sikeresen leadva!');
-            // További logika a rendelés után (pl. visszairányítás a kezdőlapra)
+           
         } else {
             alert('Hiba a rendelés feldolgozása során');
         }
