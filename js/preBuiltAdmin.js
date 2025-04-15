@@ -85,12 +85,14 @@ function createCard(product) {
     cardDiv.style.width = '18rem';
     cardDiv.style.minHeight = '20rem';
     let pc_priceHtml = product.sale && product.sale < product.pc_price
-    ? `<span class="d-block mb-2" style="text-decoration: line-through;">Ár: ${product.pc_price} Ft</span>`
-    : `<span class="d-block mb-2">Ár: ${product.pc_price ? product.pc_price + ' Ft' : 'N/A'}</span>`;
+        ? `<span class="d-block mb-2" style="text-decoration: line-through;">Ár: ${product.pc_price} Ft</span>`
+        : `<span class="d-block mb-2">Ár: ${product.pc_price ? product.pc_price + ' Ft' : 'N/A'}</span>`;
 
-let saleHtml = product.sale && product.sale < product.pc_price
-    ? `<span class="d-block mb-2">Akciós ár: ${product.sale} Ft</span>`
-    : '';
+    let saleHtml = product.sale && product.sale < product.pc_price
+        ? `<span class="d-block mb-2">Akciós ár: ${product.sale} Ft</span>`
+        : '';
+
+
     cardDiv.innerHTML = `
     <div class="card-header text-center fw-bold">${product.pc_name || product.product_name}</div>
     <div class="card-body text-center">
@@ -137,11 +139,11 @@ function createModal(product) {
                 <button class="btn btn-danger btn-sm delete-product-btn" data-product-id="${product.pc_id}">Törlés</button>
                 </div>
             `;
-        
-            // Törlés gomb eseménykezelője
-            cardDiv.querySelector('.delete-product-btn').addEventListener('click', () => deleteProduct(product.pc_id));
-        
-            return cardDiv;
+
+    // Törlés gomb eseménykezelője
+    cardDiv.querySelector('.delete-product-btn').addEventListener('click', () => deleteProduct(product.pc_id));
+
+    return cardDiv;
 }
 
 // Termék törlése az API-ból
