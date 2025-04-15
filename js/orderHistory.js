@@ -57,7 +57,12 @@ async function getOrderHistory() {
         if (!res.ok) throw new Error('Nem sikerült lekérni a rendelési előzményeket.');
 
         const items = await res.json();
-        const container = document.querySelector('.container');
+        const container = document.getElementById('order-history');
+
+        if (!items.length) {
+            container.innerHTML = '<p>Nincsenek rendelési adatok.</p>';
+            return;
+        }
 
         const ul = document.createElement('ul');
         ul.classList.add('order-list');
@@ -80,6 +85,7 @@ async function getOrderHistory() {
         console.error('Hiba a rendelés betöltésekor:', error);
     }
 }
+
 
 
 
