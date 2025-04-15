@@ -357,6 +357,7 @@ nav a i {
 
 
 .order-list {
+    color: black;
     list-style: none;
     padding: 0;
     margin-top: 2rem;
