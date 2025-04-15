@@ -395,7 +395,7 @@ nav a i {
 }
 
 @media (max-width: 750px) {
-    .modal-body .card .product-image {
+    .modal-body .card .product-image img{
         position: absolute;
         max-width: 60px;  
         margin-top: 10px;
