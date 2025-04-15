@@ -303,7 +303,7 @@ async function fullprice(cart) {
 
 
 // Fizetés megerősítése
-function confirmOrder() {
+async function confirmOrder() {
     // A rendelés megerősítése után bezárjuk a fizetési modalt
     const paymentModal = document.getElementById('paymentModal');
     if (paymentModal) {
@@ -362,9 +362,6 @@ function closePaymentModal() {
         paymentModal.style.display = 'none'; // Fizetés modal bezárása
     }
 }
-
-
-
 
 
 
