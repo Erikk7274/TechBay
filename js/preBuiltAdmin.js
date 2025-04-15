@@ -84,15 +84,22 @@ function createCard(product) {
     cardDiv.classList.add('card', 'm-2', 'p-2', 'shadow-sm');
     cardDiv.style.width = '18rem';
     cardDiv.style.minHeight = '20rem';
+    let pc_priceHtml = product.sale && product.sale < product.pc_price
+    ? `<span class="d-block mb-2" style="text-decoration: line-through;">Ár: ${product.pc_price} Ft</span>`
+    : `<span class="d-block mb-2">Ár: ${product.pc_price ? product.pc_price + ' Ft' : 'N/A'}</span>`;
 
+let saleHtml = product.sale && product.sale < product.pc_price
+    ? `<span class="d-block mb-2">Akciós ár: ${product.sale} Ft</span>`
+    : '';
     cardDiv.innerHTML = `
-        <div class="card-header text-center fw-bold">${product.config_name || product.product_name}</div>
-        <div class="card-body text-center">
-            <img src="/api/uploads/${product.config_pic}" class="img-fluid mb-3" alt="${product.config_name || product.product_name}" style="max-height: 230px; object-fit: contain;">
-        </div>
-        <div class="card-footer text-center">
-            <span class="d-block mb-2">Ár: ${product.price ? product.price + ' Ft' : 'N/A'}</span>
-            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-${product.pc_id}">Részletek</button>
+    <div class="card-header text-center fw-bold">${product.pc_name || product.product_name}</div>
+    <div class="card-body text-center">
+        <img src="/api/uploads/${product.pc_pic}" class="img-fluid mb-3" alt="${product.pc_name || product.pc_name}">
+    </div>
+    <div class="card-footer text-center">
+        <span class="d-block mb-2">Raktáron: ${product.in_stock}</span>
+        <span class="d-block mb-2">Ár: ${product.pc_price ? product.pc_price + ' Ft' : 'N/A'}</span>
+        
             <button class="btn btn-danger btn-sm delete-product-btn" data-product-id="${product.pc_id}">Törlés</button>
         </div>
     `;
@@ -105,6 +112,7 @@ function createCard(product) {
 
 // Egy adott termék modal ablakának létrehozása
 function createModal(product) {
+
     const modalDiv = document.createElement('div');
     modalDiv.classList.add('modal', 'fade');
     modalDiv.id = `modal-${product.pc_id}`;
@@ -116,19 +124,24 @@ function createModal(product) {
         <div class="modal-dialog modal-lg" style="max-width:500px">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalLabel-${product.pc_id}">${product.config_name || product.product_name}</h5>
+                    <h5 class="modal-title" id="modalLabel-${product.pc_id}">${product.pc_name}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
-                    <img src="/api/uploads/${product.config_pic}" alt="${product.config_name || product.product_name}" class="img-fluid mb-3" style="max-height: 400px; object-fit: contain;">
-                    <p><strong>Ár:</strong> ${product.price ? product.price + ' Ft' : 'N/A'}</p>
+                    <img src="/api/uploads/${product.pc_pic}" alt="${product.pc_name}" class="img-fluid mb-3">
                     <p><strong>Raktáron:</strong> ${product.in_stock}</p>
+                    <p><strong>Ár:</strong> ${product.pc_price ? `${product.pc_price} Ft` : 'N/A'}</p>
+                    <p><strong>Leírás:</strong><br> ${product.pc_description}</p>
                 </div>
-            </div>
-        </div>
-    `;
-
-    document.body.appendChild(modalDiv);
+                <div class="modal-footer">
+                <button class="btn btn-danger btn-sm delete-product-btn" data-product-id="${product.pc_id}">Törlés</button>
+                </div>
+            `;
+        
+            // Törlés gomb eseménykezelője
+            cardDiv.querySelector('.delete-product-btn').addEventListener('click', () => deleteProduct(product.pc_id));
+        
+            return cardDiv;
 }
 
 // Termék törlése az API-ból
@@ -138,12 +151,12 @@ async function deleteProduct(pc_id) {
     }
 
     try {
-        const response = await fetch(`/api/delete/deleteConfig/${pc_id}`, {  
+        const response = await fetch(`/api/delete/deleteConfig/${pc_id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ pc_id }),  
+            body: JSON.stringify({ pc_id }),
             credentials: 'include'
         });
 
@@ -161,7 +174,7 @@ async function deleteProduct(pc_id) {
 
 async function toggleProductStatus(event, productId) {
     const isChecked = event.target.checked;
-    
+
     try {
         const response = await fetch(`/api/updateProductStatus/${productId}`, {
             method: 'PUT',
