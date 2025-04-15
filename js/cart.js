@@ -306,60 +306,60 @@ async function fullprice(cart) {
 
 
 
-// Fizetési modal létrehozása JavaScript-ben
-function createPaymentModal() {
-    // Ellenőrizzük, hogy már létezik-e a fizetési modal
-    if (document.getElementById('paymentModal')) {
-        return; // Ha már létezik, nem hozunk létre újat
-    }
+// // Fizetési modal létrehozása JavaScript-ben
+// function createPaymentModal() {
+//     // Ellenőrizzük, hogy már létezik-e a fizetési modal
+//     if (document.getElementById('paymentModal')) {
+//         return; // Ha már létezik, nem hozunk létre újat
+//     }
 
-    // Fizetési modal HTML kódja
-    const paymentModalHTML = `
-    <div class="modal" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="paymentModalLabel">Fizetés</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Fizetési információk itt.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bezárás</button>
-                    <button type="button" class="btn btn-primary">Fizetés megerősítése</button>
-                </div>
-            </div>
-        </div>
-    </div>`;
+//     // Fizetési modal HTML kódja
+//     const paymentModalHTML = `
+//     <div class="modal" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
+//         <div class="modal-dialog">
+//             <div class="modal-content">
+//                 <div class="modal-header">
+//                     <h5 class="modal-title" id="paymentModalLabel">Fizetés</h5>
+//                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+//                 </div>
+//                 <div class="modal-body">
+//                     <p>Fizetési információk itt.</p>
+//                 </div>
+//                 <div class="modal-footer">
+//                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bezárás</button>
+//                     <button type="button" class="btn btn-primary">Fizetés megerősítése</button>
+//                 </div>
+//             </div>
+//         </div>
+//     </div>`;
 
-    // Hozzáadjuk a body-hoz a fizetési modal HTML-t
-    document.body.insertAdjacentHTML('beforeend', paymentModalHTML);
-}
+//     // Hozzáadjuk a body-hoz a fizetési modal HTML-t
+//     document.body.insertAdjacentHTML('beforeend', paymentModalHTML);
+// }
 
-// Fizetési modal megjelenítése
-function showPaymentModal() {
-    createPaymentModal(); // Létrehozzuk a fizetési modalt, ha még nem létezik
-    const paymentModal = document.getElementById('paymentModal');
-    const paymentModalInstance = new bootstrap.Modal(paymentModal);
-    paymentModalInstance.show(); // Megjelenítjük a fizetési modalt
-}
+// // Fizetési modal megjelenítése
+// function showPaymentModal() {
+//     createPaymentModal(); // Létrehozzuk a fizetési modalt, ha még nem létezik
+//     const paymentModal = document.getElementById('paymentModal');
+//     const paymentModalInstance = new bootstrap.Modal(paymentModal);
+//     paymentModalInstance.show(); // Megjelenítjük a fizetési modalt
+// }
 
-// Rendelés megerősítése és fizetési modal megnyitása
-async function confirmOrder() {
-    // Bezárjuk a rendelési összesítő modalt
-    const orderModal = document.getElementById('orderModal');
-    if (orderModal) {
-        const orderModalInstance = new bootstrap.Modal(orderModal);
-        orderModalInstance.hide(); // Bezárjuk a rendelési modalt
-    }
+// // Rendelés megerősítése és fizetési modal megnyitása
+// async function confirmOrder() {
+//     // Bezárjuk a rendelési összesítő modalt
+//     const orderModal = document.getElementById('orderModal');
+//     if (orderModal) {
+//         const orderModalInstance = new bootstrap.Modal(orderModal);
+//         orderModalInstance.hide(); // Bezárjuk a rendelési modalt
+//     }
 
-    // Megjelenítjük a fizetési modalt
-    showPaymentModal();
-}
+//     // Megjelenítjük a fizetési modalt
+//     showPaymentModal();
+// }
 
-// A Tovább gomb eseménykezelője
-document.getElementById('confirmOrderBtn').addEventListener('click', confirmOrder);
+// // A Tovább gomb eseménykezelője
+// document.getElementById('confirmOrderBtn').addEventListener('click', confirmOrder);
 
 
 
