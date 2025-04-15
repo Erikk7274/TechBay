@@ -28,8 +28,6 @@ async function getusername() {
      } else {
          document.querySelector('.profile_pic').src = '/uploads/1.jpg';
      }
-
-
 }
 
 
