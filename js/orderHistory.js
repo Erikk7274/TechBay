@@ -51,7 +51,7 @@ cartBtn.addEventListener('click', () => {
 
 if (btnBack) {
     btnBack.addEventListener('click', () => {
-        window.location.href = 'https://techbay2.netlify.app/home.html';
+        window.location.href = 'https://techbay2.netlify.app/profile.html';
     });
 }
 
