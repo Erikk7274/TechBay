@@ -70,7 +70,7 @@ async function getOrderHistory() {
         items.forEach(item => {
             const li = document.createElement('li');
             li.innerHTML = `
-                <strong>Termék ID:</strong> ${item.product_id} <br>
+                <strong>Termék ID:</strong> ${item.product_id||pc_id} <br>
                 <strong>Mennyiség:</strong> ${item.quantity} <br>
                 <strong>Egységár:</strong> ${item.unit_price} Ft <br>
                 <hr>
