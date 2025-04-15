@@ -382,13 +382,6 @@ async function confirmOrder(cart) {
         });
 
 
-        const result = await response.json();
-        if (result.success) {
-            alert('Rendelés sikeresen leadva!');
-           
-        } else {
-            alert('Hiba a rendelés feldolgozása során');
-        }
     } catch (error) {
         console.error('Hiba a rendelés leadása során:', error);
         alert('Hiba a rendelés feldolgozása során');
