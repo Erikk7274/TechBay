@@ -1,5 +1,5 @@
 window.addEventListener('DOMContentLoaded', () => {
-    
+    getOrderHistory();
 
     const saveBtn = document.getElementById('saveBtn');
     if (saveBtn) saveBtn.addEventListener('click', editData);
