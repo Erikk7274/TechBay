@@ -375,6 +375,7 @@ async function confirmOrder(cart) {
         const response = await fetch('/api/order/itemsOrder', {
             method: 'POST',
             credentials: 'include',
+            body: JSON.stringify(cart),
             headers: {
                 'Content-Type': 'application/json',
             }
