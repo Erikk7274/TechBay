@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (messageBtn) {
         messageBtn.addEventListener('click', function () {
-            alert("ISTENEM, EGY DOLGOD VOLT..");
+            alert("ISTENEM, EGY DOLGOD VOLT...");
         });
     } else {
         console.error("Nem található a gomb.");
