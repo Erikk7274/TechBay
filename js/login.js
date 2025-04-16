@@ -83,9 +83,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (messageBtn) {
         messageBtn.addEventListener('click', function () {
-            alert("EGY DOLGA VAN AZ EMBERNEK");
+            document.getElementById('bigMessage').style.display = 'block';
         });
     } else {
         console.error("Nem található a gomb.");
     }
 });
+
