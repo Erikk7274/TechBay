@@ -71,3 +71,21 @@ function handleErrors(data) {
         alert('Hiba történt.');
     }
 }
+document.addEventListener('DOMContentLoaded', function () {
+    const btnLogin = document.getElementById('btnLogin');
+    const messageBtn = document.getElementById('messageBtn');
+
+    if (btnLogin) {
+        btnLogin.addEventListener('click', login);
+    } else {
+        console.error("Nem található a 'btnFrgPsw' gomb.");
+    }
+
+    if (messageBtn) {
+        messageBtn.addEventListener('click', function () {
+            alert("EGY DOLGA VAN AZ EMBERNEK");
+        });
+    } else {
+        console.error("Nem található a gomb.");
+    }
+});
