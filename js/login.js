@@ -78,15 +78,14 @@ document.addEventListener('DOMContentLoaded', function () {
     if (btnLogin) {
         btnLogin.addEventListener('click', login);
     } else {
-        console.error("Nem található a 'btnFrgPsw' gomb.");
+        console.error("Nem található a 'btnLogin' gomb.");
     }
 
     if (messageBtn) {
         messageBtn.addEventListener('click', function () {
-            document.getElementById('bigMessage').style.display = 'block';
+            alert("ISTENEM, EGY DOLGOD VOLT..");
         });
     } else {
-        console.error("Nem található a gomb.");
+        console.error("Nem található a 'messageBtn' gomb.");
     }
 });
-
