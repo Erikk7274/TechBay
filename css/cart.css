@@ -351,60 +351,46 @@ nav a i {
     color: black;
 }
 
-/* --- Kép stílusok --- */
-.cart-item img {
+/* Általános képstílus */
+.cart-item img,
+.modal-body .card img {
     max-width: 100%;
     height: auto;
-    object-fit: contain;  
+    object-fit: contain;
+    display: block;
 }
 
-@media (max-width: 576px) {
-    .cart-item img {
-        max-width: 100%;
-        height: auto;
-    }
-}
-
-@media (max-width: 720px) {
-    .cart-item img {
-        max-width: 100%;
-        height: auto;
-    }
-}
-
-/* --- Modal body módosítása a képek reszponzív pozicionálásához --- */
-.modal-body .card {
-    position: relative;
-}
-
-
-.modal-body .card .product-image {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    max-width: 80px; 
-    height: auto;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-}
-
-
-.card-body {
-    padding-right: 100px;  
-    text-align: left;
-}
-
+/* Modalon belüli képek — ne legyenek abszolút pozícionáltak mobilon */
 @media (max-width: 750px) {
-    .modal-body .card .product-image{
-        position: absolute;
-        max-width: 60px;  
-        margin-top: 10px;
-        margin-bottom: 10px;
-        margin-left: auto;
-        margin-right: auto;
+    .modal-body .card img {
+        position: static !important;
+        max-width: 60px;
+        margin: 10px auto;
+        display: block;
     }
 
-    .card-body {
-        padding-right: 0; 
+    .modal-body .card .card-body {
+        padding-right: 0 !important;
+        text-align: center;
+    }
+
+    .modal-body .card .row {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+}
+
+/* Extra biztonság desktopon */
+@media (min-width: 751px) {
+    .modal-body .card img {
+        max-width: 80px;
+        height: auto;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+    }
+
+    .modal-body .card .card-body {
+        padding-right: 100px;
     }
 }
