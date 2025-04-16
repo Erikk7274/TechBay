@@ -362,24 +362,25 @@ nav a i {
 
 /* Modalon belüli képek — ne legyenek abszolút pozícionáltak mobilon */
 @media (max-width: 750px) {
-    .modal-body .card img {
-        position: static !important;
-        max-width: 60px;
-        margin: 10px auto;
-        display: block;
-    }
-
-    .modal-body .card .card-body {
-        padding-right: 0 !important;
-        text-align: center;
-    }
-
-    .modal-body .card .row {
+    .modal-body .card {
+        display: flex;
         flex-direction: column;
         align-items: center;
         text-align: center;
     }
+
+    .modal-body .card img {
+        position: static !important;
+        max-width: 100px;
+        height: auto;
+        margin-bottom: 10px;
+    }
+
+    .modal-body .card .card-body {
+        padding: 0 10px;
+    }
 }
+
 
 /* Extra biztonság desktopon */
 @media (min-width: 751px) {

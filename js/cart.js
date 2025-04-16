@@ -109,7 +109,7 @@ function renderOrderModal(cart) {
                 <div class="row g-0 align-items-center">
                         <div class="col-md-2">
                         <img src="${productImage}" alt="${item.product_name || item.pc_name}" 
-                        class="img-fluid rounded" style="max-width: 80px; height: auto;">
+                        class="position-absolute top-0 end-0">
                         </div>
                         <div class="col-md-10">
                             <div class="card-body">
