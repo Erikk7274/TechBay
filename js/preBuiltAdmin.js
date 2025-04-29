@@ -104,11 +104,16 @@ function createCard(product) {
             ${saleHtml}
             <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-${product.pc_id}">Részletek</button>
             <button class="btn btn-danger btn-sm delete-product-btn" data-product-id="${product.pc_id}">Törlés</button>
+            <button class="btn btn-secondary btn-sm toggle-status-btn" data-product-id="${product.pc_id}" data-active="${isActive}">
+                ${toggleText}
+            </button>
         </div>
     `;
 
     // Törlés gomb eseménykezelője
     cardDiv.querySelector('.delete-product-btn').addEventListener('click', () => deleteProduct(product.pc_id));
+
+
 
 
 
