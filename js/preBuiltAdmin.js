@@ -6,6 +6,7 @@ window.addEventListener('DOMContentLoaded', () => {
 function setupEventListeners() {
     const btnLogout = document.querySelector('.icon-logout');
     const btnBack = document.querySelector('.btnBack');
+    const btnStatus = document.querySelector('.toggle-status-btn');
 
     // Vissza gomb eseménykezelő
     btnBack?.addEventListener('click', () => window.location.href = 'https://techbay2.netlify.app/homeAdmin.html');
@@ -15,6 +16,13 @@ function setupEventListeners() {
         btnLogout.addEventListener('click', logout);
     } else {
         console.error('Nem található kijelentkezés gomb.');
+    }
+
+
+    if (btnStatus) {
+        btnRefresh.addEventListener('click', () => {
+            window.location.reload();
+        });
     }
 }
 
