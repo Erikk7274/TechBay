@@ -44,7 +44,7 @@ async function logout() {
 // Termékek lekérése az API-ból
 async function getProducts() {
     try {
-        const response = await fetch(`/api/getProducts/getConfig_active`, {
+        const response = await fetch(`/api/getProducts/getConfig_all`, {
             method: 'GET',
             credentials: 'include'
         });
