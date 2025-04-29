@@ -84,8 +84,9 @@ function createCard(product) {
     cardDiv.classList.add('card', 'm-2', 'p-2', 'shadow-sm');
     cardDiv.style.width = '18rem';
     cardDiv.style.minHeight = '20rem';
-    const isActive = Boolean(product.active);
-    const toggleText = isActive ? 'Inaktívvá tesz' : 'Aktívvá tesz';
+    const isActive = product.active === 1;
+const toggleText = isActive ? 'Inaktiválás' : 'Aktiválás';
+
 
     let pc_priceHtml = product.sale && product.sale < product.pc_price
         ? `<span class="d-block mb-2" style="text-decoration: line-through;">Ár: ${product.pc_price} Ft</span>`
@@ -107,8 +108,9 @@ function createCard(product) {
             <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-${product.pc_id}">Részletek</button>
             <button class="btn btn-danger btn-sm delete-product-btn" data-product-id="${product.pc_id}">Törlés</button>
             <button class="btn btn-secondary btn-sm toggle-status-btn" data-product-id="${product.pc_id}" data-active="${isActive}">
-                ${toggleText}
-            </button>
+    ${toggleText}
+</button>
+
         </div>
     `;
 
