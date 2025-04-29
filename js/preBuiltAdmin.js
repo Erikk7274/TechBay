@@ -128,8 +128,8 @@ const toggleText = isActive ? 'Inaktiválás' : 'Aktiválás';
         const isCurrentlyActive = btn.getAttribute('data-active') === 'true';
 
         const endpoint = isCurrentlyActive
-            ? `/api/inactive/${productId}`
-            : `/api/active/${productId}`;
+            ? `/api/edit/inactive/${productId}`
+            : `/api/edit/active/${productId}`;
 
         try {
             const response = await fetch(endpoint, {
