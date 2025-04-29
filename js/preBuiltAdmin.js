@@ -126,8 +126,8 @@ function createCard(product) {
         const isCurrentlyActive = btn.getAttribute('data-active') === 'true';
 
         const endpoint = isCurrentlyActive
-            ? `/api/inactive/:pc_id`
-            : `/api/active/:pc_id`;
+            ? `/api/inactive/${productId}`
+            : `/api/active/${productId}`;
 
         try {
             const response = await fetch(endpoint, {
