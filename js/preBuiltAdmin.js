@@ -110,6 +110,45 @@ function createCard(product) {
     // Törlés gomb eseménykezelője
     cardDiv.querySelector('.delete-product-btn').addEventListener('click', () => deleteProduct(product.pc_id));
 
+
+
+    // Aktív/Inaktív gomb eseménykezelő
+    cardDiv.querySelector('.toggle-status-btn').addEventListener('click', async (e) => {
+        const btn = e.currentTarget;
+        const productId = btn.getAttribute('data-product-id');
+        const isCurrentlyActive = btn.getAttribute('data-active') === 'true';
+
+        const endpoint = isCurrentlyActive
+            ? `/api/inactive/${productId}`
+            : `/api/active/${productId}`;
+
+        try {
+            const response = await fetch(endpoint, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include'
+            });
+
+            if (response.ok) {
+                getProducts(); // újratöltés
+            } else {
+                alert('Nem sikerült módosítani a státuszt.');
+            }
+        } catch (error) {
+            console.error('Hiba a státusz módosítás közben:', error);
+        }
+    });
+
+
+
+
+
+
+
+
+
     return cardDiv;
 }
 
@@ -134,9 +173,6 @@ function createModal(product) {
                     <p><strong>Ár:</strong> ${product.pc_price ? `${product.pc_price} Ft` : 'N/A'}</p>
                     <p><strong>Leírás:</strong><br> ${product.pc_description}</p>
                 </div>
-
-
-
 
 
 
@@ -181,24 +217,3 @@ async function deleteProduct(pc_id) {
     }
 }
 
-async function toggleProductStatus(event, productId) {
-    const isChecked = event.target.checked;
-
-    try {
-        const response = await fetch(`/api/updateProductStatus/${productId}`, {
-            method: 'PUT',
-            headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({ is_active: isChecked }),
-            credentials: 'include',
-        });
-
-        if (response.ok) {
-            console.log(`Termék ${isChecked ? 'aktív' : 'inaktív'} lett.`);
-        } else {
-            const result = await response.json();
-            alert('Hiba a státusz frissítésekor: ' + result.message);
-        }
-    } catch (error) {
-        console.error('Hiba a státusz frissítésekor:', error);
-    }
-}
