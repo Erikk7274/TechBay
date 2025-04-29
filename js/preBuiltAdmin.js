@@ -136,28 +136,6 @@ function createModal(product) {
                 </div>
 
 
-                <!-- Add Tab Navigation for PC Parts -->
-                    <ul class="nav nav-tabs" id="partTabs-${product.pc_id}" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link active" id="overview-tab-${product.pc_id}" data-bs-toggle="tab" href="#overview-${product.pc_id}" role="tab" aria-controls="overview-${product.pc_id}" aria-selected="true">Overview</a>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link" id="parts-tab-${product.pc_id}" data-bs-toggle="tab" href="#parts-${product.pc_id}" role="tab" aria-controls="parts-${product.pc_id}" aria-selected="false">PC Parts</a>
-                        </li>
-                    </ul>
-                    <div class="tab-content" id="partTabsContent-${product.pc_id}">
-                        <div class="tab-pane fade show active" id="overview-${product.pc_id}" role="tabpanel" aria-labelledby="overview-tab-${product.pc_id}">
-                            <p><strong>Leírás:</strong><br> ${product.pc_description}</p>
-                        </div>
-                        <div class="tab-pane fade" id="parts-${product.pc_id}" role="tabpanel" aria-labelledby="parts-tab-${product.pc_id}">
-                            <ul>
-                                ${product.pc_parts.map(part => `<li>${part.name}: ${part.details}</li>`).join('')}
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-
 
 
 
