@@ -84,6 +84,8 @@ function createCard(product) {
     cardDiv.classList.add('card', 'm-2', 'p-2', 'shadow-sm');
     cardDiv.style.width = '18rem';
     cardDiv.style.minHeight = '20rem';
+    const isActive = Boolean(product.active);
+    const toggleText = isActive ? 'Inaktívvá tesz' : 'Aktívvá tesz';
 
     let pc_priceHtml = product.sale && product.sale < product.pc_price
         ? `<span class="d-block mb-2" style="text-decoration: line-through;">Ár: ${product.pc_price} Ft</span>`
