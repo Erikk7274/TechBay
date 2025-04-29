@@ -244,7 +244,7 @@ function renderOrderModal(cart) {
                                 <p class="card-text">Mennyiség: ${item.quantity}</p>
                             </div>
                         </div>
-                        <div class="col-md-2 position-absolute top-0 end-0 p-2">
+                        <div class="position-absolute top-0 end-0 p-2">
                             <img src="${productImage}" alt="${item.product_name || item.pc_name}"
                                  class="img-fluid rounded" style="max-width: 100%; height: auto; border: 1px solid black;">
                         </div>
